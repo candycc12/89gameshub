@@ -680,5 +680,27 @@
     "orientation": "portrait",
     "playMode": "iframe",
     "auditStatus": "需竖屏"
+  },
+  {
+    "id": "word-swipe",
+    "title": "Word Swipe",
+    "category": "Puzzle",
+    "entry": "../word-swipe/index.html",
+    "banner": "../arcade-hub/external-assets/collections/word-swipe-banner.svg",
+    "icon": "../word-swipe/icons/icon-256.png",
+    "orientation": "auto",
+    "playMode": "iframe",
+    "auditStatus": "正常"
+  },
+  {
+    "id": "Star_Boom",
+    "title": "Star Boom",
+    "category": "Puzzle",
+    "entry": "../Star_Boom/index.html",
+    "banner": "../arcade-hub/external-assets/collections/star-boom-banner.svg",
+    "icon": "../arcade-hub/external-assets/collections/star-boom-icon.svg",
+    "orientation": "portrait",
+    "playMode": "iframe",
+    "auditStatus": "需竖屏"
   }
 ]

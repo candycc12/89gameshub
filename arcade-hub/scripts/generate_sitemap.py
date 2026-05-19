@@ -28,6 +28,9 @@ urls = [
 for page in ("about.html", "contact.html", "privacy.html", "terms.html", "dmca.html", "advertising.html"):
     urls.append((loc(f"arcade-hub/{page}"), "0.6", "monthly"))
 
+for theme in ("word-link", "block", "hello-stars"):
+    urls.append((loc(f"arcade-hub/campaign.html?theme={theme}"), "0.9", "weekly"))
+
 for lang in ("zh", "en"):
     for g in playable:
         gid = quote(g["id"], safe="")

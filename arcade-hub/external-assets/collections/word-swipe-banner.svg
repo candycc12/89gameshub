@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675">
+  <defs><linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#18245f"/><stop offset=".55" stop-color="#5b21b6"/><stop offset="1" stop-color="#0f766e"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-opacity=".35"/></filter></defs>
+  <rect width="1200" height="675" rx="42" fill="url(#bg)"/>
+  <circle cx="1040" cy="120" r="170" fill="#22d3ee" opacity=".2"/><circle cx="140" cy="560" r="220" fill="#fbbf24" opacity=".18"/>
+  <text x="80" y="145" fill="#67e8f9" font-family="Arial, sans-serif" font-size="38" font-weight="800">WORD PUZZLE</text>
+  <text x="80" y="230" fill="white" font-family="Arial, sans-serif" font-size="86" font-weight="900">Word Swipe</text>
+  <text x="82" y="292" fill="#dbeafe" font-family="Arial, sans-serif" font-size="34" font-weight="600">Connect letters. Find words. Play instantly.</text>
+  <g filter="url(#s)" font-family="Arial, sans-serif" font-weight="900" font-size="74" text-anchor="middle">
+    <rect x="104" y="385" width="108" height="108" rx="28" fill="#fef3c7"/><text x="158" y="462" fill="#7c2d12">W</text>
+    <rect x="238" y="345" width="108" height="108" rx="28" fill="#cffafe"/><text x="292" y="422" fill="#155e75">O</text>
+    <rect x="372" y="385" width="108" height="108" rx="28" fill="#dcfce7"/><text x="426" y="462" fill="#166534">R</text>
+    <rect x="506" y="345" width="108" height="108" rx="28" fill="#fce7f3"/><text x="560" y="422" fill="#9d174d">D</text>
+  </g>
+  <path d="M158 385 C220 330 260 330 292 345 S372 374 426 385 S514 454 560 453" fill="none" stroke="#fbbf24" stroke-width="16" stroke-linecap="round" opacity=".95"/>
+  <rect x="82" y="545" width="245" height="72" rx="36" fill="#6d5dfc"/><text x="204" y="592" fill="white" font-family="Arial, sans-serif" font-size="30" font-weight="900" text-anchor="middle">Play Free</text>
+</svg>

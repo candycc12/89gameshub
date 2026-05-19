@@ -49,6 +49,24 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://89gameshub.com/arcade-hub/campaign.html?theme=word-link</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/campaign.html?theme=block</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/campaign.html?theme=hello-stars</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://89gameshub.com/arcade-hub/detail.html?id=BallSortPuzzle&lang=zh</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -793,6 +811,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://89gameshub.com/arcade-hub/detail.html?id=word-swipe&lang=zh</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/play.html?id=word-swipe&lang=zh</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/detail.html?id=Star_Boom&lang=zh</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/play.html?id=Star_Boom&lang=zh</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://89gameshub.com/arcade-hub/detail.html?id=BallSortPuzzle&lang=en</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
@@ -1532,6 +1574,30 @@
   </url>
   <url>
     <loc>https://89gameshub.com/arcade-hub/play.html?id=Onet_Link&lang=en</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/detail.html?id=word-swipe&lang=en</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/play.html?id=word-swipe&lang=en</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/detail.html?id=Star_Boom&lang=en</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://89gameshub.com/arcade-hub/play.html?id=Star_Boom&lang=en</loc>
     <lastmod>2026-05-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Puzzle Game Collection | Arcade Hub</title>
+  <meta name="description" content="Play a hand-picked collection of free online puzzle games in your browser. No download required." />
+  <meta property="og:site_name" content="Arcade Hub" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Free Puzzle Game Collection | Arcade Hub" />
+  <meta property="og:description" content="Play free online puzzle games instantly in your browser." />
+  <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Puzzle Game Collection | Arcade Hub" />
+  <meta name="twitter:description" content="Play free online puzzle games instantly in your browser." />
+  <meta name="twitter:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <link rel="canonical" href="campaign.html" />
+  <link rel="stylesheet" href="styles.css?v=16" />
+</head>
+<body class="campaign-page">
+  <header class="campaign-topbar">
+    <a href="index.html" class="brand small">ARCADE<span>HUB</span></a>
+    <nav class="campaign-nav" aria-label="Game collections">
+      <a href="campaign.html?theme=word-link" data-theme-link="word-link">Word</a>
+      <a href="campaign.html?theme=block" data-theme-link="block">Block</a>
+      <a href="campaign.html?theme=hello-stars" data-theme-link="hello-stars">Stars</a>
+    </nav>
+    <a href="index.html" class="ghost">Browse all games</a>
+  </header>
+
+  <main class="campaign-shell">
+    <section class="campaign-hero" id="campaign-hero">
+      <div class="campaign-copy">
+        <span class="eyebrow" id="campaign-eyebrow">Free browser games</span>
+        <h1 id="campaign-title">Play free puzzle games online</h1>
+        <p id="campaign-subtitle">A fast collection of instant-play games matched to the creative you just watched.</p>
+        <div class="campaign-actions">
+          <a class="primary" id="campaign-primary" href="#featured-games">Start playing</a>
+          <a class="ghost" href="#featured-games">See games</a>
+        </div>
+        <ul class="campaign-proof" aria-label="Site benefits">
+          <li>No download</li>
+          <li>Mobile friendly</li>
+          <li>Instant browser play</li>
+        </ul>
+      </div>
+      <a class="campaign-feature" id="campaign-feature" href="#featured-games">
+        <img id="campaign-banner" alt="" />
+        <span class="feature-badge">Featured first</span>
+        <strong id="campaign-feature-title"></strong>
+        <em id="campaign-feature-desc"></em>
+      </a>
+    </section>
+
+    <section class="campaign-strip" aria-label="Collection focus">
+      <div><strong id="campaign-match-title">Matched to your video</strong><span id="campaign-match-copy">The first game and recommendations change by campaign theme.</span></div>
+      <div><strong>Free to play</strong><span>Launch games directly from the browser.</span></div>
+      <div><strong>More choices</strong><span>Keep playing related puzzle and casual games.</span></div>
+    </section>
+
+    <section class="section-head all-head" id="featured-games">
+      <h2 id="collection-heading">Recommended games</h2>
+      <span id="collection-count"></span>
+    </section>
+    <section class="campaign-grid" id="campaign-grid"></section>
+
+    <section class="campaign-more">
+      <div>
+        <h2>Looking for something else?</h2>
+        <p>Explore the full Arcade Hub catalog with puzzle, casual, action, racing, sports, and arcade games.</p>
+      </div>
+      <a class="primary" href="index.html#all-games">Browse all games</a>
+    </section>
+  </main>
+
+  <footer class="site-footer campaign-footer">
+    <span>© 2026 Arcade Hub</span>
+    <nav class="footer-links" aria-label="Legal links">
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="dmca.html">DMCA</a>
+      <a href="advertising.html">Advertising</a>
+    </nav>
+  </footer>
+
+  <template id="campaign-card-template">
+    <article class="campaign-card">
+      <a class="campaign-card-link">
+        <div class="campaign-card-art"><img alt="" loading="lazy" /><span>Play now</span></div>
+        <div class="campaign-card-meta">
+          <img class="game-icon" alt="" loading="lazy" />
+          <h3></h3>
+          <p></p>
+        </div>
+      </a>
+    </article>
+  </template>
+
+  <script src="site-utils.js?v=1"></script>
+  <script src="campaign.js?v=1"></script>
+</body>
+</html>

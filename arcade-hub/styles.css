@@ -702,3 +702,80 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .content-card li { font-size: 16px; }
   .site-footer { align-items: flex-start; flex-direction: column; }
 }
+
+/* Demand Gen campaign collection page */
+.campaign-page { min-height: 100vh; }
+.campaign-topbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  padding: 18px clamp(18px, 4vw, 42px);
+  background: rgba(9,13,24,.82); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line);
+}
+.campaign-topbar .brand { font-size: 22px; }
+.campaign-nav { display: flex; align-items: center; gap: 8px; padding: 6px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.04); }
+.campaign-nav a { color: var(--muted); padding: 9px 13px; border-radius: 999px; font-weight: 800; font-size: 14px; }
+.campaign-nav a.active, .campaign-nav a:hover { color: white; background: rgba(124,92,255,.55); }
+.campaign-shell { width: min(1440px, calc(100% - 48px)); margin: 0 auto; padding: 30px 0 54px; }
+.campaign-hero {
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr); gap: 22px; align-items: stretch;
+  border: 1px solid var(--line); border-radius: 34px; overflow: hidden;
+  background: radial-gradient(circle at 12% 16%, rgba(124,92,255,.28), transparent 28%), rgba(18,25,43,.86);
+  box-shadow: var(--shadow);
+}
+.campaign-copy { padding: clamp(28px, 5vw, 58px); display: flex; flex-direction: column; justify-content: center; }
+.campaign-copy h1 { margin: 10px 0 16px; font-size: clamp(42px, 6vw, 78px); line-height: .96; letter-spacing: -.06em; }
+.campaign-copy p { margin: 0; max-width: 700px; color: var(--muted); font-size: clamp(18px, 2vw, 23px); line-height: 1.55; }
+.campaign-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.campaign-proof { display: flex; gap: 10px; flex-wrap: wrap; list-style: none; padding: 0; margin: 28px 0 0; }
+.campaign-proof li { color: #dbeafe; font-weight: 800; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.05); padding: 10px 13px; border-radius: 999px; }
+.campaign-feature { position: relative; min-height: 420px; overflow: hidden; display: block; background: #050814; }
+.campaign-feature img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 420px; transition: transform .24s ease; }
+.campaign-feature:hover img { transform: scale(1.035); }
+.campaign-feature::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, rgba(4,8,18,.92)); }
+.feature-badge { position: absolute; left: 22px; top: 22px; z-index: 1; color: white; background: rgba(124,92,255,.82); padding: 9px 12px; border-radius: 999px; font-weight: 900; }
+.campaign-feature strong, .campaign-feature em { position: absolute; z-index: 1; left: 24px; right: 24px; }
+.campaign-feature strong { bottom: 72px; font-size: clamp(30px, 4vw, 54px); line-height: 1; }
+.campaign-feature em { bottom: 34px; color: var(--muted); font-style: normal; font-weight: 700; }
+.campaign-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 22px 0 32px; }
+.campaign-strip div, .campaign-more {
+  border: 1px solid var(--line); background: rgba(18,25,43,.9); border-radius: 24px; padding: 20px;
+}
+.campaign-strip strong, .campaign-strip span { display: block; }
+.campaign-strip strong { font-size: 18px; margin-bottom: 6px; }
+.campaign-strip span, .campaign-more p { color: var(--muted); line-height: 1.55; }
+.campaign-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.campaign-card { overflow: hidden; border: 1px solid var(--line); background: rgba(18,26,47,.92); border-radius: 24px; transition: transform .18s ease, border-color .18s ease; }
+.campaign-card:hover { transform: translateY(-4px); border-color: rgba(124,92,255,.55); }
+.campaign-card.lead-card { grid-column: span 2; }
+.campaign-card-art { position: relative; aspect-ratio: 16 / 10; background: linear-gradient(135deg, #2f3f7c, #111827); overflow: hidden; }
+.lead-card .campaign-card-art { aspect-ratio: 16 / 8.2; }
+.campaign-card-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.campaign-card-art span { position: absolute; left: 14px; bottom: 14px; background: rgba(8,12,22,.86); border: 1px solid rgba(255,255,255,.16); padding: 8px 11px; border-radius: 999px; font-size: 13px; font-weight: 900; }
+.campaign-card-meta { position: relative; min-height: 96px; padding: 16px 16px 16px 64px; }
+.campaign-card-meta .game-icon { left: 16px; top: 16px; width: 36px; height: 36px; }
+.campaign-card-meta h3 { margin: 0 0 7px; font-size: 18px; }
+.campaign-card-meta p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+.campaign-more { margin-top: 28px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.campaign-more h2 { margin: 0 0 8px; font-size: 28px; }
+.campaign-more p { margin: 0; }
+.campaign-footer { width: min(1440px, calc(100% - 48px)); margin-inline: auto; }
+@media (max-width: 980px) {
+  .campaign-topbar { align-items: flex-start; flex-wrap: wrap; }
+  .campaign-hero { grid-template-columns: 1fr; }
+  .campaign-feature { min-height: 320px; }
+  .campaign-feature img { min-height: 320px; }
+  .campaign-strip { grid-template-columns: 1fr; }
+  .campaign-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .campaign-shell, .campaign-footer { width: min(100% - 28px, 1440px); }
+  .campaign-topbar { position: sticky; gap: 12px; padding: 14px; }
+  .campaign-nav { order: 3; width: 100%; justify-content: space-between; }
+  .campaign-nav a { flex: 1; text-align: center; }
+  .campaign-copy { padding: 24px; }
+  .campaign-copy h1 { font-size: clamp(38px, 12vw, 54px); }
+  .campaign-feature, .campaign-feature img { min-height: 260px; }
+  .campaign-grid { grid-template-columns: 1fr; }
+  .campaign-card.lead-card { grid-column: auto; }
+  .campaign-more { align-items: flex-start; flex-direction: column; }
+}
