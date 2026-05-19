@@ -52,25 +52,95 @@
     }
   };
 
+  const trackingConfig = window.ARCADE_TRACKING || {};
+  const googleTagId = String(trackingConfig.googleTagId || '').trim();
+  const conversionActions = (trackingConfig.googleAds && trackingConfig.googleAds.conversionActions) || {};
+
+  function installGoogleTag() {
+    if (!googleTagId || googleTagId.includes('YOUR_') || document.querySelector(`script[data-arcade-google-tag="${googleTagId}"]`)) return;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', googleTagId, { send_page_view: false });
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleTagId)}`;
+    script.dataset.arcadeGoogleTag = googleTagId;
+    document.head.appendChild(script);
+  }
+
+  function buildConversionPayload(name, params) {
+    const action = conversionActions[name];
+    if (!action) return null;
+    return {
+      conversion_event: name,
+      conversion_action_name: action.actionName || name,
+      action_optimization: action.optimizeFor || '',
+      value: Number(action.value || 0),
+      currency: action.currency || 'USD',
+      send_to: action.sendTo || '',
+      ...params
+    };
+  }
+
+  function dispatchGoogleAdsConversion(name, params) {
+    const payload = buildConversionPayload(name, params);
+    if (!payload) return false;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'ads_conversion_candidate', ...payload });
+    if (payload.send_to && typeof window.gtag === 'function') {
+      const { send_to, conversion_event, conversion_action_name, action_optimization, ...gtagPayload } = payload;
+      window.gtag('event', 'conversion', { send_to, ...gtagPayload });
+      return true;
+    }
+    return false;
+  }
+
+  installGoogleTag();
+
   const analytics = window.ArcadeHubAnalytics = {
     events: [],
     track(name, params = {}) {
-      const event = {
-        name,
-        params: { page_path: location.pathname, page_title: document.title, ...params },
-        ts: new Date().toISOString()
+      const enrichedParams = {
+        page_path: location.pathname,
+        page_location: location.href,
+        page_title: document.title,
+        landing_theme: new URLSearchParams(location.search).get('theme') || '',
+        ...params
       };
+      const event = { name, params: enrichedParams, ts: new Date().toISOString() };
       analytics.events.push(event);
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: name, ...event.params });
+      window.dataLayer.push({ event: name, arcade_event: name, ...event.params });
       if (typeof window.gtag === 'function') window.gtag('event', name, event.params);
+      dispatchGoogleAdsConversion(name, event.params);
       if (isLocal) console.debug('[ArcadeHubAnalytics]', event);
     }
   };
 
   document.addEventListener('click', (event) => {
     const ad = event.target.closest && event.target.closest('a[rel~="sponsored"], .promo-ad, .preroll-link');
-    if (ad) analytics.track('ad_click', { ad_href: ad.href || '', ad_slot: ad.className || 'ad' });
+    if (ad) {
+      const href = ad.href || '';
+      const target = ad.target || '';
+      let navigated = false;
+      const go = () => {
+        if (navigated || !href) return;
+        navigated = true;
+        if (target === '_blank') window.open(href, '_blank', 'noopener');
+        else window.location.href = href;
+      };
+      const params = {
+        ad_href: href,
+        ad_slot: ad.className || 'ad',
+        event_callback: go
+      };
+      analytics.track('ad_click', params);
+      if (href && conversionActions.ad_click && conversionActions.ad_click.sendTo) {
+        event.preventDefault();
+        setTimeout(go, 900);
+      }
+    }
     const gameLink = event.target.closest && event.target.closest('a[href*="detail.html?id="], a[href*="play.html?id="]');
     if (gameLink) analytics.track('game_link_click', { href: gameLink.href });
   }, true);
