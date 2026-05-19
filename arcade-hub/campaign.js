@@ -20,7 +20,7 @@ const themes = {
     subtitle: 'Drag blocks, clear boards, stack tiles, and enjoy simple puzzle challenges made for quick sessions.',
     matchTitle: 'Block video landing layout',
     matchCopy: 'Blocky is placed first so block-game creatives land on a matching playable experience.',
-    banner: 'external-assets/collections/block-puzzle-banner.svg',
+    banner: 'external-assets/collections/block-puzzle-banner.svg?v=2',
     heroId: 'Blocky',
     ids: ['Blocky', 'colored-bricks', '2048-cards', '2048-remastered', 'puzzle-color', 'Slices', 'SquArea', 'two-tiles'],
     description: 'Play free block puzzle games online. Start with Blocky, then explore colorful brick, 2048, tile, and casual puzzle games in your browser.'
