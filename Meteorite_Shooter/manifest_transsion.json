@@ -1,0 +1,11 @@
+{
+  "display" : "fullscreen",
+  "icons" : [ {
+    "sizes" : "180x180",
+    "src" : "https://www.rousemobigame.com/Meteorite_Shooter/c7146f7d246541656628a75be9bf0667_icon.png"
+  } ],
+  "name" : "Meteorite Shooter",
+  "scope" : ".",
+  "short_name" : "Meteorite Shooter",
+  "start_url" : "./index.html?utm_source=h5sdk_shortcut"
+}

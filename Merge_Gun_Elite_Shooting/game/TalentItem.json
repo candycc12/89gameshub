@@ -1,0 +1,158 @@
+{
+  "type": "View",
+  "props": {
+    "width": 126,
+    "runtime": "game/TalentItem.ts",
+    "height": 150
+  },
+  "compId": 2,
+  "child": [
+    {
+      "type": "Image",
+      "props": {
+        "y": -9,
+        "x": -8,
+        "var": "image_state",
+        "skin": "ui/headBg02_00.png",
+        "sizeGrid": "18,15,10,20"
+      },
+      "compId": 9
+    },
+    {
+      "type": "Image",
+      "props": {
+        "y": 0,
+        "x": 0,
+        "width": 126,
+        "var": "image_bg",
+        "skin": "ui/headBg02.png",
+        "height": 110
+      },
+      "compId": 4
+    },
+    {
+      "type": "Image",
+      "props": {
+        "y": 18,
+        "x": 33,
+        "width": 60,
+        "var": "iamge_icon",
+        "skin": "talent/icon_tianfu_07.png",
+        "height": 60
+      },
+      "compId": 3
+    },
+    {
+      "type": "Label",
+      "props": {
+        "y": 117,
+        "x": 2,
+        "width": 123,
+        "var": "label_name",
+        "text": "Coins",
+        "height": 28,
+        "fontSize": 28,
+        "color": "#d6d6d6",
+        "bold": true,
+        "align": "center"
+      },
+      "compId": 6
+    },
+    {
+      "type": "Label",
+      "props": {
+        "y": 89,
+        "x": 38,
+        "var": "label_level",
+        "text": "Lv.01",
+        "fontSize": 20,
+        "color": "#a8a8a8",
+        "bold": true
+      },
+      "compId": 5
+    },
+    {
+      "type": "Image",
+      "props": {
+        "y": 38,
+        "x": 44,
+        "var": "image_unlock",
+        "skin": "ui/icon_tianfu_wenhao.png"
+      },
+      "compId": 8
+    },
+    {
+      "type": "Box",
+      "props": {
+        "y": 110,
+        "x": -45,
+        "var": "box_tip"
+      },
+      "compId": 11,
+      "child": [
+        {
+          "type": "Image",
+          "props": {
+            "skin": "ui/progress_violet_bg.png"
+          },
+          "compId": 10
+        },
+        {
+          "type": "Label",
+          "props": {
+            "y": 37,
+            "x": 107,
+            "var": "label_tip",
+            "text": "生命上限+1",
+            "fontSize": 16,
+            "color": "#ee26c6",
+            "bold": true,
+            "anchorY": 0.5,
+            "anchorX": 0.5,
+            "align": "center"
+          },
+          "compId": 13
+        },
+        {
+          "type": "Label",
+          "props": {
+            "y": 13,
+            "x": 108,
+            "width": 103,
+            "var": "label_tipName",
+            "text": "Coins",
+            "height": 18,
+            "fontSize": 18,
+            "color": "#363636",
+            "bold": true,
+            "anchorY": 0.5,
+            "anchorX": 0.5,
+            "align": "center"
+          },
+          "compId": 12
+        }
+      ]
+    },
+    {
+      "type": "SkeletonPlayer",
+      "props": {
+        "y": 55,
+        "x": 62.5,
+        "var": "sk",
+        "url": "effect/icon_shengji00.sk",
+        "runtime": "laya.ani.bone.Skeleton"
+      },
+      "compId": 14
+    }
+  ],
+  "loadList": [
+    "ui/headBg02_00.png",
+    "ui/headBg02.png",
+    "talent/icon_tianfu_01.png",
+    "ui/icon_tianfu_wenhao.png",
+    "ui/progress_violet_bg.png",
+    "effect/icon_shengji00.sk",
+    "talent/icon_tianfu_07.png"
+  ],
+  "loadList3D": []
+}

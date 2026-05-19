@@ -1,0 +1,868 @@
+{
+	"Levels": {
+		"1": {
+			"[num]": 2,
+			"Title": "Score [num] goals."
+		},
+		"2": {
+			"[num]": 2,
+			"[sec]": 10,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Manual",
+			"ShowTargetsInstantly": false,
+			"Targets": [
+				{
+					"MoveTime": 150,
+					"Pos": [
+						[
+							200,
+							500
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							870,
+							700
+						]
+					]
+				}
+			],
+			"Dummy": {
+				"Period": 6,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"3": {
+			"[num]": 2,
+			"[sec]": 10,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Manual",
+			"ShowTargetsInstantly": false,
+			"Targets": [
+				{
+					"MoveTime": 50,
+					"Pos": [
+						[
+							200,
+							500
+						],
+						[
+							540,
+							700
+						]
+					]
+				},
+				{
+					"MoveTime": 50,
+					"Pos": [
+						[
+							870,
+							500
+						],
+						[
+							540,
+							700
+						]
+					]
+				}
+			],
+			"Dummy": {
+				"Period": 6,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"4": {
+			"[num]": 3,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Targets": [
+				"Circular",
+				"",
+				"UpDown"
+			],
+			"Dummy": {
+				"Period": 5,
+				"Magnitude": 200,
+				"PosX": 540
+			}
+		},
+		"5": {
+			"[num]": 3,
+			"[sec]": 15,
+			"Title": "Hit [num] targets in [sec] seconds.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Targets": [
+				"6-1",
+				"OvalBottom",
+				"UpDown"
+			],
+			"Dummy": {
+				"Period": 5,
+				"Magnitude": 0,
+				"PosX": 540
+			}
+		},
+		"6": {
+			"[num]": 3,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Manual",
+			"ShowTargetsInstantly": false,
+			"Targets": [
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							200,
+							500
+						],
+						[
+							870,
+							500
+						],
+						[
+							870,
+							700
+						],
+						[
+							200,
+							700
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							200,
+							500
+						],
+						[
+							870,
+							700
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							540,
+							600
+						]
+					]
+				}
+			],
+			"Dummy": {
+				"Period": 6,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"7": {
+			"[num]": [
+				5,
+				7
+			],
+			"Title": "Score [num] goals.",
+			"Dummy": {
+				"Period": 3.5,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"8": {
+			"[num]": 5,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 4,
+				"Magnitude": 150,
+				"PosX": 300
+			},
+			"Targets": [
+				"",
+				"Circular",
+				"",
+				"Circular",
+				""
+			]
+		},
+		"9": {
+			"[num]": [
+				3,
+				4
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Targets": [
+				"Circular",
+				"Circular",
+				"Circular",
+				"Circular"
+			]
+		},
+		"10": {
+			"[num]": [
+				3,
+				4
+			],
+			"[sec]": 20,
+			"Title": "Hit [num] targets in [sec] seconds.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 6,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"UpDown",
+				"4-3",
+				"6-1",
+				""
+			]
+		},
+		"11": {
+			"[num]": 4,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Manual",
+			"ShowTargetsInstantly": true,
+			"Targets": [
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							166,
+							480
+						],
+						[
+							331,
+							480
+						],
+						[
+							166,
+							643
+						],
+						[
+							331,
+							643
+						]
+					]
+				},
+				{
+					"MoveTime": 75,
+					"Pos": [
+						[
+							746,
+							480
+						],
+						[
+							911,
+							480
+						],
+						[
+							746,
+							643
+						],
+						[
+							911,
+							643
+						]
+					]
+				},
+				{
+					"MoveTime": 75,
+					"Pos": [
+						[
+							476,
+							701
+						],
+						[
+							605,
+							701
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							540,
+							512
+						]
+					]
+				}
+			],
+			"Dummy": {
+				"Period": 4.5,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"12": {
+			"[num]": [
+				3,
+				5
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 3,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"",
+				"",
+				"",
+				"",
+				""
+			]
+		},
+		"13": {
+			"[num]": [
+				4,
+				5
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 4,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"UpDown",
+				"Oval",
+				"Circular",
+				"3-4",
+				""
+			]
+		},
+		"14": {
+			"[num]": [
+				8,
+				10
+			],
+			"[sec]": 20,
+			"Title": "Score [num] goals in [sec] seconds.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 3,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"15": {
+			"[num]": [
+				4,
+				6
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 3,
+				"Magnitude": 250,
+				"PosX": 540
+			},
+			"Targets": [
+				"",
+				"1-6",
+				"4-3",
+				"6-1",
+				"3-4",
+				"Circular"
+			]
+		},
+		"16": {
+			"[num]": [
+				4,
+				6
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 4,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"OvalBottom",
+				"4-3",
+				"UpDown",
+				"UpDown",
+				"Circular",
+				"OvalTop"
+			]
+		},
+		"17": {
+			"[num]": 4,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Manual",
+			"ShowTargetsInstantly": true,
+			"Targets": [
+				{
+					"MoveTime": 200,
+					"Pos": [
+						[
+							540,
+							482
+						],
+						[
+							400,
+							707
+						],
+						[
+							685,
+							707
+						]
+					]
+				},
+				{
+					"MoveTime": 150,
+					"Pos": [
+						[
+							926,
+							484
+						],
+						[
+							895,
+							711
+						]
+					]
+				},
+				{
+					"MoveTime": 150,
+					"Pos": [
+						[
+							152,
+							484
+						],
+						[
+							194,
+							711
+						]
+					]
+				},
+				{
+					"MoveTime": 250,
+					"Pos": [
+						[
+							300,
+							485
+						]
+					]
+				}
+			],
+			"Dummy": {
+				"Period": 3,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"18": {
+			"[num]": [
+				3,
+				5
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 4,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"UpDown",
+				"UpDown",
+				"UpDown",
+				"UpDown",
+				"UpDown",
+				"UpDown"
+			]
+		},
+		"19": {
+			"[num]": [
+				3,
+				6
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 4,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"Circular",
+				"Oval",
+				"Circular",
+				"Oval",
+				"Circular",
+				""
+			]
+		},
+		"20": {
+			"[num]": [
+				5,
+				6
+			],
+			"[sec]": 15,
+			"Title": "Hit [num] targets in [sec] seconds.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Targets": [
+				"OvalBottom",
+				"4-3",
+				"Circular",
+				"",
+				"",
+				"1-6"
+			]
+		},
+		"21": {
+			"[num]": 5,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Manual",
+			"ShowTargetsInstantly": false,
+			"Targets": [
+				{
+					"MoveTime": 200,
+					"Pos": [
+						[
+							880,
+							470
+						],
+						[
+							200,
+							710
+						],
+						[
+							200,
+							470
+						],
+						[
+							880,
+							710
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							650,
+							470
+						],
+						[
+							650,
+							710
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							200,
+							710
+						],
+						[
+							880,
+							470
+						]
+					]
+				},
+				{
+					"MoveTime": 250,
+					"Pos": [
+						[
+							200,
+							470
+						],
+						[
+							540,
+							710
+						]
+					]
+				},
+				{
+					"MoveTime": 200,
+					"Pos": [
+						[
+							880,
+							710
+						],
+						[
+							200,
+							710
+						],
+						[
+							200,
+							470
+						]
+					]
+				}
+			],
+			"Dummy": {
+				"Period": 3,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"22": {
+			"[num]": [
+				8,
+				10
+			],
+			"[sec]": 20,
+			"Title": "Score [num] goals in [sec] seconds.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 3,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"23": {
+			"[num]": [
+				4,
+				5
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 4,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"Oval",
+				"",
+				"4-3",
+				"6-1",
+				"Oval",
+				"UpDown"
+			]
+		},
+		"24": {
+			"[num]": [
+				4,
+				5
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 2.5,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"3-4",
+				"UpDown",
+				"Circular",
+				"OvalTop",
+				"",
+				"OvalBottom"
+			]
+		},
+		"25": {
+			"[num]": [
+				5,
+				6
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 6,
+				"Magnitude": 0,
+				"PosX": 640
+			},
+			"Targets": [
+				"OvalTop",
+				"Circular",
+				"",
+				"OvalBottom",
+				"1-6",
+				"Circular"
+			]
+		},
+		"26": {
+			"[num]": 6,
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Manual",
+			"ShowTargetsInstantly": true,
+			"Targets": [
+				{
+					"MoveTime": 150,
+					"Pos": [
+						[
+							200,
+							710
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							400,
+							590
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							200,
+							470
+						]
+					]
+				},
+				{
+					"MoveTime": 150,
+					"Pos": [
+						[
+							880,
+							710
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							680,
+							590
+						]
+					]
+				},
+				{
+					"MoveTime": 100,
+					"Pos": [
+						[
+							880,
+							470
+						]
+					]
+				}
+			],
+			"Dummy": {
+				"Period": 2,
+				"Magnitude": 350,
+				"PosX": 540
+			}
+		},
+		"27": {
+			"[num]": [
+				5,
+				6
+			],
+			"[sec]": 20,
+			"Title": "Hit [num] targets in [sec] seconds.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 2,
+				"Magnitude": 240,
+				"PosX": 560
+			},
+			"Targets": [
+				"",
+				"",
+				"",
+				"",
+				"",
+				""
+			]
+		},
+		"28": {
+			"[num]": [
+				5,
+				6
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 2.5,
+				"Magnitude": 350,
+				"PosX": 540
+			},
+			"Targets": [
+				"6-1",
+				"UpDown",
+				"3-4",
+				"Circular",
+				"UpDown",
+				"OvalTop"
+			]
+		},
+		"29": {
+			"[num]": [
+				5,
+				6
+			],
+			"Title": "Hit [num] targets.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 2.5,
+				"Magnitude": 300,
+				"PosX": 450
+			},
+			"Targets": [
+				"UpDown",
+				"Circular",
+				"Circular",
+				"Oval",
+				"Oval",
+				"6-1"
+			]
+		},
+		"30": {
+			"[num]": [
+				5,
+				6
+			],
+			"[sec]": 20,
+			"Title": "Hit [num] targets in [sec] seconds.",
+			"TargetsMoveType": "Prepared",
+			"ShowTargetsInstantly": false,
+			"Dummy": {
+				"Period": 2.5,
+				"Magnitude": 280,
+				"PosX": 620
+			},
+			"Targets": [
+				"4-3",
+				"",
+				"OvalTop",
+				"UpDown",
+				"OvalBottom",
+				"6-1"
+			]
+		}
+	}
+}

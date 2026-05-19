@@ -1,0 +1,11 @@
+{
+    "state": {
+        "level": 10
+    },
+    "override": {
+        "hide_ui": [
+            "level",
+            "distance"
+        ]
+    }
+}

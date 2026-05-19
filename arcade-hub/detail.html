@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Detail | Arcade Hub</title>
+  <meta name="description" content="Read game details, controls, and how to play before launching an HTML5 browser game on Arcade Hub." />
+  <meta property="og:site_name" content="Arcade Hub" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Game Detail | Arcade Hub" />
+  <meta property="og:description" content="Read game details, controls, and how to play before launching an HTML5 browser game on Arcade Hub." />
+  <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Game Detail | Arcade Hub" />
+  <meta name="twitter:description" content="Read game details, controls, and how to play before launching an HTML5 browser game on Arcade Hub." />
+  <meta name="twitter:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <link rel="canonical" href="detail.html" />
+  <link rel="stylesheet" href="styles.css?v=15" />
+</head>
+<body class="detail-page">
+  <header class="detail-topbar">
+    <a href="index.html" class="brand small">ARCADE<span>HUB</span></a>
+    <div class="top-actions">
+      <button id="detail-lang-toggle" class="ghost buttonlike">EN</button>
+      <a href="index.html" class="ghost" id="detail-home-link">返回首页</a>
+    </div>
+  </header>
+
+  <main class="detail-layout">
+    <section class="detail-main">
+      <nav class="breadcrumbs" id="breadcrumbs"></nav>
+
+      <section class="detail-hero">
+        <div class="detail-art"><img id="detail-banner" alt="" /></div>
+        <div class="detail-summary">
+          <span class="eyebrow" id="detail-category"></span>
+          <h1 id="detail-title"></h1>
+          <p id="detail-intro"></p>
+          <div class="detail-actions">
+            <a id="detail-play" class="primary"></a>
+            <a id="detail-open-direct" class="ghost"></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-meta-card">
+        <div><span id="label-category"></span><strong id="meta-category"></strong></div>
+        <div><span id="label-platform"></span><strong id="meta-platform"></strong></div>
+        <div><span id="label-technology"></span><strong>HTML5</strong></div>
+      </section>
+
+      <section class="detail-copy-card">
+        <h2 id="about-heading"></h2>
+        <p id="about-copy"></p>
+        <h2 id="how-heading"></h2>
+        <p id="how-copy"></p>
+        <h2 id="controls-heading"></h2>
+        <p id="controls-copy"></p>
+      </section>
+    </section>
+
+    <aside class="detail-aside">
+      <a class="promo-ad promo-ad-detail" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">
+        <span class="ad-label">Advertisement</span>
+        <img src="external-assets/war-inc/war-inc-banner-territory.png" alt="War Inc: Rising" />
+        <span class="promo-copy"><img src="external-assets/war-inc/war-inc-icon.png" alt="" /><strong>War Inc: Rising</strong><em>Build. Expand. Conquer.</em></span>
+        <b>Play on Google Play</b>
+      </a>
+      <section class="aside-card detail-side-card">
+        <div class="section-head compact-head"><h2 id="related-heading"></h2></div>
+        <div class="aside-list" id="detail-related"></div>
+      </section>
+    </aside>
+  </main>
+    <footer class="site-footer">
+      <span>© 2026 Arcade Hub</span>
+      <nav class="footer-links" aria-label="Legal links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="dmca.html">DMCA</a>
+        <a href="advertising.html">Advertising</a>
+      </nav>
+    </footer>
+
+  <template id="mini-card-template">
+    <article class="mini-card">
+      <a class="mini-card-link">
+        <img alt="" loading="lazy" />
+        <div><h3></h3><p></p></div>
+      </a>
+    </article>
+  </template>
+  <script src="site-utils.js?v=1"></script>
+  <script src="detail.js?v=11"></script>
+</body>
+</html>

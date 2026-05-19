@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /arcade-hub/audit-artifacts/
+Disallow: /arcade-hub/recheck-artifacts/
+Disallow: /arcade-hub/audit-report.html
+Disallow: /arcade-hub/recheck-gallery.html
+
+Sitemap: https://CandyCC12.github.io/89gameshub/sitemap.xml

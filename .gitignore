@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+arcade-hub/audit-artifacts/
+arcade-hub/recheck-artifacts/
+arcade-hub/*.pyc
+__pycache__/

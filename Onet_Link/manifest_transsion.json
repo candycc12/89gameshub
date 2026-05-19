@@ -1,0 +1,11 @@
+{
+  "display" : "fullscreen",
+  "icons" : [ {
+    "sizes" : "180x180",
+    "src" : "https://www.bjjinwangame.com/Onet_Link/5427d265d0cbcb7bd41976536f31e246_icon.png"
+  } ],
+  "name" : "Onet Link",
+  "scope" : ".",
+  "short_name" : "Onet Link",
+  "start_url" : "./index.html?utm_source=h5sdk_shortcut"
+}

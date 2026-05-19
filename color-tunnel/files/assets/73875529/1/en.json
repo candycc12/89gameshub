@@ -1,0 +1,15 @@
+{
+    "header": {
+        "version": 1
+    },
+    "data": [
+        {
+            "info": {
+                "locale": "en"
+            },
+            "messages": {
+                "HELLO_WORLD": "Hello World {0} {1}"
+            }
+        }
+    ]
+}

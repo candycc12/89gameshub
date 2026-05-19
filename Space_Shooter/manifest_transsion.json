@@ -1,0 +1,11 @@
+{
+  "display" : "fullscreen",
+  "icons" : [ {
+    "sizes" : "180x180",
+    "src" : "https://www.jmbilegame.com/Space_Shooter/a9eab1395a0c51d8be2e16d1326c91e7_icon.png"
+  } ],
+  "name" : "Space Shooter 1",
+  "scope" : ".",
+  "short_name" : "Space Shooter 1",
+  "start_url" : "./index.html?utm_source=h5sdk_shortcut"
+}

@@ -1,0 +1,46 @@
+{
+  "short_name": "Bubble Breaker",
+  "name": "Amazing Bubble Breaker",
+  "icons": [
+    {
+      "src": "assets/web/48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "assets/web/96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "assets/web/192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/web/512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "https://bubblebreaker.amazinghedgehog.com",
+  "theme_color": "#122521",
+  "background_color": "#122521",
+
+  "related_applications": [
+    {
+      "platform": "play",
+      "id": "com.amazinghedgehog.amazingbubblebreaker"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/id1455219811"
+    },
+    {
+      "platform": "windows",
+      "url": "https://www.microsoft.com/store/apps/9NDSGG3LJZB5"
+    }
+  ]
+
+}

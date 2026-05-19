@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Hub | Instant Browser Games</title>
+  <meta name="description" content="Play instant HTML5 browser games on Arcade Hub. Discover puzzle, action, racing, sports, arcade, and casual games in your browser." />
+  <meta property="og:site_name" content="Arcade Hub" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Arcade Hub | Instant Browser Games" />
+  <meta property="og:description" content="Play instant HTML5 browser games across puzzle, action, racing, sports, arcade, and casual categories." />
+  <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Arcade Hub | Instant Browser Games" />
+  <meta name="twitter:description" content="Play instant HTML5 browser games across puzzle, action, racing, sports, arcade, and casual categories." />
+  <meta name="twitter:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <link rel="canonical" href="index.html" />
+  <link rel="stylesheet" href="styles.css?v=15" />
+</head>
+<body class="home-page">
+  <button class="sidebar-scrim" id="sidebar-scrim" aria-label="关闭分类菜单"></button>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="index.html">ARCADE<span>HUB</span></a>
+    <nav class="side-nav" id="side-nav"></nav>
+    <div class="sidebar-note">
+      <strong>260+ games</strong>
+      <span>点击任意游戏即可开始</span>
+    </div>
+  </aside>
+
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="mobile-titlebar">
+        <button id="sidebar-toggle" class="menu-toggle buttonlike" aria-label="打开分类菜单">☰</button>
+        <a class="brand mobile-brand" href="index.html">ARCADE<span>HUB</span></a>
+      </div>
+      <label class="search-wrap compact">
+        <span>⌕</span>
+        <input id="search" type="search" placeholder="搜索游戏、类型或关键词…" />
+      </label>
+      <div class="top-actions"><button id="lang-toggle" class="ghost buttonlike">EN</button><a class="ghost browse-link" href="#all-games">浏览全部</a></div>
+    </header>
+
+    <main>
+      <section class="hero-stage" id="hero-stage"></section>
+
+      <a class="promo-ad promo-ad-home" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">
+        <span class="ad-label">Advertisement</span>
+        <img src="external-assets/war-inc/war-inc-banner-territory.png" alt="War Inc: Rising" />
+        <span class="promo-copy"><img src="external-assets/war-inc/war-inc-icon.png" alt="" /><strong>War Inc: Rising</strong><em>Clan war. Conquer territory.</em></span>
+        <b>Play on Google Play</b>
+      </a>
+
+      <section class="rail-block">
+        <div class="section-head">
+          <h2>热门推荐</h2>
+          <span>现在就能玩</span>
+        </div>
+        <div class="rail" id="trending"></div>
+      </section>
+
+      <section class="rail-block">
+        <div class="section-head">
+          <h2>快速开玩</h2>
+          <span>轻松上手</span>
+        </div>
+        <div class="rail compact-rail" id="quick-play"></div>
+      </section>
+
+      <section class="category-panels" id="category-panels"></section>
+
+      <section class="section-head all-head" id="all-games">
+        <h2>全部游戏</h2>
+        <span id="count"></span>
+      </section>
+      <section class="filters" id="filters"></section>
+      <section class="grid" id="grid"></section>
+    </main>
+    <footer class="site-footer">
+      <span>© 2026 Arcade Hub</span>
+      <nav class="footer-links" aria-label="Legal links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="dmca.html">DMCA</a>
+        <a href="advertising.html">Advertising</a>
+      </nav>
+    </footer>
+  </div>
+
+  <template id="card-template">
+    <article class="card">
+      <a class="card-link">
+        <div class="art">
+          <img alt="" loading="lazy" />
+          <span class="play-pill">▶ 开始游戏</span>
+        </div>
+        <div class="meta">
+          <img class="game-icon" alt="" loading="lazy" />
+          <h3></h3>
+          <p></p>
+        </div>
+      </a>
+    </article>
+  </template>
+
+  <template id="hero-template">
+    <article class="hero-card">
+      <a class="hero-link">
+        <img alt="" />
+        <div class="hero-overlay">
+          <span class="eyebrow">精选游戏</span>
+          <h1></h1>
+          <p></p>
+          <strong>立即开始</strong>
+        </div>
+      </a>
+    </article>
+  </template>
+
+  <script src="site-utils.js?v=1"></script>
+  <script src="app.js?v=13"></script>
+</body>
+</html>

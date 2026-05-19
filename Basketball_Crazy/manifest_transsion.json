@@ -1,0 +1,11 @@
+{
+  "display" : "fullscreen",
+  "icons" : [ {
+    "sizes" : "180x180",
+    "src" : "https://www.cslingniugame.com/Basketball_Crazy/65831d5777dee77bd05f3adac25a5782_icon.png"
+  } ],
+  "name" : "Basketball Crazy",
+  "scope" : ".",
+  "short_name" : "Basketball Crazy",
+  "start_url" : "./index.html?utm_source=h5sdk_shortcut"
+}

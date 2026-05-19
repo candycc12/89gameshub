@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play Game | Arcade Hub</title>
+  <meta name="description" content="Play an HTML5 browser game instantly on Arcade Hub with related recommendations and browser-friendly controls." />
+  <meta property="og:site_name" content="Arcade Hub" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Play Game | Arcade Hub" />
+  <meta property="og:description" content="Play an HTML5 browser game instantly on Arcade Hub with related recommendations and browser-friendly controls." />
+  <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Play Game | Arcade Hub" />
+  <meta name="twitter:description" content="Play an HTML5 browser game instantly on Arcade Hub with related recommendations and browser-friendly controls." />
+  <meta name="twitter:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <link rel="canonical" href="play.html" />
+  <link rel="stylesheet" href="styles.css?v=15" />
+</head>
+<body class="play-page">
+  <header class="play-topbar upgraded">
+    <div class="play-title-wrap">
+      <a href="index.html" class="brand small">ARCADE<span>HUB</span></a>
+      <div>
+        <h1 id="game-title">Loading…</h1>
+        <p id="game-category"></p>
+      </div>
+    </div>
+    <div class="play-actions">
+      <a href="index.html" class="ghost">返回首页</a>
+      <button id="reload-game" class="ghost buttonlike">重载</button>
+      <button id="fullscreen-game" class="primary buttonlike">全屏</button>
+      <a id="open-original" class="ghost" target="_blank" rel="noopener">新窗口</a>
+    </div>
+  </header>
+
+  <main class="play-layout">
+    <section class="play-main">
+      <div class="player-frame-wrap">
+        <iframe id="player" title="game player" allowfullscreen></iframe>
+        <div class="preroll-ad" id="preroll-ad">
+          <a class="preroll-link" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">
+            <img src="external-assets/war-inc/war-inc-banner-boss.png" alt="War Inc: Rising" />
+            <span class="ad-label">Advertisement</span>
+            <span class="preroll-copy">
+              <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
+              <strong>War Inc: Rising</strong>
+              <em>Fight the world boss.</em>
+              <b>Play on Google Play</b>
+            </span>
+          </a>
+          <div class="preroll-status">广告后继续游戏 <strong id="preroll-countdown">00:05</strong></div>
+        </div>
+      </div>
+
+      <a class="promo-ad promo-ad-play" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">
+        <span class="ad-label">Advertisement</span>
+        <img src="external-assets/war-inc/war-inc-banner-boss.png" alt="War Inc: Rising" />
+        <span class="promo-copy"><img src="external-assets/war-inc/war-inc-icon.png" alt="" /><strong>War Inc: Rising</strong><em>Fight the world boss.</em></span>
+        <b>Play on Google Play</b>
+      </a>
+
+      <section class="game-info-card">
+        <div>
+          <span class="eyebrow">正在游玩</span>
+          <h2 id="info-title"></h2>
+        </div>
+        <p id="info-copy"></p>
+      </section>
+
+      <section class="rail-block related-block">
+        <div class="section-head">
+          <h2>同类游戏</h2>
+          <span id="related-label"></span>
+        </div>
+        <div class="rail compact-rail" id="related-games"></div>
+      </section>
+    </section>
+
+    <aside class="play-aside">
+      <a class="promo-ad promo-ad-rail" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">
+        <span class="ad-label">Advertisement</span>
+        <img src="external-assets/war-inc/war-inc-banner-territory.png" alt="War Inc: Rising" />
+        <span class="promo-copy"><img src="external-assets/war-inc/war-inc-icon.png" alt="" /><strong>War Inc: Rising</strong><em>Clan war. Conquer territory.</em></span>
+        <b>Play on Google Play</b>
+      </a>
+      <section class="aside-card">
+        <div class="section-head compact-head">
+          <h2>你可能还喜欢</h2>
+        </div>
+        <div class="aside-list" id="recommended-games"></div>
+      </section>
+    </aside>
+  </main>
+    <footer class="site-footer">
+      <span>© 2026 Arcade Hub</span>
+      <nav class="footer-links" aria-label="Legal links">
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="dmca.html">DMCA</a>
+        <a href="advertising.html">Advertising</a>
+      </nav>
+    </footer>
+
+  <template id="mini-card-template">
+    <article class="mini-card">
+      <a class="mini-card-link">
+        <img alt="" loading="lazy" />
+        <div>
+          <h3></h3>
+          <p></p>
+        </div>
+      </a>
+    </article>
+  </template>
+  <script src="site-utils.js?v=1"></script>
+  <script src="play.js?v=12"></script>
+</body>
+</html>

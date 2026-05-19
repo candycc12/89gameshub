@@ -1,0 +1,1 @@
+[{"__type__":"cc.ParticleAsset","_name":"explode","_native":".plist","spriteFrame":{"__uuid__":"f9rKwSsdJAvLAXk1u4oQC5"}},{"__type__":"cc.SpriteFrame","content":{"name":"explode","texture":"12j/PmcotL1KqFM3rrI7AF","rect":[1,1,29,29],"offset":[-0.5,0.5],"originalSize":[32,32],"capInsets":[0,0,0,0]}}]

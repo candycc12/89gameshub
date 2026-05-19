@@ -1,0 +1,12 @@
+{
+  "name": "89gameshub-lite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lite GitHub Pages build for 89 Games Hub.",
+  "scripts": {
+    "serve": "python3 -m http.server 4173",
+    "preview": "python3 -m http.server 4173",
+    "sitemap": "python3 arcade-hub/scripts/generate_sitemap.py",
+    "check:deploy": "python3 arcade-hub/scripts/deploy_check.py"
+  }
+}

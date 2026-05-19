@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Neon Swing</title>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+	<meta name="generator" content="Scirra Construct">
+
+	<link rel="manifest" href="appmanifest.json">
+
+
+	<link rel="stylesheet" href="style.css">
+
+	<style type="text/css">
+		*:not(input):not(textarea) {
+			-moz-user-select: -moz-none;
+			-khtml-user-select: none;
+			-webkit-user-select: none;
+			-o-user-select: none;
+			-ms-user-select: none;
+			user-select: none
+	</style>
+
+	<script>
+		// Package-ID
+		window.famobi_gameID = "neon-swing";
+		window.famobi_gameJS = [
+			"common.js",
+			"box2d.wasm.js",
+			"scripts/supportcheck.js",
+			"scripts/offlineclient.js",
+			"scripts/main.js",
+			"scripts/register-sw.js",
+			function () {
+				// do nothing, be happy
+			}
+		];
+
+		(function (document, url, fgJS, firstJS) {
+			fgJS = document.createElement('script');
+			firstJS = document.getElementsByTagName('script')[0];
+			fgJS.src = url + encodeURIComponent(document.location.href);
+			firstJS.parentNode.insertBefore(fgJS, firstJS);
+		})(document, './html5games/gameapi/v1.js?e=');
+	</script>
+
+</head>
+
+<body>
+
+	<script>
+		if (location.protocol.substr(0, 4) === "file") {
+			alert(
+				"Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
+		}
+	</script>
+
+</body>
+
+</html>
