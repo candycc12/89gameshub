@@ -2,7 +2,7 @@
 // Fill googleTagId / sendTo after confirming the Google tag ID and conversion label in Google Ads.
 // Current Google Ads conversion action observed in account: AC_Main_AR.
 window.ARCADE_TRACKING = {
-  googleTagId: 'AW-11124436937',
+  googleTagId: 'AW-11129215317',
   googleAds: {
     conversionActions: {
       ad_click: {
