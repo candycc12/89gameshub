@@ -83,14 +83,17 @@
     };
   }
 
-  function dispatchGoogleAdsConversion(name, params) {
+  function dispatchGoogleAdsConversion(name, params = {}, options = {}) {
     const payload = buildConversionPayload(name, params);
     if (!payload) return false;
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: 'ads_conversion_candidate', ...payload });
     if (payload.send_to && typeof window.gtag === 'function') {
       const { send_to, conversion_event, conversion_action_name, action_optimization, ...gtagPayload } = payload;
-      window.gtag('event', 'conversion', { send_to, ...gtagPayload });
+      const conversionPayload = { send_to, ...gtagPayload };
+      if (typeof options.event_callback === 'function') conversionPayload.event_callback = options.event_callback;
+      if (Number(options.event_timeout || 0) > 0) conversionPayload.event_timeout = Number(options.event_timeout);
+      window.gtag('event', 'conversion', conversionPayload);
       return true;
     }
     return false;
@@ -113,7 +116,7 @@
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: name, arcade_event: name, ...event.params });
       if (typeof window.gtag === 'function') window.gtag('event', name, event.params);
-      dispatchGoogleAdsConversion(name, event.params);
+      if (name !== 'ad_click') dispatchGoogleAdsConversion(name, event.params);
       if (isLocal) console.debug('[ArcadeHubAnalytics]', event);
     }
   };
@@ -131,13 +134,16 @@
       };
       const params = {
         ad_href: href,
-        ad_slot: ad.className || 'ad',
-        event_callback: go
+        ad_slot: ad.className || 'ad'
       };
-      analytics.track('ad_click', params);
       if (href && conversionActions.ad_click && conversionActions.ad_click.sendTo) {
         event.preventDefault();
-        setTimeout(go, 900);
+        analytics.track('ad_click', params);
+        const sent = dispatchGoogleAdsConversion('ad_click', params, { event_callback: go, event_timeout: 1200 });
+        if (!sent) setTimeout(go, 50);
+        else setTimeout(go, 1400);
+      } else {
+        analytics.track('ad_click', params);
       }
     }
     const gameLink = event.target.closest && event.target.closest('a[href*="detail.html?id="], a[href*="play.html?id="]');
