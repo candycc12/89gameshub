@@ -4,33 +4,33 @@ const rawTheme = (params.get('theme') || params.get('utm_content') || 'word-link
 const themeKey = aliases[rawTheme] || rawTheme;
 const themes = {
   'word-link': {
-    eyebrow: 'Word & link puzzle collection',
-    title: 'Play word and link puzzle games online',
-    subtitle: 'Swipe letters, connect matching tiles, and solve quick brain puzzles instantly in your browser.',
-    matchTitle: 'Word video landing layout',
-    matchCopy: 'Word Swipe is placed first, followed by connect-style puzzle games for the closest creative match.',
+    eyebrow: 'Word puzzle games',
+    title: 'Play Word Games',
+    subtitle: 'Swipe letters and solve quick puzzles. No download needed.',
+    matchTitle: 'Word games',
+    matchCopy: 'Word Swipe is placed first, followed by connect-style puzzle games.',
     banner: 'external-assets/collections/word-swipe-banner.svg',
     heroId: 'word-swipe',
     ids: ['word-swipe', 'One_Connect-main', 'Onet_Link', 'onet-fruit-classic', 'happy-connect', 'Christmas_Connect', 'two-tiles', 'mahjong-classic'],
     description: 'Play free word, link, and connect puzzle games online. Start with Word Swipe, then try matching, tile-linking, and classic puzzle games with no download.'
   },
   block: {
-    eyebrow: 'Block puzzle collection',
-    title: 'Play free block puzzle games online',
-    subtitle: 'Drag blocks, clear boards, stack tiles, and enjoy simple puzzle challenges made for quick sessions.',
-    matchTitle: 'Block video landing layout',
-    matchCopy: 'Blocky is placed first so block-game creatives land on a matching playable experience.',
+    eyebrow: 'Block puzzle games',
+    title: 'Play Block Games',
+    subtitle: 'Drag blocks, clear rows, and chase a better score. Start instantly.',
+    matchTitle: 'Block games',
+    matchCopy: 'Blocky is placed first so block-game creatives land on a matching playable game.',
     banner: 'external-assets/collections/block-puzzle-banner.svg?v=2',
     heroId: 'Blocky',
     ids: ['Blocky', 'colored-bricks', '2048-cards', '2048-remastered', 'puzzle-color', 'Slices', 'SquArea', 'two-tiles'],
     description: 'Play free block puzzle games online. Start with Blocky, then explore colorful brick, 2048, tile, and casual puzzle games in your browser.'
   },
   'hello-stars': {
-    eyebrow: 'Physics puzzle collection',
-    title: 'Play star and physics puzzle games online',
-    subtitle: 'Aim, tap, draw, bounce, and solve playful physics-style challenges with instant browser games.',
-    matchTitle: 'Hello Stars-style landing layout',
-    matchCopy: 'Star Boom leads the page, followed by physics and logic games that fit the same lightweight puzzle intent.',
+    eyebrow: 'Star puzzle games',
+    title: 'Play Star Games',
+    subtitle: 'Aim, tap, draw, and solve playful physics puzzles instantly.',
+    matchTitle: 'Star games',
+    matchCopy: 'Star Boom leads the page, followed by light physics and logic games.',
     banner: 'external-assets/collections/star-boom-banner.svg',
     heroId: 'Star_Boom',
     ids: ['Star_Boom', 'HappyGlass', 'Node', 'SquArea', 'DunkLine', 'basket-slide', 'puzzle-color', 'Release'],
@@ -53,14 +53,14 @@ function gameHref(game) {
   return `detail.html?id=${encodeURIComponent(game.id)}&lang=en&utm_source=google&utm_medium=demand_gen&utm_campaign=${campaign}`;
 }
 function gameDesc(game, first = false) {
-  if (first) return `Start with ${game.title}. It opens directly in your browser and matches this collection's theme.`;
+  if (first) return `Best match for this collection. Tap Play now to start.`;
   const byCategory = {
-    Puzzle: 'A quick puzzle pick for players who enjoy simple rules, satisfying progress, and short browser sessions.',
-    Casual: 'A relaxed casual game that is easy to start and works well when you want something light and fast.',
-    Arcade: 'An instant arcade-style game with quick action, simple controls, and replay-friendly rounds.',
-    Action: 'A fast browser game for players who want more movement and challenge.',
-    Sports: 'A quick sports-style browser game with simple timing and satisfying attempts.',
-    Racing: 'A lightweight racing or driving game for instant browser play.'
+    Puzzle: 'Quick puzzle play in your browser.',
+    Casual: 'Easy to start, light to play.',
+    Arcade: 'Fast browser rounds with simple controls.',
+    Action: 'More movement and challenge.',
+    Sports: 'Simple timing and quick attempts.',
+    Racing: 'Instant driving-style play.'
   };
   return byCategory[game.category] || 'A free instant-play browser game from Arcade Hub.';
 }
@@ -95,16 +95,19 @@ function render(all) {
   document.querySelector('#campaign-eyebrow').textContent = theme.eyebrow;
   document.querySelector('#campaign-title').textContent = theme.title;
   document.querySelector('#campaign-subtitle').textContent = theme.subtitle;
-  document.querySelector('#campaign-match-title').textContent = theme.matchTitle;
-  document.querySelector('#campaign-match-copy').textContent = theme.matchCopy;
-  document.querySelector('#collection-heading').textContent = 'Recommended games';
-  document.querySelector('#collection-count').textContent = `${games.length} instant games`;
+  if (document.querySelector('#campaign-match-title')) document.querySelector('#campaign-match-title').textContent = theme.matchTitle;
+  if (document.querySelector('#campaign-match-copy')) document.querySelector('#campaign-match-copy').textContent = theme.matchCopy;
+  document.querySelector('#collection-heading').textContent = 'Pick a game and play';
+  document.querySelector('#collection-count').textContent = `${games.length} games`;
   document.querySelector('#campaign-banner').src = theme.banner || heroGame.banner || heroGame.icon || placeholder(heroGame);
   document.querySelector('#campaign-banner').alt = theme.title;
   document.querySelector('#campaign-feature').href = gameHref(heroGame);
   document.querySelector('#campaign-primary').href = gameHref(heroGame);
+  document.querySelector('#campaign-primary').textContent = `Play ${heroGame.title}`;
+  document.querySelector('#campaign-play-jumbo').href = gameHref(heroGame);
+  document.querySelector('#campaign-jumbo-title').textContent = `Play ${heroGame.title} now`;
   document.querySelector('#campaign-feature-title').textContent = heroGame.title;
-  document.querySelector('#campaign-feature-desc').textContent = `Featured first for this ${theme.eyebrow.toLowerCase()}.`;
+  document.querySelector('#campaign-feature-desc').textContent = `Click to open the featured game.`;
   document.querySelectorAll('[data-theme-link]').forEach(link => link.classList.toggle('active', link.dataset.themeLink === themeKey));
   grid.replaceChildren(...games.map(card));
   if (window.ArcadeHubSEO) window.ArcadeHubSEO.update({

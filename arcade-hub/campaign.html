@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="Play free online puzzle games instantly in your browser." />
   <meta name="twitter:image" content="external-assets/brand/og-arcade-hub.svg" />
   <link rel="canonical" href="campaign.html" />
-  <link rel="stylesheet" href="styles.css?v=18" />
+  <link rel="stylesheet" href="styles.css?v=19" />
 </head>
 <body class="campaign-page">
   <header class="campaign-topbar">
@@ -35,27 +35,33 @@
         <h1 id="campaign-title">Play free puzzle games online</h1>
         <p id="campaign-subtitle">A fast collection of instant-play games matched to the creative you just watched.</p>
         <div class="campaign-actions">
-          <a class="primary" id="campaign-primary" href="#featured-games">Start playing</a>
-          <a class="ghost" href="#featured-games">See games</a>
+          <a class="primary campaign-main-cta" id="campaign-primary" href="#featured-games">Play now</a>
+          <a class="ghost" href="#featured-games">More games</a>
         </div>
         <ul class="campaign-proof" aria-label="Site benefits">
           <li>No download</li>
           <li>Mobile friendly</li>
-          <li>Instant browser play</li>
         </ul>
       </div>
       <a class="campaign-feature" id="campaign-feature" href="#featured-games">
         <img id="campaign-banner" alt="" />
-        <span class="feature-badge">Featured first</span>
+        <span class="feature-badge">Tap to play</span>
         <strong id="campaign-feature-title"></strong>
         <em id="campaign-feature-desc"></em>
       </a>
     </section>
 
-    <section class="campaign-strip" aria-label="Collection focus">
-      <div><strong id="campaign-match-title">Matched to your video</strong><span id="campaign-match-copy">The first game and recommendations change by campaign theme.</span></div>
-      <div><strong>Free to play</strong><span>Launch games directly from the browser.</span></div>
-      <div><strong>More choices</strong><span>Keep playing related puzzle and casual games.</span></div>
+    <section class="campaign-funnel" aria-label="Play and sponsored actions">
+      <a class="campaign-play-jumbo" id="campaign-play-jumbo" href="#featured-games">
+        <span>Start playing</span>
+        <strong id="campaign-jumbo-title">Play the first game now</strong>
+      </a>
+      <a class="campaign-sponsored promo-ad" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">
+        <span class="ad-label">Sponsored</span>
+        <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
+        <strong>War Inc: Rising</strong>
+        <em>Open on Google Play</em>
+      </a>
     </section>
 
     <section class="section-head all-head" id="featured-games">
@@ -100,6 +106,6 @@
 
   <script src="tracking-config.js?v=1"></script>
   <script src="site-utils.js?v=2"></script>
-  <script src="campaign.js?v=3"></script>
+  <script src="campaign.js?v=5"></script>
 </body>
 </html>
