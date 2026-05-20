@@ -129,8 +129,6 @@ function render(all) {
   document.querySelector('#campaign-feature').href = gameHref(heroGame);
   document.querySelector('#campaign-primary').href = gameHref(heroGame);
   document.querySelector('#campaign-primary').textContent = `Play ${heroGame.title}`;
-  document.querySelector('#campaign-play-jumbo').href = gameHref(heroGame);
-  document.querySelector('#campaign-jumbo-title').textContent = `Play ${heroGame.title} now`;
   document.querySelector('#campaign-feature-title').textContent = heroGame.title;
   document.querySelector('#campaign-feature-desc').textContent = `Click to open the featured game.`;
   document.querySelectorAll('[data-theme-link]').forEach(link => link.classList.toggle('active', link.dataset.themeLink === themeKey));
