@@ -760,11 +760,7 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   background: linear-gradient(180deg, rgba(5,8,20,.12), rgba(5,8,20,.9) 45%);
 }
 .campaign-feature em { padding-top: 6px; padding-bottom: 18px; color: var(--muted); font-style: normal; font-weight: 800; }
-.campaign-funnel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 420px); gap: 14px; margin: 16px 0 28px; }
-.campaign-sponsored {
-  min-height: 86px; border: 1px solid var(--line); border-radius: 24px; background: rgba(18,25,43,.94);
-  display: flex; align-items: center; gap: 14px; padding: 18px 20px; transition: transform .18s ease, border-color .18s ease, background .18s ease;
-}
+.campaign-funnel { display: block; margin: 16px 0 32px; }
 .campaign-play-jumbo {
   min-height: 120px;
   border-radius: 24px;
@@ -777,18 +773,9 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
 .campaign-play-jumbo::after {
   background: linear-gradient(90deg, rgba(6,10,20,.12), rgba(6,10,20,.72) 72%, rgba(6,10,20,.94));
 }
-.campaign-play-jumbo:hover,
-.campaign-sponsored:hover { transform: translateY(-2px); border-color: rgba(124,92,255,.72); }
+.campaign-play-jumbo:hover { transform: translateY(-2px); border-color: rgba(124,92,255,.72); }
 .campaign-play-jumbo .promo-copy strong { font-size: clamp(26px, 3vw, 38px); }
 .campaign-play-jumbo b { flex: 0 0 auto; font-size: 18px; }
-.campaign-sponsored { position: relative; color: white; overflow: hidden; }
-.campaign-sponsored::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(4,8,18,.3), rgba(4,8,18,.82)), url('external-assets/war-inc/war-inc-banner-territory.png') center/cover; opacity: .72; }
-.campaign-sponsored > * { position: relative; z-index: 1; }
-.campaign-sponsored img { width: 48px; height: 48px; border-radius: 13px; box-shadow: 0 10px 24px rgba(0,0,0,.32); }
-.campaign-sponsored strong, .campaign-sponsored em { display: block; }
-.campaign-sponsored strong { font-size: 19px; }
-.campaign-sponsored em { color: #dbeafe; font-style: normal; font-weight: 800; font-size: 13px; }
-.campaign-sponsored .ad-label { position: absolute; right: 12px; top: 10px; z-index: 2; color: #dbeafe; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; }
 .campaign-strip div, .campaign-more {
   border: 1px solid var(--line); background: rgba(18,25,43,.9); border-radius: 24px; padding: 20px;
 }
@@ -816,7 +803,6 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .campaign-hero { grid-template-columns: 1fr; }
   .campaign-feature { min-height: 320px; margin: 0 18px 18px; }
   .campaign-feature img { min-height: 0; }
-  .campaign-funnel { grid-template-columns: 1fr; }
   .campaign-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 700px) {
@@ -834,7 +820,7 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .campaign-feature strong { font-size: 24px; padding-top: 12px; }
   .campaign-feature em { padding-bottom: 16px; }
   .campaign-funnel { margin-top: 12px; }
-  .campaign-play-jumbo, .campaign-sponsored { min-height: 76px; border-radius: 20px; padding: 14px; }
+  .campaign-play-jumbo { border-radius: 20px; padding: 14px; }
   .campaign-play-jumbo { flex-direction: column; align-items: flex-start; justify-content: end; min-height: 150px; }
   .campaign-play-jumbo .promo-copy strong { font-size: 24px; }
   .campaign-play-jumbo b { font-size: 15px; }
