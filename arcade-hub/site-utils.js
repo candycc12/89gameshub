@@ -127,8 +127,7 @@
       const go = () => {
         if (navigated || !href) return;
         navigated = true;
-        if (target === '_blank') window.open(href, '_blank', 'noopener');
-        else window.location.href = href;
+        window.location.href = href;
       };
       const params = {
         ad_href: href,
