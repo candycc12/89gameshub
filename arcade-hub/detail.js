@@ -69,6 +69,36 @@ const categoryText = {
     }
   }
 };
+const fallbackGames = [
+  { id: 'word-swipe', title: 'Word Swipe', category: 'Puzzle', banner: '../arcade-hub/external-assets/collections/word-swipe-banner.svg', icon: '../word-swipe/icons/icon-256.png', auditStatus: '正常' },
+  { id: 'One_Connect-main', title: 'One Connect', category: 'Puzzle', banner: '../One_Connect-main/html5games/images/logo.png', icon: '../One_Connect-main/icon.jpg', auditStatus: '正常' },
+  { id: 'Onet_Link', title: 'Onet Link', category: 'Puzzle', banner: '../arcade-hub/external-assets/onet-link-banner.webp', icon: '../arcade-hub/external-assets/local-icons/Onet_Link.jpg', auditStatus: '需竖屏' },
+  { id: 'onet-fruit-classic', title: 'Onet Fruit Classic', category: 'Puzzle', banner: '../arcade-hub/external-assets/onet-fruit-classic.png', icon: '../arcade-hub/external-assets/local-icons/onet-fruit-classic.jpg', auditStatus: '正常' },
+  { id: 'happy-connect', title: 'Happy Connect', category: 'Puzzle', icon: '../arcade-hub/external-assets/local-icons/happy-connect.jpg', auditStatus: '正常' },
+  { id: 'Christmas_Connect', title: 'Christmas Connect', category: 'Puzzle', icon: '../arcade-hub/external-assets/local-icons/Christmas_Connect.jpg', auditStatus: '正常' },
+  { id: 'two-tiles', title: 'Two Tiles', category: 'Puzzle', banner: '../two-tiles/images/block-sheet0.png', icon: '../two-tiles/icons/icon-512.png', auditStatus: '正常' },
+  { id: 'mahjong-classic', title: 'Mahjong Classic', category: 'Puzzle', icon: '../mahjong-classic/icons/icon-512.png', auditStatus: '正常' },
+  { id: 'Blocky', title: 'Blocky', category: 'Casual', icon: '../Blocky/icon-256.png', auditStatus: '正常' },
+  { id: 'colored-bricks', title: 'Colored Bricks', category: 'Casual', banner: '../colored-bricks/images/tiledbackground-sheet0.png', icon: '../colored-bricks/icons/icon-512.png', auditStatus: '正常' },
+  { id: '2048-cards', title: '2048 Cards', category: 'Puzzle', icon: '../2048-cards/icons/icon-512.png', auditStatus: '正常' },
+  { id: '2048-remastered', title: '2048 Remastered', category: 'Puzzle', icon: '../arcade-hub/external-assets/local-icons/2048-remastered.jpg', auditStatus: '正常' },
+  { id: 'puzzle-color', title: 'Puzzle Color', category: 'Puzzle', banner: '../puzzle-color/images/tiledbackground-sheet0.png', icon: '../puzzle-color/icons/icon-256.png', auditStatus: '正常' },
+  { id: 'Slices', title: 'Slices', category: 'Casual', icon: '../Slices/icon-256.png', auditStatus: '正常' },
+  { id: 'SquArea', title: 'Squ Area', category: 'Casual', banner: '../SquArea/images/lfbackground-sheet0.png', icon: '../SquArea/icon-256.png', auditStatus: '正常' },
+  { id: 'Star_Boom', title: 'Star Boom', category: 'Puzzle', banner: '../arcade-hub/external-assets/collections/star-boom-banner.svg', icon: '../arcade-hub/external-assets/collections/star-boom-icon.svg', auditStatus: '需竖屏' },
+  { id: 'HappyGlass', title: 'Happy Glass', category: 'Casual', icon: '../HappyGlass/icon-256.png', auditStatus: '正常' },
+  { id: 'Node', title: 'Node', category: 'Casual', banner: '../Node/images/homebackground-sheet0.png', icon: '../Node/icon-256.png', auditStatus: '正常' },
+  { id: 'DunkLine', title: 'Dunk Line', category: 'Sports', icon: '../DunkLine/icons/icon-512.png', auditStatus: '正常' },
+  { id: 'basket-slide', title: 'Basket Slide', category: 'Sports', banner: '../basket-slide/images/tiledbackground-sheet0.png', icon: '../basket-slide/icons/icon-512.png', auditStatus: '正常' },
+  { id: 'Release', title: 'Release', category: 'Casual', banner: '../Release/images/target.png', icon: '../Release/icon-256.png', auditStatus: '正常' }
+];
+
+const detailFallbackGames = fallbackGames.map(game => ({
+  entry: `../${game.id}/index.html`,
+  playMode: 'iframe',
+  ...game
+}));
+
 const i18n = {
   zh: {home:'首页',play:'开始游戏',direct:'直接打开',category:'分类',platform:'平台',technology:'技术',about:'关于这个游戏',how:'怎么玩',controls:'操作方式',related:'相关游戏',browser:'浏览器（电脑 / 手机 / 平板）',intro:g=>`进入 ${g.title}，开始一局 ${label(g.category)} 游戏。`,categories:{Action:'动作',Puzzle:'益智',Racing:'竞速',Sports:'体育',Arcade:'街机',Casual:'休闲'}},
   en: {home:'Home',play:'Play now',direct:'Open directly',category:'Category',platform:'Platform',technology:'Technology',about:'About this game',how:'How to play',controls:'Controls',related:'Related games',browser:'Browser (desktop, mobile, tablet)',intro:g=>`Jump into ${g.title}, a ${label(g.category)} browser game.`,categories:{Action:'Action',Puzzle:'Puzzle',Racing:'Racing',Sports:'Sports',Arcade:'Arcade',Casual:'Casual'}}
@@ -99,5 +129,12 @@ function render(game){
  document.querySelector('#detail-home-link').textContent=t('home'); document.querySelector('#detail-lang-toggle').textContent=lang==='zh'?'EN':'中文';
  const related=games.filter(g=>g.category===game.category&&g.id!==game.id).slice(0,6); document.querySelector('#detail-related').replaceChildren(...related.map(miniCard));
 }
-fetch('games.json').then(r=>r.json()).then(data=>{games=data;render(games.find(g=>g.id===id)||games[0]);});
+function loadGames() {
+  if (location.protocol === 'file:') return Promise.resolve(detailFallbackGames);
+  return fetch('games.json').then(r => {
+    if (!r.ok) throw new Error(`games.json ${r.status}`);
+    return r.json();
+  }).catch(() => detailFallbackGames);
+}
+loadGames().then(data=>{games=data;render(games.find(g=>g.id===id)||games[0]);}).catch(()=>{games=detailFallbackGames;render(games.find(g=>g.id===id)||games[0]);});
 document.querySelector('#detail-lang-toggle').addEventListener('click',()=>{lang=lang==='zh'?'en':'zh';localStorage.setItem('arcadeLang',lang);render(games.find(g=>g.id===id)||games[0]);});
