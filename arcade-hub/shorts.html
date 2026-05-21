@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
   <meta property="og:site_name" content="Arcade Hub" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Short Drama Collection | Arcade Hub" />
-  <meta property="og:description" content="A mobile-friendly short video collection for quick viewing and campaign testing." />
+  <meta property="og:description" content="A mobile-friendly short video collection for quick viewing." />
   <meta property="og:image" content="external-assets/shorts/short-drama-1.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Short Drama Collection | Arcade Hub" />
@@ -21,20 +21,19 @@
   <header class="shorts-topbar">
     <a class="brand" href="index.html">ARCADE<span>HUB</span></a>
     <nav aria-label="Shorts navigation">
-      <a href="#episodes">短剧合集</a>
-      <a href="index.html">返回游戏</a>
+      <a href="#episodes">Shorts</a>
+      <a href="index.html">Back to games</a>
     </nav>
   </header>
 
   <main class="shorts-shell">
     <section class="shorts-hero">
       <div class="shorts-copy">
-        <span class="eyebrow">短剧合集 · 投放测试页</span>
+        <span class="eyebrow">Short videos</span>
         <h1>Watch quick stories in minutes</h1>
-        <p>精选 3 条短视频内容，适合移动端浏览、Demand Gen 承接和后续素材测试。点击播放即可观看，无需下载。</p>
         <div class="shorts-actions">
-          <a class="primary-cta" href="#featured-video">立即观看</a>
-          <a class="secondary-cta" href="#episodes">查看全部</a>
+          <a class="primary-cta" href="#featured-video">Watch now</a>
+          <a class="secondary-cta" href="#episodes">View all</a>
         </div>
         <div class="shorts-badges">
           <span>Mobile friendly</span>
@@ -53,11 +52,28 @@
       <div class="shorts-player-copy">
         <span class="eyebrow">Now watching</span>
         <h2 id="current-title">Episode 1 · A dramatic moment</h2>
-        <p id="current-desc">Start with this vertical short. Swipe-style pacing, clear mobile framing, and quick emotional beats for campaign testing.</p>
+        <p id="current-desc">Start with this vertical short. Swipe-style pacing, clear mobile framing, and quick emotional beats.</p>
       </div>
-      <video id="main-short-video" class="main-short-video" controls playsinline preload="metadata" poster="external-assets/shorts/short-drama-1.jpg">
-        <source src="external-assets/shorts/short-drama-1.mp4" type="video/mp4" />
-      </video>
+      <div class="short-video-wrap">
+        <video id="main-short-video" class="main-short-video" controls playsinline preload="metadata" poster="external-assets/shorts/short-drama-1.jpg">
+          <source src="external-assets/shorts/short-drama-1.mp4" type="video/mp4" />
+        </video>
+        <div class="short-preroll" id="short-preroll">
+          <span class="ad-label">Advertisement</span>
+          <img src="external-assets/war-inc/war-inc-banner-boss.png" alt="War Inc: Rising" />
+          <div class="short-preroll-copy">
+            <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
+            <div>
+              <strong>War Inc: Rising</strong>
+              <em>Build. Expand. Conquer.</em>
+            </div>
+          </div>
+          <div class="short-preroll-actions">
+            <a class="short-preroll-ad" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">Play on Google Play</a>
+            <button type="button" id="continue-short" class="continue-short">Continue watching</button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="shorts-section-head" id="episodes">
@@ -66,19 +82,19 @@
     </section>
 
     <section class="shorts-grid" aria-label="Short videos">
-      <button class="short-card active" type="button" data-video="external-assets/shorts/short-drama-1.mp4" data-poster="external-assets/shorts/short-drama-1.jpg" data-title="Episode 1 · A dramatic moment" data-desc="Start with this vertical short. Swipe-style pacing, clear mobile framing, and quick emotional beats for campaign testing.">
+      <button class="short-card active" type="button" data-video="external-assets/shorts/short-drama-1.mp4" data-poster="external-assets/shorts/short-drama-1.jpg" data-title="Episode 1 · A dramatic moment" data-desc="Start with this vertical short. Swipe-style pacing, clear mobile framing, and quick emotional beats.">
         <img src="external-assets/shorts/short-drama-1.jpg" alt="Short drama episode 1" loading="lazy" />
         <span>▶ Watch</span>
         <strong>Episode 1</strong>
         <em>Vertical short · 2 min</em>
       </button>
-      <button class="short-card" type="button" data-video="external-assets/shorts/short-drama-2.mp4" data-poster="external-assets/shorts/short-drama-2.jpg" data-title="Episode 2 · The next twist" data-desc="Continue with a second vertical short for testing watch intent, click depth, and mobile retention.">
+      <button class="short-card" type="button" data-video="external-assets/shorts/short-drama-2.mp4" data-poster="external-assets/shorts/short-drama-2.jpg" data-title="Episode 2 · The next twist" data-desc="Continue with a second vertical short built for quick viewing and a clear next-story rhythm.">
         <img src="external-assets/shorts/short-drama-2.jpg" alt="Short drama episode 2" loading="lazy" />
         <span>▶ Watch</span>
         <strong>Episode 2</strong>
         <em>Vertical short · 2 min</em>
       </button>
-      <button class="short-card landscape" type="button" data-video="external-assets/shorts/rome-greece-story.mp4" data-poster="external-assets/shorts/rome-greece-story.jpg" data-title="Rome & Greece · Travel story" data-desc="A landscape story video with synced subtitles and voice-up audio, useful for testing broader lifestyle creatives.">
+      <button class="short-card landscape" type="button" data-video="external-assets/shorts/rome-greece-story.mp4" data-poster="external-assets/shorts/rome-greece-story.jpg" data-title="Rome & Greece · Travel story" data-desc="A landscape story video with synced subtitles and clear voice audio for relaxed viewing.">
         <img src="external-assets/shorts/rome-greece-story.jpg" alt="Rome and Greece story video" loading="lazy" />
         <span>▶ Watch</span>
         <strong>Rome & Greece</strong>
@@ -94,8 +110,8 @@
     </a>
 
     <section class="shorts-next-card">
-      <h2>想换个轻松内容？</h2>
-      <p>继续浏览 Arcade Hub 的网页游戏合集，打开即玩，不需要下载。</p>
+      <h2>Want something lighter?</h2>
+      <p>Explore Arcade Hub games next. They open directly in your browser with no download required.</p>
       <a class="primary-cta" href="index.html#all-games">Browse games</a>
     </section>
   </main>
