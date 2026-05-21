@@ -59,6 +59,12 @@
   const pageLoadAt = Date.now();
   const trackedScrollDepths = new Set();
   let engagementSent = false;
+  const sessionKey = 'arcadehub_session_started_at';
+  const lastPathKey = 'arcadehub_last_path';
+  try {
+    if (!sessionStorage.getItem(sessionKey)) sessionStorage.setItem(sessionKey, String(pageLoadAt));
+    sessionStorage.setItem(lastPathKey, location.pathname + location.search);
+  } catch (_) {}
 
   function installGoogleTag() {
     if (!googleTagId || googleTagId.includes('YOUR_') || document.querySelector(`script[data-arcade-google-tag="${googleTagId}"]`)) return;
@@ -159,10 +165,17 @@
 
   function sendEngagement(reason = 'hidden') {
     if (engagementSent) return;
-    const seconds = Math.max(1, Math.round((Date.now() - pageLoadAt) / 1000));
-    if (seconds < 3) return;
+    const now = Date.now();
+    const pageSeconds = Math.max(1, Math.round((now - pageLoadAt) / 1000));
+    if (pageSeconds < 3) return;
+    let siteSeconds = pageSeconds;
+    try {
+      const startedAt = Number(sessionStorage.getItem(sessionKey) || pageLoadAt);
+      if (startedAt > 0) siteSeconds = Math.max(pageSeconds, Math.round((now - startedAt) / 1000));
+    } catch (_) {}
     engagementSent = true;
-    analytics.track('session_time', { engagement_time_sec: seconds, engagement_reason: reason });
+    analytics.track('page_time', { engagement_time_sec: pageSeconds, page_time_sec: pageSeconds, engagement_reason: reason });
+    analytics.track('site_session_time', { engagement_time_sec: siteSeconds, site_session_time_sec: siteSeconds, engagement_reason: reason });
   }
 
   function trackScrollDepth() {
