@@ -3,6 +3,7 @@
 // Current Google Ads conversion action observed in account: AC_Main_AR.
 window.ARCADE_TRACKING = {
   googleTagId: 'AW-11129215317',
+  ga4MeasurementId: 'G-W9KB44PNFN',
   googleAds: {
     conversionActions: {
       ad_click: {

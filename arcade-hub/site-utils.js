@@ -54,7 +54,11 @@
 
   const trackingConfig = window.ARCADE_TRACKING || {};
   const googleTagId = String(trackingConfig.googleTagId || '').trim();
+  const ga4MeasurementId = String(trackingConfig.ga4MeasurementId || '').trim();
   const conversionActions = (trackingConfig.googleAds && trackingConfig.googleAds.conversionActions) || {};
+  const pageLoadAt = Date.now();
+  const trackedScrollDepths = new Set();
+  let engagementSent = false;
 
   function installGoogleTag() {
     if (!googleTagId || googleTagId.includes('YOUR_') || document.querySelector(`script[data-arcade-google-tag="${googleTagId}"]`)) return;
@@ -62,6 +66,9 @@
     window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
     window.gtag('js', new Date());
     window.gtag('config', googleTagId, { send_page_view: false });
+    if (ga4MeasurementId && !ga4MeasurementId.includes('YOUR_')) {
+      window.gtag('config', ga4MeasurementId, { send_page_view: false });
+    }
     const script = document.createElement('script');
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(googleTagId)}`;
@@ -122,7 +129,7 @@
   };
 
   document.addEventListener('click', (event) => {
-    const ad = event.target.closest && event.target.closest('a[rel~="sponsored"], .promo-ad, .preroll-link');
+    const ad = event.target.closest && event.target.closest('a[rel~="sponsored"], .promo-ad, .preroll-link, .short-preroll-ad');
     if (ad) {
       const href = ad.href || '';
       const target = ad.target || '';
@@ -150,10 +157,34 @@
     if (gameLink) analytics.track('game_link_click', { href: gameLink.href });
   }, true);
 
+  function sendEngagement(reason = 'hidden') {
+    if (engagementSent) return;
+    const seconds = Math.max(1, Math.round((Date.now() - pageLoadAt) / 1000));
+    if (seconds < 3) return;
+    engagementSent = true;
+    analytics.track('session_time', { engagement_time_sec: seconds, engagement_reason: reason });
+  }
+
+  function trackScrollDepth() {
+    const doc = document.documentElement;
+    const maxScroll = Math.max(1, doc.scrollHeight - window.innerHeight);
+    const depth = Math.min(100, Math.round((window.scrollY / maxScroll) * 100));
+    [25, 50, 75, 90].forEach((threshold) => {
+      if (depth >= threshold && !trackedScrollDepths.has(threshold)) {
+        trackedScrollDepths.add(threshold);
+        analytics.track('scroll_depth', { scroll_depth: threshold });
+      }
+    });
+  }
+
   window.addEventListener('load', () => {
     analytics.track('page_view');
-    document.querySelectorAll('.promo-ad, .preroll-link').forEach((ad) => {
+    document.querySelectorAll('.promo-ad, .preroll-link, .short-preroll-ad').forEach((ad) => {
       analytics.track('ad_impression', { ad_slot: ad.className || 'ad', ad_href: ad.href || '' });
     });
   });
+
+  window.addEventListener('scroll', trackScrollDepth, { passive: true });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') sendEngagement('visibility_hidden'); });
+  window.addEventListener('pagehide', () => sendEngagement('pagehide'));
 })();
