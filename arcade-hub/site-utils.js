@@ -134,29 +134,57 @@
     }
   };
 
+  function normalizeAdSlot(ad) {
+    const className = typeof ad.className === 'string' ? ad.className : String(ad.className || '');
+    if (className.includes('campaign-play-jumbo')) return 'campaign_primary_cta';
+    if (className.includes('promo-ad-home')) return 'home_banner';
+    if (className.includes('detail-inline-ad')) return 'detail_inline_banner';
+    if (className.includes('promo-ad-play')) return 'play_below_game_banner';
+    if (className.includes('promo-ad-rail')) return 'play_right_rail_banner';
+    if (className.includes('preroll-link')) return 'pre_game_preroll';
+    if (className.includes('short-preroll-ad')) return 'shorts_preroll';
+    if (className.includes('shorts-ad')) return 'shorts_inline_banner';
+    return className || 'sponsored_ad';
+  }
+
+  function isWarIncAd(ad, href) {
+    const text = String(ad.textContent || '').toLowerCase();
+    return href.includes('com.i89trillion.strategy.rising') || text.includes('war inc');
+  }
+
+  function buildAdParams(ad, href) {
+    const warInc = isWarIncAd(ad, href);
+    return {
+      ad_href: href,
+      ad_slot: normalizeAdSlot(ad),
+      ad_campaign: warInc ? 'war_inc_rising' : 'sponsored',
+      ad_destination: href.includes('play.google.com') ? 'google_play' : 'external',
+      ad_title: warInc ? 'War Inc: Rising' : String(ad.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
+      conversion_event: 'ad_click'
+    };
+  }
+
   document.addEventListener('click', (event) => {
-    const ad = event.target.closest && event.target.closest('a[rel~="sponsored"], .promo-ad, .preroll-link, .short-preroll-ad');
+    const ad = event.target.closest && event.target.closest('a[rel~="sponsored"], a.promo-ad, a.preroll-link, a.short-preroll-ad');
     if (ad) {
       const href = ad.href || '';
-      const target = ad.target || '';
       let navigated = false;
       const go = () => {
         if (navigated || !href) return;
         navigated = true;
-        window.location.href = href;
+        if (ad.target === '_blank') window.open(href, '_blank', 'noopener');
+        else window.location.href = href;
       };
-      const params = {
-        ad_href: href,
-        ad_slot: ad.className || 'ad'
-      };
+      const params = buildAdParams(ad, href);
+      const eventName = params.ad_campaign === 'war_inc_rising' ? 'warinc_ad_click' : 'sponsored_ad_click';
       if (href && conversionActions.ad_click && conversionActions.ad_click.sendTo) {
         event.preventDefault();
-        analytics.track('sponsored_ad_click', { ...params, conversion_event: 'ad_click' });
+        analytics.track(eventName, params);
         const sent = dispatchGoogleAdsConversion('ad_click', params, { event_callback: go, event_timeout: 1200 });
-        if (!sent) setTimeout(go, 50);
+        if (!sent) setTimeout(go, 80);
         else setTimeout(go, 1400);
       } else {
-        analytics.track('sponsored_ad_click', { ...params, conversion_event: 'ad_click' });
+        analytics.track(eventName, params);
       }
     }
     const gameLink = event.target.closest && event.target.closest('a[href*="detail.html?id="], a[href*="play.html?id="]');
@@ -193,7 +221,11 @@
   window.addEventListener('load', () => {
     analytics.track('page_view');
     document.querySelectorAll('.promo-ad, .preroll-link, .short-preroll-ad').forEach((ad) => {
-      analytics.track('sponsored_ad_impression', { ad_slot: ad.className || 'ad', ad_href: ad.href || '' });
+      {
+        const href = ad.href || '';
+        const params = buildAdParams(ad, href);
+        analytics.track(params.ad_campaign === 'war_inc_rising' ? 'warinc_ad_impression' : 'sponsored_ad_impression', params);
+      }
     });
   });
 
