@@ -1,5 +1,16 @@
 [
   {
+    "id": "territory-clash-live",
+    "title": "Territory Clash Live",
+    "category": "Action",
+    "entry": "../territory-clash-live/index.html",
+    "banner": "../territory-clash-live/cover.svg",
+    "icon": "../territory-clash-live/icon.svg",
+    "orientation": "portrait",
+    "playMode": "iframe",
+    "auditStatus": "正常"
+  },
+  {
     "id": "BallSortPuzzle",
     "title": "Ball Sort Puzzle",
     "category": "Puzzle",

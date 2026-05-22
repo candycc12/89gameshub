@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Territory Clash Live | Live Territory Battle</title>
+  <meta name="description" content="A vertical H5 live territory battle prototype where players choose a side, rally troops, guard territory, cheer, and send live chat." />
+  <link rel="stylesheet" href="styles.css?v=4" />
+</head>
+<body>
+  <main class="phone-shell">
+    <section class="stage" aria-label="Live territory battle game">
+      <canvas id="game" width="720" height="1280"></canvas>
+
+      <div class="top-hud">
+        <div class="team red">
+          <span>Red Legion</span>
+          <strong id="redPercent">50%</strong>
+        </div>
+        <div class="timer">
+          <span id="roundLabel">Guild War <b id="round">1</b></span>
+          <strong id="clock">60</strong>
+        </div>
+        <div class="team blue">
+          <span>Blue Alliance</span>
+          <strong id="bluePercent">50%</strong>
+        </div>
+      </div>
+
+      <div class="bars" aria-hidden="true">
+        <i id="redBar"></i>
+        <i id="blueBar"></i>
+      </div>
+
+      <button class="audio-toggle" id="audioToggle" type="button" aria-label="Toggle battle audio">Audio On</button>
+
+      <aside class="feed" id="feed" aria-label="Live chat events"></aside>
+
+      <section class="bottom-panel">
+        <div class="side-picker" aria-label="Choose your supported side">
+          <button class="side-option red-choice" id="redSupportBtn" type="button">
+            <span>Support</span>
+            <b>Red Legion</b>
+          </button>
+          <button class="side-option blue-choice active" id="blueSupportBtn" type="button">
+            <span>Support</span>
+            <b>Blue Alliance</b>
+          </button>
+        </div>
+        <div class="wallet">
+          <span>Coins</span>
+          <strong id="coins">120</strong>
+          <em><b id="rolls">2</b> Rolls · <span id="supportStatus">Blue</span></em>
+        </div>
+        <form class="chat-box" id="chatForm">
+          <input id="chatInput" maxlength="48" autocomplete="off" placeholder="Send live chat..." />
+          <button type="submit">Send</button>
+        </form>
+        <div class="dice-board" id="diceBoard" aria-label="Dice event board"></div>
+        <div class="dice-controls">
+          <button class="buy-roll" id="buyRollBtn" type="button">
+            <b>Buy Roll</b>
+            <span>10 coins</span>
+          </button>
+          <button class="roll-dice" id="rollDiceBtn" type="button">
+            <b id="diceFace">⚂</b>
+            <span id="rollHint">Roll Dice</span>
+          </button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="game.js?v=5"></script>
+</body>
+</html>

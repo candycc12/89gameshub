@@ -25,7 +25,7 @@ urls = [
     (loc("arcade-hub/index.html"), "1.0", "daily"),
 ]
 
-for page in ("about.html", "contact.html", "privacy.html", "terms.html", "dmca.html", "advertising.html"):
+for page in ("about.html", "contact.html", "privacy.html", "terms.html", "dmca.html", "advertising.html", "territory-clash-live.html"):
     urls.append((loc(f"arcade-hub/{page}"), "0.6", "monthly"))
 
 for theme in ("word-link", "block", "hello-stars"):
