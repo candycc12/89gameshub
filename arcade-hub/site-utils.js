@@ -151,12 +151,12 @@
       };
       if (href && conversionActions.ad_click && conversionActions.ad_click.sendTo) {
         event.preventDefault();
-        analytics.track('ad_click', params);
+        analytics.track('sponsored_ad_click', { ...params, conversion_event: 'ad_click' });
         const sent = dispatchGoogleAdsConversion('ad_click', params, { event_callback: go, event_timeout: 1200 });
         if (!sent) setTimeout(go, 50);
         else setTimeout(go, 1400);
       } else {
-        analytics.track('ad_click', params);
+        analytics.track('sponsored_ad_click', { ...params, conversion_event: 'ad_click' });
       }
     }
     const gameLink = event.target.closest && event.target.closest('a[href*="detail.html?id="], a[href*="play.html?id="]');
@@ -193,7 +193,7 @@
   window.addEventListener('load', () => {
     analytics.track('page_view');
     document.querySelectorAll('.promo-ad, .preroll-link, .short-preroll-ad').forEach((ad) => {
-      analytics.track('ad_impression', { ad_slot: ad.className || 'ad', ad_href: ad.href || '' });
+      analytics.track('sponsored_ad_impression', { ad_slot: ad.className || 'ad', ad_href: ad.href || '' });
     });
   });
 
