@@ -2,6 +2,8 @@
   const SITE_NAME = 'Arcade Hub';
   const DEFAULT_IMAGE = 'external-assets/brand/og-arcade-hub.svg';
   const isLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+  const WAR_INC_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising&listing=89gamehub&referrer=utm_source%3D89gamehub_website%26utm_content%3D89gamehub';
+  const WAR_INC_APP_STORE_URL = 'https://apps.apple.com/us/app/war-inc-rising/id6747767390?ppid=a4a6e47e-0a10-4194-a69b-9fadbfddacb6';
 
   function absoluteUrl(path) {
     try { return new URL(path, location.href).href; }
@@ -251,15 +253,39 @@
     return className || 'sponsored_ad';
   }
 
+  function isIOSDevice() {
+    const ua = navigator.userAgent || '';
+    const platform = navigator.platform || '';
+    const touchMac = platform === 'MacIntel' && Number(navigator.maxTouchPoints || 0) > 1;
+    return /iPad|iPhone|iPod/i.test(ua) || touchMac;
+  }
+
+  function getWarIncUrl() {
+    return isIOSDevice() ? WAR_INC_APP_STORE_URL : WAR_INC_GOOGLE_PLAY_URL;
+  }
+
   function isWarIncAd(ad, href) {
     const text = String(ad.textContent || '').toLowerCase();
-    return href.includes('com.i89trillion.strategy.rising') || text.includes('war inc');
+    return href.includes('com.i89trillion.strategy.rising')
+      || href.includes('apps.apple.com/us/app/war-inc-rising')
+      || text.includes('war inc');
+  }
+
+  function normalizeWarIncLinks(root = document) {
+    root.querySelectorAll('a[rel~="sponsored"], a.promo-ad, a.preroll-link, a.short-preroll-ad').forEach((ad) => {
+      const href = ad.href || '';
+      if (!isWarIncAd(ad, href)) return;
+      ad.href = getWarIncUrl();
+      ad.dataset.adType = 'warinc';
+      ad.dataset.adCampaign = 'war_inc_rising';
+      ad.dataset.adDestination = isIOSDevice() ? 'app_store' : 'google_play';
+    });
   }
 
   function buildAdParams(ad, href) {
     const warInc = isWarIncAd(ad, href);
     const slot = normalizeAdSlot(ad);
-    const destination = href.includes('play.google.com') ? 'google_play' : 'external';
+    const destination = href.includes('apps.apple.com') ? 'app_store' : (href.includes('play.google.com') ? 'google_play' : 'external');
     return {
       ad_href: href,
       ad_slot: slot,
@@ -268,7 +294,7 @@
       ad_destination: destination,
       ad_network: warInc ? 'internal_cross_promo' : 'sponsored',
       ad_format: slot.includes('preroll') ? 'preroll' : 'banner',
-      offer_id: warInc ? 'warinc_google_play' : experimentContext.offer_id,
+      offer_id: warInc ? (destination === 'app_store' ? 'warinc_app_store' : 'warinc_google_play') : experimentContext.offer_id,
       ad_title: warInc ? 'War Inc: Rising' : String(ad.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
       conversion_event: 'ad_click'
     };
@@ -289,7 +315,7 @@
       const eventName = 'ad_click';
       const shouldReportAdsConversion = params.ad_type === 'warinc'
         && params.ad_campaign === 'war_inc_rising'
-        && params.ad_destination === 'google_play'
+        && ['google_play', 'app_store'].includes(params.ad_destination)
         && href
         && conversionActions.ad_click
         && conversionActions.ad_click.sendTo;
@@ -345,7 +371,10 @@
     });
   }
 
+  document.addEventListener('DOMContentLoaded', () => normalizeWarIncLinks());
+
   window.addEventListener('load', () => {
+    normalizeWarIncLinks();
     analytics.track('page_view');
     analytics.track('landing_view');
     document.querySelectorAll('.promo-ad, .preroll-link, .short-preroll-ad').forEach((ad) => {
