@@ -157,6 +157,7 @@
     return {
       ad_href: href,
       ad_slot: normalizeAdSlot(ad),
+      ad_type: warInc ? 'warinc' : 'sponsored',
       ad_campaign: warInc ? 'war_inc_rising' : 'sponsored',
       ad_destination: href.includes('play.google.com') ? 'google_play' : 'external',
       ad_title: warInc ? 'War Inc: Rising' : String(ad.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
@@ -176,8 +177,14 @@
         else window.location.href = href;
       };
       const params = buildAdParams(ad, href);
-      const eventName = params.ad_campaign === 'war_inc_rising' ? 'warinc_ad_click' : 'sponsored_ad_click';
-      if (href && conversionActions.ad_click && conversionActions.ad_click.sendTo) {
+      const eventName = 'ad_click';
+      const shouldReportAdsConversion = params.ad_type === 'warinc'
+        && params.ad_campaign === 'war_inc_rising'
+        && params.ad_destination === 'google_play'
+        && href
+        && conversionActions.ad_click
+        && conversionActions.ad_click.sendTo;
+      if (shouldReportAdsConversion) {
         event.preventDefault();
         analytics.track(eventName, params);
         const sent = dispatchGoogleAdsConversion('ad_click', params, { event_callback: go, event_timeout: 1200 });
@@ -224,7 +231,7 @@
       {
         const href = ad.href || '';
         const params = buildAdParams(ad, href);
-        analytics.track(params.ad_campaign === 'war_inc_rising' ? 'warinc_ad_impression' : 'sponsored_ad_impression', params);
+        analytics.track('ad_impression', params);
       }
     });
   });
