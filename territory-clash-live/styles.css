@@ -227,7 +227,8 @@ canvas {
   grid-template-areas:
     "side wallet"
     "board board"
-    "chat actions";
+    "actions actions"
+    "chat chat";
   gap: 4px;
   pointer-events: none;
 }
@@ -333,11 +334,10 @@ canvas {
 .dice-board {
   grid-area: board;
   display: grid;
-  grid-template-columns: repeat(12, minmax(45px, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 3px;
   padding: 4px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  overflow: visible;
   background: rgba(10, 14, 24, .78);
   border: 1px solid rgba(255, 255, 255, .18);
   box-shadow: 0 10px 24px rgba(0, 0, 0, .24);
@@ -345,13 +345,9 @@ canvas {
   pointer-events: auto;
 }
 
-.dice-board::-webkit-scrollbar {
-  display: none;
-}
-
 .tile {
   position: relative;
-  min-height: 32px;
+  min-height: 29px;
   display: grid;
   place-items: center;
   gap: 1px;
@@ -366,7 +362,11 @@ canvas {
 
 .tile small {
   color: rgba(255, 255, 255, .72);
-  font-size: 9px;
+  font-size: clamp(7px, 1.85vw, 9px);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tile.active::after {
@@ -387,15 +387,16 @@ canvas {
 .dice-controls {
   grid-area: actions;
   display: grid;
-  grid-template-columns: .95fr 1fr;
+  grid-template-columns: .68fr 1.58fr .72fr;
   gap: 4px;
   min-width: 0;
 }
 
 .buy-roll,
-.roll-dice {
-  min-height: 44px;
-  height: 44px;
+.roll-dice,
+.auto-roll {
+  min-height: 52px;
+  height: 52px;
   display: flex;
   place-items: center;
   align-items: center;
@@ -410,7 +411,8 @@ canvas {
 }
 
 .buy-roll:active,
-.roll-dice:active {
+.roll-dice:active,
+.auto-roll:active {
   transform: translateY(2px) scale(.98);
 }
 
@@ -420,7 +422,8 @@ canvas {
 }
 
 .buy-roll span,
-.roll-dice span {
+.roll-dice span,
+.auto-roll span {
   color: var(--muted);
   font-size: clamp(8px, 2.2vw, 10px);
   font-weight: 800;
@@ -428,22 +431,98 @@ canvas {
 
 .buy-roll { background: linear-gradient(180deg, rgba(65, 215, 112, .78), rgba(18, 86, 45, .92)); }
 .roll-dice { background: linear-gradient(180deg, rgba(255, 209, 102, .92), rgba(145, 79, 14, .95)); color: #111827; }
+.roll-dice {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(255, 255, 255, .42);
+  background:
+    linear-gradient(180deg, rgba(255, 244, 185, .95) 0%, rgba(255, 196, 72, .98) 45%, rgba(191, 103, 20, .98) 100%);
+  box-shadow:
+    inset 0 3px 0 rgba(255, 255, 255, .52),
+    inset 0 -7px 0 rgba(111, 55, 9, .44),
+    0 0 0 2px rgba(255, 209, 102, .34),
+    0 14px 0 rgba(88, 45, 13, .88),
+    0 22px 34px rgba(0, 0, 0, .38);
+  transform: translateY(-3px);
+}
+.roll-dice::before {
+  content: "";
+  position: absolute;
+  inset: 3px 8px auto;
+  height: 35%;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .46), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.roll-dice::after {
+  content: "";
+  position: absolute;
+  inset: auto 10px 6px;
+  height: 2px;
+  background: rgba(255, 244, 185, .34);
+  pointer-events: none;
+}
+.roll-dice.holding {
+  filter: saturate(1.22) brightness(1.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .24), 0 0 0 2px rgba(255, 209, 102, .5), 0 12px 28px rgba(0, 0, 0, .28);
+}
 .roll-dice b {
-  width: clamp(28px, 7vw, 34px);
-  height: clamp(28px, 7vw, 34px);
+  position: relative;
+  z-index: 1;
+  width: clamp(34px, 8.8vw, 42px);
+  height: clamp(34px, 8.8vw, 42px);
   display: grid;
   place-items: center;
   background: #fff;
   border: 2px solid rgba(17, 24, 39, .36);
   color: #ef3f49;
-  font-size: clamp(17px, 4.5vw, 23px);
+  font-size: clamp(21px, 5.6vw, 29px);
   line-height: 1;
   box-shadow: inset 0 -4px 0 rgba(17, 24, 39, .12), 0 6px 12px rgba(0, 0, 0, .18);
 }
-.roll-dice span { color: rgba(17, 24, 39, .82); }
+.roll-dice span {
+  position: relative;
+  z-index: 1;
+  color: rgba(17, 24, 39, .9);
+  font-size: clamp(13px, 3.35vw, 18px);
+  font-weight: 950;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .48);
+}
+.roll-dice:active {
+  transform: translateY(8px) scale(.99);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, .38),
+    inset 0 -4px 0 rgba(111, 55, 9, .44),
+    0 0 0 2px rgba(255, 209, 102, .28),
+    0 3px 0 rgba(88, 45, 13, .88),
+    0 12px 24px rgba(0, 0, 0, .34);
+}
+.auto-roll {
+  flex-direction: column;
+  gap: 3px;
+  padding-inline: 4px;
+  color: #dbeafe;
+  background: linear-gradient(180deg, rgba(25, 44, 83, .94), rgba(11, 18, 34, .96));
+  border-color: rgba(55, 215, 255, .46);
+}
+.auto-roll b {
+  color: #7ce7ff;
+  font-size: clamp(13px, 3.25vw, 16px);
+  line-height: 1;
+}
+.auto-roll span {
+  color: rgba(234, 246, 255, .88);
+}
+.auto-roll.active {
+  background: linear-gradient(180deg, rgba(55, 215, 255, .95), rgba(34, 81, 214, .95));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .24), 0 0 0 2px rgba(55, 215, 255, .45), 0 12px 28px rgba(0, 0, 0, .28);
+}
+.auto-roll.active span { color: #fff; }
 
 .buy-roll:disabled,
-.roll-dice:disabled {
+.roll-dice:disabled,
+.auto-roll:disabled {
   opacity: .48;
   cursor: default;
 }
@@ -454,9 +533,10 @@ canvas {
   .side-option span, .wallet span { display: none; }
   .wallet { padding: 4px 7px; }
   .chat-box input, .chat-box button { height: 30px; }
-  .tile { min-height: 28px; }
-  .buy-roll, .roll-dice { min-height: 40px; height: 40px; padding: 4px; }
-  .feed { bottom: 132px; }
+  .tile { min-height: 25px; padding-block: 2px; }
+  .buy-roll, .auto-roll { min-height: 46px; height: 46px; padding: 4px; }
+  .roll-dice { min-height: 50px; height: 50px; padding: 4px; }
+  .feed { bottom: 166px; }
 }
 
 @media (min-width: 760px) {

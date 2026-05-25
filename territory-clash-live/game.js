@@ -21,8 +21,10 @@ const ui = {
   diceBoard: document.querySelector('#diceBoard'),
   buyRollBtn: document.querySelector('#buyRollBtn'),
   rollDiceBtn: document.querySelector('#rollDiceBtn'),
+  autoRollBtn: document.querySelector('#autoRollBtn'),
   diceFace: document.querySelector('#diceFace'),
-  rollHint: document.querySelector('#rollHint')
+  rollHint: document.querySelector('#rollHint'),
+  autoRollHint: document.querySelector('#autoRollHint')
 };
 
 const W = canvas.width;
@@ -80,6 +82,7 @@ const state = {
   dicePos: 0,
   diceValue: 3,
   diceRolling: false,
+  autoRoll: false,
   supportSide: 'blue',
   territory: .5,
   redPower: 50,
@@ -102,6 +105,11 @@ const state = {
   fx: [],
   pulses: []
 };
+
+let autoRollTimer = 0;
+let holdRollTimer = 0;
+let holdRollActive = false;
+let suppressNextRollClick = false;
 
 const names = ['Mika', 'Taozi', 'Nova', 'Ace', 'Kai', 'Luna', 'Juno', 'Blaze', 'Leo', 'Mina'];
 const comments = ['border is hot', 'take the outpost', 'deploy now', 'frontline is moving', 'boost the guild', 'hold the base', 'map control wins'];
@@ -529,12 +537,84 @@ function buyRoll() {
   syncUi();
 }
 
-function rollDice() {
+function clearAutoRollTimer() {
+  if (!autoRollTimer) return;
+  clearTimeout(autoRollTimer);
+  autoRollTimer = 0;
+}
+
+function canAutoRoll() {
+  return state.rolls > 0 && !state.diceRolling && state.ending <= 0;
+}
+
+function setAutoRoll(active, silent = false) {
+  const next = Boolean(active) && state.ending <= 0;
+  if (next && state.rolls <= 0) {
+    state.autoRoll = false;
+    clearAutoRollTimer();
+    if (!silent) {
+      addFeed('Buy rolls first, then Auto can keep throwing.', 'gold');
+      sound('chat');
+    }
+    syncUi();
+    return;
+  }
+  if (state.autoRoll === next) return;
+  state.autoRoll = next;
+  if (next) {
+    if (!silent) addFeed('Auto Roll on. It will use available rolls only.', 'gold');
+    scheduleAutoRoll(120);
+  } else {
+    clearAutoRollTimer();
+    if (!silent) addFeed('Auto Roll off.', 'gold');
+  }
+  syncUi();
+}
+
+function scheduleAutoRoll(delay = 360) {
+  clearAutoRollTimer();
+  if (!state.autoRoll || state.ending > 0) return;
+  autoRollTimer = setTimeout(() => {
+    autoRollTimer = 0;
+    if (state.ending > 0) {
+      setAutoRoll(false, true);
+      stopHoldRoll();
+      return;
+    }
+    if (state.rolls <= 0) {
+      if (state.autoRoll) {
+        state.autoRoll = false;
+        addFeed('Auto Roll stopped. Buy more rolls to continue.', 'gold');
+        sound('chat');
+      }
+      stopHoldRoll();
+      syncUi();
+      return;
+    }
+    if (canAutoRoll()) {
+      rollDice(true);
+    } else {
+      scheduleAutoRoll(160);
+    }
+  }, delay);
+}
+
+function stopHoldRoll() {
+  clearTimeout(holdRollTimer);
+  holdRollTimer = 0;
+  if (!holdRollActive) return;
+  holdRollActive = false;
+  ui.rollDiceBtn.classList.remove('holding');
+  syncUi();
+}
+
+function rollDice(fromAuto = false) {
   ensureAudio();
   if (state.diceRolling || state.ending > 0) return;
   if (state.rolls <= 0) {
     addFeed('No rolls left. Spend coins to buy another roll.', 'gold');
     sound('chat');
+    if (fromAuto) setAutoRoll(false, true);
     return;
   }
   state.rolls -= 1;
@@ -558,6 +638,7 @@ function rollDice() {
       ui.diceFace.textContent = diceFaces[value - 1];
       applyDiceTile(diceTiles[state.dicePos]);
       syncUi();
+      if (state.autoRoll) scheduleAutoRoll(420);
     }
   }, 210);
 }
@@ -703,6 +784,8 @@ function aiMove() {
 }
 
 function resetRound(winner) {
+  setAutoRoll(false, true);
+  stopHoldRoll();
   state.ending = 3;
   const supportWon = state.supportSide === winner;
   state.coins += supportWon ? 25 : 10;
@@ -714,6 +797,8 @@ function resetRound(winner) {
 }
 
 function resetRoundState(round) {
+  setAutoRoll(false, true);
+  stopHoldRoll();
   state.round = round;
   state.timeLeft = 60;
   state.warnedTen = false;
@@ -736,6 +821,7 @@ function resetRoundState(round) {
   state.pulses.length = 0;
   state.rolls = Math.max(state.rolls, currentCampaign() ? 2 : 1);
   state.diceRolling = false;
+  state.autoRoll = false;
   setSupport(round % 2 === 0 ? 'red' : 'blue');
   renderDiceBoard();
   deploy('red', 5, 1);
@@ -749,6 +835,8 @@ function resetRoundState(round) {
 }
 
 function startNextRound() {
+  setAutoRoll(false, true);
+  stopHoldRoll();
   state.round += 1;
   const campaign = currentCampaign();
   state.timeLeft = 60;
@@ -770,6 +858,7 @@ function startNextRound() {
     state.coins = Math.min(999, state.coins + campaign.bonus);
   }
   state.diceRolling = false;
+  state.autoRoll = false;
   setSupport(state.round % 2 === 0 ? 'red' : 'blue');
   if (campaign) {
     addFeed(`Campaign Round: ${campaign.title}. Bonus +${campaign.bonus} coins.`, 'gold');
@@ -1811,9 +1900,13 @@ function syncUi() {
   ui.rolls.textContent = state.rolls;
   ui.supportStatus.textContent = state.supportSide === 'red' ? 'Red' : 'Blue';
   ui.diceFace.textContent = diceFaces[state.diceValue - 1];
-  ui.rollHint.textContent = state.rolls > 0 ? 'Roll Dice' : 'Buy rolls';
+  ui.rollHint.textContent = state.rolls > 0 || state.autoRoll ? 'Roll' : 'Buy rolls';
+  ui.autoRollBtn.classList.toggle('active', state.autoRoll);
+  ui.autoRollBtn.setAttribute('aria-pressed', state.autoRoll ? 'true' : 'false');
+  ui.autoRollHint.textContent = state.autoRoll ? 'On' : 'Off';
   ui.buyRollBtn.disabled = state.coins < 10 || state.diceRolling || state.ending > 0;
-  ui.rollDiceBtn.disabled = state.rolls <= 0 || state.diceRolling || state.ending > 0;
+  ui.rollDiceBtn.disabled = state.ending > 0 || (state.rolls <= 0 && !state.autoRoll) || (state.diceRolling && !state.autoRoll);
+  ui.autoRollBtn.disabled = state.ending > 0 || (state.rolls <= 0 && !state.autoRoll);
 }
 
 function loop(ts) {
@@ -1836,7 +1929,50 @@ ui.blueSupportBtn.addEventListener('click', () => {
   setSupport('blue');
 });
 ui.buyRollBtn.addEventListener('click', buyRoll);
-ui.rollDiceBtn.addEventListener('click', rollDice);
+function endRollHoldGesture() {
+  const wasHolding = holdRollActive;
+  stopHoldRoll();
+  if (wasHolding) {
+    setTimeout(() => { suppressNextRollClick = false; }, 300);
+  }
+}
+ui.rollDiceBtn.addEventListener('pointerdown', () => {
+  if (ui.rollDiceBtn.disabled || state.autoRoll || state.ending > 0) return;
+  clearTimeout(holdRollTimer);
+  holdRollTimer = setTimeout(() => {
+    if (ui.rollDiceBtn.disabled || state.ending > 0 || state.rolls <= 0) return;
+    holdRollActive = true;
+    suppressNextRollClick = true;
+    ui.rollDiceBtn.classList.add('holding');
+    state.autoRoll = false;
+    addFeed('Auto Roll on. Tap Roll again to stop.', 'gold');
+    sound('select');
+    setAutoRoll(true, true);
+    syncUi();
+  }, 450);
+});
+['pointerup', 'pointercancel', 'pointerleave'].forEach(type => {
+  ui.rollDiceBtn.addEventListener(type, endRollHoldGesture);
+});
+document.addEventListener('pointerup', endRollHoldGesture);
+document.addEventListener('pointercancel', endRollHoldGesture);
+ui.rollDiceBtn.addEventListener('click', event => {
+  if (suppressNextRollClick) {
+    event.preventDefault();
+    suppressNextRollClick = false;
+    return;
+  }
+  if (state.autoRoll) {
+    event.preventDefault();
+    setAutoRoll(false);
+    return;
+  }
+  rollDice();
+});
+ui.autoRollBtn.addEventListener('click', () => {
+  ensureAudio();
+  setAutoRoll(!state.autoRoll);
+});
 ui.chatForm.addEventListener('submit', event => {
   event.preventDefault();
   ensureAudio();
