@@ -42,6 +42,8 @@ KEY_EVENTS = [
     'site_session_time',
 ]
 
+_METADATA_CACHE = {}
+
 
 def load_client():
     if not OAUTH_CLIENT.exists():
@@ -179,6 +181,33 @@ def api_post(path, payload):
         raise RuntimeError(f'GA4 API error {e.code}: {body}')
 
 
+def api_get(path):
+    access_token = get_access_token()
+    req = urllib.request.Request(
+        API_ROOT + path,
+        headers={'Authorization': f'Bearer {access_token}'},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=45) as resp:
+            return json.loads(resp.read().decode())
+    except urllib.error.HTTPError as e:
+        body = e.read().decode(errors='replace')
+        raise RuntimeError(f'GA4 API error {e.code}: {body}')
+
+
+def get_metadata(property_id):
+    cached = _METADATA_CACHE.get(property_id)
+    if cached is not None:
+        return cached
+    data = api_get(f'/properties/{property_id}/metadata')
+    metadata = {
+        'dimensions': {item.get('apiName', '') for item in data.get('dimensions', [])},
+        'metrics': {item.get('apiName', '') for item in data.get('metrics', [])},
+    }
+    _METADATA_CACHE[property_id] = metadata
+    return metadata
+
+
 def property_tz_now():
     # GA4 property is configured as China time. Keep script explicit.
     return dt.datetime.now(dt.timezone(dt.timedelta(hours=8)))
@@ -194,6 +223,13 @@ def parse_date_hour_minute(value):
     # GA4 dateHourMinute format: YYYYMMDDHHMM
     try:
         return dt.datetime.strptime(value, '%Y%m%d%H%M').replace(tzinfo=dt.timezone(dt.timedelta(hours=8)))
+    except Exception:
+        return None
+
+
+def parse_float(value):
+    try:
+        return float(value)
     except Exception:
         return None
 
@@ -246,6 +282,35 @@ def fmt_sec(x):
     return f'{x:.1f}s'
 
 
+def compute_avg_from_custom_dimension(property_id, event_name, dimension_name, start_date, end_date, start, now):
+    rows, err = safe_report(
+        property_id,
+        ['eventName', 'dateHourMinute', dimension_name],
+        ['eventCount'],
+        start_date,
+        end_date,
+        limit=100000,
+        dimension_filter={'filter': {'fieldName': 'eventName', 'stringFilter': {'matchType': 'EXACT', 'value': event_name}}},
+    )
+    if err:
+        return None, err
+    total = 0.0
+    cnt = 0.0
+    for r in rows:
+        t = parse_date_hour_minute(r.get('dateHourMinute', ''))
+        if not (t and start <= t <= now):
+            continue
+        raw = parse_float(r.get(dimension_name, ''))
+        if raw is None:
+            continue
+        events = r.get('eventCount', 0)
+        cnt += events
+        total += raw * events
+    if cnt <= 0:
+        return None, None
+    return total / cnt, None
+
+
 def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=None):
     if date:
         day = dt.datetime.strptime(date, '%Y-%m-%d').replace(tzinfo=dt.timezone(dt.timedelta(hours=8)))
@@ -256,6 +321,13 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
     start_date = start.strftime('%Y-%m-%d')
     end_date = now.strftime('%Y-%m-%d')
     start_key = start.strftime('%Y%m%d%H%M')
+    metadata = None
+    metadata_error = None
+    try:
+        metadata = get_metadata(property_id)
+    except Exception as e:
+        metadata_error = str(e)
+        metadata = {'dimensions': set(), 'metrics': set()}
 
     # Event counts in the last N hours using dateHourMinute and local filtering.
     rows, err = safe_report(property_id, ['eventName', 'dateHourMinute'], ['eventCount', 'activeUsers'], start_date, end_date)
@@ -299,45 +371,23 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
     page_time_avg = None
     site_time_avg = None
     time_errors = []
-    page_rows, page_err = safe_report(
-        property_id,
-        ['eventName', 'dateHourMinute'],
-        ['eventCount', 'customEvent:page_time_sec'],
-        start_date,
-        end_date,
-        dimension_filter={'filter': {'fieldName': 'eventName', 'stringFilter': {'matchType': 'EXACT', 'value': 'page_time'}}},
-    )
-    if page_err:
-        time_errors.append('page_time_sec unavailable: ' + page_err[:180])
+    if 'customEvent:page_time_sec' in metadata['dimensions']:
+        page_time_avg, page_err = compute_avg_from_custom_dimension(
+            property_id, 'page_time', 'customEvent:page_time_sec', start_date, end_date, start, now
+        )
+        if page_err:
+            time_errors.append('page_time_sec unavailable: ' + page_err[:180])
     else:
-        total, cnt = 0, 0
-        for r in page_rows:
-            t = parse_date_hour_minute(r.get('dateHourMinute', ''))
-            if t and start <= t <= now:
-                cnt += r.get('eventCount', 0)
-                total += r.get('customEvent:page_time_sec', 0)
-        if cnt:
-            page_time_avg = total / cnt
+        time_errors.append('page_time_sec custom dimension not registered in GA4 metadata.')
 
-    site_rows, site_err = safe_report(
-        property_id,
-        ['eventName', 'dateHourMinute'],
-        ['eventCount', 'customEvent:site_session_time_sec'],
-        start_date,
-        end_date,
-        dimension_filter={'filter': {'fieldName': 'eventName', 'stringFilter': {'matchType': 'EXACT', 'value': 'site_session_time'}}},
-    )
-    if site_err:
-        time_errors.append('site_session_time_sec unavailable: ' + site_err[:180])
+    if 'customEvent:site_session_time_sec' in metadata['dimensions']:
+        site_time_avg, site_err = compute_avg_from_custom_dimension(
+            property_id, 'site_session_time', 'customEvent:site_session_time_sec', start_date, end_date, start, now
+        )
+        if site_err:
+            time_errors.append('site_session_time_sec unavailable: ' + site_err[:180])
     else:
-        total, cnt = 0, 0
-        for r in site_rows:
-            t = parse_date_hour_minute(r.get('dateHourMinute', ''))
-            if t and start <= t <= now:
-                cnt += r.get('eventCount', 0)
-                total += r.get('customEvent:site_session_time_sec', 0)
-        if cnt:
-            site_time_avg = total / cnt
+        time_errors.append('site_session_time_sec custom dimension not registered in GA4 metadata.')
 
     landing = event_counts.get('landing_view', 0) or event_counts.get('campaign_landing_view', 0)
     game_link = event_counts.get('content_click', 0) or event_counts.get('game_link_click', 0)
@@ -348,14 +398,19 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
     ad_imp = event_counts.get('ad_impression', 0) or event_counts.get('warinc_ad_impression', 0)
     ad_click = event_counts.get('ad_click', 0) or event_counts.get('warinc_ad_click', 0)
 
-    experiment_rows, experiment_err = safe_report(
-        property_id,
-        ['customEvent:experiment_id', 'customEvent:landing_type', 'customEvent:landing_name', 'eventName', 'dateHourMinute'],
-        ['eventCount', 'activeUsers'],
-        start_date,
-        end_date,
-        limit=100000,
-    )
+    experiment_dims = ['customEvent:experiment_id', 'customEvent:landing_type', 'customEvent:landing_name']
+    experiment_available = all(dim in metadata['dimensions'] for dim in experiment_dims)
+    if experiment_available:
+        experiment_rows, experiment_err = safe_report(
+            property_id,
+            experiment_dims + ['eventName', 'dateHourMinute'],
+            ['eventCount', 'activeUsers'],
+            start_date,
+            end_date,
+            limit=100000,
+        )
+    else:
+        experiment_rows, experiment_err = [], 'Experiment dimensions unavailable in GA4 metadata.'
     experiment_totals = {}
     for r in experiment_rows:
         t = parse_date_hour_minute(r.get('dateHourMinute', ''))
@@ -369,8 +424,54 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
         cur['activeUsers'] += r.get('activeUsers', 0)
     top_experiments = sorted(experiment_totals.items(), key=lambda kv: (kv[1].get('landing_view', 0), kv[1].get('activeUsers', 0)), reverse=True)[:8]
 
+    ad_breakdown_dims = [dim for dim in ['customEvent:ad_type', 'customEvent:ad_campaign', 'customEvent:ad_destination', 'customEvent:ad_slot'] if dim in metadata['dimensions']]
+    ad_breakdown = []
+    ad_breakdown_err = None
+    if ad_breakdown_dims:
+        ad_rows, ad_breakdown_err = safe_report(
+            property_id,
+            ['eventName', 'dateHourMinute'] + ad_breakdown_dims,
+            ['eventCount'],
+            start_date,
+            end_date,
+            limit=100000,
+            dimension_filter={
+                'orGroup': {
+                    'expressions': [
+                        {'filter': {'fieldName': 'eventName', 'stringFilter': {'matchType': 'EXACT', 'value': 'warinc_ad_impression'}}},
+                        {'filter': {'fieldName': 'eventName', 'stringFilter': {'matchType': 'EXACT', 'value': 'warinc_ad_click'}}},
+                        {'filter': {'fieldName': 'eventName', 'stringFilter': {'matchType': 'EXACT', 'value': 'ad_impression'}}},
+                        {'filter': {'fieldName': 'eventName', 'stringFilter': {'matchType': 'EXACT', 'value': 'ad_click'}}},
+                    ]
+                }
+            },
+        )
+        ad_totals = {}
+        for r in ad_rows:
+            t = parse_date_hour_minute(r.get('dateHourMinute', ''))
+            if not (t and start <= t <= now):
+                continue
+            key = tuple(r.get(dim, '') or '(not set)' for dim in ad_breakdown_dims)
+            cur = ad_totals.setdefault(key, {'ad_impression': 0, 'ad_click': 0, 'warinc_ad_impression': 0, 'warinc_ad_click': 0})
+            event_name = r.get('eventName', '')
+            if event_name in cur:
+                cur[event_name] += r.get('eventCount', 0)
+        for key, values in sorted(ad_totals.items(), key=lambda kv: (kv[1].get('warinc_ad_click', 0), kv[1].get('ad_click', 0), kv[1].get('warinc_ad_impression', 0), kv[1].get('ad_impression', 0)), reverse=True)[:10]:
+            item = {ad_breakdown_dims[i]: key[i] for i in range(len(ad_breakdown_dims))}
+            item.update({name: int(round(values[name])) for name in values})
+            ad_breakdown.append(item)
+    else:
+        ad_breakdown_err = 'No ad breakdown custom dimensions registered in GA4 metadata.'
+
+    data_status = 'ok'
+    if err and traffic_err:
+        data_status = 'query_failed'
+    elif err or traffic_err or metadata_error:
+        data_status = 'partial'
+
     result = {
         'property_id': property_id,
+        'data_status': data_status,
         'range': {'hours': hours, 'date': date, 'start': start.isoformat(), 'end': now.isoformat(), 'note': 'GA4 standard reports may have processing delay.'},
         'events': {k: int(event_counts.get(k, 0)) for k in KEY_EVENTS},
         'traffic_top': [
@@ -386,6 +487,7 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
             }
             for k, v in top_experiments
         ],
+        'ad_breakdown_top': ad_breakdown,
         'rates': {
             'game_link_click_per_landing': ratio(game_link, landing),
             'game_start_per_landing': ratio(game_start, landing),
@@ -393,7 +495,7 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
             'ad_ctr': ratio(ad_click, ad_imp),
         },
         'time': {'avg_page_time_sec': page_time_avg, 'avg_site_session_time_sec': site_time_avg, 'errors': time_errors},
-        'errors': {'events': err, 'traffic': traffic_err, 'experiments': experiment_err},
+        'errors': {'metadata': metadata_error, 'events': err, 'traffic': traffic_err, 'experiments': experiment_err, 'ad_breakdown': ad_breakdown_err},
     }
 
     if output_json:
@@ -408,6 +510,9 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
     else:
         lines.append(f'时间范围：最近 {hours} 小时（{start.strftime("%Y-%m-%d %H:%M")} – {now.strftime("%Y-%m-%d %H:%M")}，中国时间）')
     lines.append('')
+    if data_status != 'ok':
+        lines.append(f'数据状态：{data_status}')
+        lines.append('')
     lines.append('1. 流量概况')
     if top_traffic:
         for item in result['traffic_top']:
@@ -420,7 +525,7 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
         for item in result['experiments_top'][:5]:
             lines.append(f"- {item['experiment_id']} / {item['landing_type']} / {item['landing_name']}：landing {item['landing_view']}，content_click {item['content_click']}，content_start {item['content_start']}，ad_click {item['ad_click']}")
     else:
-        lines.append('- 暂无 experiment 维度数据；如果刚注册自定义维度，GA4 通常需要延迟后才可在 API 中查询。')
+        lines.append('- 暂无 experiment 维度数据；当前 GA4 metadata 未注册 experiment 相关自定义维度。')
     lines.append('')
     lines.append('3. 转化漏斗')
     lines.append(f'- campaign_landing_view：{fmt_int(landing)}')
@@ -433,12 +538,22 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
     lines.append(f'- ad_impression：{fmt_int(ad_imp)}')
     lines.append(f'- ad_click：{fmt_int(ad_click)}')
     lines.append(f'- Ad CTR：{fmt_pct(ratio(ad_click, ad_imp))}')
+    if result['ad_breakdown_top']:
+        for item in result['ad_breakdown_top'][:5]:
+            parts = []
+            for key in ad_breakdown_dims:
+                parts.append(f"{key.replace('customEvent:', '')}={item[key]}")
+            parts.append(f"warinc_impression={item['warinc_ad_impression']}")
+            parts.append(f"warinc_click={item['warinc_ad_click']}")
+            lines.append('- ' + '，'.join(parts))
+    elif ad_breakdown_err:
+        lines.append(f'- 广告细分暂不可用：{ad_breakdown_err}')
     lines.append('')
     lines.append('5. 停留时间')
     lines.append(f'- 平均单页停留：{fmt_sec(page_time_avg)}')
     lines.append(f'- 平均整站停留：{fmt_sec(site_time_avg)}')
     if time_errors:
-        lines.append('- 注意：停留时间自定义指标暂不可用；需要在 GA4 注册 page_time_sec / site_session_time_sec 为自定义指标后才能稳定计算平均值。')
+        lines.append('- 注意：停留时间按自定义维度数值聚合计算；若为空，请检查 page_time_sec / site_session_time_sec 是否随事件一并上报。')
     lines.append('')
     lines.append('6. 判断')
     if landing == 0 and sum(event_counts.values()) == 0:

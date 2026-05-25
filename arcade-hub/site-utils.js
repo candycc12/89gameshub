@@ -158,10 +158,34 @@
   let engagementSent = false;
   let experimentContext = inferExperimentContext();
   const sessionKey = 'arcadehub_session_started_at';
+  const sessionLastActivityKey = 'arcadehub_session_last_activity_at';
   const lastPathKey = 'arcadehub_last_path';
+  const SESSION_IDLE_RESET_MS = 30 * 60 * 1000;
+  const MAX_SESSION_WINDOW_MS = 12 * 60 * 60 * 1000;
+  function syncSessionWindow(now = Date.now()) {
+    try {
+      const startedAt = Number(sessionStorage.getItem(sessionKey) || 0);
+      const lastActivityAt = Number(sessionStorage.getItem(sessionLastActivityKey) || 0);
+      const invalidStart = startedAt <= 0 || startedAt > now;
+      const idleTooLong = lastActivityAt > 0 && (now - lastActivityAt) > SESSION_IDLE_RESET_MS;
+      const sessionTooLong = startedAt > 0 && (now - startedAt) > MAX_SESSION_WINDOW_MS;
+      const shouldReset = invalidStart || idleTooLong || sessionTooLong;
+      const nextStartedAt = shouldReset ? now : startedAt;
+      sessionStorage.setItem(sessionKey, String(nextStartedAt || now));
+      sessionStorage.setItem(sessionLastActivityKey, String(now));
+      sessionStorage.setItem(lastPathKey, location.pathname + location.search);
+      return nextStartedAt || now;
+    } catch (_) {
+      return now;
+    }
+  }
+  function markSessionActivity() {
+    try {
+      sessionStorage.setItem(sessionLastActivityKey, String(Date.now()));
+    } catch (_) {}
+  }
   try {
-    if (!sessionStorage.getItem(sessionKey)) sessionStorage.setItem(sessionKey, String(pageLoadAt));
-    sessionStorage.setItem(lastPathKey, location.pathname + location.search);
+    syncSessionWindow(pageLoadAt);
   } catch (_) {}
 
   function installGoogleTag() {
@@ -266,14 +290,12 @@
 
   function isWarIncAd(ad, href) {
     const text = String(ad.textContent || '').toLowerCase();
-    return href.includes('com.i89trillion.strategy.rising')
-      || href.includes('apps.apple.com/us/app/war-inc-rising')
-      || text.includes('war inc');
+    return href.includes('com.i89trillion.strategy.rising') || href.includes('apps.apple.com/us/app/war-inc-rising') || text.includes('war inc');
   }
 
   function normalizeWarIncLinks(root = document) {
     root.querySelectorAll('a[rel~="sponsored"], a.promo-ad, a.preroll-link, a.short-preroll-ad').forEach((ad) => {
-      const href = ad.href || '';
+      const href = ad.getAttribute('href') || '';
       if (!isWarIncAd(ad, href)) return;
       ad.href = getWarIncUrl();
       ad.dataset.adType = 'warinc';
@@ -301,6 +323,7 @@
   }
 
   document.addEventListener('click', (event) => {
+    markSessionActivity();
     const ad = event.target.closest && event.target.closest('a[rel~="sponsored"], a.promo-ad, a.preroll-link, a.short-preroll-ad');
     if (ad) {
       const href = ad.href || '';
@@ -351,7 +374,7 @@
     if (pageSeconds < 3) return;
     let siteSeconds = pageSeconds;
     try {
-      const startedAt = Number(sessionStorage.getItem(sessionKey) || pageLoadAt);
+      const startedAt = syncSessionWindow(now);
       if (startedAt > 0) siteSeconds = Math.max(pageSeconds, Math.round((now - startedAt) / 1000));
     } catch (_) {}
     engagementSent = true;
@@ -387,6 +410,11 @@
   });
 
   window.addEventListener('scroll', trackScrollDepth, { passive: true });
+  window.addEventListener('scroll', markSessionActivity, { passive: true });
+  window.addEventListener('focus', markSessionActivity);
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') markSessionActivity();
+  });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') sendEngagement('visibility_hidden'); });
   window.addEventListener('pagehide', () => sendEngagement('pagehide'));
 })();

@@ -110,7 +110,8 @@
     </nav>
   </footer>
 
-  <script src="site-utils.js?v=11"></script>
+  <script src="tracking-config.js?v=3"></script>
+  <script src="site-utils.js?v=12"></script>
   <script>
     const territoryParams = new URLSearchParams(location.search);
     if (window.ArcadeHubAnalytics) {
@@ -123,6 +124,10 @@
         content_type: 'interactive_game',
         content_id: 'territory_clash_live',
         content_title: 'Territory Clash Live'
+      });
+      window.ArcadeHubAnalytics.track('campaign_landing_view', {
+        campaign_theme: 'territory_clash',
+        hero_game: 'territory_clash_live'
       });
       window.ArcadeHubAnalytics.track('content_view', {
         content_type: 'interactive_game',
