@@ -43,7 +43,18 @@ function fillPage(game) {
     : `Play ${game.title} online, a ${catLabel(game.category)} browser game that starts directly in Arcade Hub.`;
   if (window.ArcadeHubSEO) window.ArcadeHubSEO.update({ title: lang === 'zh' ? `在线玩 ${game.title}` : `Play ${game.title} Online`, description: seoDescription, image: game.banner || game.icon, canonical: location.href });
   else document.title = `${game.title} · Arcade Hub`;
-  if (window.ArcadeHubAnalytics) window.ArcadeHubAnalytics.track('game_play_page_view', { game_id: game.id, game_title: game.title, category: game.category });
+  if (window.ArcadeHubAnalytics) {
+    window.ArcadeHubAnalytics.setContext({
+      landing_type: 'game_play',
+      landing_name: game.id,
+      content_type: 'game',
+      content_id: game.id,
+      content_title: game.title,
+      content_category: game.category
+    });
+    window.ArcadeHubAnalytics.track('game_play_page_view', { game_id: game.id, game_title: game.title, category: game.category });
+    window.ArcadeHubAnalytics.track('content_view', { content_type: 'game', content_id: game.id, content_title: game.title, content_category: game.category });
+  }
   document.querySelector('#game-title').textContent = game.title;
   document.querySelector('#game-category').textContent = catLabel(game.category);
   document.querySelector('#info-title').textContent = game.title;
@@ -73,7 +84,7 @@ function renderSuggestions(game) {
 function startPreroll(game) {
   let seconds = 5;
   prerollAd.classList.remove('hidden');
-  if (window.ArcadeHubAnalytics) window.ArcadeHubAnalytics.track('ad_impression', { ad_slot: 'pre_game', game_id: game.id });
+  if (window.ArcadeHubAnalytics) window.ArcadeHubAnalytics.track('ad_impression', { ad_slot: 'pre_game', ad_format: 'preroll', ad_type: 'house', ad_campaign: 'game_preroll', ad_destination: 'game_start', game_id: game.id, content_type: 'game', content_id: game.id });
   player.removeAttribute('src');
   const renderCountdown = () => prerollCountdown.textContent = `00:${String(seconds).padStart(2, '0')}`;
   renderCountdown();
@@ -84,7 +95,11 @@ function startPreroll(game) {
       clearInterval(timer);
       prerollAd.classList.add('hidden');
       player.src = game.entry;
-      if (window.ArcadeHubAnalytics) window.ArcadeHubAnalytics.track('game_start', { game_id: game.id, game_title: game.title, category: game.category, entry: game.entry });
+      if (window.ArcadeHubAnalytics) {
+        const startParams = { game_id: game.id, game_title: game.title, category: game.category, entry: game.entry, content_type: 'game', content_id: game.id, content_title: game.title, content_category: game.category };
+        window.ArcadeHubAnalytics.track('game_start', startParams);
+        window.ArcadeHubAnalytics.track('content_start', startParams);
+      }
     }
   }, 1000);
 }

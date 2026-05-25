@@ -139,7 +139,19 @@ function render(all) {
     image: theme.banner,
     canonical: location.href
   });
-  if (window.ArcadeHubAnalytics) window.ArcadeHubAnalytics.track('campaign_landing_view', { campaign_theme: themeKey, hero_game: heroGame.id });
+  if (window.ArcadeHubAnalytics) {
+    window.ArcadeHubAnalytics.setContext({
+      experiment_id: params.get('experiment_id') || params.get('exp') || params.get('utm_campaign') || `${themeKey}_collection`,
+      landing_type: 'game_collection',
+      landing_name: `${themeKey}_collection`,
+      campaign_theme: themeKey,
+      content_type: 'game_collection',
+      content_id: heroGame.id,
+      content_title: heroGame.title
+    });
+    window.ArcadeHubAnalytics.track('campaign_landing_view', { campaign_theme: themeKey, hero_game: heroGame.id });
+    window.ArcadeHubAnalytics.track('content_view', { content_type: 'game_collection', content_id: heroGame.id, content_title: heroGame.title, campaign_theme: themeKey });
+  }
 }
 function loadGames() {
   if (location.protocol === 'file:') return Promise.resolve(fallbackGames);

@@ -118,7 +118,18 @@ function render(game){
  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
  if (window.ArcadeHubSEO) window.ArcadeHubSEO.update({ title: lang === 'zh' ? `${game.title} - ${label(game.category)}游戏` : `${game.title} - ${label(game.category)} Game`, description: seoDescription, image: game.banner || game.icon, type: 'article', canonical: location.href });
  else document.title=`${game.title} · Arcade Hub`;
- if (window.ArcadeHubAnalytics) window.ArcadeHubAnalytics.track('game_detail_view', { game_id: game.id, game_title: game.title, category: game.category });
+ if (window.ArcadeHubAnalytics) {
+   window.ArcadeHubAnalytics.setContext({
+     landing_type: 'game_detail',
+     landing_name: game.id,
+     content_type: 'game',
+     content_id: game.id,
+     content_title: game.title,
+     content_category: game.category
+   });
+   window.ArcadeHubAnalytics.track('game_detail_view', { game_id: game.id, game_title: game.title, category: game.category });
+   window.ArcadeHubAnalytics.track('content_view', { content_type: 'game', content_id: game.id, content_title: game.title, content_category: game.category });
+ }
  document.querySelector('#detail-title').textContent=game.title; document.querySelector('#detail-category').textContent=label(game.category); document.querySelector('#detail-intro').textContent=t('intro')(game);
  const banner=document.querySelector('#detail-banner'); banner.src=game.banner||game.icon||placeholder(game); banner.onerror=()=>banner.src=placeholder(game);
  document.querySelector('#detail-play').href=game.playMode === 'direct' ? game.entry : `play.html?id=${encodeURIComponent(game.id)}&lang=${lang}`; document.querySelector('#detail-open-direct').href=game.entry; document.querySelector('#detail-play').textContent=t('play'); document.querySelector('#detail-open-direct').textContent=t('direct');

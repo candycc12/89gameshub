@@ -30,6 +30,101 @@
     return String(text || '').replace(/\s+/g, ' ').trim().slice(0, 158);
   }
 
+
+  function slugify(value, fallback = '') {
+    return String(value || fallback || '')
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '') || fallback;
+  }
+
+  function queryParams() {
+    return new URLSearchParams(location.search || '');
+  }
+
+  function getQueryValue(keys) {
+    const params = queryParams();
+    for (const key of keys) {
+      const value = params.get(key);
+      if (value) return value;
+    }
+    return '';
+  }
+
+  function inferPageType() {
+    const page = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+    if (page === 'campaign.html') return 'game_collection';
+    if (page === 'shorts.html') return 'short_video_collection';
+    if (page === 'territory-clash-live.html') return 'interactive_game_landing';
+    if (page === 'detail.html') return 'game_detail';
+    if (page === 'play.html') return 'game_play';
+    if (page === 'index.html' || page === '') return 'home';
+    return page.replace(/\.html$/, '') || 'site_page';
+  }
+
+  function inferLandingName(pageType) {
+    const params = queryParams();
+    const explicit = getQueryValue(['landing_name', 'landing', 'page_name']);
+    if (explicit) return slugify(explicit);
+    const theme = getQueryValue(['theme', 'utm_campaign']);
+    const gameId = params.get('id') || '';
+    if (pageType === 'game_collection') return slugify(theme || 'word_link', 'word_link') + '_collection';
+    if (pageType === 'short_video_collection') return 'shorts_collection';
+    if (pageType === 'interactive_game_landing') return 'territory_clash_live';
+    if ((pageType === 'game_detail' || pageType === 'game_play') && gameId) return slugify(gameId);
+    return pageType;
+  }
+
+  function inferExperimentId(pageType, landingName) {
+    const explicit = getQueryValue(['experiment_id', 'exp', 'experiment']);
+    if (explicit) return slugify(explicit);
+    const utmCampaign = getQueryValue(['utm_campaign']);
+    const utmContent = getQueryValue(['utm_content', 'creative_id', 'content_id']);
+    if (utmCampaign && utmContent) return `${slugify(utmCampaign)}_${slugify(utmContent)}`;
+    if (utmCampaign) return slugify(utmCampaign);
+    const theme = getQueryValue(['theme']);
+    if (theme) return `${slugify(theme)}_landing`;
+    return `${slugify(landingName || pageType)}_organic`;
+  }
+
+  function inferExperimentContext() {
+    const params = queryParams();
+    const pageType = inferPageType();
+    const landingType = slugify(getQueryValue(['landing_type']) || pageType);
+    const landingName = inferLandingName(landingType || pageType);
+    const campaignTheme = slugify(getQueryValue(['theme', 'campaign_theme', 'utm_campaign']));
+    const utmSource = params.get('utm_source') || '';
+    const utmMedium = params.get('utm_medium') || '';
+    const utmCampaign = params.get('utm_campaign') || '';
+    const utmContent = params.get('utm_content') || '';
+    const utmTerm = params.get('utm_term') || '';
+    const creativeId = slugify(getQueryValue(['creative_id', 'utm_content', 'content_id']));
+    return {
+      experiment_id: inferExperimentId(landingType || pageType, landingName),
+      landing_type: landingType,
+      landing_name: landingName,
+      offer_id: slugify(getQueryValue(['offer_id']) || 'site_browse'),
+      creative_id: creativeId,
+      campaign_theme: campaignTheme,
+      page_type: pageType,
+      utm_source: utmSource,
+      utm_medium: utmMedium,
+      utm_campaign: utmCampaign,
+      utm_content: utmContent,
+      utm_term: utmTerm
+    };
+  }
+
+  function cleanParams(params) {
+    const out = {};
+    Object.entries(params || {}).forEach(([key, value]) => {
+      if (value === undefined || value === null) return;
+      out[key] = value;
+    });
+    return out;
+  }
+
   window.ArcadeHubSEO = {
     update({ title, description, image, type = 'website', canonical } = {}) {
       const finalTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
@@ -59,6 +154,7 @@
   const pageLoadAt = Date.now();
   const trackedScrollDepths = new Set();
   let engagementSent = false;
+  let experimentContext = inferExperimentContext();
   const sessionKey = 'arcadehub_session_started_at';
   const lastPathKey = 'arcadehub_last_path';
   try {
@@ -116,14 +212,22 @@
 
   const analytics = window.ArcadeHubAnalytics = {
     events: [],
+    getContext() {
+      return { ...experimentContext };
+    },
+    setContext(params = {}) {
+      experimentContext = cleanParams({ ...experimentContext, ...params });
+      return analytics.getContext();
+    },
     track(name, params = {}) {
-      const enrichedParams = {
+      const enrichedParams = cleanParams({
+        ...experimentContext,
         page_path: location.pathname,
         page_location: location.href,
         page_title: document.title,
         landing_theme: new URLSearchParams(location.search).get('theme') || '',
         ...params
-      };
+      });
       const event = { name, params: enrichedParams, ts: new Date().toISOString() };
       analytics.events.push(event);
       window.dataLayer = window.dataLayer || [];
@@ -154,12 +258,17 @@
 
   function buildAdParams(ad, href) {
     const warInc = isWarIncAd(ad, href);
+    const slot = normalizeAdSlot(ad);
+    const destination = href.includes('play.google.com') ? 'google_play' : 'external';
     return {
       ad_href: href,
-      ad_slot: normalizeAdSlot(ad),
+      ad_slot: slot,
       ad_type: warInc ? 'warinc' : 'sponsored',
       ad_campaign: warInc ? 'war_inc_rising' : 'sponsored',
-      ad_destination: href.includes('play.google.com') ? 'google_play' : 'external',
+      ad_destination: destination,
+      ad_network: warInc ? 'internal_cross_promo' : 'sponsored',
+      ad_format: slot.includes('preroll') ? 'preroll' : 'banner',
+      offer_id: warInc ? 'warinc_google_play' : experimentContext.offer_id,
       ad_title: warInc ? 'War Inc: Rising' : String(ad.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80),
       conversion_event: 'ad_click'
     };
@@ -195,7 +304,18 @@
       }
     }
     const gameLink = event.target.closest && event.target.closest('a[href*="detail.html?id="], a[href*="play.html?id="]');
-    if (gameLink) analytics.track('game_link_click', { href: gameLink.href });
+    if (gameLink) {
+      let contentId = '';
+      try { contentId = new URL(gameLink.href, location.href).searchParams.get('id') || ''; } catch (_) {}
+      const linkParams = {
+        href: gameLink.href,
+        content_type: 'game',
+        content_id: contentId,
+        click_target: gameLink.href.includes('play.html') ? 'game_play_link' : 'game_detail_link'
+      };
+      analytics.track('game_link_click', linkParams);
+      analytics.track('content_click', linkParams);
+    }
   }, true);
 
   function sendEngagement(reason = 'hidden') {
@@ -227,6 +347,7 @@
 
   window.addEventListener('load', () => {
     analytics.track('page_view');
+    analytics.track('landing_view');
     document.querySelectorAll('.promo-ad, .preroll-link, .short-preroll-ad').forEach((ad) => {
       {
         const href = ad.href || '';

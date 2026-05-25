@@ -17,6 +17,18 @@
     return video.currentSrc || video.querySelector('source').src || '';
   }
 
+  function shortIdFromSrc(src) {
+    return String(src || '').split('/').pop().replace(/\.[a-z0-9]+$/i, '') || 'short_video';
+  }
+
+  if (window.ArcadeHubAnalytics) {
+    window.ArcadeHubAnalytics.setContext({
+      landing_type: 'short_video_collection',
+      landing_name: 'shorts_collection',
+      content_type: 'short_video_collection'
+    });
+  }
+
   function showPreroll() {
     prerollSeenForSrc = video.querySelector('source').src || currentSrc();
     preroll.classList.add('show');
@@ -45,7 +57,9 @@
       video.load();
       video.scrollIntoView({ behavior: 'smooth', block: 'center' });
       showPreroll();
-      track('short_select', { short_title: card.dataset.title, short_index: index + 1, video_src: src });
+      const selectParams = { short_title: card.dataset.title, short_index: index + 1, video_src: src, content_type: 'short_video', content_id: shortIdFromSrc(src), content_title: card.dataset.title, click_target: 'short_card' };
+      track('short_select', selectParams);
+      track('content_click', selectParams);
     });
   });
 
@@ -58,7 +72,9 @@
     }
     if (lastTrackedSrc !== src) {
       lastTrackedSrc = src;
-      track('short_video_play', { short_title: title.textContent, video_src: src });
+      const playParams = { short_title: title.textContent, video_src: src, content_type: 'short_video', content_id: shortIdFromSrc(src), content_title: title.textContent };
+      track('short_video_play', playParams);
+      track('content_start', playParams);
     }
   });
 
@@ -73,6 +89,9 @@
   video.addEventListener('ended', () => {
     allowPlay = false;
     prerollSeenForSrc = '';
-    track('short_video_complete', { short_title: title.textContent, video_src: currentSrc() });
+    const src = currentSrc();
+    const completeParams = { short_title: title.textContent, video_src: src, content_type: 'short_video', content_id: shortIdFromSrc(src), content_title: title.textContent };
+    track('short_video_complete', completeParams);
+    track('content_complete', completeParams);
   });
 })();

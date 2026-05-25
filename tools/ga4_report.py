@@ -25,7 +25,12 @@ DEVICE_CODE_URL = 'https://oauth2.googleapis.com/device/code'
 API_ROOT = 'https://analyticsdata.googleapis.com/v1beta'
 
 KEY_EVENTS = [
+    'landing_view',
     'campaign_landing_view',
+    'content_view',
+    'content_click',
+    'content_start',
+    'content_complete',
     'game_link_click',
     'game_play_page_view',
     'game_start',
@@ -334,14 +339,35 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
         if cnt:
             site_time_avg = total / cnt
 
-    landing = event_counts.get('campaign_landing_view', 0)
-    game_link = event_counts.get('game_link_click', 0)
-    play_view = event_counts.get('game_play_page_view', 0)
-    game_start = event_counts.get('game_start', 0)
+    landing = event_counts.get('landing_view', 0) or event_counts.get('campaign_landing_view', 0)
+    game_link = event_counts.get('content_click', 0) or event_counts.get('game_link_click', 0)
+    play_view = event_counts.get('content_view', 0) or event_counts.get('game_play_page_view', 0)
+    game_start = event_counts.get('content_start', 0) or event_counts.get('game_start', 0)
     # New unified ad events use ad_impression/ad_click + params such as ad_type/ad_campaign/ad_slot.
     # Keep legacy fallbacks for dates before the event-name migration.
     ad_imp = event_counts.get('ad_impression', 0) or event_counts.get('warinc_ad_impression', 0)
     ad_click = event_counts.get('ad_click', 0) or event_counts.get('warinc_ad_click', 0)
+
+    experiment_rows, experiment_err = safe_report(
+        property_id,
+        ['customEvent:experiment_id', 'customEvent:landing_type', 'customEvent:landing_name', 'eventName', 'dateHourMinute'],
+        ['eventCount', 'activeUsers'],
+        start_date,
+        end_date,
+        limit=100000,
+    )
+    experiment_totals = {}
+    for r in experiment_rows:
+        t = parse_date_hour_minute(r.get('dateHourMinute', ''))
+        if not (t and start <= t <= now):
+            continue
+        key = (r.get('customEvent:experiment_id', '') or '(not set)', r.get('customEvent:landing_type', '') or '(not set)', r.get('customEvent:landing_name', '') or '(not set)')
+        cur = experiment_totals.setdefault(key, {'landing_view': 0, 'content_click': 0, 'content_start': 0, 'ad_impression': 0, 'ad_click': 0, 'activeUsers': 0})
+        event_name = r.get('eventName', '')
+        if event_name in cur:
+            cur[event_name] += r.get('eventCount', 0)
+        cur['activeUsers'] += r.get('activeUsers', 0)
+    top_experiments = sorted(experiment_totals.items(), key=lambda kv: (kv[1].get('landing_view', 0), kv[1].get('activeUsers', 0)), reverse=True)[:8]
 
     result = {
         'property_id': property_id,
@@ -351,6 +377,15 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
             {'source': k[0], 'medium': k[1], 'campaign': k[2], **{m: int(v[m]) for m in v}}
             for k, v in top_traffic
         ],
+        'experiments_top': [
+            {
+                'experiment_id': k[0],
+                'landing_type': k[1],
+                'landing_name': k[2],
+                **{m: int(v[m]) for m in v}
+            }
+            for k, v in top_experiments
+        ],
         'rates': {
             'game_link_click_per_landing': ratio(game_link, landing),
             'game_start_per_landing': ratio(game_start, landing),
@@ -358,7 +393,7 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
             'ad_ctr': ratio(ad_click, ad_imp),
         },
         'time': {'avg_page_time_sec': page_time_avg, 'avg_site_session_time_sec': site_time_avg, 'errors': time_errors},
-        'errors': {'events': err, 'traffic': traffic_err},
+        'errors': {'events': err, 'traffic': traffic_err, 'experiments': experiment_err},
     }
 
     if output_json:
@@ -380,25 +415,32 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
     else:
         lines.append('- 暂无可用来源数据，或 GA4 数据仍在延迟处理中。')
     lines.append('')
-    lines.append('2. 转化漏斗')
+    lines.append('2. 实验/落地页概况')
+    if result.get('experiments_top'):
+        for item in result['experiments_top'][:5]:
+            lines.append(f"- {item['experiment_id']} / {item['landing_type']} / {item['landing_name']}：landing {item['landing_view']}，content_click {item['content_click']}，content_start {item['content_start']}，ad_click {item['ad_click']}")
+    else:
+        lines.append('- 暂无 experiment 维度数据；如果刚注册自定义维度，GA4 通常需要延迟后才可在 API 中查询。')
+    lines.append('')
+    lines.append('3. 转化漏斗')
     lines.append(f'- campaign_landing_view：{fmt_int(landing)}')
     lines.append(f'- game_link_click：{fmt_int(game_link)}（{fmt_pct(ratio(game_link, landing))} / landing）')
     lines.append(f'- game_play_page_view：{fmt_int(play_view)}')
     lines.append(f'- game_start：{fmt_int(game_start)}（{fmt_pct(ratio(game_start, landing))} / landing）')
     lines.append(f'- ad_click：{fmt_int(ad_click)}（{fmt_pct(ratio(ad_click, landing))} / landing）')
     lines.append('')
-    lines.append('3. 广告表现')
+    lines.append('4. 广告表现')
     lines.append(f'- ad_impression：{fmt_int(ad_imp)}')
     lines.append(f'- ad_click：{fmt_int(ad_click)}')
     lines.append(f'- Ad CTR：{fmt_pct(ratio(ad_click, ad_imp))}')
     lines.append('')
-    lines.append('4. 停留时间')
+    lines.append('5. 停留时间')
     lines.append(f'- 平均单页停留：{fmt_sec(page_time_avg)}')
     lines.append(f'- 平均整站停留：{fmt_sec(site_time_avg)}')
     if time_errors:
         lines.append('- 注意：停留时间自定义指标暂不可用；需要在 GA4 注册 page_time_sec / site_session_time_sec 为自定义指标后才能稳定计算平均值。')
     lines.append('')
-    lines.append('5. 判断')
+    lines.append('6. 判断')
     if landing == 0 and sum(event_counts.values()) == 0:
         lines.append('- 最近窗口内暂无可判断数据，可能是无流量或 GA4 报表延迟。')
     elif game_start == 0 and landing > 0:
@@ -416,6 +458,8 @@ def report(property_id=DEFAULT_PROPERTY_ID, hours=2, output_json=False, date=Non
             lines.append('- events query error: ' + result['errors']['events'][:200])
         if result['errors']['traffic']:
             lines.append('- traffic query error: ' + result['errors']['traffic'][:200])
+        if result['errors'].get('experiments'):
+            lines.append('- experiment query error: ' + result['errors']['experiments'][:200])
     print('\n'.join(lines))
 
 
