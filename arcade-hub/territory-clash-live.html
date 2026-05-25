@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Territory Clash Live | Campaign Battle Demo</title>
-  <meta name="description" content="Play a live territory battle demo with dice actions, Red vs Blue support, and classic campaign rounds inspired by guild war strategy games." />
+  <title>Territory Clash Live | Play Online</title>
+  <meta name="description" content="Play Territory Clash Live online. Pick a side, roll dice, deploy troops, and push the frontline in a fast Red vs Blue territory battle." />
   <meta property="og:site_name" content="Arcade Hub" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Territory Clash Live | Campaign Battle Demo" />
-  <meta property="og:description" content="Choose a side, roll dice, deploy troops, and push the frontline in a fast live territory battle demo." />
+  <meta property="og:title" content="Territory Clash Live | Play Online" />
+  <meta property="og:description" content="Choose a side, roll dice, deploy troops, and push the frontline in a fast live territory battle." />
   <meta property="og:image" content="../territory-clash-live/cover.svg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Territory Clash Live | Campaign Battle Demo" />
-  <meta name="twitter:description" content="A playable live territory battle landing page for campaign acquisition testing." />
+  <meta name="twitter:title" content="Territory Clash Live | Play Online" />
+  <meta name="twitter:description" content="Play a fast Red vs Blue territory battle online with dice actions and campaign rounds." />
   <meta name="twitter:image" content="../territory-clash-live/cover.svg" />
   <link rel="canonical" href="territory-clash-live.html" />
   <link rel="stylesheet" href="styles.css?v=16" />
@@ -21,19 +21,19 @@
   <header class="detail-topbar campaign-topbar">
     <a href="index.html" class="brand small">ARCADE<span>HUB</span></a>
     <div class="top-actions">
-      <a href="detail.html?id=territory-clash-live&lang=en" class="ghost">Game Details</a>
-      <a href="../territory-clash-live/index.html" class="ghost">Open Demo</a>
+      <a href="detail.html?id=territory-clash-live&lang=en" class="ghost">Game Info</a>
+      <a href="../territory-clash-live/index.html" class="ghost">Open Game</a>
     </div>
   </header>
 
   <main class="campaign-landing">
     <section class="campaign-hero">
       <div class="campaign-copy">
-        <span class="eyebrow">Playable Acquisition Test</span>
+        <span class="eyebrow">Live territory battle</span>
         <h1>Territory Clash Live</h1>
         <p>Pick Red Legion or Blue Alliance, roll the dice, trigger attacks, fortify the frontline, and watch the campaign map shift in real time.</p>
         <div class="campaign-actions">
-          <a class="primary" href="#play-demo">Play Campaign Demo</a>
+          <a class="primary" href="#play-demo">Play Now</a>
           <a class="ghost" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">Play War Inc: Rising</a>
         </div>
         <div class="campaign-stats" aria-label="Game highlights">
@@ -54,8 +54,8 @@
 
     <section class="campaign-demo" id="play-demo">
       <div class="section-head">
-        <h2>Try the Campaign Round</h2>
-        <span>Normal flow, campaign rounds appear every fifth battle</span>
+        <h2>Play the Battle Round</h2>
+        <span>Choose a side, roll dice, and push the frontline.</span>
       </div>
       <div class="campaign-demo-layout">
         <div class="campaign-frame">
@@ -112,10 +112,40 @@
 
   <script src="site-utils.js?v=10"></script>
   <script>
+    const territoryParams = new URLSearchParams(location.search);
+    if (window.ArcadeHubAnalytics) {
+      window.ArcadeHubAnalytics.setContext({
+        experiment_id: territoryParams.get('experiment_id') || territoryParams.get('exp') || territoryParams.get('utm_campaign') || 'territory_clash_v1',
+        landing_type: 'interactive_game_landing',
+        landing_name: 'territory_clash_live',
+        offer_id: 'warinc_google_play',
+        campaign_theme: 'territory_clash',
+        content_type: 'interactive_game',
+        content_id: 'territory_clash_live',
+        content_title: 'Territory Clash Live'
+      });
+      window.ArcadeHubAnalytics.track('content_view', {
+        content_type: 'interactive_game',
+        content_id: 'territory_clash_live',
+        content_title: 'Territory Clash Live'
+      });
+      document.querySelectorAll('a[href="#play-demo"], a[href*="../territory-clash-live/index.html"]').forEach((link) => {
+        link.addEventListener('click', () => {
+          const params = {
+            content_type: 'interactive_game',
+            content_id: 'territory_clash_live',
+            content_title: 'Territory Clash Live',
+            click_target: link.getAttribute('href') === '#play-demo' ? 'hero_play_cta' : 'open_game_link'
+          };
+          window.ArcadeHubAnalytics.track('content_click', params);
+          window.ArcadeHubAnalytics.track('content_start', params);
+        });
+      });
+    }
     if (window.ArcadeHubSEO) {
       window.ArcadeHubSEO.update({
-        title: 'Territory Clash Live - Campaign Battle Demo',
-        description: 'Play a live territory battle acquisition demo with dice actions, Red vs Blue support, and classic campaign rounds.',
+        title: 'Territory Clash Live - Play Online',
+        description: 'Play Territory Clash Live online with dice actions, Red vs Blue support, and fast campaign rounds.',
         image: '../territory-clash-live/cover.svg',
         canonical: location.href
       });
