@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcade Short Player</title>
+  <meta name="description" content="Watch an Arcade Short preview episode." />
+  <meta property="og:site_name" content="Arcade Hub" />
+  <meta property="og:type" content="video.other" />
+  <meta property="og:title" content="Arcade Short Player" />
+  <meta property="og:description" content="Watch an Arcade Short preview episode." />
+  <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="short-play.html" />
+  <link rel="stylesheet" href="styles.css?v=21" />
+</head>
+<body class="short-watch-page">
+  <header class="short-watch-topbar">
+    <a class="brand small" href="short.html">ARCADE<span>SHORT</span></a>
+    <nav aria-label="Short navigation">
+      <a href="short.html">Home</a>
+      <a href="short.html#new-release">Categories</a>
+      <a href="short.html#all-series">Fandom</a>
+    </nav>
+    <div class="short-watch-tools">
+      <a href="short.html#all-series">⌕</a>
+      <span>◎ English⌄</span>
+      <i aria-hidden="true"></i>
+    </div>
+  </header>
+
+  <main class="short-watch-layout">
+    <a class="short-watch-back" href="short.html" aria-label="Back">‹</a>
+    <section class="short-watch-stage">
+      <video class="short-watch-video" id="watch-video" controls playsinline preload="metadata"></video>
+    </section>
+    <aside class="short-watch-panel">
+      <nav class="short-watch-crumbs"><a href="short.html">Home</a><span>/</span><strong id="watch-crumb">Episode 1</strong></nav>
+      <h1 id="watch-title">Episode 1 - The Heiress Contract</h1>
+      <p id="watch-copy">Ava enters a fake marriage and discovers the stranger who saved her is the CEO everyone fears.</p>
+      <div class="short-watch-tags" id="watch-tags"></div>
+      <div class="short-watch-metrics">
+        <span>♥<b>9.1k</b></span>
+        <span>★<b>177.8k</b></span>
+        <span>↗<b>Share</b></span>
+      </div>
+      <a class="promo-ad short-war-ad short-war-ad-compact" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">
+        <span class="ad-label">Advertisement</span>
+        <img src="external-assets/war-inc/war-inc-banner-boss.png" alt="War Inc: Rising" />
+        <span class="promo-copy">
+          <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
+          <strong>War Inc: Rising</strong>
+          <em>Fight the world boss.</em>
+        </span>
+        <b>Play on Google Play</b>
+      </a>
+      <div class="short-watch-episodes">
+        <div class="short-watch-range"><strong>0 - 49</strong><span>All Episodes ›</span></div>
+        <div class="short-watch-grid" id="watch-grid"></div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="site-utils.js?v=1"></script>
+  <script src="short-data.js?v=1"></script>
+  <script>
+    const seriesList = window.ArcadeShortsData || [];
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id') || 'geo-history-war';
+    const item = seriesList.find(series => series.id === id) || seriesList[0];
+    const requestedEpisode = Number(params.get('episode') || 1);
+    const episode = Math.min(Math.max(requestedEpisode, 1), item.episodes);
+    const episodePath = `external-assets/shorts/${item.id}/episode-${String(episode).padStart(2, '0')}.mp4`;
+    const video = document.querySelector('#watch-video');
+    video.src = episodePath;
+    video.poster = item.poster;
+    document.querySelector('#watch-title').textContent = `Episode ${episode} - ${item.title}`;
+    document.querySelector('#watch-copy').textContent = item.copy;
+    document.querySelector('#watch-crumb').textContent = `Episode ${episode}`;
+    document.querySelector('#watch-tags').replaceChildren(...item.tags.map(tag => {
+      const span = document.createElement('span');
+      span.textContent = tag;
+      return span;
+    }));
+    document.querySelector('.short-watch-range strong').textContent = `1 - ${item.episodes}`;
+    document.querySelector('#watch-grid').replaceChildren(...Array.from({ length: item.episodes }, (_, i) => i + 1).map(value => {
+      const button = document.createElement('a');
+      const ep = value;
+      button.href = `short-play.html?id=${encodeURIComponent(item.id)}&episode=${ep}`;
+      button.textContent = value;
+      if (ep === episode) button.className = 'active';
+      return button;
+    }));
+    if (window.ArcadeHubSEO) {
+      window.ArcadeHubSEO.update({
+        title: `Episode ${episode} - ${item.title}`,
+        description: item.copy,
+        image: item.poster,
+        canonical: location.href
+      });
+    }
+  </script>
+</body>
+</html>
