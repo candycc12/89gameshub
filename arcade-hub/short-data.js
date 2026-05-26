@@ -2,6 +2,7 @@ window.ArcadeShortsData = [
   {
     id: 'geo-history-war',
     title: 'Geo History War',
+    displayTitle: 'Geo Conflict Shorts',
     category: 'Geo & History',
     tags: ['History', 'War', 'Strategy'],
     copy: 'Fast geography and history conflict shorts with map-driven battles.',
@@ -10,7 +11,8 @@ window.ArcadeShortsData = [
   },
   {
     id: 'country-humans',
-    title: 'Country Humans',
+    title: 'Cyanide & Happiness',
+    displayTitle: 'C&H Animated Shorts',
     category: 'Geo & History',
     tags: ['Country', 'History', 'Comedy'],
     copy: 'Country character shorts built around quick historical twists.',
@@ -20,6 +22,7 @@ window.ArcadeShortsData = [
   {
     id: 'dick-figures',
     title: 'Dick Figures',
+    displayTitle: 'Red Figure Shorts',
     category: 'Animated Comedy',
     tags: ['Animation', 'Comedy', 'Friends'],
     copy: 'Chaotic animated shorts with quick jokes and punchy scenes.',
@@ -29,6 +32,7 @@ window.ArcadeShortsData = [
   {
     id: 'henry-stickman',
     title: 'Henry Stickman',
+    displayTitle: 'Stickman Escape Shorts',
     category: 'Animated Comedy',
     tags: ['Stickman', 'Action', 'Choices'],
     copy: 'Stickman action shorts with fast escapes and playful outcomes.',
@@ -38,6 +42,7 @@ window.ArcadeShortsData = [
   {
     id: 'south-park',
     title: 'South Park',
+    displayTitle: 'Park Town Satire',
     category: 'Animated Comedy',
     tags: ['Animation', 'Satire', 'Comedy'],
     copy: 'Short animated comedy clips with sharp timing and character moments.',
@@ -47,6 +52,7 @@ window.ArcadeShortsData = [
   {
     id: 'war-inc',
     title: 'War Inc Episode',
+    displayTitle: 'War Inc: Rising Shorts',
     category: 'Strategy & War',
     tags: ['War Inc', 'Strategy', 'Battle'],
     copy: 'War Inc story shorts featuring battles, bosses, and territory pressure.',

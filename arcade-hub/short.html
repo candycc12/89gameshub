@@ -12,7 +12,7 @@
   <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="short.html" />
-  <link rel="stylesheet" href="styles.css?v=21" />
+  <link rel="stylesheet" href="styles.css?v=22" />
 </head>
 <body class="short-reel-page">
   <header class="short-reel-topbar">
@@ -43,12 +43,12 @@
         <a class="promo-ad short-war-ad short-hero-slide short-hero-ad" id="short-banner-3" href="https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising" target="_blank" rel="noopener sponsored">
           <span class="ad-label">Advertisement</span>
           <img src="external-assets/war-inc/war-inc-banner-territory.png" alt="War Inc: Rising" />
-          <span class="promo-copy">
-            <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
-            <strong>War Inc: Rising</strong>
-            <em>Build. Expand. Conquer.</em>
-          </span>
-          <b>Play on Google Play</b>
+        <span class="promo-copy">
+          <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
+          <strong>War Inc: Rising</strong>
+          <em>Build. Expand. Conquer.</em>
+        </span>
+          <b>Play Now</b>
         </a>
         <a class="short-hero-slide" id="short-banner-4" href="short-play.html?id=dick-figures&episode=1">
           <img src="external-assets/shorts/dick-figures/poster.jpg" alt="Dick Figures" />
@@ -84,7 +84,7 @@
         <strong>War Inc: Rising</strong>
         <em>Fight the world boss.</em>
       </span>
-      <b>Play on Google Play</b>
+      <b>Play Now</b>
     </a>
 
     <section class="short-reel-row">
@@ -103,7 +103,7 @@
         <strong>War Inc: Rising</strong>
         <em>Build. Expand. Conquer.</em>
       </span>
-      <b>Play on Google Play</b>
+      <b>Play Now</b>
     </a>
 
     <section class="short-reel-row" id="all-series">
@@ -123,7 +123,8 @@
       const card = document.createElement('a');
       card.className = 'short-reel-card';
       card.href = `short-play.html?id=${encodeURIComponent(item.id)}&episode=1`;
-      card.innerHTML = `<span class="short-reel-poster real-poster"><img src="${item.poster}" alt="${item.title}" loading="lazy" /><b>${item.title}</b></span><strong>${item.title}</strong><small>${item.episodes} episodes</small>`;
+      const title = item.displayTitle || item.title;
+      card.innerHTML = `<span class="short-reel-poster real-poster"><img src="${item.poster}" alt="${title}" loading="lazy" /><b>${title}</b></span><strong>${title}</strong><small>${item.episodes} episodes</small>`;
       return card;
     }
     function renderShortRow(selector, items) {

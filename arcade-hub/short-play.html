@@ -12,7 +12,7 @@
   <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="short-play.html" />
-  <link rel="stylesheet" href="styles.css?v=21" />
+  <link rel="stylesheet" href="styles.css?v=22" />
 </head>
 <body class="short-watch-page">
   <header class="short-watch-topbar">
@@ -52,7 +52,7 @@
           <strong>War Inc: Rising</strong>
           <em>Fight the world boss.</em>
         </span>
-        <b>Play on Google Play</b>
+        <b>Play Now</b>
       </a>
       <div class="short-watch-episodes">
         <div class="short-watch-range"><strong>0 - 49</strong><span>All Episodes ›</span></div>
@@ -74,7 +74,8 @@
     const video = document.querySelector('#watch-video');
     video.src = episodePath;
     video.poster = item.poster;
-    document.querySelector('#watch-title').textContent = `Episode ${episode} - ${item.title}`;
+    const displayTitle = item.displayTitle || item.title;
+    document.querySelector('#watch-title').textContent = `Episode ${episode} - ${displayTitle}`;
     document.querySelector('#watch-copy').textContent = item.copy;
     document.querySelector('#watch-crumb').textContent = `Episode ${episode}`;
     document.querySelector('#watch-tags').replaceChildren(...item.tags.map(tag => {
@@ -93,7 +94,7 @@
     }));
     if (window.ArcadeHubSEO) {
       window.ArcadeHubSEO.update({
-        title: `Episode ${episode} - ${item.title}`,
+        title: `Episode ${episode} - ${displayTitle}`,
         description: item.copy,
         image: item.poster,
         canonical: location.href

@@ -1177,21 +1177,21 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  width: min(520px, 46vw);
-  min-width: 280px;
-  min-height: 108px;
+  gap: 10px;
+  width: min(300px, 28vw);
+  min-width: 190px;
+  min-height: 64px;
   border-radius: 12px;
-  background: rgba(255,255,255,.94);
+  background: rgba(255,255,255,.88);
   color: #070a12;
-  box-shadow: 0 24px 70px rgba(0,0,0,.34);
+  box-shadow: 0 16px 46px rgba(0,0,0,.28);
 }
 .short-reel-play i {
   font-style: normal;
-  font-size: clamp(30px, 3.4vw, 48px);
+  font-size: clamp(22px, 2.1vw, 34px);
 }
 .short-reel-play strong {
-  font-size: clamp(34px, 4vw, 56px);
+  font-size: clamp(24px, 2.7vw, 38px);
   line-height: 1;
 }
 .short-reel-dots {
@@ -1258,7 +1258,7 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
 }
 .short-reel-card {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
 }
 .short-reel-poster {
@@ -1305,13 +1305,16 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   z-index: 1;
   display: block;
   color: white;
-  font-size: clamp(17px, 1.8vw, 26px);
-  line-height: 1;
+  font-size: clamp(16px, 1.45vw, 22px);
+  line-height: 1.08;
 }
 .short-reel-card > strong {
   color: white;
-  font-size: clamp(17px, 1.75vw, 25px);
-  line-height: 1.18;
+  font-size: clamp(16px, 1.55vw, 22px);
+  line-height: 1.12;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .short-reel-card small {
   color: rgba(255,255,255,.56);
@@ -1468,6 +1471,40 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   background: linear-gradient(135deg, rgba(124,92,255,.44), rgba(34,211,238,.2));
   border: 1px solid rgba(34,211,238,.36);
 }
+.short-reel-page .short-war-ad,
+.short-watch-page .short-war-ad {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+}
+.short-reel-page .short-hero-track .short-war-ad {
+  grid-template-columns: minmax(0, .8fr) auto;
+  padding: 24px clamp(24px, 4vw, 56px);
+}
+.short-reel-page .short-inline-ad {
+  min-height: 112px;
+  padding: 20px 24px;
+}
+.short-watch-page .short-war-ad-compact {
+  min-height: 92px;
+  padding: 14px 16px;
+}
+.short-reel-page .short-war-ad .promo-copy,
+.short-watch-page .short-war-ad .promo-copy {
+  min-width: 0;
+}
+.short-reel-page .short-war-ad .promo-copy strong,
+.short-watch-page .short-war-ad .promo-copy strong {
+  font-size: clamp(18px, 1.55vw, 24px);
+  line-height: 1.08;
+}
+.short-reel-page .short-war-ad b,
+.short-watch-page .short-war-ad b {
+  justify-self: end;
+  white-space: nowrap;
+  font-size: 15px;
+}
 @media (max-width: 1180px) {
   .short-watch-layout {
     grid-template-columns: 1fr;
@@ -1505,8 +1542,8 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .short-reel-hero { min-height: 250px; }
   .short-reel-play {
     min-width: 0;
-    width: min(460px, 68vw);
-    min-height: 92px;
+    width: min(280px, 52vw);
+    min-height: 58px;
   }
   .short-reel-dots { gap: 10px; bottom: 16px; }
   .short-reel-dots a { width: 9px; height: 9px; }
@@ -1536,6 +1573,17 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .short-war-ad span { padding: 12px; }
   .short-war-ad strong { font-size: 17px; }
   .short-war-ad em { font-size: 13px; }
+  .short-reel-page .short-war-ad,
+  .short-watch-page .short-war-ad {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .short-reel-page .short-war-ad b,
+  .short-watch-page .short-war-ad b {
+    justify-self: start;
+    font-size: 13px;
+    padding: 8px 11px;
+  }
   .short-watch-layout { padding: 76px 14px 0; }
   .short-watch-video { height: 72vh; }
   .short-watch-panel h1 { font-size: 24px; }
