@@ -4,3 +4,4 @@ arcade-hub/audit-artifacts/
 arcade-hub/recheck-artifacts/
 arcade-hub/*.pyc
 __pycache__/
+arcade-hub/external-assets/shorts/**/*.mov
