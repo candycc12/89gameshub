@@ -124,7 +124,7 @@
       card.className = 'short-reel-card';
       card.href = `short-play.html?id=${encodeURIComponent(item.id)}&episode=1`;
       const title = item.displayTitle || item.title;
-      card.innerHTML = `<span class="short-reel-poster real-poster"><img src="${item.poster}" alt="${title}" loading="lazy" /><b>${title}</b></span><strong>${title}</strong><small>${item.episodes} episodes</small>`;
+      card.innerHTML = `<span class="short-reel-poster real-poster"><img src="${item.poster}" alt="${title}" loading="lazy" /><b>${title}</b></span><small>${item.episodes} episodes</small>`;
       return card;
     }
     function renderShortRow(selector, items) {

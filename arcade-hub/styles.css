@@ -1099,17 +1099,19 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   gap: clamp(12px, 2.4vw, 24px);
 }
 .short-reel-tools a,
-.short-watch-tools a,
-.short-watch-tools span {
+.short-watch-tools > a:not(.ghost) {
   font-size: clamp(22px, 2.4vw, 38px);
   font-weight: 800;
   color: white;
 }
-.short-watch-tools span {
-  font-size: 18px;
+.short-watch-tools .ghost {
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 800;
+  padding: 9px 13px;
 }
 .short-reel-tools span,
-.short-watch-tools i {
+.short-reel-tools i {
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -1258,7 +1260,7 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
 }
 .short-reel-card {
   display: grid;
-  gap: 8px;
+  gap: 7px;
   min-width: 0;
 }
 .short-reel-poster {
@@ -1309,12 +1311,7 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   line-height: 1.08;
 }
 .short-reel-card > strong {
-  color: white;
-  font-size: clamp(16px, 1.55vw, 22px);
-  line-height: 1.12;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: none;
 }
 .short-reel-card small {
   color: rgba(255,255,255,.56);
@@ -1343,16 +1340,16 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
 .short-watch-back {
   position: fixed;
   z-index: 12;
-  left: clamp(20px, 3vw, 58px);
-  top: 104px;
+  left: clamp(16px, 2vw, 34px);
+  top: 92px;
   display: grid;
   place-items: center;
-  width: 70px;
-  height: 70px;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   background: rgba(255,255,255,.2);
   color: white;
-  font-size: 56px;
+  font-size: 42px;
   line-height: 1;
 }
 .short-watch-stage {
@@ -1532,10 +1529,10 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .short-reel-tools,
   .short-watch-tools { gap: 12px; }
   .short-reel-tools a,
-  .short-watch-tools a { font-size: 30px; }
-  .short-watch-tools span { display: none; }
+  .short-watch-tools > a:not(.ghost) { font-size: 30px; }
+  .short-watch-tools .ghost { display: none; }
   .short-reel-tools span,
-  .short-watch-tools i {
+  .short-reel-tools i {
     width: 44px;
     height: 44px;
   }
@@ -1560,7 +1557,6 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .short-reel-head span { font-size: 15px; }
   .short-reel-posters { grid-auto-columns: 52%; }
   .short-reel-card { gap: 8px; }
-  .short-reel-card > strong { font-size: 16px; }
   .short-reel-poster {
     min-height: 210px;
     padding: 12px;
@@ -1591,11 +1587,11 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .short-watch-crumbs { font-size: 17px; }
   .short-watch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .short-watch-back {
-    left: 14px;
-    top: 88px;
-    width: 52px;
-    height: 52px;
-    font-size: 42px;
+    left: 12px;
+    top: 84px;
+    width: 44px;
+    height: 44px;
+    font-size: 34px;
   }
 }
 
