@@ -1096,27 +1096,20 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   display: flex;
   align-items: center;
   justify-content: end;
-  gap: clamp(12px, 2.4vw, 24px);
+  gap: 10px;
 }
-.short-reel-tools a,
+.short-reel-tools > a:not(.ghost),
 .short-watch-tools > a:not(.ghost) {
   font-size: clamp(22px, 2.4vw, 38px);
   font-weight: 800;
   color: white;
 }
+.short-reel-tools .ghost,
 .short-watch-tools .ghost {
   color: var(--muted);
   font-size: 15px;
   font-weight: 800;
   padding: 9px 13px;
-}
-.short-reel-tools span,
-.short-reel-tools i {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,.42);
-  background: radial-gradient(circle at 50% 38%, #f7f9ff 0 21%, #b7bfd6 22% 44%, #4b556f 45% 100%);
 }
 .short-reel-main {
   padding: 0 clamp(16px, 3vw, 44px) 56px;
@@ -1340,16 +1333,16 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
 .short-watch-back {
   position: fixed;
   z-index: 12;
-  left: clamp(16px, 2vw, 34px);
-  top: 92px;
+  left: clamp(12px, 1.6vw, 24px);
+  top: 88px;
   display: grid;
   place-items: center;
-  width: 54px;
-  height: 54px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: rgba(255,255,255,.2);
+  background: rgba(255,255,255,.16);
   color: white;
-  font-size: 42px;
+  font-size: 30px;
   line-height: 1;
 }
 .short-watch-stage {
@@ -1527,15 +1520,11 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .short-reel-topbar nav,
   .short-watch-topbar nav { display: none; }
   .short-reel-tools,
-  .short-watch-tools { gap: 12px; }
-  .short-reel-tools a,
+  .short-watch-tools { gap: 8px; }
+  .short-reel-tools > a:not(.ghost),
   .short-watch-tools > a:not(.ghost) { font-size: 30px; }
+  .short-reel-tools .ghost,
   .short-watch-tools .ghost { display: none; }
-  .short-reel-tools span,
-  .short-reel-tools i {
-    width: 44px;
-    height: 44px;
-  }
   .short-reel-hero { min-height: 250px; }
   .short-reel-play {
     min-width: 0;
@@ -1587,11 +1576,11 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .short-watch-crumbs { font-size: 17px; }
   .short-watch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .short-watch-back {
-    left: 12px;
-    top: 84px;
-    width: 44px;
-    height: 44px;
-    font-size: 34px;
+    left: 10px;
+    top: 82px;
+    width: 36px;
+    height: 36px;
+    font-size: 27px;
   }
 }
 
