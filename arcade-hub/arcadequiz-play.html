@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcadequiz Play | Arcade Hub</title>
+  <meta name="description" content="Play an Arcadequiz interactive quiz with multiple-choice questions, points, result cards, and share copy." />
+  <meta property="og:site_name" content="Arcade Hub" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Arcadequiz Play | Arcade Hub" />
+  <meta property="og:description" content="Play an Arcadequiz interactive quiz." />
+  <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="arcadequiz-play.html" />
+  <link rel="stylesheet" href="styles.css?v=25" />
+</head>
+<body class="quiz-detail-page">
+  <header class="quiz-topbar">
+    <a class="brand small" href="arcadequiz.html">ARCADE<span>QUIZ</span></a>
+    <nav aria-label="Quiz navigation">
+      <a href="arcadequiz.html">Quiz feed</a>
+      <a href="arcadequiz.html#section-daily">Daily</a>
+      <a href="arcadequiz.html#section-war">Strategy</a>
+    </nav>
+    <div class="quiz-top-actions">
+      <button class="ghost buttonlike" id="quiz-detail-lang" type="button">中文</button>
+      <a class="ghost" href="index.html">Arcade Hub</a>
+    </div>
+  </header>
+
+  <main class="quiz-detail-main">
+    <section class="quiz-detail-layout">
+      <article class="quiz-detail-panel">
+        <div class="quiz-detail-hero">
+          <span id="quiz-detail-format"></span>
+          <h1 id="quiz-detail-title"></h1>
+          <p id="quiz-detail-copy"></p>
+        </div>
+        <div class="quiz-progress">
+          <span id="quiz-detail-progress-label"></span>
+          <b><i id="quiz-detail-progress-bar"></i></b>
+        </div>
+        <div class="quiz-question" id="quiz-detail-question"></div>
+        <div class="quiz-result" id="quiz-detail-result" hidden></div>
+      </article>
+
+      <aside class="quiz-detail-aside">
+        <article class="quiz-detail-score">
+          <div><span id="detail-score-label">Score</span><strong id="detail-score">0</strong></div>
+          <div><span id="detail-streak-label">Streak</span><strong id="detail-streak">0</strong></div>
+          <div><span id="detail-completed-label">Completed</span><strong id="detail-completed">0</strong></div>
+        </article>
+        <a class="promo-ad quiz-war-ad quiz-war-ad-card" href="territory-clash-live.html">
+          <span class="ad-label">Advertisement</span>
+          <img src="external-assets/war-inc/war-inc-banner-boss.png" alt="War Inc: Rising" />
+          <span class="promo-copy">
+            <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
+            <strong>War Inc: Rising</strong>
+            <em>Fight the world boss.</em>
+          </span>
+          <b>Play now</b>
+        </a>
+        <article class="quiz-related">
+          <h2 id="related-title">Related quizzes</h2>
+          <div id="quiz-related-list"></div>
+        </article>
+      </aside>
+    </section>
+  </main>
+
+  <script src="site-utils.js?v=1"></script>
+  <script src="arcadequiz.js?v=7"></script>
+  <script src="arcadequiz-play.js?v=1"></script>
+</body>
+</html>

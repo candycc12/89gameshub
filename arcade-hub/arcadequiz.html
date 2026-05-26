@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arcadequiz | Viral Quizzes & Strategy Challenges</title>
+  <meta name="description" content="Arcadequiz is a bilingual quiz feed for personality tests, trivia, timed challenges, strategy simulations, geography, history, finance, and daily quizzes." />
+  <meta property="og:site_name" content="Arcade Hub" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Arcadequiz | Viral Quizzes & Strategy Challenges" />
+  <meta property="og:description" content="Play bilingual viral quizzes and strategy challenges in Chinese and English." />
+  <meta property="og:image" content="external-assets/brand/og-arcade-hub.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="arcadequiz.html" />
+  <link rel="stylesheet" href="styles.css?v=25" />
+</head>
+<body class="quiz-page">
+  <header class="quiz-topbar">
+    <a class="brand small" href="arcadequiz.html">ARCADE<span>QUIZ</span></a>
+    <nav id="quiz-nav" aria-label="Quiz sections"></nav>
+    <div class="quiz-top-actions">
+      <button class="ghost buttonlike" id="quiz-lang-toggle" type="button">中文</button>
+      <a class="ghost" href="index.html" data-i18n="hub">Arcade Hub</a>
+    </div>
+  </header>
+
+  <main class="quiz-main">
+    <section class="quiz-dashboard" aria-label="Today quiz dashboard">
+      <article class="quiz-featured" id="featured-quiz"></article>
+      <div class="quiz-trending" id="trending-quizzes"></div>
+      <aside class="quiz-side-stack">
+        <article class="quiz-daily" id="daily-module"></article>
+        <article class="quiz-stats">
+          <div><span data-i18n="score">Score</span><strong id="user-score">0</strong></div>
+          <div><span data-i18n="streak">Streak</span><strong id="user-streak">0</strong></div>
+          <div><span data-i18n="completed">Completed</span><strong id="user-completed">0</strong></div>
+          <button class="quiz-primary buttonlike" id="quick-challenge" type="button" data-i18n="quick">Quick challenge</button>
+        </article>
+      </aside>
+    </section>
+
+    <a class="promo-ad quiz-war-ad quiz-war-ad-inline" href="territory-clash-live.html">
+      <span class="ad-label">Advertisement</span>
+      <img src="external-assets/war-inc/war-inc-banner-territory.png" alt="War Inc: Rising" />
+      <span class="promo-copy">
+        <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
+        <strong>War Inc: Rising</strong>
+        <em>Build. Expand. Conquer.</em>
+      </span>
+      <b>Play now</b>
+    </a>
+
+    <section class="quiz-filter-strip" id="format-strip" aria-label="Quiz formats"></section>
+    <section class="quiz-section-grid" id="quiz-sections"></section>
+
+    <section class="quiz-deep-row" id="deep-modules">
+      <article class="quiz-deep-card">
+        <span data-i18n="deepLabel">Deep read + quiz</span>
+        <h2 data-i18n="deepTitle">Cold War Crisis Room</h2>
+        <p data-i18n="deepCopy">Read a neutral scenario brief, then choose how you would manage escalation, alliance signals, and risk.</p>
+        <div class="quiz-deep-actions">
+          <a class="quiz-primary buttonlike" href="arcadequiz-play.html?id=cold-war-crisis-simulator" data-i18n="startBrief">Start scenario</a>
+          <button class="quiz-ghost buttonlike follow-column" type="button" data-i18n="follow">Follow column</button>
+        </div>
+      </article>
+      <article class="quiz-deep-card creator-card">
+        <span data-i18n="creatorLabel">Creator prompt</span>
+        <h2 data-i18n="creatorTitle">Write your own version</h2>
+        <p data-i18n="creatorCopy">Pick a topic, define 3-5 choices, and make a result people want to share.</p>
+        <a class="quiz-primary buttonlike" id="create-template" href="arcadequiz-play.html?id=create-your-viral-quiz" data-i18n="create">Create your quiz</a>
+      </article>
+      <a class="promo-ad quiz-war-ad quiz-war-ad-card" href="territory-clash-live.html">
+        <span class="ad-label">Advertisement</span>
+        <img src="external-assets/war-inc/war-inc-banner-boss.png" alt="War Inc: Rising" />
+        <span class="promo-copy">
+          <img src="external-assets/war-inc/war-inc-icon.png" alt="" />
+          <strong>War Inc: Rising</strong>
+          <em>Fight the world boss.</em>
+        </span>
+        <b>Play now</b>
+      </a>
+    </section>
+  </main>
+
+  <div class="quiz-modal" id="quiz-modal" aria-hidden="true">
+    <div class="quiz-modal-panel" role="dialog" aria-modal="true" aria-labelledby="quiz-modal-title">
+      <button class="quiz-close buttonlike" id="quiz-close" type="button" aria-label="Close">×</button>
+      <div class="quiz-play-head">
+        <span id="quiz-modal-format"></span>
+        <h2 id="quiz-modal-title"></h2>
+        <p id="quiz-modal-copy"></p>
+      </div>
+      <div class="quiz-progress">
+        <span id="quiz-progress-label"></span>
+        <b><i id="quiz-progress-bar"></i></b>
+      </div>
+      <div class="quiz-question" id="quiz-question"></div>
+      <div class="quiz-result" id="quiz-result" hidden></div>
+    </div>
+  </div>
+
+  <script src="site-utils.js?v=1"></script>
+  <script src="arcadequiz.js?v=7"></script>
+</body>
+</html>
