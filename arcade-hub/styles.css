@@ -1995,6 +1995,67 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   font-size: 17px;
   line-height: 1.6;
 }
+.quiz-love-detail .quiz-detail-panel {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(251,113,133,.18), transparent 18rem),
+    radial-gradient(circle at 90% 20%, rgba(34,211,238,.16), transparent 20rem),
+    rgba(18,25,43,.92);
+}
+.quiz-love-detail .quiz-detail-hero {
+  min-height: 280px;
+  background:
+    linear-gradient(135deg, rgba(251,113,133,.82), rgba(124,92,255,.6) 52%, rgba(34,211,238,.34)),
+    radial-gradient(circle at 82% 22%, rgba(255,255,255,.24), transparent 9rem);
+}
+.quiz-love-detail .quiz-detail-hero::before,
+.quiz-love-detail .quiz-detail-hero::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.14);
+  box-shadow: 0 18px 40px rgba(0,0,0,.16);
+}
+.quiz-love-detail .quiz-detail-hero::before {
+  top: 24px;
+  right: 26px;
+  width: 190px;
+  height: 58px;
+  border-radius: 22px 22px 6px 22px;
+}
+.quiz-love-detail .quiz-detail-hero::after {
+  top: 96px;
+  right: 92px;
+  width: 132px;
+  height: 46px;
+  border-radius: 20px 20px 20px 6px;
+  opacity: .78;
+}
+.quiz-love-detail .quiz-detail-hero > * {
+  position: relative;
+  z-index: 2;
+}
+.quiz-love-detail .quiz-detail-hero span {
+  color: #fff;
+}
+.quiz-love-detail .quiz-detail-hero h1 {
+  max-width: 640px;
+  font-size: clamp(38px, 5vw, 74px);
+}
+.quiz-love-detail .quiz-detail-hero p {
+  max-width: 650px;
+  color: #fff4fb;
+}
+.quiz-love-detail .quiz-options button:hover {
+  border-color: rgba(251,113,133,.58);
+  background:
+    linear-gradient(135deg, rgba(251,113,133,.18), rgba(34,211,238,.1)),
+    rgba(255,255,255,.08);
+  transform: translateY(-2px);
+}
+.quiz-love-detail .quiz-result h3 {
+  color: #fff;
+}
 .quiz-detail-aside {
   display: grid;
   gap: 14px;
@@ -2080,6 +2141,18 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
   .quiz-detail-main { padding-inline: 12px; }
   .quiz-detail-panel { padding: 14px; border-radius: 20px; }
   .quiz-detail-hero { padding: 18px; border-radius: 18px; }
+  .quiz-love-detail .quiz-detail-hero::before {
+    top: 16px;
+    right: 16px;
+    width: 120px;
+    height: 42px;
+  }
+  .quiz-love-detail .quiz-detail-hero::after {
+    top: 68px;
+    right: 56px;
+    width: 86px;
+    height: 34px;
+  }
   .quiz-detail-score div { padding: 10px 8px; }
   .quiz-detail-score strong { font-size: 20px; }
 }

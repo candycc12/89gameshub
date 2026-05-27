@@ -28,12 +28,11 @@
 
   function renderHeader() {
     document.documentElement.lang = shared.getLang() === 'zh' ? 'zh-CN' : 'en';
+    document.body.classList.toggle('quiz-love-detail', quiz.category === 'love');
     $('#quiz-detail-lang').textContent = shared.getLang() === 'zh' ? 'EN' : '中文';
     $('#quiz-detail-format').textContent = shared.quizMeta(quiz);
     $('#quiz-detail-title').textContent = title();
-    $('#quiz-detail-copy').textContent = quiz.format === 'strategy'
-      ? (shared.getLang() === 'zh' ? '中立决策模拟：权衡信号、成本和不确定性。' : 'Neutral decision simulation: weigh signals, cost, and uncertainty.')
-      : (shared.getLang() === 'zh' ? '回答 3-5 道选择题，获得结果卡、积分奖励和分享文案。' : 'Answer 3-5 multiple-choice questions to get a result card, points, and share copy.');
+    $('#quiz-detail-copy').textContent = shared.quizDetailCopy(quiz);
     $('#related-title').textContent = shared.getLang() === 'zh' ? '相关测验' : 'Related quizzes';
     updateScoreCard();
     renderRelated();
@@ -94,7 +93,7 @@
       return memo;
     }, {});
     const topTrait = Object.entries(traits).sort((a, b) => b[1] - a[1])[0]?.[0] || 'spark';
-    const result = text().results[topTrait];
+    const result = shared.quizResult(quiz, topTrait);
     const reward = quiz.points + score * 10;
     const state = shared.updateProgress(reward);
     const share = shared.getLang() === 'zh'
