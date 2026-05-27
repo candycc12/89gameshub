@@ -152,6 +152,7 @@
   const trackingConfig = window.ARCADE_TRACKING || {};
   const googleTagId = String(trackingConfig.googleTagId || '').trim();
   const ga4MeasurementId = String(trackingConfig.ga4MeasurementId || '').trim();
+  const tiktokPixelId = String(trackingConfig.tiktokPixelId || 'D8BEO9JC77U7N1D0E6E0').trim();
   const conversionActions = (trackingConfig.googleAds && trackingConfig.googleAds.conversionActions) || {};
   const pageLoadAt = Date.now();
   const trackedScrollDepths = new Set();
@@ -187,6 +188,43 @@
   try {
     syncSessionWindow(pageLoadAt);
   } catch (_) {}
+
+  function installTikTokPixel() {
+    if (!tiktokPixelId || tiktokPixelId.includes('YOUR_') || window.ttq || document.querySelector(`script[data-arcade-tiktok-pixel="${tiktokPixelId}"]`)) return;
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t;
+      const ttq = w[t] = w[t] || [];
+      ttq.methods = ['page','track','identify','instances','debug','on','off','once','ready','alias','group','enableCookie','disableCookie','holdConsent','revokeConsent','grantConsent'];
+      ttq.setAndDefer = function (target, method) {
+        target[method] = function () { target.push([method].concat(Array.prototype.slice.call(arguments, 0))); };
+      };
+      for (let i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+      ttq.instance = function (id) {
+        const instance = ttq._i[id] || [];
+        for (let i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(instance, ttq.methods[i]);
+        return instance;
+      };
+      ttq.load = function (id, options) {
+        const src = 'https://analytics.tiktok.com/i18n/pixel/events.js';
+        ttq._i = ttq._i || {};
+        ttq._i[id] = [];
+        ttq._i[id]._u = src;
+        ttq._t = ttq._t || {};
+        ttq._t[id] = +new Date();
+        ttq._o = ttq._o || {};
+        ttq._o[id] = options || {};
+        const script = d.createElement('script');
+        script.type = 'text/javascript';
+        script.async = true;
+        script.src = `${src}?sdkid=${id}&lib=${t}`;
+        script.dataset.arcadeTiktokPixel = id;
+        const first = d.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(script, first);
+      };
+      ttq.load(tiktokPixelId);
+      ttq.page();
+    }(window, document, 'ttq');
+  }
 
   function installGoogleTag() {
     if (!googleTagId || googleTagId.includes('YOUR_') || document.querySelector(`script[data-arcade-google-tag="${googleTagId}"]`)) return;
@@ -235,6 +273,45 @@
   }
 
   installGoogleTag();
+  installTikTokPixel();
+
+  function toTikTokProperties(params = {}) {
+    return cleanParams({
+      content_name: params.content_id || params.hero_game || params.landing_name || params.campaign_theme || params.page_type || 'arcadehub',
+      content_type: params.content_type || params.landing_type || params.page_type || 'site',
+      content_id: params.content_id || params.hero_game || params.landing_name || '',
+      description: params.page_title || document.title || '',
+      experiment_id: params.experiment_id,
+      landing_name: params.landing_name,
+      landing_type: params.landing_type,
+      campaign_theme: params.campaign_theme,
+      creative_id: params.creative_id,
+      utm_source: params.utm_source,
+      utm_medium: params.utm_medium,
+      utm_campaign: params.utm_campaign,
+      utm_content: params.utm_content,
+      ad_type: params.ad_type,
+      ad_campaign: params.ad_campaign,
+      ad_destination: params.ad_destination,
+      ad_slot: params.ad_slot,
+      ad_network: params.ad_network,
+      ad_format: params.ad_format,
+      button_name: params.click_target || params.conversion_event || params.ad_slot || params.content_id || '',
+      value: Number(params.value || 0) || undefined,
+      currency: params.currency || undefined
+    });
+  }
+
+  function dispatchTikTokEvent(name, params = {}) {
+    if (!window.ttq || typeof window.ttq.track !== 'function') return false;
+    const props = toTikTokProperties(params);
+    let eventName = '';
+    if (['campaign_landing_view', 'landing_view'].includes(name)) eventName = 'ViewContent';
+    if (['game_start', 'game_link_click', 'content_click', 'ad_click'].includes(name)) eventName = 'ClickButton';
+    if (!eventName) return false;
+    window.ttq.track(eventName, props);
+    return true;
+  }
 
   const analytics = window.ArcadeHubAnalytics = {
     events: [],
@@ -259,6 +336,7 @@
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({ event: name, arcade_event: name, ...event.params });
       if (typeof window.gtag === 'function') window.gtag('event', name, event.params);
+      dispatchTikTokEvent(name, event.params);
       if (name !== 'ad_click') dispatchGoogleAdsConversion(name, event.params);
       if (isLocal) console.debug('[ArcadeHubAnalytics]', event);
     }

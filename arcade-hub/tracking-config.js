@@ -4,6 +4,7 @@
 window.ARCADE_TRACKING = {
   googleTagId: 'AW-11129215317',
   ga4MeasurementId: 'G-W9KB44PNFN',
+  tiktokPixelId: 'D8BEO9JC77U7N1D0E6E0',
   googleAds: {
     conversionActions: {
       ad_click: {
