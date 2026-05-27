@@ -275,11 +275,32 @@
   installGoogleTag();
   installTikTokPixel();
 
-  function toTikTokProperties(params = {}) {
+  function inferTikTokClickLabel(name, params = {}) {
+    if (name === 'ad_click') {
+      const title = params.ad_title || params.ad_campaign || 'Sponsored ad';
+      const slot = params.ad_slot ? `: ${params.ad_slot}` : '';
+      return `${title} ad${slot}`;
+    }
+    if (['game_start', 'game_link_click', 'content_click'].includes(name)) {
+      return `Game click: ${params.content_id || params.hero_game || params.landing_name || 'unknown'}`;
+    }
+    return params.content_id || params.hero_game || params.landing_name || params.campaign_theme || params.page_type || 'arcadehub';
+  }
+
+  function inferTikTokClickAction(name, params = {}) {
+    if (name === 'ad_click') return params.ad_type === 'warinc' ? 'warinc_ad_click' : 'sponsored_ad_click';
+    if (name === 'game_start') return 'game_start';
+    if (name === 'game_link_click') return params.click_target || 'game_link_click';
+    if (name === 'content_click') return 'content_click';
+    return name;
+  }
+
+  function toTikTokProperties(name, params = {}) {
+    const clickAction = inferTikTokClickAction(name, params);
     return cleanParams({
-      content_name: params.content_id || params.hero_game || params.landing_name || params.campaign_theme || params.page_type || 'arcadehub',
+      content_name: inferTikTokClickLabel(name, params),
       content_type: 'product',
-      content_id: params.content_id || params.hero_game || params.landing_name || '',
+      content_id: params.content_id || params.hero_game || params.ad_campaign || params.landing_name || '',
       arcade_content_type: params.content_type || params.landing_type || params.page_type || 'site',
       description: params.page_title || document.title || '',
       experiment_id: params.experiment_id,
@@ -297,7 +318,9 @@
       ad_slot: params.ad_slot,
       ad_network: params.ad_network,
       ad_format: params.ad_format,
-      button_name: params.click_target || params.conversion_event || params.ad_slot || params.content_id || '',
+      button_name: clickAction,
+      click_action: clickAction,
+      click_category: name === 'ad_click' ? 'ad' : (['game_start', 'game_link_click', 'content_click'].includes(name) ? 'game' : 'page'),
       value: Number(params.value || 0) || undefined,
       currency: params.currency || undefined
     });
@@ -305,12 +328,17 @@
 
   function dispatchTikTokEvent(name, params = {}) {
     if (!window.ttq || typeof window.ttq.track !== 'function') return false;
-    const props = toTikTokProperties(params);
+    const props = toTikTokProperties(name, params);
     let eventName = '';
+    let customEventName = '';
     if (['campaign_landing_view', 'landing_view'].includes(name)) eventName = 'ViewContent';
     if (['game_start', 'game_link_click', 'content_click', 'ad_click'].includes(name)) eventName = 'ClickButton';
+    if (name === 'ad_click') customEventName = props.ad_type === 'warinc' ? 'WarIncAdClick' : 'SponsoredAdClick';
+    if (name === 'game_start') customEventName = 'GameStartClick';
+    if (name === 'game_link_click') customEventName = 'GameLinkClick';
     if (!eventName) return false;
     window.ttq.track(eventName, props);
+    if (customEventName) window.ttq.track(customEventName, props);
     return true;
   }
 
