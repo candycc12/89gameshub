@@ -278,8 +278,9 @@
   function toTikTokProperties(params = {}) {
     return cleanParams({
       content_name: params.content_id || params.hero_game || params.landing_name || params.campaign_theme || params.page_type || 'arcadehub',
-      content_type: params.content_type || params.landing_type || params.page_type || 'site',
+      content_type: 'product',
       content_id: params.content_id || params.hero_game || params.landing_name || '',
+      arcade_content_type: params.content_type || params.landing_type || params.page_type || 'site',
       description: params.page_title || document.title || '',
       experiment_id: params.experiment_id,
       landing_name: params.landing_name,
