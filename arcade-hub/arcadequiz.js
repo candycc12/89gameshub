@@ -148,6 +148,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['A simple question with an easy answer', 'analyst'],
           ['A callback to an inside joke', 'connector'],
           ['Nothing. Let silence answer too', 'strategist']
+        ]],
+        ['They send a song with no context. You decode it as...', [
+          ['A tiny confession wearing headphones', 'spark'],
+          ['A clue, but lyrics need confirmation', 'analyst'],
+          ['They wanted to share a mood with me', 'connector'],
+          ['Nice, but playlists are not promises', 'strategist']
+        ]],
+        ['You accidentally leave them on read for a day. Your comeback?', [
+          ['"I vanished for lore reasons"', 'spark'],
+          ['"Sorry, long day. I am back"', 'analyst'],
+          ['"I saw this and thought of you"', 'connector'],
+          ['Own it once, then be more consistent', 'strategist']
         ]]
       ],
       zh: [
@@ -174,6 +186,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['一个很容易回答的小问题', 'analyst'],
           ['抛一个只有你们懂的旧梗', 'connector'],
           ['不补。沉默也是答案', 'strategist']
+        ]],
+        ['TA 没头没尾发来一首歌。你会解读成？', [
+          ['戴着耳机的小型告白', 'spark'],
+          ['算线索，但歌词还需要确认', 'analyst'],
+          ['TA 想把某种心情分享给我', 'connector'],
+          ['很好听，但歌单不是承诺', 'strategist']
+        ]],
+        ['你不小心已读 TA 一整天。回场第一句？', [
+          ['「我因为剧情需要消失了」', 'spark'],
+          ['「抱歉，今天太满了，我回来了」', 'analyst'],
+          ['「刚看到这个，突然想到你」', 'connector'],
+          ['承认一次，然后以后稳定一点', 'strategist']
         ]]
       ]
     }
@@ -208,6 +232,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['They explain changes instead of disappearing', 'analyst'],
           ['They make space for your pace too', 'connector'],
           ['Their actions stay boringly consistent', 'strategist']
+        ]],
+        ['They cancel once, then offer two new times. You file it under...', [
+          ['Green flag with calendar literacy', 'strategist'],
+          ['A normal life thing, handled well', 'analyst'],
+          ['They cared enough to repair the vibe', 'connector'],
+          ['Still sad, but also kind of hot', 'spark']
+        ]],
+        ['Which behavior gives the fastest ick?', [
+          ['Hot-cold texting as a personality', 'analyst'],
+          ['Making you compete for basic effort', 'strategist'],
+          ['Jokes that quietly make you smaller', 'connector'],
+          ['Posting thirst traps while dodging plans', 'spark']
         ]]
       ],
       zh: [
@@ -234,6 +270,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['有变化会解释，不是直接消失', 'analyst'],
           ['也尊重我的节奏', 'connector'],
           ['行动稳定到有点无聊', 'strategist']
+        ]],
+        ['TA 取消一次，但主动给了两个新时间。你把它归类为？', [
+          ['会用日历的绿灯选手', 'strategist'],
+          ['正常生活状况，而且处理得好', 'analyst'],
+          ['TA 有在修复气氛', 'connector'],
+          ['还是有点失落，但也有点加分', 'spark']
+        ]],
+        ['哪种行为最快让你下头？', [
+          ['把忽冷忽热当人格魅力', 'analyst'],
+          ['让你竞争最基础的用心', 'strategist'],
+          ['用玩笑悄悄贬低你', 'connector'],
+          ['不约见面但疯狂发暧昧动态', 'spark']
         ]]
       ]
     }
@@ -268,6 +316,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['Plans get specific without pressure', 'analyst'],
           ['You both get softer by the end', 'connector'],
           ['The vibe is clear, not exhausting', 'strategist']
+        ]],
+        ['They bring up an oddly specific thing you said last week. You feel...', [
+          ['Seen in 4K', 'connector'],
+          ['Impressed by the memory receipts', 'analyst'],
+          ['Ready to make this my whole personality', 'spark'],
+          ['Interested, but still pacing myself', 'strategist']
+        ]],
+        ['The bill arrives. Best vibe?', [
+          ['No weird power move, just easy', 'connector'],
+          ['A quick, respectful plan for splitting', 'analyst'],
+          ['They make one playful line and handle it', 'spark'],
+          ['Nobody turns money into a test', 'strategist']
         ]]
       ],
       zh: [
@@ -294,6 +354,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['计划变具体，但没有压迫感', 'analyst'],
           ['两个人越到后面越放松', 'connector'],
           ['气氛清楚，不耗电', 'strategist']
+        ]],
+        ['TA 提起你上周随口说过的一个超小细节。你感觉？', [
+          ['被 4K 看见了', 'connector'],
+          ['记忆力证据很加分', 'analyst'],
+          ['准备把这件事写进人生简介', 'spark'],
+          ['有兴趣，但我继续稳住节奏', 'strategist']
+        ]],
+        ['账单来了。最舒服的气氛是？', [
+          ['没有权力游戏，就是自然', 'connector'],
+          ['快速、尊重地说清怎么分', 'analyst'],
+          ['TA 开一句玩笑，然后利落处理', 'spark'],
+          ['没人把钱变成测试题', 'strategist']
         ]]
       ]
     }
@@ -328,6 +400,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['Technically deniable', 'analyst'],
           ['Sweet but not performative', 'connector'],
           ['Private life, public peace', 'strategist']
+        ]],
+        ['Your close friends already know because...', [
+          ['I sent a 17-minute voice memo', 'spark'],
+          ['I shared the evidence calmly', 'analyst'],
+          ['They can hear it in my voice', 'connector'],
+          ['I told only the people I trust', 'strategist']
+        ]],
+        ['Someone asks if you are dating. You say...', [
+          ['"Define dating"', 'spark'],
+          ['"We are seeing where it goes"', 'analyst'],
+          ['"It is sweet, I am happy"', 'connector'],
+          ['"I will share when it is settled"', 'strategist']
         ]]
       ],
       zh: [
@@ -354,6 +438,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['技术上可以否认', 'analyst'],
           ['甜，但不表演', 'connector'],
           ['私生活，公开的平静', 'strategist']
+        ]],
+        ['你的好朋友已经知道了，因为？', [
+          ['我发过 17 分钟语音复盘', 'spark'],
+          ['我冷静分享了证据链', 'analyst'],
+          ['她们从我声音里听出来了', 'connector'],
+          ['我只告诉了真正信任的人', 'strategist']
+        ]],
+        ['有人问你们是不是在一起。你会说？', [
+          ['「先定义一下在一起」', 'spark'],
+          ['「我们还在看看会怎么发展」', 'analyst'],
+          ['「挺甜的，我很开心」', 'connector'],
+          ['「稳定了我会说」', 'strategist']
         ]]
       ]
     }
@@ -388,6 +484,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['Words and actions match', 'analyst'],
           ['Both people can ask for reassurance', 'connector'],
           ['Uncertainty stops running the schedule', 'strategist']
+        ]],
+        ['They disappear for a weekend and return casual. Your boundary is...', [
+          ['Ask the question with a smile, not a spiral', 'spark'],
+          ['Name the pattern and request clarity', 'analyst'],
+          ['Say how it felt without attacking', 'connector'],
+          ['Step back until effort is visible', 'strategist']
+        ]],
+        ['The almost-relationship becomes real when...', [
+          ['The flirting survives daylight', 'spark'],
+          ['Both people say what they want', 'analyst'],
+          ['Care shows up in boring moments', 'connector'],
+          ['Plans, labels, and effort line up', 'strategist']
         ]]
       ],
       zh: [
@@ -414,6 +522,18 @@ const CRUSH_QUIZ_CONTENT = {
           ['话和行动对得上', 'analyst'],
           ['两个人都可以要一点安全感', 'connector'],
           ['不确定性不再安排你的日程', 'strategist']
+        ]],
+        ['TA 周末消失，回来又像没事人。你的边界是？', [
+          ['笑着问清楚，不让自己脑内暴走', 'spark'],
+          ['指出模式，并要求清晰一点', 'analyst'],
+          ['说出我的感受，但不攻击', 'connector'],
+          ['先后退，直到看见真实投入', 'strategist']
+        ]],
+        ['“差一点关系”什么时候真的变成关系？', [
+          ['暧昧在白天也成立', 'spark'],
+          ['两个人都说清自己想要什么', 'analyst'],
+          ['照顾出现在无聊的小事里', 'connector'],
+          ['计划、身份和投入对齐', 'strategist']
         ]]
       ]
     }
@@ -422,16 +542,36 @@ const CRUSH_QUIZ_CONTENT = {
 
 const LOVE_RESULTS = {
   en: {
-    spark: ['Flirt Chaos Main Character', 'You make tiny signals feel cinematic. Your charm is high, but your best move is to keep the plot fun without turning every pause into a finale.'],
-    analyst: ['Receipts-First Romantic', 'You are not cold, you are calibrated. You can enjoy the butterflies and still ask whether the behavior is actually consistent.'],
-    connector: ['Soft Signal Reader', 'You notice tone, timing, and emotional safety. Your superpower is making the vibe warmer without abandoning your own needs.'],
-    strategist: ['Boundary-Protected Lover', 'You like romance, but you refuse to let confusion rent a room in your brain. Clear energy, clear calendar, clear next step.']
+    spark: ['Flirt Chaos Main Character', 'You make tiny signals feel cinematic. Your charm is high, but your best move is to keep the plot fun without turning every pause into a finale.', 'My crush style is Flirt Chaos Main Character: 80% sparkle, 20% overthinking, fully screenshot-worthy.'],
+    analyst: ['Receipts-First Romantic', 'You are not cold, you are calibrated. You can enjoy the butterflies and still ask whether the behavior is actually consistent.', 'My crush style is Receipts-First Romantic: I believe in butterflies, but I also believe in evidence.'],
+    connector: ['Soft Signal Reader', 'You notice tone, timing, and emotional safety. Your superpower is making the vibe warmer without abandoning your own needs.', 'My crush style is Soft Signal Reader: I can read the room, the text tone, and the emotional weather.'],
+    strategist: ['Boundary-Protected Lover', 'You like romance, but you refuse to let confusion rent a room in your brain. Clear energy, clear calendar, clear next step.', 'My crush style is Boundary-Protected Lover: cute energy is welcome, confusion has to pay rent.']
   },
   zh: {
-    spark: ['暧昧剧情主角', '你能把小信号看出电影感，魅力很足。最适合你的策略是：保持好玩，但别把每一次停顿都剪成大结局。'],
-    analyst: ['带证据恋爱派', '你不是冷，你是校准过。你可以享受心动，也会检查对方行为到底稳不稳定。'],
-    connector: ['温柔信号读取器', '你很会看语气、节奏和安全感。你的优势是让气氛变暖，同时不丢掉自己的需求。'],
-    strategist: ['边界感恋爱选手', '你喜欢浪漫，但不允许混乱长期占用大脑。能量要清楚，日程要清楚，下一步也要清楚。']
+    spark: ['暧昧剧情主角', '你能把小信号看出电影感，魅力很足。最适合你的策略是：保持好玩，但别把每一次停顿都剪成大结局。', '我的心动风格是「暧昧剧情主角」：80% 会发光，20% 会脑补，适合截图发群聊。'],
+    analyst: ['带证据恋爱派', '你不是冷，你是校准过。你可以享受心动，也会检查对方行为到底稳不稳定。', '我的心动风格是「带证据恋爱派」：我相信心动，也相信证据链。'],
+    connector: ['温柔信号读取器', '你很会看语气、节奏和安全感。你的优势是让气氛变暖，同时不丢掉自己的需求。', '我的心动风格是「温柔信号读取器」：能读懂气氛、语气和对方的情绪天气。'],
+    strategist: ['边界感恋爱选手', '你喜欢浪漫，但不允许混乱长期占用大脑。能量要清楚，日程要清楚，下一步也要清楚。', '我的心动风格是「边界感恋爱选手」：可爱欢迎，混乱请付房租。']
+  }
+};
+
+const CRUSH_STAGES = {
+  en: ['Chat forensic mode', 'Signal check', 'Main character moment', 'Boundary test', 'Group chat bait', 'Share-card setup'],
+  zh: ['聊天侦探模式', '信号检查', '主角时刻', '边界测试', '群聊诱饵', '结果卡预热']
+};
+
+const ANSWER_REACTIONS = {
+  en: {
+    spark: 'Logged: high sparkle, mild chaos.',
+    analyst: 'Logged: receipts saved, delusion reduced.',
+    connector: 'Logged: soft signal detected.',
+    strategist: 'Logged: boundary shield activated.'
+  },
+  zh: {
+    spark: '已记录：闪光值很高，混乱值微妙上升。',
+    analyst: '已记录：证据链保存，脑补值下降。',
+    connector: '已记录：温柔信号已捕捉。',
+    strategist: '已记录：边界护盾已开启。'
   }
 };
 
@@ -462,6 +602,7 @@ let activeQuiz = null;
 let activeQuestions = [];
 let questionIndex = 0;
 let answers = [];
+let isAnswering = false;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -491,6 +632,7 @@ function buildQuestions(quiz) {
   if (custom) {
     return custom.map(([text, options], index) => ({
       text,
+      vibe: CRUSH_STAGES[lang][index % CRUSH_STAGES[lang].length],
       options: options.map(([label, trait], optionIndex) => ({
         label,
         trait,
@@ -530,6 +672,17 @@ function quizDetailCopy(quiz) {
 function quizResult(quiz, trait) {
   if (CRUSH_QUIZ_CONTENT[quiz.id]) return LOVE_RESULTS[lang][trait] || LOVE_RESULTS[lang].spark;
   return t().results[trait] || t().results.spark;
+}
+
+function quizShareCopy(quiz, result, reward) {
+  if (CRUSH_QUIZ_CONTENT[quiz.id] && result[2]) {
+    return lang === 'zh'
+      ? `${result[2]} 我在 Arcadequiz 拿到 ${reward} 分。你也测一下。`
+      : `${result[2]} I got ${reward} points on Arcadequiz. Take yours.`;
+  }
+  return lang === 'zh'
+    ? `我在 Arcadequiz 玩了「${localQuizTitle(quiz)}」，结果是「${result[0]}」，拿到 ${reward} 分。`
+    : `I played "${localQuizTitle(quiz)}" on Arcadequiz, got "${result[0]}", and earned ${reward} points.`;
 }
 
 function cardTemplate(quiz, size = '') {
@@ -611,14 +764,25 @@ function renderQuestion() {
   const question = activeQuestions[questionIndex];
   $('#quiz-progress-label').textContent = `${t().q}${lang === 'zh' ? '' : ' '}${questionIndex + 1} ${t().of} ${activeQuestions.length}`;
   $('#quiz-progress-bar').style.width = `${(questionIndex / activeQuestions.length) * 100}%`;
-  $('#quiz-question').innerHTML = `<h3>${question.text}</h3><div class="quiz-options">${question.options.map((option, index) => `<button class="buttonlike" type="button" data-answer="${index}">${option.label}</button>`).join('')}</div>`;
+  const kicker = question.vibe ? `<div class="quiz-question-kicker">${question.vibe}</div>` : '';
+  $('#quiz-question').innerHTML = `${kicker}<h3>${question.text}</h3><div class="quiz-options">${question.options.map((option, index) => `<button class="buttonlike" type="button" data-answer="${index}">${option.label}</button>`).join('')}</div><div class="quiz-answer-reaction" aria-live="polite"></div>`;
 }
 
-function chooseAnswer(index) {
-  answers.push(activeQuestions[questionIndex].options[index]);
-  questionIndex += 1;
-  if (questionIndex >= activeQuestions.length) showResult();
-  else renderQuestion();
+function chooseAnswer(index, button) {
+  if (isAnswering) return;
+  const selected = activeQuestions[questionIndex].options[index];
+  isAnswering = true;
+  answers.push(selected);
+  $$('.quiz-options button').forEach((node) => { node.disabled = true; });
+  if (button) button.classList.add('selected');
+  const reaction = $('.quiz-answer-reaction');
+  if (reaction) reaction.textContent = ANSWER_REACTIONS[lang][selected.trait] || '';
+  window.setTimeout(() => {
+    questionIndex += 1;
+    isAnswering = false;
+    if (questionIndex >= activeQuestions.length) showResult();
+    else renderQuestion();
+  }, CRUSH_QUIZ_CONTENT[activeQuiz.id] ? 620 : 160);
 }
 
 function showResult() {
@@ -637,10 +801,8 @@ function showResult() {
   $('#quiz-progress-bar').style.width = '100%';
   $('#quiz-question').hidden = true;
   $('#quiz-result').hidden = false;
-  const share = lang === 'zh'
-    ? `我在 Arcadequiz 玩了「${localQuizTitle(activeQuiz)}」，结果是「${result[0]}」，拿到 ${reward} 分。`
-    : `I played "${localQuizTitle(activeQuiz)}" on Arcadequiz, got "${result[0]}", and earned ${reward} points.`;
-  $('#quiz-result').innerHTML = `<span>${t().result}</span><h3>${result[0]}</h3><p>${result[1]}</p><div class="quiz-reward">+${reward} ${t().points} · ${score}/${activeQuestions.length}</div><label>${t().share}<textarea readonly>${share}</textarea></label><div class="quiz-result-actions"><button class="quiz-primary buttonlike" type="button" data-quiz-id="${activeQuiz.id}">${t().again}</button><button class="quiz-ghost buttonlike" type="button" id="result-close">${t().close}</button></div>`;
+  const share = quizShareCopy(activeQuiz, result, reward);
+  $('#quiz-result').innerHTML = `<span>${t().result}</span><h3>${result[0]}</h3><p>${result[1]}</p><div class="quiz-share-badge">${CRUSH_QUIZ_CONTENT[activeQuiz.id] ? (lang === 'zh' ? '适合发给朋友复盘' : 'Group-chat ready') : localQuizTitle(activeQuiz)}</div><div class="quiz-reward">+${reward} ${t().points} · ${score}/${activeQuestions.length}</div><label>${t().share}<textarea readonly>${share}</textarea></label><div class="quiz-result-actions"><button class="quiz-primary buttonlike" type="button" data-quiz-id="${activeQuiz.id}">${t().again}</button><button class="quiz-ghost buttonlike" type="button" data-copy-share>${lang === 'zh' ? '复制分享文案' : 'Copy share text'}</button><button class="quiz-ghost buttonlike" type="button" id="result-close">${t().close}</button></div>`;
 }
 
 function closeQuiz() {
@@ -651,7 +813,16 @@ function closeQuiz() {
 function bindEvents() {
   document.addEventListener('click', (event) => {
     const answerButton = event.target.closest('[data-answer]');
-    if (answerButton) chooseAnswer(Number(answerButton.dataset.answer));
+    if (answerButton) chooseAnswer(Number(answerButton.dataset.answer), answerButton);
+    const copyShare = event.target.closest('[data-copy-share]');
+    if (copyShare) {
+      const textarea = $('#quiz-result textarea');
+      if (textarea) {
+        navigator.clipboard?.writeText(textarea.value);
+        textarea.select();
+        copyShare.textContent = lang === 'zh' ? '已复制' : 'Copied';
+      }
+    }
     if (event.target.id === 'result-close') closeQuiz();
     const follow = event.target.closest('.follow-column');
     if (follow) follow.textContent = t().followed;
@@ -691,6 +862,7 @@ window.ArcadequizShared = {
   quizMeta,
   quizDetailCopy,
   quizResult,
+  quizShareCopy,
   quizUrl,
   quizEmoji,
   setLang(nextLang) {
