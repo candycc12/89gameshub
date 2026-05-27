@@ -75,6 +75,7 @@ const I18N = {
 
 const QUIZZES = [
   ['ai-chat-analyzer', 'AI Chat Crush Test', 'AI 聊天心动测试', 'love', 'personality', 120, true],
+  ['crush-name-scanner', 'Is This Person Your Crush?', 'TA 是你的 Crush 吗？', 'love', 'personality', 130, true],
   ['red-flag-scanner', 'Dating Green Flag Check', '恋爱绿灯检测', 'love', 'personality', 110, true],
   ['villain-mbti', 'Villain MBTI', '反派 MBTI', 'meme', 'personality', 100, true],
   ['kpop-stan-exam', 'K-pop Detail Exam', 'K-pop 细节考试', 'celebrity', 'trivia', 130, true],
@@ -118,6 +119,90 @@ const QUIZZES = [
 ].map(([id, titleEn, titleZh, category, format, points, viral]) => ({ id, title: { en: titleEn, zh: titleZh }, category, format, points, viral }));
 
 const CRUSH_QUIZ_CONTENT = {
+  'crush-name-scanner': {
+    copy: {
+      en: 'Type their name, optionally add a photo for the result card, then scan the tiny signals you keep pretending are totally normal.',
+      zh: '输入 TA 的名字，也可以加一张照片做结果卡，然后扫描那些你嘴上说“很正常”的小信号。'
+    },
+    questions: {
+      en: [
+        ['When {name} texts you, your lock screen suddenly becomes...', [
+          ['A red-carpet event', 'spark'],
+          ['A data point I should not overvalue', 'analyst'],
+          ['A tiny mood shift I definitely notice', 'connector'],
+          ['A notification, not a life decision', 'strategist']
+        ]],
+        ['Someone says {name} in a random sentence. Your brain does what?', [
+          ['Lights up like a group chat alarm', 'spark'],
+          ['Checks if I am being obvious', 'analyst'],
+          ['Pretends to be normal, badly', 'connector'],
+          ['Acknowledges it and keeps functioning', 'strategist']
+        ]],
+        ['You see {name} looking especially good. Be honest:', [
+          ['I become a poet with no publishing plan', 'spark'],
+          ['I notice, then look for actual behavior', 'analyst'],
+          ['I get softer for the next 40 minutes', 'connector'],
+          ['Attraction is real; pacing is also real', 'strategist']
+        ]],
+        ['If {name} leaves you on read, your inner monologue is...', [
+          ['"This is my villain origin story"', 'spark'],
+          ['"One delay is not a pattern"', 'analyst'],
+          ['"Maybe they got busy. Breathe"', 'connector'],
+          ['"I will not audition for attention"', 'strategist']
+        ]],
+        ['Your friends would know you like {name} because...', [
+          ['I mention them with suspicious timing', 'spark'],
+          ['I have a full evidence board', 'analyst'],
+          ['My voice gets annoyingly gentle', 'connector'],
+          ['I deny it too carefully', 'strategist']
+        ]],
+        ['Final scan: what would make {name} feel actually worth it?', [
+          ['Mutual spark that survives daylight', 'spark'],
+          ['Consistent effort, not just chemistry', 'analyst'],
+          ['Feeling seen without performing', 'connector'],
+          ['Clear intent and calm energy', 'strategist']
+        ]]
+      ],
+      zh: [
+        ['只要 {name} 发消息，你的锁屏瞬间变成？', [
+          ['红毯现场', 'spark'],
+          ['一个我不该过度放大的数据点', 'analyst'],
+          ['我一定会注意到的小情绪变化', 'connector'],
+          ['只是通知，不是人生决定', 'strategist']
+        ]],
+        ['别人随口提到 {name}，你的大脑会？', [
+          ['像群聊警报一样亮起来', 'spark'],
+          ['检查自己有没有太明显', 'analyst'],
+          ['假装正常，但演技很差', 'connector'],
+          ['承认一下，然后继续做人', 'strategist']
+        ]],
+        ['你看到 {name} 今天特别好看。诚实一点：', [
+          ['我变成没有发表计划的诗人', 'spark'],
+          ['我会心动，但继续看实际行为', 'analyst'],
+          ['我接下来 40 分钟都会变温柔', 'connector'],
+          ['吸引是真的，节奏也是真的', 'strategist']
+        ]],
+        ['如果 {name} 已读你，你的内心旁白是？', [
+          ['「这是我的反派起源故事」', 'spark'],
+          ['「一次延迟不等于模式」', 'analyst'],
+          ['「也许 TA 只是忙，先呼吸」', 'connector'],
+          ['「我不参加注意力试镜」', 'strategist']
+        ]],
+        ['朋友会发现你喜欢 {name}，因为？', [
+          ['我总在可疑的时间提到 TA', 'spark'],
+          ['我已经有完整证据板', 'analyst'],
+          ['我声音会变得烦人地温柔', 'connector'],
+          ['我否认得太认真', 'strategist']
+        ]],
+        ['最终扫描：什么会让 {name} 真的值得？', [
+          ['白天也成立的双向心动', 'spark'],
+          ['稳定投入，不只是化学反应', 'analyst'],
+          ['不用表演也被看见', 'connector'],
+          ['清楚意图和平稳能量', 'strategist']
+        ]]
+      ]
+    }
+  },
   'ai-chat-analyzer': {
     copy: {
       en: 'Drop into the chat energy: mixed signals, late replies, tiny compliments, and the one message you keep rereading.',
@@ -674,8 +759,14 @@ function quizResult(quiz, trait) {
   return t().results[trait] || t().results.spark;
 }
 
-function quizShareCopy(quiz, result, reward) {
+function quizShareCopy(quiz, result, reward, targetName = '') {
   if (CRUSH_QUIZ_CONTENT[quiz.id] && result[2]) {
+    const subject = targetName || profileFallbackName();
+    if (quizNeedsProfile(quiz)) {
+      return lang === 'zh'
+        ? `我测了 ${subject} 是不是我的 Crush，结果是「${result[0]}」。${result[2]}`
+        : `I scanned whether ${subject} is my crush and got "${result[0]}." ${result[2]}`;
+    }
     return lang === 'zh'
       ? `${result[2]} 我在 Arcadequiz 拿到 ${reward} 分。你也测一下。`
       : `${result[2]} I got ${reward} points on Arcadequiz. Take yours.`;
@@ -683,6 +774,18 @@ function quizShareCopy(quiz, result, reward) {
   return lang === 'zh'
     ? `我在 Arcadequiz 玩了「${localQuizTitle(quiz)}」，结果是「${result[0]}」，拿到 ${reward} 分。`
     : `I played "${localQuizTitle(quiz)}" on Arcadequiz, got "${result[0]}", and earned ${reward} points.`;
+}
+
+function quizNeedsProfile(quiz) {
+  return quiz.id === 'crush-name-scanner';
+}
+
+function profileFallbackName() {
+  return lang === 'zh' ? 'TA' : 'this person';
+}
+
+function personalizeText(value, name) {
+  return value.replaceAll('{name}', name || profileFallbackName());
 }
 
 function cardTemplate(quiz, size = '') {
@@ -863,6 +966,9 @@ window.ArcadequizShared = {
   quizDetailCopy,
   quizResult,
   quizShareCopy,
+  quizNeedsProfile,
+  profileFallbackName,
+  personalizeText,
   quizUrl,
   quizEmoji,
   setLang(nextLang) {
