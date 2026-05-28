@@ -126,6 +126,7 @@ textarea {
 
 .top-banner {
   position: relative;
+  display: block;
   padding: clamp(16px, 3vw, 32px) clamp(16px, 5vw, 72px) 0;
 }
 
@@ -168,6 +169,11 @@ textarea {
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.inline-link {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
 }
 
 h1,
@@ -497,6 +503,43 @@ h2 {
   color: var(--paper);
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  justify-content: flex-end;
+}
+
+.legal-page {
+  max-width: 900px;
+  padding: clamp(36px, 6vw, 72px) clamp(16px, 5vw, 72px) clamp(64px, 8vw, 104px);
+}
+
+.legal-page h1 {
+  margin-bottom: 28px;
+  font-size: clamp(3rem, 9vw, 7rem);
+}
+
+.legal-page h2 {
+  margin-top: 34px;
+  margin-bottom: 10px;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.05;
+}
+
+.legal-page p,
+.legal-page li {
+  color: #4d473f;
+  line-height: 1.55;
+}
+
+.download-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
 @media (max-width: 1180px) {
   .product-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -564,6 +607,7 @@ h2 {
   }
 
   .card-actions,
+  .footer-links,
   .site-footer {
     align-items: stretch;
     flex-direction: column;

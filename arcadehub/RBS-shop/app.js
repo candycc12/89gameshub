@@ -27,6 +27,7 @@ const saveState = () => {
 const money = (value) => `$${value}`;
 const productData = Array.isArray(window.PRODUCTS) ? window.PRODUCTS : (typeof PRODUCTS !== "undefined" ? PRODUCTS : []);
 const findProduct = (id) => productData.find((product) => product.id === id);
+const linkifyGame = (text) => text.replaceAll("War Inc: Rising", '<a class="inline-link" href="game-download.html">War Inc: Rising</a>');
 
 function updateCounts() {
   document.querySelectorAll("[data-cart-count]").forEach((node) => {
@@ -53,7 +54,7 @@ function renderProductGrid() {
         </div>
         <div class="buy-row">
           <strong>${money(product.price)}</strong>
-          <a class="text-button" href="${product.page}">Details</a>
+          <button class="text-button" type="button" data-buy-now="${product.id}">Buy Now</button>
         </div>
         <div class="card-actions">
           <button type="button" data-favorite="${product.id}">${state.favorites.includes(product.id) ? "Saved" : "Favorite"}</button>
@@ -85,7 +86,7 @@ function renderProductDetail() {
         <p class="label">${product.category}</p>
         <h1>${product.name}</h1>
         <p class="price">${money(product.price)}</p>
-        <p class="short-desc">${product.description}</p>
+        <p class="short-desc">${linkifyGame(product.description)}</p>
         <div class="option-group" aria-label="Options">
           ${product.options.map((option) => `<button type="button">${option}</button>`).join("")}
         </div>
