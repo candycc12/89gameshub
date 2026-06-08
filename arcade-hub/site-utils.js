@@ -2,7 +2,7 @@
   const SITE_NAME = 'Arcade Hub';
   const DEFAULT_IMAGE = 'external-assets/brand/og-arcade-hub.svg';
   const isLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
-  const WAR_INC_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising&listing=89gamehub&referrer=utm_source%3D89gamehub_website%26utm_content%3D89gamehub';
+  const WAR_INC_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.i89trillion.strategy.rising&listing=89gamehub&referrer=utm_source%3D89gamehub_website%26utm_medium%3Dreferral%26utm_campaign%3Dwarinc_site%26utm_content%3Dsite_warinc_ad';
   const WAR_INC_APP_STORE_URL = 'https://apps.apple.com/us/app/war-inc-rising/id6747767390?ppid=a4a6e47e-0a10-4194-a69b-9fadbfddacb6';
 
   function absoluteUrl(path) {
