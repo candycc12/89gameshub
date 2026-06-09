@@ -1079,7 +1079,7 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
     ? `${task.unlockCopy} Unlock the next lesson with the 7-day plan.`
     : "The answer is not ready yet. The paid plan should repeat this skill before opening a harder task.";
   fields.reportCta.textContent = "Unlock Next Lesson";
-  fields.reportCta.dataset.go = "report";
+  fields.reportCta.dataset.go = "plan";
   fields.tomorrowTitle.textContent = nextTask?.taskType || persona.tomorrowTitle;
   fields.tomorrowCopy.textContent = nextTask?.taskTitle || persona.tomorrowCopy;
 }
@@ -1254,8 +1254,8 @@ function setPersona(key) {
 }
 
 function setRoute(route) {
-  const safeRoute = ["landing", "lesson", "report"].includes(route) ? route : "landing";
-  const funnelRoutes = ["landing", "lesson", "report"];
+  const safeRoute = ["landing", "plan", "lesson", "report"].includes(route) ? route : "landing";
+  const funnelRoutes = ["landing", "plan", "lesson", "report"];
   if (safeRoute === "landing") {
     quizIndex = 0;
     quizAnswers.fill(null);
@@ -1332,7 +1332,7 @@ if (quizNodes.continue) {
     }
 	    buildCourseFromQuizAnswers();
 	    setPersona("child");
-	    setRoute("lesson");
+	    setRoute("plan");
 	  });
 	}
 
