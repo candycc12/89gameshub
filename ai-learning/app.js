@@ -501,10 +501,10 @@ const quizSteps = [
     ]
   },
   {
-    type: "email",
-    category: "Goal",
-    question: "Achieve your child's goal with a personal AI course.",
-    hint: "Enter an email to save the assessment result and course plan.",
+    type: "insight",
+    category: "Trial Ready",
+    question: "Your child's first expression trial is ready.",
+    hint: "The next screen is not a course list. It is one short coached lesson that tests whether your child can improve one real answer.",
     options: []
   }
 ];
@@ -558,26 +558,26 @@ const courseTemplates = {
     rubric: ["Says what the character wanted.", "Connects the goal to the action.", "Uses one complete sentence."]
   },
   reason: {
-    taskType: "Reason Link",
-    taskTitle: "Add one reason sentence to explain why it happened.",
-    taskBody: "The AI listens first, then asks one follow-up question to help the child add the missing reason.",
-    unlockTitle: "Reason Link Lv.1",
-    unlockCopy: "Use one reason sentence to explain why the character acted.",
-    passLabel: "Add one reason sentence to pass",
-    aiPrompt: "Tell me in three sentences: who is the character, what happened, and why did it happen?",
-    trialPrompt: "Write one sentence that explains why Mia followed the map.",
-    sceneQuestion: "Why did Mia follow the map?",
-    dubbingLine: "I followed the map because...",
-    checkFocus: "why it happened",
-    material: "Mia found a tiny map under her desk. She followed it to the school garden and discovered a lost class photo.",
-    method: "Who + What happened + Because",
-    example: "Mia followed the map because she wanted to find out why it was hidden under her desk.",
+    taskType: "Reason Builder",
+    taskTitle: "Turn a short answer into a clear opinion with evidence.",
+    taskBody: "The AI captures the child's natural answer first, then teaches one reusable frame: choice, because, example.",
+    unlockTitle: "Reason Builder Lv.1",
+    unlockCopy: "Give a clear choice, one reason, and one concrete example.",
+    passLabel: "Use choice, because, and one example to pass",
+    aiPrompt: "A teacher asks the class to choose tomorrow's activity. Give a full answer with your choice, your reason, and one example.",
+    trialPrompt: "Answer the teacher: should the class choose a reading corner or a game day? Explain your choice.",
+    sceneQuestion: "Which activity should the class choose, and why?",
+    dubbingLine: "I choose the reading corner because...",
+    checkFocus: "giving a reason with evidence",
+    material: "The class earned 30 minutes of free activity. Some students want a cozy reading corner. Others want a game day. The teacher asks each student to explain one choice.",
+    method: "Choice + Because + Example",
+    example: "I choose the reading corner because it helps everyone calm down after lunch. For example, students can read quietly, share favorite books, and come back ready to learn.",
     choices: [
-      ["because", "Mia followed the map because "],
-      ["so", "Mia wanted to solve the mystery, so "],
-      ["why", "The reason Mia followed the map was "]
+      ["I choose", "I choose the reading corner because "],
+      ["Because", "I choose game day because "],
+      ["For example", "I choose the reading corner because it helps the class focus. For example, "]
     ],
-    rubric: ["Names what happened.", "Adds because / so / wanted to.", "The reason matches the story, not a random guess."]
+    rubric: ["Makes one clear choice.", "Uses because to explain the reason.", "Adds one concrete example, not only a feeling."]
   },
   sequence: {
     taskType: "Story Sequence",
@@ -602,26 +602,26 @@ const courseTemplates = {
     rubric: ["Uses first, then, and finally.", "Puts events in the correct order.", "Keeps the retell under four sentences."]
   },
   confidence: {
-    taskType: "Classroom Confidence",
-    taskTitle: "Practice one brave classroom answer.",
-    taskBody: "The AI gives a low-pressure question and trains the child to answer with a full sentence.",
-    unlockTitle: "Brave Answer Lv.1",
-    unlockCopy: "Answer once with a complete sentence instead of staying silent.",
-    passLabel: "Answer in one complete sentence to pass",
-    aiPrompt: "Imagine your teacher asks, 'What happened in the story?' Give one brave full-sentence answer.",
-    trialPrompt: "Answer the teacher's question in one complete sentence.",
-    sceneQuestion: "What can the character say to answer the teacher?",
-    dubbingLine: "I think the character learned...",
-    checkFocus: "speaking without freezing",
-    material: "Teacher asks: What did the character learn at the end of the story?",
-    method: "Pause + Full sentence + One reason",
-    example: "I think the character learned to ask for help because she solved the problem faster with her friend.",
+    taskType: "Classroom Answer",
+    taskTitle: "Turn a quiet moment into one safe, complete answer.",
+    taskBody: "The AI trains a low-pressure classroom response: start with I think, add because, then point to one clue.",
+    unlockTitle: "Safe Answer Lv.1",
+    unlockCopy: "Give one classroom answer without freezing or stopping at one word.",
+    passLabel: "Use I think, because, and one clue to pass",
+    aiPrompt: "Imagine the teacher asks a question and you are not fully sure. Give a safe answer with: I think..., because..., one clue is...",
+    trialPrompt: "Answer the teacher: why did the character ask a friend for help?",
+    sceneQuestion: "How can you answer even if you are not 100% sure?",
+    dubbingLine: "I think she asked for help because...",
+    checkFocus: "opening with a safe complete answer",
+    material: "In the story, Ava could not finish the science poster alone. She asked Sam for help, and they finished it before the bell. The teacher asks: why did Ava ask for help?",
+    method: "I think + Because + One clue",
+    example: "I think Ava asked for help because the poster was too hard to finish alone. One clue is that she finished faster after Sam joined her.",
     choices: [
-      ["I think", "I think the character learned "],
-      ["because", "I think the character learned to ask for help because "],
-      ["one reason", "My reason is "]
+      ["I think", "I think Ava asked for help because "],
+      ["Because", "Ava asked for help because "],
+      ["One clue", "I think Ava asked for help because the poster was hard. One clue is "]
     ],
-    rubric: ["Starts after one calm pause.", "Answers in a full sentence.", "Adds one reason instead of saying only yes or no."]
+    rubric: ["Starts with a safe phrase like I think.", "Uses because to give a reason.", "Points to one clue from the story."]
   },
   organize: {
     taskType: "Idea Structure",
@@ -672,9 +672,9 @@ const courseTemplates = {
 const answerSignals = {
   character: ["who", "character", "girl", "boy", "bunny", "rabbit", "child", "she", "he"],
   goal: ["want", "wanted", "goal", "try", "tried", "hope", "needed"],
-  reason: ["because", "why", "so", "reason", "wanted", "needed"],
+  reason: ["because", "choose", "choice", "example", "reading", "game", "focus", "reason"],
   sequence: ["first", "then", "finally", "next", "last", "after"],
-  confidence: ["i think", "the story", "answer", "because"],
+  confidence: ["i think", "because", "clue", "help", "ava", "friend", "poster"],
   organize: ["point", "reason", "example", "because", "for example"],
   social: ["i feel", "i need", "please", "when you"]
 };
@@ -726,6 +726,15 @@ function escapeHtml(value) {
 
 function buildCoachingHint(task, result) {
   if (!task) return "Try again with one complete sentence.";
+  if (task.key === "reason") {
+    return "Good first try. Now upgrade it into a complete answer: I choose ___ because ___. For example, ___. A strong answer does not just say what you like. It gives another person a reason to agree.";
+  }
+  if (task.key === "organize") {
+    return "Good first try. Now make it easier to follow: My point is ___. My reason is ___. For example, ___.";
+  }
+  if (task.key === "confidence") {
+    return "Good first try. Now make it safer and clearer: I think ___ because ___. One clue is ___. This helps a child speak even when they are not 100% sure.";
+  }
   const missingText = result.matchedSignals.length
     ? "Good start. Now make the answer easier for another person to follow."
     : `Start by showing ${task.checkFocus}.`;
@@ -737,6 +746,12 @@ function describeAnswerGrowth(task) {
     return "No before/after evidence yet.";
   }
   if (trialState.passed) {
+    if (task.key === "reason") {
+      return "The second answer moved from a short preference to a complete opinion: choice, reason, and example. That is the first skill behind confident classroom speaking.";
+    }
+    if (task.key === "confidence") {
+      return "The second answer moved from a nervous short response to a safe classroom answer: I think, because, and one clue. This is useful because it gives the child a way to start speaking before they feel perfect.";
+    }
     return `The second answer is usable because it follows ${task.method} and gives the teacher something specific to respond to.`;
   }
   return `The second answer is longer, but it still needs a clearer ${task.checkFocus}. This should be practiced before moving ahead.`;
@@ -1064,7 +1079,7 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
     ? `${task.unlockCopy} Unlock the next lesson with the 7-day plan.`
     : "The answer is not ready yet. The paid plan should repeat this skill before opening a harder task.";
   fields.reportCta.textContent = "Unlock Next Lesson";
-  fields.reportCta.dataset.go = "plan";
+  fields.reportCta.dataset.go = "report";
   fields.tomorrowTitle.textContent = nextTask?.taskType || persona.tomorrowTitle;
   fields.tomorrowCopy.textContent = nextTask?.taskTitle || persona.tomorrowCopy;
 }
@@ -1141,10 +1156,10 @@ function renderQuiz() {
   quizNodes.hint.textContent = step.hint;
   quizNodes.back.disabled = quizIndex === 0;
   quizNodes.continue.disabled = step.type !== "insight" && selected === null;
-  quizNodes.continue.textContent = quizIndex === quizSteps.length - 1 ? "Create My Plan" : "Continue";
+  quizNodes.continue.textContent = quizIndex === quizSteps.length - 1 ? "Start First Trial" : "Continue";
   quizNodes.footerText.textContent =
     quizIndex === quizSteps.length - 1
-      ? "Your assessment result and course plan are ready next."
+      ? "Start one coached expression lesson before seeing the report."
       : `Answer ${quizSteps.length} quick questions to unlock the course plan.`;
 	  if (step.type === "insight") {
       const summary = getStageSummary();
@@ -1159,18 +1174,6 @@ function renderQuiz() {
 	    `;
 	    return;
 	  }
-  if (step.type === "email") {
-    quizNodes.options.innerHTML = `
-      <div class="email-capture">
-        <input id="quizEmail" type="email" value="parent@example.com" aria-label="Parent email" />
-        <label><input type="checkbox" checked /> I agree to receive the assessment result and course plan.</label>
-        <div class="gift-note">Your plan will be saved. No app download required.</div>
-      </div>
-    `;
-    quizAnswers[quizIndex] = 0;
-    quizNodes.continue.disabled = false;
-    return;
-  }
   quizNodes.options.innerHTML = step.options
     .map(
       ([icon, label], index) => `
