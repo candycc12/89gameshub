@@ -1251,8 +1251,8 @@ function setPersona(key) {
 }
 
 function setRoute(route) {
-  const safeRoute = ["landing", "loading", "plan", "home", "model", "profile", "lesson", "report"].includes(route) ? route : "home";
-  const funnelRoutes = ["landing", "loading", "plan", "profile", "lesson", "report"];
+  const safeRoute = ["landing", "lesson", "report"].includes(route) ? route : "landing";
+  const funnelRoutes = ["landing", "lesson", "report"];
   if (safeRoute === "landing") {
     quizIndex = 0;
     quizAnswers.fill(null);
@@ -1329,7 +1329,7 @@ if (quizNodes.continue) {
     }
 	    buildCourseFromQuizAnswers();
 	    setPersona("child");
-	    setRoute("loading");
+	    setRoute("lesson");
 	  });
 	}
 
@@ -1433,11 +1433,11 @@ fields.answerForm.addEventListener("submit", (event) => {
 });
 
 window.addEventListener("popstate", () => {
-  setRoute(window.location.hash.replace("#", "") || "home");
+  setRoute(window.location.hash.replace("#", "") || "landing");
 });
 
 renderStages(7);
 buildCourseFromQuizAnswers();
 setPersona("child");
 renderQuiz();
-setRoute(window.location.hash.replace("#", "") || "home");
+setRoute(window.location.hash.replace("#", "") || "landing");
