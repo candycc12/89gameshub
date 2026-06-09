@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>89 AI School Demo</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="rail" aria-label="主导航">
+        <div class="brand">
+          <div class="brand-mark">89</div>
+          <div>
+            <strong>AI School</strong>
+            <span>0-100 Lifelong Teacher</span>
+          </div>
+        </div>
+
+        <nav class="rail-nav" aria-label="产品模块">
+          <a href="#landing" data-route="landing">投放页</a>
+          <a class="active" href="#home" data-route="home">人生地图</a>
+          <a href="#model" data-route="model">商业模式</a>
+          <a href="#profile" data-route="profile">阶段诊断</a>
+          <a href="#lesson" data-route="lesson">AI 陪练</a>
+          <a href="#report" data-route="report">成长激励</a>
+        </nav>
+
+        <div class="guardian-card">
+          <span class="status-dot"></span>
+          <div>
+            <strong>家长 / 本人可见</strong>
+            <p>所有训练记录、AI 反馈和下一步建议都会沉淀成成长档案。</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="mobile-header" aria-label="移动端状态">
+          <div>
+            <strong>89 AI School</strong>
+            <span id="mobileStage">儿童基础能力</span>
+          </div>
+          <div class="mobile-stats" aria-label="学习状态">
+            <span id="mobileStreak">12🔥</span>
+            <span id="mobileXp">420 XP</span>
+          </div>
+        </header>
+
+        <section class="page landing-page" data-page="landing">
+          <section class="quiz-screen" aria-label="AI Expression Assessment">
+            <header class="quiz-top">
+              <button class="quiz-back" type="button" id="quizBack" aria-label="Previous question">‹</button>
+              <div class="quiz-brand">89 AI Expression Camp</div>
+              <div class="quiz-step" id="quizStepText">1 / 6</div>
+            </header>
+
+            <div class="quiz-progress" aria-hidden="true">
+              <span id="quizProgress"></span>
+            </div>
+
+            <main class="quiz-card" aria-live="polite">
+              <p class="eyebrow" id="quizCategory">Profile</p>
+              <h1 id="quizQuestion">What does your child need most right now?</h1>
+              <p id="quizHint">This helps us create a focused 7-day course, not a generic lesson list.</p>
+              <div class="quiz-options" id="quizOptions"></div>
+            </main>
+
+            <aside class="quiz-preview" aria-label="Flow preview">
+              <div class="preview-line active">
+                <span>01</span>
+                <strong>Assessment</strong>
+              </div>
+              <div class="preview-line">
+                <span>02</span>
+                <strong>Result</strong>
+              </div>
+              <div class="preview-line">
+                <span>03</span>
+                <strong>Course</strong>
+              </div>
+              <div class="preview-line">
+                <span>04</span>
+                <strong>Interaction</strong>
+              </div>
+              <div class="preview-line">
+                <span>05</span>
+                <strong>Report</strong>
+              </div>
+            </aside>
+
+            <footer class="quiz-footer">
+              <button class="primary-action" type="button" id="quizContinue" disabled>Continue</button>
+              <p id="quizFooterText">Answer 12 quick questions to unlock the course plan.</p>
+            </footer>
+          </section>
+        </section>
+
+        <section class="page funnel-page" data-page="loading">
+          <section class="plan-builder">
+            <div class="mini-brand">89 AI Expression Camp</div>
+            <h1>We are creating your child's personal expression plan...</h1>
+            <div class="build-list">
+              <div class="done"><span></span><strong>Analyzing your answers</strong><small>✓</small></div>
+              <div class="done"><span></span><strong>Adapting to your triggers</strong><small>✓</small></div>
+              <div class="active"><span></span><strong>Setting your goals</strong><small>2%</small></div>
+            </div>
+            <div class="testimonial-slider" aria-label="User testimonial">
+              <article>
+                <div><span>★ ★ ★ ★ ★</span><small>Oct 02, 2025</small></div>
+                <strong>The first lesson helped my child understand how to organize thoughts before speaking.</strong>
+                <p>After the first session, she could explain the story with a reason instead of stopping after one sentence.</p>
+              </article>
+            </div>
+            <div class="micro-modal">
+              <p>Do you believe practice is crucial for confident speaking?</p>
+              <div>
+                <button type="button" data-go="plan">No</button>
+                <button type="button" data-go="plan">Yes</button>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="page funnel-page" data-page="plan">
+          <section class="personal-plan">
+            <div class="sticky-plan-cta">
+              <span>Your plan is ready</span>
+              <button type="button" data-go="profile">Get My Plan</button>
+            </div>
+            <div class="mini-brand">89 AI Expression Camp</div>
+            <h1>Your child's personal expression course <span>is ready!</span></h1>
+            <p class="plan-subtitle">Based on the questionnaire, the first trial lesson should test one small expression skill before making any learning claims.</p>
+
+            <div class="plan-curve" aria-label="Course progress preview">
+              <div class="curve-label start">Now</div>
+              <div class="curve-line"></div>
+              <div class="curve-label end">After 7 days</div>
+            </div>
+
+            <div class="device-note">
+              <span>● ●</span>
+              <p>To use the app, you need an iPhone, Android smartphone, or tablet.</p>
+            </div>
+
+            <section class="before-after-panel">
+              <div class="before-after-grid">
+                <article class="before-state">
+                  <h2>Now</h2>
+                  <div class="sample-answer weak">
+                    <span>Short answer</span>
+                    <p>"The bunny went to the forest."</p>
+                  </div>
+                  <strong>Reason link</strong>
+                  <div class="level-bars low"><span></span><span></span><span></span><span></span></div>
+                  <p>Missing why it happened</p>
+                  <strong>Story structure</strong>
+                  <div class="range-bar low"><i></i></div>
+                  <p>Beginner</p>
+                </article>
+                <article class="after-state">
+                  <h2>Your Goal</h2>
+                  <div class="sample-answer strong">
+                    <span>Complete answer</span>
+                    <p>"The bunny went to the forest because she wanted to deliver the letter."</p>
+                  </div>
+                  <strong>Reason link</strong>
+                  <div class="level-bars high"><span></span><span></span><span></span><span></span></div>
+                  <p>Clear reason</p>
+                  <strong>Story structure</strong>
+                  <div class="range-bar high"><i></i></div>
+                  <p>Complete</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="plan-highlights">
+              <h2>Highlights of the plan</h2>
+              <ul>
+                <li>Make story retells complete with character, goal, reason, and ending.</li>
+                <li>Use one AI follow-up question to train the missing reason sentence.</li>
+                <li>Give parents a clear report after every lesson.</li>
+                <li>Unlock the next course only after the child completes the current skill.</li>
+              </ul>
+            </section>
+
+            <section class="methodology-card">
+              <h2>Our program is based on methodology of experts from:</h2>
+              <div>
+                <span>University of Cambridge</span>
+                <span>Berkeley</span>
+                <span>Stanford University</span>
+                <span>University of Oxford</span>
+                <span>Harvard</span>
+                <span>Yale</span>
+              </div>
+            </section>
+
+            <section class="offer-box">
+              <div class="discount-card">
+                <span>You get a special discount</span>
+                <strong>7-Day AI Expression Course</strong>
+                <p>Assessment result, course path, live AI interaction, and parent report.</p>
+              </div>
+              <div class="plan-options">
+                <label>
+                  <input type="radio" name="coursePlan" />
+                  <span>Starter</span>
+                  <strong>$0.71 / day</strong>
+                </label>
+                <label class="selected">
+                  <input type="radio" name="coursePlan" checked />
+                  <span>7-Day Plan</span>
+                  <strong>$0.57 / day</strong>
+                </label>
+                <label>
+                  <input type="radio" name="coursePlan" />
+                  <span>Family</span>
+                  <strong>$0.36 / day</strong>
+                </label>
+              </div>
+              <p class="guarantee-line">30-day money-back guarantee if parents do not see visible progress after following the plan.</p>
+              <button class="primary-action" type="button" data-go="profile">Get My Plan</button>
+            </section>
+          </section>
+        </section>
+
+        <section class="page active" data-page="home">
+          <div class="topbar" aria-label="Demo 控制台">
+            <div>
+              <p class="eyebrow">7-Day AI Expression Camp</p>
+              <h1 id="homeHeroTitle">每天 10 分钟，让孩子把话说完整、敢开口、能处理小冲突。</h1>
+            </div>
+            <button class="primary-action" type="button" data-go="profile">开始测评</button>
+          </div>
+
+          <section class="daily-challenge panel">
+            <div class="challenge-copy">
+              <span class="challenge-badge" id="challengeBadge">Cold Start MVP</span>
+              <h2 id="challengeTitle">先测“表达力训练营”能不能跑通</h2>
+              <p id="challengeCopy">榜单显示，教育产品真正赚钱的是明确任务：开口练习、儿童阅读、AI 反馈、每日训练。我们先用表达力切口验证家长是否愿意付费。</p>
+            </div>
+            <div class="challenge-rewards">
+              <div>
+                <span>验证路径</span>
+                <strong id="challengeReward">广告 → Quiz → 7 天营</strong>
+              </div>
+              <button type="button" data-go="model">看商业模式</button>
+            </div>
+          </section>
+
+          <section class="validation-grid" aria-label="商业验证入口">
+            <article class="validation-card panel">
+              <span>Track 01</span>
+              <h2>Reading Quest</h2>
+              <p>解决“孩子读了很多书，但讲不出来”。每天一个故事，一个追问，一个家长报告。</p>
+              <button type="button" data-go="lesson">体验阅读表达</button>
+            </article>
+            <article class="validation-card panel">
+              <span>Track 02</span>
+              <h2>Social Expression Quest</h2>
+              <p>解决“孩子被误会、想加入、吵架后不知道怎么说”。每天一个真实社交场景。</p>
+              <button type="button" data-go="profile">生成训练计划</button>
+            </article>
+            <article class="validation-card panel emphasis">
+              <span>Business Test</span>
+              <h2>我们要验证什么？</h2>
+              <p>普通家庭是否愿意为孩子的底层能力提升付费，而不是只为课程内容付费。</p>
+              <button type="button" data-go="model">查看榜单依据</button>
+            </article>
+          </section>
+
+          <section class="hero-grid">
+            <div class="life-map panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Life Learning Map</p>
+                  <h2>人生学习地图</h2>
+                </div>
+                <output id="ageOutput" for="ageRange">7 岁</output>
+              </div>
+
+              <div class="age-slider">
+                <input id="ageRange" type="range" min="0" max="100" value="7" />
+                <div class="age-labels" aria-hidden="true">
+                  <span>0</span>
+                  <span>18</span>
+                  <span>40</span>
+                  <span>70</span>
+                  <span>100</span>
+                </div>
+              </div>
+
+              <div class="stage-rail" id="stageRail" aria-label="人生阶段"></div>
+            </div>
+
+            <div class="teacher-panel panel">
+              <div class="orbital-visual" aria-hidden="true">
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
+                <div class="core">AI</div>
+                <span class="node node-a"></span>
+                <span class="node node-b"></span>
+                <span class="node node-c"></span>
+              </div>
+              <p class="eyebrow">Core Promise</p>
+              <h2 id="teacherTitle">老师已经知道你今天卡在哪里。</h2>
+              <p class="teacher-copy">
+                不用选课，不用找题。每天打开就是一个刚好够难的小关卡，完成后能力、奖励和明天任务都会更新。
+              </p>
+            </div>
+          </section>
+
+          <section class="persona-strip" aria-label="选择体验角色">
+            <button class="persona-card active" type="button" data-persona="child">
+              <span class="persona-age">7 岁</span>
+              <strong>Lily</strong>
+              <small>阅读表达训练</small>
+            </button>
+            <button class="persona-card" type="button" data-persona="teen">
+              <span class="persona-age">18 岁</span>
+              <strong>Alex</strong>
+              <small>专业与职业探索</small>
+            </button>
+            <button class="persona-card" type="button" data-persona="adult">
+              <span class="persona-age">32 岁</span>
+              <strong>Chen</strong>
+              <small>AI 职业能力提升</small>
+            </button>
+            <button class="persona-card" type="button" data-persona="senior">
+              <span class="persona-age">68 岁</span>
+              <strong>Wang</strong>
+              <small>健康认知与陪伴</small>
+            </button>
+          </section>
+
+          <section class="ops-strip" aria-label="学习运营机制">
+            <article class="ops-card">
+              <span>🔥</span>
+              <strong id="homeStreak">12 天连续学习</strong>
+              <small>每天完成一个微任务，保持成长节奏。</small>
+            </article>
+            <article class="ops-card">
+              <span>⚡</span>
+              <strong id="homeXp">420 XP</strong>
+              <small>每次练习获得经验值，推动阶段升级。</small>
+            </article>
+            <article class="ops-card">
+              <span>💎</span>
+              <strong id="homeGems">86 Gems</strong>
+              <small>可兑换提示、复习保护和奖励任务。</small>
+            </article>
+          </section>
+        </section>
+
+        <section class="page" data-page="model">
+          <div class="page-head">
+            <div>
+              <p class="eyebrow">Market Map</p>
+              <h1>教育产品不是一种商业模式，而是一组获客、转化、留存和复购机制。</h1>
+              <p>我们要测试的不是“AI School 这个大词”，而是普通家庭是否愿意为一个明确能力结果付费：孩子每天 10 分钟，把话说完整、敢开口、能处理真实小场景。</p>
+            </div>
+            <button class="primary-action" type="button" data-go="lesson">体验训练</button>
+          </div>
+
+          <section class="model-hero panel">
+            <div>
+              <p class="eyebrow">Recommended Test</p>
+              <h2>最小可验证模式</h2>
+              <p>痛点广告 + 3 分钟测评 + 个性化训练计划 + 5/7 天 AI 闯关陪练 + 家长报告 + 训练营/订阅转化。</p>
+            </div>
+            <div class="funnel-chain" aria-label="商业模式漏斗">
+              <span>痛点广告</span>
+              <span>测评</span>
+              <span>训练计划</span>
+              <span>每日闯关</span>
+              <span>家长报告</span>
+              <span>付费续训</span>
+            </div>
+          </section>
+
+          <section class="model-grid">
+            <article class="model-card panel recommended">
+              <p class="eyebrow">Best For Cold Start</p>
+              <h2>适合先做</h2>
+              <ul>
+                <li><strong>Quiz Funnel：</strong>广告进入测评，生成孩子专属训练计划。</li>
+                <li><strong>5/7 天训练营：</strong>短周期、低门槛，验证家长第一笔付费。</li>
+                <li><strong>AI 闯关陪练：</strong>每天一个真实任务，AI 追问、提示、反馈。</li>
+                <li><strong>家长报告：</strong>让家长看到“孩子哪里变好了”。</li>
+                <li><strong>Kahoot 式挑战：</strong>第二阶段再做家庭/班级 PK，用来增强传播和组织场景。</li>
+              </ul>
+            </article>
+
+            <article class="model-card panel">
+              <p class="eyebrow">Delay These</p>
+              <h2>暂时不适合</h2>
+              <ul>
+                <li><strong>Khanmigo 模式：</strong>依赖大内容库和学校生态，冷启动用户不知道该问什么。</li>
+                <li><strong>BabyBus 模式：</strong>需要海量内容/IP/动画，不适合当前用 AI 快速验证。</li>
+                <li><strong>学校采购：</strong>客单价高但周期长，先 DTC 跑通家长端。</li>
+                <li><strong>老师 marketplace：</strong>供给侧太重，不是我们当前优势。</li>
+              </ul>
+            </article>
+          </section>
+
+          <section class="market-table panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Benchmarks</p>
+                <h2>参考产品和可借鉴点</h2>
+              </div>
+              <span class="pill">2026 当前市场</span>
+            </div>
+            <div class="benchmark-list">
+              <div><strong>Duolingo</strong><span>Freemium + 订阅 + 广告 + IAP</span><p>学 Streak、XP、League、Hearts，但不能只做游戏化。</p></div>
+              <div><strong>Speak / ELSA</strong><span>AI 表达陪练订阅</span><p>卖“敢说、说得好”的结果，而不是卖课程目录。</p></div>
+              <div><strong>ABCmouse / Lingokids</strong><span>儿童内容会员</span><p>学年龄路径、免费试用和家长放心，不拼内容库。</p></div>
+              <div><strong>Kahoot</strong><span>多人互动学习 + 组织订阅</span><p>学抢答、排行榜和课堂/家庭挑战；不作为冷启动主卖点。</p></div>
+              <div><strong>Khanmigo</strong><span>AI Tutor + 内容库</span><p>学引导式反馈，但不直接复制通用问答。</p></div>
+              <div><strong>Second Step / Move This World</strong><span>学校 SEL 平台</span><p>证明 SEL 有需求，但前台要讲“真实场景怎么说”。</p></div>
+              <div><strong>RiseGuide 类漏斗</strong><span>测评 + 定制计划</span><p>最适合测试广告、留资和低价付费。</p></div>
+            </div>
+          </section>
+
+          <section class="adjacent-modes panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Adjacent Models</p>
+                <h2>没有作为第一优先级，但值得借鉴的模式</h2>
+              </div>
+              <span class="pill">第二阶段参考</span>
+            </div>
+            <div class="mode-cards">
+              <article>
+                <span>01</span>
+                <strong>Preply / italki</strong>
+                <h3>真人老师 marketplace + AI 辅助</h3>
+                <p>证明用户愿意为真人反馈、责任感和个性化纠错付高价。89 可以做 AI 陪练后的真人点评 upsell。</p>
+              </article>
+              <article>
+                <span>02</span>
+                <strong>Outschool</strong>
+                <h3>儿童兴趣小班课 marketplace</h3>
+                <p>用主题小班课承接孩子兴趣。89 后期可做故事表达营、小小辩论营、社交表达营。</p>
+              </article>
+              <article>
+                <span>03</span>
+                <strong>Prodigy / Blooket / Gimkit</strong>
+                <h3>游戏优先的学习循环</h3>
+                <p>学任务、战斗、奖励和成长线，让孩子自己愿意回来；付费设计要避免家长反感。</p>
+              </article>
+              <article>
+                <span>04</span>
+                <strong>Maven</strong>
+                <h3>结果型 cohort 训练营</h3>
+                <p>更适合成人阶段，例如 AI Career School、30 天职场表达训练营、管理沟通训练营。</p>
+              </article>
+              <article>
+                <span>05</span>
+                <strong>KiwiCo / Lovevery</strong>
+                <h3>家庭订阅 + 离线成长任务</h3>
+                <p>把学习从屏幕延伸到家庭场景。89 可做每日亲子表达题、情绪沟通任务、现实挑战。</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="chart-signals panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">App Store / Google Play Signals</p>
+                <h2>榜单告诉我们的真实需求</h2>
+              </div>
+              <span class="pill">Top Free / Top Grossing</span>
+            </div>
+            <div class="signal-grid">
+              <article>
+                <span>01</span>
+                <strong>用户不为“教育”付费，而为具体任务付费</strong>
+                <p>Duolingo、PictureThis、Simply Piano、Pocket Prep、Blinkist 都是具体任务，不是泛教育。</p>
+              </article>
+              <article>
+                <span>02</span>
+                <strong>AI + 明确任务，比通用 AI Tutor 更容易跑</strong>
+                <p>Gauth、Question.AI、Praktika、Loora、ELSA、Coursiv 都是在具体学习动作里放 AI。</p>
+              </article>
+              <article>
+                <span>03</span>
+                <strong>儿童方向能赚钱，但不要拼内容库</strong>
+                <p>Lingokids、ABCmouse、Kiddopia、Reading Eggs 靠内容/IP，89 应该靠 AI 陪练和家长报告。</p>
+              </article>
+              <article>
+                <span>04</span>
+                <strong>表达力是合理切口</strong>
+                <p>Duolingo、Speak、Pimsleur、Babbel、ELSA 长期在榜，说明“开口练习 + 高频反馈”有付费心智。</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="category-share panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Top100 Category Share</p>
+                <h2>Google Play 教育畅销 Top100 品类占比</h2>
+              </div>
+              <span class="pill">US / Top Grossing</span>
+            </div>
+            <p class="share-note">口径：AppBrain Google Play 美国 Education Top Grossing Top100，2026-06-06。每个产品按主付费场景归入一个品类。</p>
+            <div class="share-bars" aria-label="Google Play 教育畅销 Top100 品类占比">
+              <article style="--share: 30%">
+                <div><strong>语言 / AI 口语</strong><span>30%</span></div>
+                <i aria-hidden="true"></i>
+                <p>Duolingo、Speak、Babbel、Pimsleur、Praktika、Loora、ELSA</p>
+              </article>
+              <article style="--share: 15%">
+                <div><strong>儿童学习 / 早教</strong><span>15%</span></div>
+                <i aria-hidden="true"></i>
+                <p>Lingokids、ABCmouse、Kiddopia、SplashLearn、Buddy.ai、Reading Eggs</p>
+              </article>
+              <article style="--share: 13%">
+                <div><strong>成人技能 / 职业认证</strong><span>13%</span></div>
+                <i aria-hidden="true"></i>
+                <p>Coursera、Udemy、SkillCat、Mimo、Pocket Prep、Zutobi</p>
+              </article>
+              <article style="--share: 12%">
+                <div><strong>自然识别 / 知识工具</strong><span>12%</span></div>
+                <i aria-hidden="true"></i>
+                <p>PictureThis、Plant App、PlantIn、Picture Insect、LeafSnap、Blossom</p>
+              </article>
+              <article style="--share: 11%">
+                <div><strong>微学习 / 脑训练</strong><span>11%</span></div>
+                <i aria-hidden="true"></i>
+                <p>Elevate、Headway、Blinkist、Brilliant、Imprint、Deepstash</p>
+              </article>
+              <article style="--share: 8%">
+                <div><strong>兴趣技能</strong><span>8%</span></div>
+                <i aria-hidden="true"></i>
+                <p>Simply Piano、Yousician、Simply Guitar、flowkey、Musora</p>
+              </article>
+              <article style="--share: 7%">
+                <div><strong>AI 作业 / 学习工具</strong><span>7%</span></div>
+                <i aria-hidden="true"></i>
+                <p>Quizlet、Gauth、Nerd AI、Question.AI、Quiz AI、Grammar Check</p>
+              </article>
+              <article style="--share: 2%">
+                <div><strong>阅读内容 / 小说</strong><span>2%</span></div>
+                <i aria-hidden="true"></i>
+                <p>HappyNovel、Neonovel</p>
+              </article>
+              <article style="--share: 1%">
+                <div><strong>多人互动 / 课堂挑战</strong><span>1%</span></div>
+                <i aria-hidden="true"></i>
+                <p>Kahoot：适合第二阶段做家庭/班级挑战和组织传播</p>
+              </article>
+              <article style="--share: 1%">
+                <div><strong>学校 / 家校工具</strong><span>1%</span></div>
+                <i aria-hidden="true"></i>
+                <p>ClassDojo：适合后期学校和家校场景</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="roadmap panel">
+            <div class="panel-header">
+              <div>
+                <p class="eyebrow">Operating Roadmap</p>
+                <h2>从冷启动到长期运营</h2>
+              </div>
+            </div>
+            <div class="roadmap-steps">
+              <article>
+                <span>01</span>
+                <strong>单点训练营</strong>
+                <p>阅读表达或社交表达，验证广告点击、测评完成、留资、付费和 Day 3 留存。</p>
+              </article>
+              <article>
+                <span>02</span>
+                <strong>能力矩阵</strong>
+                <p>扩展到表达力、逻辑力、学习力、专注力、财富认知和情绪韧性。</p>
+              </article>
+              <article>
+                <span>03</span>
+                <strong>长期档案</strong>
+                <p>孩子的能力地图、每日任务、阶段报告和年龄升级建议沉淀成家庭账号。</p>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section class="page" data-page="profile">
+          <div class="page-head">
+            <div>
+              <p class="eyebrow">Assessment Result</p>
+              <h1>Your child's 7-day expression course is ready.</h1>
+              <p id="profileIntro">The goal is not to add more lessons. The goal is to find the smallest gap and turn it into one doable task.</p>
+            </div>
+            <button class="primary-action" type="button" data-go="lesson">View Course Plan</button>
+          </div>
+
+          <section class="diagnosis-grid">
+            <article class="profile-card panel">
+              <div class="panel-header compact">
+                <div>
+                  <p class="eyebrow">Learner Profile</p>
+                  <h2 id="personaName">Your child's Assessment Result</h2>
+                </div>
+                <span class="pill" id="personaStage">Foundational Expression</span>
+              </div>
+
+              <div class="profile-summary">
+                <div>
+                  <span>Training Goal</span>
+                  <strong id="goalText">Retell a short story with character, goal, reason, and sequence.</strong>
+                </div>
+                <div>
+                  <span>Daily Time</span>
+                  <strong id="timeText">10 minutes</strong>
+                </div>
+              </div>
+
+              <div class="skill-list" id="skillList"></div>
+            </article>
+
+            <article class="panel diagnosis-panel">
+              <p class="eyebrow">AI Diagnosis</p>
+              <h2>How the course was created</h2>
+              <div class="diagnosis-flow" id="diagnosisFlow"></div>
+            </article>
+          </section>
+        </section>
+
+        <section class="page" data-page="lesson">
+          <div class="page-head">
+            <div>
+              <p class="eyebrow">Course + Interaction</p>
+              <h1 id="lessonHeroTitle">Day 1 Course: Story Retell</h1>
+              <p id="lessonIntro">The AI coach asks one focused question, gives a hint if needed, and checks whether the child can complete the answer.</p>
+            </div>
+            <button class="secondary-action" type="button" data-go="report">View Report</button>
+          </div>
+
+          <section class="coach-layout">
+            <article class="lesson-card panel">
+              <div class="game-status">
+                <span id="heartStatus">❤️❤️❤️❤️❤️</span>
+                <span id="hintStatus">2 hints left</span>
+              </div>
+
+              <div class="panel-header compact">
+                <div>
+                  <p class="eyebrow">First Trial Lesson</p>
+                  <h2>Complete one mini challenge</h2>
+                </div>
+                <span class="pill muted" id="lessonDuration">10 min</span>
+              </div>
+
+              <div class="lesson-task">
+                <span class="task-type" id="taskType">Story Expression</span>
+                <h3 id="taskTitle">Retell the story in three clear sentences.</h3>
+                <p id="taskBody">The AI listens first, then asks one follow-up question to help the child add the missing reason.</p>
+              </div>
+
+              <div class="trial-stages">
+                <section class="trial-stage scene-stage">
+                  <span class="stage-index">1</span>
+                  <div>
+                    <p class="stage-label">Understand the scene</p>
+                    <h3 id="sceneQuestion">Why did Mia follow the map?</h3>
+                    <p id="practiceStory">Mia found a tiny map under her desk. She followed it to the school garden and discovered a lost class photo.</p>
+                    <div class="interaction-options" id="interactionOptions" aria-label="Scene answer choices"></div>
+                  </div>
+                </section>
+
+                <section class="trial-stage dubbing-stage">
+                  <span class="stage-index">2</span>
+                  <div>
+                    <p class="stage-label">Practice with a character</p>
+                    <div class="cartoon-scene" aria-hidden="true">
+                      <div class="cartoon-sky"></div>
+                      <div class="cartoon-character"></div>
+                      <div class="speech-bubble" id="dubbingLine">I followed the map because...</div>
+                    </div>
+                    <div class="starter-row" aria-label="Dubbing starters">
+                      <button type="button" data-starter="I followed the map because ">Dub line A</button>
+                      <button type="button" data-starter="First, I found the map. Then, ">Dub line B</button>
+                      <button type="button" data-starter="My point is ">Dub line C</button>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="trial-stage speaking-stage">
+                  <span class="stage-index">3</span>
+                  <div>
+                    <p class="stage-label">Say it yourself</p>
+                    <h3 id="trialPrompt">Write one sentence that explains why Mia followed the map.</h3>
+                    <div class="score-preview">
+                      <span>Clarity</span>
+                      <span>Structure</span>
+                      <span>Confidence</span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="practice-pack compact-practice">
+                <div class="practice-method">
+                  <span>Method</span>
+                  <strong id="practiceMethod">Who + What happened + Why</strong>
+                </div>
+                <div class="practice-example">
+                  <span>Example answer</span>
+                  <p id="practiceExample">Mia found a map and followed it because she wanted to solve the mystery.</p>
+                </div>
+              </div>
+
+              <div class="before-after-mini">
+                <div>
+                  <span>Before</span>
+                  <p id="firstAttemptText">Submit the first answer to capture the baseline.</p>
+                </div>
+                <div>
+                  <span>After coaching</span>
+                  <p id="improvedAttemptText">Try again after the AI gives a hint.</p>
+                </div>
+              </div>
+
+              <div class="unlock-card">
+	                <span>Skill target</span>
+                <strong id="unlockTitle">Reason Link Lv.1</strong>
+                <p id="unlockCopy">Use one reason sentence to explain why the character acted.</p>
+              </div>
+
+              <div class="rubric-card">
+                <span>Pass standard</span>
+                <ul id="rubricList">
+                  <li>Names the character.</li>
+                  <li>Explains what happened.</li>
+                  <li>Adds one reason sentence.</li>
+                </ul>
+              </div>
+
+              <div class="lesson-steps" id="lessonSteps"></div>
+            </article>
+
+            <article class="panel chat-panel">
+              <div class="panel-header compact">
+                <div>
+                  <p class="eyebrow">Live Coaching</p>
+                  <h2>AI course interaction</h2>
+                </div>
+                <span class="pill" id="coachMode">Guided</span>
+              </div>
+
+              <div class="coach-chat detailed-chat" id="chatLog" aria-label="AI coaching conversation"></div>
+
+              <div class="hint-row" aria-label="Quick prompts">
+                <button type="button" data-hint="Give me a hint">Hint</button>
+                <button type="button" data-hint="I want to try again">Try again</button>
+                <button type="button" data-hint="Please check my answer">Check answer</button>
+              </div>
+
+              <div class="coach-reward">
+                <div>
+                  <span id="passLabel">Add one reason sentence to pass</span>
+                  <strong id="lessonReward">+15 XP · +3 Gems</strong>
+                </div>
+	                <button type="button" id="finishLesson" data-go="report">View Summary</button>
+              </div>
+
+              <form class="answer-box" id="answerForm">
+                <label for="answerInput">Child's answer</label>
+                <textarea id="answerInput" rows="4" placeholder="First try: type what the child would naturally say."></textarea>
+                <button class="primary-action" type="submit" id="answerSubmit">Submit First Try</button>
+              </form>
+            </article>
+          </section>
+        </section>
+
+        <section class="page" data-page="report">
+          <div class="page-head">
+            <div>
+              <p class="eyebrow">Parent Report</p>
+              <h1 id="reportHeroTitle">Day 1 is complete.</h1>
+              <p id="reportIntro">The report shows what improved, what is still weak, and what the next lesson will train.</p>
+            </div>
+            <button class="secondary-action" type="button" data-go="landing">Back to Start</button>
+          </div>
+
+          <section class="report-layout">
+            <article class="report-card panel">
+	            <div class="panel-header compact">
+	                <div>
+		                  <p class="eyebrow">Summary</p>
+		                  <h2>Initial expression profile</h2>
+		                </div>
+		                <span class="score" id="scoreText">Draft</span>
+		              </div>
+
+		              <div class="report-block report-status">
+		                <span>Stage rating</span>
+		                <p id="reportStatus">Preliminary questionnaire analysis. No trial answer has been submitted yet.</p>
+		              </div>
+
+	              <div class="report-block">
+	                <span>Comment</span>
+	                <p id="reportQuizSignal">The questionnaire suggests the first trial should test whether your child can explain why an event happened.</p>
+	              </div>
+
+	              <div class="report-block">
+	                <span>Trial evidence</span>
+	                <p id="progressText">No trial answer submitted yet.</p>
+	                <div class="report-evidence-list" id="trialEvidenceCards"></div>
+	              </div>
+
+	              <div class="report-block">
+	                <span>Teacher note</span>
+	                <p id="reportEvidence">The answer passed because it used the method: Who + What happened + Because.</p>
+	              </div>
+
+	              <div class="report-block">
+	                <span>Next lesson</span>
+	                <p id="nextText">Tomorrow's lesson will train sequence words: first, then, finally.</p>
+	              </div>
+
+	              <div class="unlock-result">
+	                <span>Trial Result</span>
+	                <strong id="reportUnlock">Reason Link Lv.1</strong>
+	                <p id="reportUnlockCopy">Skill unlocks only after the child submits an answer that meets the pass standard.</p>
+	              </div>
+	            </article>
+
+	            <article class="panel archive-panel">
+		              <p class="eyebrow">Next Lesson Locked</p>
+		              <h2>Continue with a paid plan</h2>
+
+	              <div class="quest-panel">
+	                <div class="panel-header compact">
+	                  <div>
+		                    <p class="eyebrow">Plan includes</p>
+		                    <h2>What unlocks next</h2>
+	                  </div>
+		                  <span class="pill muted" id="opsLeague">Locked</span>
+	                </div>
+	                <div class="quest-list" id="questList"></div>
+	              </div>
+
+	              <div class="leaderboard">
+	                <div>
+	                  <span>Before next lesson</span>
+	                  <strong id="opsRank">Choose plan</strong>
+	                </div>
+	                <p id="opsPrompt">Unlock the next lesson after choosing a 7-day training plan.</p>
+	              </div>
+
+              <div class="tomorrow-card">
+                <span>Tomorrow's Lesson</span>
+                <strong id="tomorrowTitle">Story Sequence</strong>
+	                <p id="tomorrowCopy">Use first, then, and finally to retell the story clearly.</p>
+	              </div>
+
+	              <div class="report-cta">
+	                <button class="primary-action" type="button" id="reportCta" data-go="lesson">Start First Trial</button>
+	                <p>Next lesson and full parent reports require a paid plan.</p>
+	              </div>
+
+              <h2 class="archive-title">Saved to the learner profile</h2>
+              <div class="archive-list" id="archiveList"></div>
+            </article>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
