@@ -227,7 +227,7 @@
   function renderQuestion() {
     if (shared.quizNeedsProfile(quiz) && !profile.name.trim()) {
       $('#quiz-detail-question').innerHTML = renderProfileStep();
-      setQuestionAdVisible(false);
+      setQuestionAdVisible(true);
       setResultAdVisible(false);
       return;
     }
