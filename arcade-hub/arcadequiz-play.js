@@ -79,12 +79,25 @@
     $('#detail-completed-label').textContent = text().completed;
   }
 
+  function ensureAdUnit(slot) {
+    if (slot.querySelector('.adsbygoogle')) return;
+    const ad = document.createElement('ins');
+    ad.className = 'adsbygoogle';
+    ad.style.display = 'block';
+    ad.dataset.adClient = 'ca-pub-5502975373459743';
+    ad.dataset.adSlot = '4151766489';
+    ad.dataset.adFormat = 'auto';
+    ad.dataset.fullWidthResponsive = 'true';
+    slot.appendChild(ad);
+  }
+
   function setQuestionAdVisible(isVisible) {
     const slot = $('#quiz-question-ad-slot');
     if (!slot) return;
     slot.hidden = !isVisible;
     if (isVisible && !questionAdPushed) {
       questionAdPushed = true;
+      ensureAdUnit(slot);
       window.setTimeout(() => {
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -99,6 +112,7 @@
     slot.hidden = !isVisible;
     if (isVisible && !resultAdPushed) {
       resultAdPushed = true;
+      ensureAdUnit(slot);
       window.setTimeout(() => {
         try {
           (window.adsbygoogle = window.adsbygoogle || []).push({});
