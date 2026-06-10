@@ -326,7 +326,13 @@ const fields = {
 	  tomorrowTitle: document.getElementById("tomorrowTitle"),
 	  tomorrowCopy: document.getElementById("tomorrowCopy"),
 	  reportCta: document.getElementById("reportCta"),
-	  finishLesson: document.getElementById("finishLesson")
+	  finishLesson: document.getElementById("finishLesson"),
+	  aiLine: document.getElementById("aiLine"),
+	  playAiLine: document.getElementById("playAiLine"),
+	  recordFirst: document.getElementById("recordFirst"),
+	  recordSecond: document.getElementById("recordSecond"),
+	  voiceStatus: document.getElementById("voiceStatus"),
+	  voiceScore: document.getElementById("voiceScore")
 		};
 
 const opsFields = {
@@ -520,6 +526,7 @@ const courseTemplates = {
     unlockTitle: "Join In Lv.1",
     unlockCopy: "Ask to join with a polite request and one helpful role.",
     passLabel: "Use request + role + friendly tone to pass",
+    aiLine: "Sorry, we already started the game.",
     aiPrompt: "Two classmates are already playing a playground game. You want to join, but you do not want to interrupt awkwardly. Say one sentence that asks to join and offers a helpful role.",
     trialPrompt: "Write what you would say to join the game.",
     sceneQuestion: "What should Kai say if he wants to join the game?",
@@ -786,6 +793,93 @@ function describeAnswerGrowth(task) {
   return `The second answer is longer, but it still needs a clearer ${task.checkFocus}. This should be practiced before moving ahead.`;
 }
 
+function getVoiceRecognition() {
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!Recognition) return null;
+  const recognition = new Recognition();
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+  return recognition;
+}
+
+function speakLine(text) {
+  if (!("speechSynthesis" in window) || !text) {
+    if (fields.voiceStatus) fields.voiceStatus.textContent = "Audio is not supported here. Read the line and try speaking.";
+    return;
+  }
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = "en-US";
+  utterance.rate = 0.88;
+  utterance.pitch = 1.05;
+  window.speechSynthesis.speak(utterance);
+  if (fields.voiceStatus) fields.voiceStatus.textContent = "Listen to the AI classmate, then record your answer.";
+}
+
+function scoreVoiceAnswer(text, task) {
+  const lower = text.toLowerCase();
+  const checks = task.key === "join"
+    ? [
+        ["request", lower.includes("join") || lower.includes("play")],
+        ["specific timing", lower.includes("next") || lower.includes("round")],
+        ["helpful role", lower.includes("help") || lower.includes("score") || lower.includes("rules")]
+      ]
+    : [
+        ["complete answer", text.trim().split(/\s+/).length >= 5],
+        ["target phrase", (answerSignals[task.key] || []).some((signal) => lower.includes(signal))],
+        ["clear detail", text.trim().length >= 36]
+      ];
+  const hits = checks.filter(([, passed]) => passed).length;
+  const label = hits >= 3 ? "Strong" : hits === 2 ? "Good start" : "Needs coaching";
+  return { label, checks };
+}
+
+function updateVoiceDisplay() {
+  const task = personas[currentPersona]?.courseTasks?.[activeLessonTaskIndex];
+  if (fields.recordSecond) fields.recordSecond.disabled = !trialState.firstSubmitted || trialState.completed;
+  if (fields.recordFirst) fields.recordFirst.disabled = trialState.completed;
+  if (fields.voiceScore) {
+    fields.voiceScore.textContent = trialState.completed
+      ? "After answer saved"
+      : trialState.firstSubmitted
+        ? "Coach tip ready"
+        : "Not started";
+  }
+  if (fields.voiceStatus && !trialState.firstSubmitted) {
+    fields.voiceStatus.textContent = task?.key === "join"
+      ? "Listen to the classmate. Then record what your child would say."
+      : "Use the microphone, or type the answer below.";
+  }
+}
+
+function captureVoiceAttempt(phase) {
+  const persona = personas[currentPersona];
+  const task = persona.courseTasks?.[activeLessonTaskIndex];
+  const recognition = getVoiceRecognition();
+  if (!recognition) {
+    fields.voiceStatus.textContent = "Speech recognition is not available in this browser. Type the answer below instead.";
+    fields.answerInput.focus();
+    return;
+  }
+  fields.voiceStatus.textContent = phase === "first" ? "Listening for the first try..." : "Listening for the improved answer...";
+  fields.voiceScore.textContent = "Listening";
+  recognition.onresult = (event) => {
+    const transcript = event.results?.[0]?.[0]?.transcript || "";
+    const score = scoreVoiceAnswer(transcript, task);
+    fields.answerInput.value = transcript;
+    fields.voiceStatus.textContent = `Heard: "${transcript}"`;
+    fields.voiceScore.textContent = score.label;
+    fields.answerForm.requestSubmit();
+  };
+  recognition.onerror = () => {
+    fields.voiceStatus.textContent = "Could not hear clearly. Try again, or type the answer below.";
+    fields.voiceScore.textContent = "Try again";
+  };
+  recognition.onend = () => updateVoiceDisplay();
+  recognition.start();
+}
+
 function renderTrialEvidenceCards(task) {
   if (!fields.trialEvidenceCards) return;
   if (!trialState.completed) {
@@ -830,6 +924,7 @@ function updateTrialDisplay() {
       ? "Second try: use the AI hint and make the answer clearer."
       : "First try: type what the child would naturally say.";
   }
+  updateVoiceDisplay();
 }
 
 function getStageSummary() {
@@ -1047,6 +1142,7 @@ function applyLessonTask(persona) {
   fields.practiceExample.textContent = task.example;
   fields.sceneQuestion.textContent = task.sceneQuestion;
   fields.dubbingLine.textContent = task.dubbingLine;
+  if (fields.aiLine) fields.aiLine.textContent = task.aiLine || task.dubbingLine || "Listen, then say your answer.";
   fields.trialPrompt.textContent = task.trialPrompt;
   fields.interactionOptions.innerHTML = (task.choices || [])
     .map(
@@ -1064,6 +1160,7 @@ function applyLessonTask(persona) {
   fields.lessonHeroTitle.textContent = `Day 1 Course: ${task.taskType}`;
   fields.lessonIntro.textContent = `This trial tests one observable skill: ${task.checkFocus}. The child answers once, gets one coaching hint, then retries.`;
   updateTrialDisplay();
+  updateVoiceDisplay();
   updateReportForTask(persona, task);
 }
 
@@ -1402,6 +1499,21 @@ document.querySelectorAll("[data-hint]").forEach((button) => {
   });
 });
 
+if (fields.playAiLine) {
+  fields.playAiLine.addEventListener("click", () => {
+    const task = personas[currentPersona].courseTasks?.[activeLessonTaskIndex];
+    speakLine(task?.aiLine || fields.aiLine?.textContent || "");
+  });
+}
+
+if (fields.recordFirst) {
+  fields.recordFirst.addEventListener("click", () => captureVoiceAttempt("first"));
+}
+
+if (fields.recordSecond) {
+  fields.recordSecond.addEventListener("click", () => captureVoiceAttempt("second"));
+}
+
 document.querySelectorAll("[data-starter]").forEach((button) => {
   button.addEventListener("click", () => {
     fields.answerInput.value = button.dataset.starter;
@@ -1432,6 +1544,7 @@ fields.answerForm.addEventListener("submit", (event) => {
   const task = persona.courseTasks?.[activeLessonTaskIndex];
   const answer = fields.answerInput.value.trim();
   const result = task ? evaluateTrialAnswer(answer, task) : { passed: false, feedback: "No active trial task." };
+  const voiceScore = task ? scoreVoiceAnswer(answer, task) : { label: "Needs coaching" };
   if (!trialState.firstSubmitted) {
     trialState.firstSubmitted = Boolean(answer);
     trialState.firstAnswer = answer;
@@ -1465,6 +1578,12 @@ fields.answerForm.addEventListener("submit", (event) => {
   updateTrialDisplay();
   updateReportForTask(persona, task);
   renderOps(persona);
+  if (fields.voiceStatus) {
+    fields.voiceStatus.textContent = trialState.completed
+      ? "Improved answer saved. You can view the parent report."
+      : "First try saved. Listen to the coach tip, then record again.";
+  }
+  if (fields.voiceScore) fields.voiceScore.textContent = voiceScore.label;
   fields.chatLog.scrollTop = fields.chatLog.scrollHeight;
 });
 

@@ -699,10 +699,20 @@
 
               <div class="coach-chat detailed-chat" id="chatLog" aria-label="AI coaching conversation"></div>
 
-              <div class="hint-row" aria-label="Quick prompts">
-                <button type="button" data-hint="Give me a hint">Hint</button>
-                <button type="button" data-hint="I want to try again">Try again</button>
-                <button type="button" data-hint="Please check my answer">Check answer</button>
+              <div class="voice-lab" aria-label="AI voice practice">
+                <div class="voice-card">
+                  <span>AI classmate says</span>
+                  <strong id="aiLine">We already started the game.</strong>
+                  <button type="button" id="playAiLine">Listen</button>
+                </div>
+                <div class="voice-actions">
+                  <button type="button" id="recordFirst">Record First Try</button>
+                  <button type="button" id="recordSecond" disabled>Record After Coach</button>
+                </div>
+                <div class="voice-feedback">
+                  <span id="voiceStatus">Use the microphone, or type the answer below.</span>
+                  <strong id="voiceScore">Not started</strong>
+                </div>
               </div>
 
               <div class="coach-reward">
