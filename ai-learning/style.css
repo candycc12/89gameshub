@@ -406,25 +406,26 @@ body.landing-mode .page:not(.landing-page).active {
 
 .quiz-ad {
   display: grid;
-  gap: 8px;
-  min-height: 112px;
-  padding: 10px;
-  border: 1px solid rgba(36, 77, 61, 0.08);
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.42);
+  gap: 6px;
+  min-height: 0;
+  padding: 2px 0 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: rgba(101, 116, 109, 0.72);
-  backdrop-filter: blur(14px);
+  backdrop-filter: none;
 }
 
 .quiz-ad > span {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
+  opacity: 0.62;
 }
 
 .quiz-ad .adsbygoogle {
-  min-height: 90px;
+  min-height: 60px;
 }
 
 .quiz-footer {
@@ -3446,7 +3447,7 @@ input[type="range"] {
   }
 
   .quiz-ad {
-    min-height: 96px;
+    min-height: 0;
   }
 
   .preview-line {
@@ -3554,13 +3555,13 @@ input[type="range"] {
   }
 
   .quiz-ad {
-    min-height: 88px;
-    padding: 8px;
-    border-radius: 16px;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
   }
 
   .quiz-ad .adsbygoogle {
-    min-height: 72px;
+    min-height: 50px;
   }
 
   .preview-line {
