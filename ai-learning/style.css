@@ -298,6 +298,18 @@ body.landing-mode .page:not(.landing-page).active {
   margin-top: 30px;
 }
 
+.quiz-inline-continue {
+  width: 100%;
+  margin-top: 18px;
+  background: linear-gradient(90deg, #7257ff, #2f8cff);
+}
+
+.quiz-inline-continue:disabled {
+  background: #c7cad1;
+  cursor: default;
+  transform: none;
+}
+
 .quiz-option {
   display: grid;
   grid-template-columns: 64px minmax(0, 1fr) 22px;

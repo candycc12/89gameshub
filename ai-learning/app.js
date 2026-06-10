@@ -362,6 +362,7 @@ const quizNodes = {
   hint: document.getElementById("quizHint"),
   options: document.getElementById("quizOptions"),
   continue: document.getElementById("quizContinue"),
+  continueInline: document.getElementById("quizContinueInline"),
   footerText: document.getElementById("quizFooterText")
 };
 
@@ -1306,14 +1307,19 @@ function renderQuiz() {
   if (!quizNodes.question) return;
   const step = quizSteps[quizIndex];
   const selected = quizAnswers[quizIndex];
+  const isContinueDisabled = step.type !== "insight" && selected === null;
+  const continueText = quizIndex === quizSteps.length - 1 ? "Start First Trial" : "Continue";
   quizNodes.stepText.textContent = `${quizIndex + 1} / ${quizSteps.length}`;
   quizNodes.progress.style.width = `${((quizIndex + 1) / quizSteps.length) * 100}%`;
   quizNodes.category.textContent = step.category;
   quizNodes.question.textContent = step.question;
   quizNodes.hint.textContent = step.hint;
   quizNodes.back.disabled = quizIndex === 0;
-  quizNodes.continue.disabled = step.type !== "insight" && selected === null;
-  quizNodes.continue.textContent = quizIndex === quizSteps.length - 1 ? "Start First Trial" : "Continue";
+  [quizNodes.continue, quizNodes.continueInline].forEach((button) => {
+    if (!button) return;
+    button.disabled = isContinueDisabled;
+    button.textContent = continueText;
+  });
   quizNodes.footerText.textContent =
     quizIndex === quizSteps.length - 1
       ? "Start one coached expression lesson before seeing the report."
@@ -1411,8 +1417,8 @@ function setPersona(key) {
 }
 
 function setRoute(route) {
-  const safeRoute = ["landing", "plan", "lesson", "report"].includes(route) ? route : "landing";
-  const funnelRoutes = ["landing", "plan", "lesson", "report"];
+  const safeRoute = ["landing", "loading", "plan", "lesson", "report"].includes(route) ? route : "landing";
+  const funnelRoutes = ["landing", "loading", "plan", "lesson", "report"];
   if (safeRoute === "landing") {
     quizIndex = 0;
     quizAnswers.fill(null);
@@ -1479,8 +1485,7 @@ if (quizNodes.options) {
   });
 }
 
-if (quizNodes.continue) {
-	  quizNodes.continue.addEventListener("click", () => {
+function continueQuiz() {
     if (quizSteps[quizIndex].type !== "insight" && quizAnswers[quizIndex] === null) return;
     if (quizIndex < quizSteps.length - 1) {
       quizIndex += 1;
@@ -1489,9 +1494,13 @@ if (quizNodes.continue) {
     }
 	    buildCourseFromQuizAnswers();
 	    setPersona("child");
-	    setRoute("plan");
-	  });
-	}
+	    setRoute("loading");
+}
+
+[quizNodes.continue, quizNodes.continueInline].forEach((button) => {
+  if (!button) return;
+  button.addEventListener("click", continueQuiz);
+});
 
 if (quizNodes.back) {
   quizNodes.back.addEventListener("click", () => {
