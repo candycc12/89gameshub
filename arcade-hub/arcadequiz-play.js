@@ -83,7 +83,7 @@
     const slot = $('#quiz-question-ad-slot');
     if (!slot) return;
     slot.hidden = !isVisible;
-    if (isVisible && !questionAdPushed && window.adsbygoogle) {
+    if (isVisible && !questionAdPushed) {
       questionAdPushed = true;
       window.setTimeout(() => {
         try {
@@ -97,7 +97,7 @@
     const slot = $('#quiz-result-ad-slot');
     if (!slot) return;
     slot.hidden = !isVisible;
-    if (isVisible && !resultAdPushed && window.adsbygoogle) {
+    if (isVisible && !resultAdPushed) {
       resultAdPushed = true;
       window.setTimeout(() => {
         try {
