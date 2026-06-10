@@ -1954,7 +1954,9 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
 .quiz-result-ad-slot {
   display: grid;
   place-items: center;
-  min-height: 280px;
+  position: relative;
+  min-height: 332px;
+  padding: 26px;
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 24px;
   color: #94a3b8;
@@ -1968,14 +1970,30 @@ iframe { width: 100%; height: calc(100vh - 110px); border: 0; border-radius: 24p
 }
 .quiz-question-ad-slot[hidden] { display: none; }
 .quiz-result-ad-slot {
-  min-height: 250px;
+  min-height: 332px;
   margin: 18px 0 20px;
 }
 .quiz-result-ad-slot[hidden] { display: none; }
+.ad-slot-label {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  letter-spacing: .04em;
+  pointer-events: none;
+}
 .quiz-question-ad-slot .adsbygoogle,
 .quiz-result-ad-slot .adsbygoogle {
-  width: 100%;
-  min-height: 250px;
+  width: min(100%, 336px);
+  min-height: 280px;
+}
+.ad-debug-status {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  color: #22d3ee;
+  font-size: 11px;
+  text-transform: none;
 }
 .quiz-crush-profile {
   display: grid;

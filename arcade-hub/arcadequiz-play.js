@@ -80,15 +80,42 @@
   }
 
   function ensureAdUnit(slot) {
-    if (slot.querySelector('.adsbygoogle')) return;
+    const existingAd = slot.querySelector('.adsbygoogle');
+    if (existingAd) return existingAd;
+    const label = slot.querySelector('span');
+    if (label) label.className = 'ad-slot-label';
     const ad = document.createElement('ins');
     ad.className = 'adsbygoogle';
     ad.style.display = 'block';
     ad.dataset.adClient = 'ca-pub-5502975373459743';
     ad.dataset.adSlot = '4151766489';
-    ad.dataset.adFormat = 'auto';
+    ad.dataset.adFormat = 'rectangle';
     ad.dataset.fullWidthResponsive = 'true';
     slot.appendChild(ad);
+    return ad;
+  }
+
+  function updateAdDebug(slot, ad) {
+    if (!new URLSearchParams(location.search).has('addebug')) return;
+    let debug = slot.querySelector('.ad-debug-status');
+    if (!debug) {
+      debug = document.createElement('small');
+      debug.className = 'ad-debug-status';
+      slot.appendChild(debug);
+    }
+    const status = ad.getAttribute('data-ad-status') || 'requested';
+    debug.textContent = `AdSense: ${status}`;
+  }
+
+  function pushAdUnit(slot) {
+    const ad = ensureAdUnit(slot);
+    window.setTimeout(() => {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        updateAdDebug(slot, ad);
+        window.setTimeout(() => updateAdDebug(slot, ad), 1800);
+      } catch (_) {}
+    }, 80);
   }
 
   function setQuestionAdVisible(isVisible) {
@@ -97,12 +124,7 @@
     slot.hidden = !isVisible;
     if (isVisible && !questionAdPushed) {
       questionAdPushed = true;
-      ensureAdUnit(slot);
-      window.setTimeout(() => {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (_) {}
-      }, 0);
+      pushAdUnit(slot);
     }
   }
 
@@ -112,12 +134,7 @@
     slot.hidden = !isVisible;
     if (isVisible && !resultAdPushed) {
       resultAdPushed = true;
-      ensureAdUnit(slot);
-      window.setTimeout(() => {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (_) {}
-      }, 0);
+      pushAdUnit(slot);
     }
   }
 
