@@ -82,15 +82,15 @@
   function ensureAdUnit(slot) {
     const existingAd = slot.querySelector('.adsbygoogle');
     if (existingAd) return existingAd;
-    const label = slot.querySelector('span');
-    if (label) label.className = 'ad-slot-label';
+    const placeholder = slot.querySelector('.ad-slot-label, span');
+    if (placeholder) placeholder.remove();
     const ad = document.createElement('ins');
     ad.className = 'adsbygoogle';
     ad.style.display = 'block';
     ad.dataset.adClient = 'ca-pub-5502975373459743';
     ad.dataset.adSlot = '4151766489';
     ad.dataset.adFormat = 'rectangle';
-    ad.dataset.fullWidthResponsive = 'true';
+    ad.dataset.fullWidthResponsive = 'false';
     slot.appendChild(ad);
     return ad;
   }
@@ -109,11 +109,29 @@
 
   function pushAdUnit(slot) {
     const ad = ensureAdUnit(slot);
+    slot.classList.remove('ad-slot-empty', 'ad-slot-filled');
+    const syncSlotState = (collapsePending = false) => {
+      const status = ad.getAttribute('data-ad-status') || '';
+      if (status === 'filled') {
+        slot.classList.add('ad-slot-filled');
+        slot.classList.remove('ad-slot-empty');
+      } else if (status === 'unfilled' || collapsePending) {
+        slot.classList.add('ad-slot-empty');
+        slot.classList.remove('ad-slot-filled');
+      }
+      updateAdDebug(slot, ad);
+    };
+    const observer = new MutationObserver(() => syncSlotState(false));
+    observer.observe(ad, { attributes: true, attributeFilter: ['data-ad-status'] });
     window.setTimeout(() => {
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         updateAdDebug(slot, ad);
-        window.setTimeout(() => updateAdDebug(slot, ad), 1800);
+        window.setTimeout(() => syncSlotState(false), 1800);
+        window.setTimeout(() => {
+          syncSlotState(ad.getAttribute('data-ad-status') !== 'filled');
+          observer.disconnect();
+        }, 5200);
       } catch (_) {}
     }, 80);
   }
