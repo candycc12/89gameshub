@@ -513,6 +513,28 @@ let quizIndex = 0;
 const quizAnswers = new Array(quizSteps.length).fill(null);
 
 const courseTemplates = {
+  join: {
+    taskType: "Join the Game",
+    taskTitle: "Ask to join a game without sounding awkward.",
+    taskBody: "A real school social scenario: the child wants to join classmates who are already playing. The lesson trains a request that is polite, specific, and easy to accept.",
+    unlockTitle: "Join In Lv.1",
+    unlockCopy: "Ask to join with a polite request and one helpful role.",
+    passLabel: "Use request + role + friendly tone to pass",
+    aiPrompt: "Two classmates are already playing a playground game. You want to join, but you do not want to interrupt awkwardly. Say one sentence that asks to join and offers a helpful role.",
+    trialPrompt: "Write what you would say to join the game.",
+    sceneQuestion: "What should Kai say if he wants to join the game?",
+    dubbingLine: "Can I join? I can...",
+    checkFocus: "joining a group without sounding awkward",
+    material: "Kai sees two classmates playing a score game during recess. He wants to join, but they already started. If he only stands nearby, nobody notices. If he only says 'Can I play?', they may not know how to include him.",
+    method: "Can I join? + I can help by... + Friendly close",
+    example: "Can I join the next round? I can help keep score, and I will follow the rules.",
+    choices: [
+      ["Too vague", "Can I play?"],
+      ["Better", "Can I join the next round? I can "],
+      ["Strong", "Can I join the next round? I can help keep score, and "]
+    ],
+    rubric: ["Asks to join politely.", "Offers one clear role or contribution.", "Sounds friendly instead of demanding."]
+  },
   character: {
     taskType: "Character Clarity",
     taskTitle: "Name who the story is about before adding details.",
@@ -670,6 +692,7 @@ const courseTemplates = {
 };
 
 const answerSignals = {
+  join: ["join", "next round", "can i", "help", "score", "rules", "play", "friendly"],
   character: ["who", "character", "girl", "boy", "bunny", "rabbit", "child", "she", "he"],
   goal: ["want", "wanted", "goal", "try", "tried", "hope", "needed"],
   reason: ["because", "choose", "choice", "example", "reading", "game", "focus", "reason"],
@@ -726,6 +749,9 @@ function escapeHtml(value) {
 
 function buildCoachingHint(task, result) {
   if (!task) return "Try again with one complete sentence.";
+  if (task.key === "join") {
+    return "Good first try. Now make it easier for the other kids to say yes: ask for the next round, offer one helpful role, and sound friendly. Try: Can I join the next round? I can ___, and I will ___.";
+  }
   if (task.key === "reason") {
     return "Good first try. Now upgrade it into a complete answer: I choose ___ because ___. For example, ___. A strong answer does not just say what you like. It gives another person a reason to agree.";
   }
@@ -746,6 +772,9 @@ function describeAnswerGrowth(task) {
     return "No before/after evidence yet.";
   }
   if (trialState.passed) {
+    if (task.key === "join") {
+      return "The second answer changed from a vague request into a usable school sentence: it asks for a specific moment, offers a role, and lowers the social friction for the other kids.";
+    }
     if (task.key === "reason") {
       return "The second answer moved from a short preference to a complete opinion: choice, reason, and example. That is the first skill behind confident classroom speaking.";
     }
@@ -845,20 +874,22 @@ function buildCourseFromQuizAnswers() {
   const dailyTime = quizAnswers[11];
 
   const storyGapKeys = ["character", "goal", "reason", "sequence"];
-  const primary =
+  const primary = "join";
+
+  const support = [];
+  support.push(
     need === 0 ? "confidence" :
     need === 2 ? "organize" :
     need === 3 ? "social" :
-    storyGapKeys[storyGap] || "reason";
-
-  const support = [];
+    storyGapKeys[storyGap] || "reason"
+  );
   if (readingClarity >= 2) support.push("character");
   if (classroom === 1 || classroom === 2 || nervous === 0) support.push("confidence");
   if (speakerGoal === 3 || expressionStuck >= 3) support.push("organize");
   if (speakerGoal === 2) support.push("social");
   if (blocker === 1) support.push("sequence");
 
-  const tasks = uniqueTasks([primary, ...support, "reason", "sequence"]).slice(0, 4);
+  const tasks = uniqueTasks([primary, ...support, "social", "confidence", "organize"]).slice(0, 5);
   const firstTask = tasks[0];
   const timeLabels = ["5 min", "10 min", "15 min", "20 min"];
   const parentModes = ["Daily report only", "One parent prompt per day", "Parent-child mini task", "Progress dashboard"];
@@ -1069,7 +1100,9 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
   fields.reportStatus.textContent = `${summary.score}. First trial completed.`;
   fields.scoreText.textContent = trialState.passed ? "B" : "C+";
   fields.progressText.textContent = "The report below is based only on the two answers submitted in this trial.";
-  fields.reportEvidence.textContent = `Teacher note: ${describeAnswerGrowth(task)}`;
+  fields.reportEvidence.textContent = task.key === "join"
+    ? `Coach note: ${describeAnswerGrowth(task)} This is useful because joining a game is not only about confidence. It is about giving other children an easy way to include you.`
+    : `Teacher note: ${describeAnswerGrowth(task)}`;
   fields.nextText.textContent = nextTask && nextTask !== task
     ? `Next lesson trains ${nextTask.taskType}: ${nextTask.taskTitle}`
     : `Next lesson repeats ${task.taskType} with a harder scene.`;
