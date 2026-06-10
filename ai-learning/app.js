@@ -956,6 +956,24 @@ function uniqueTasks(keys) {
   return keys.filter((key, index) => keys.indexOf(key) === index).map(createTask);
 }
 
+function choosePrimaryCourseKey({ need, nervous, expressionStuck, storyGap, readingClarity, classroom, speakerGoal }) {
+  const storyGapKeys = ["character", "goal", "reason", "sequence"];
+
+  if (need === 3) return "social";
+  if (need === 2) return "organize";
+  if (need === 1) return storyGapKeys[storyGap] || (readingClarity >= 2 ? "character" : "reason");
+  if (need === 0) {
+    if (classroom === 1 || classroom === 2 || nervous === 0) return "confidence";
+    return speakerGoal === 2 ? "join" : "confidence";
+  }
+
+  if (speakerGoal === 2) return "join";
+  if (speakerGoal === 3 || expressionStuck >= 3) return "organize";
+  if (classroom === 1 || classroom === 2 || nervous === 0) return "confidence";
+  if (readingClarity >= 2) return "character";
+  return storyGapKeys[storyGap] || "reason";
+}
+
 function buildCourseFromQuizAnswers() {
   const need = quizAnswers[1];
   const nervous = quizAnswers[2];
@@ -969,7 +987,15 @@ function buildCourseFromQuizAnswers() {
   const dailyTime = quizAnswers[11];
 
   const storyGapKeys = ["character", "goal", "reason", "sequence"];
-  const primary = "join";
+  const primary = choosePrimaryCourseKey({
+    need,
+    nervous,
+    expressionStuck,
+    storyGap,
+    readingClarity,
+    classroom,
+    speakerGoal
+  });
 
   const support = [];
   support.push(
@@ -993,6 +1019,7 @@ function buildCourseFromQuizAnswers() {
   const storySignal = quizSteps[4].options[storyGap]?.[1] || "Why it happened";
   const needSignal = quizSteps[1].options[need]?.[1] || "Retell stories clearly";
   const classroomSignal = quizSteps[7].options[classroom]?.[1] || "Answers but too briefly";
+  const recommendationReason = `Recommended because the quiz priority was "${needSignal}", the story signal was "${storySignal}", and classroom behavior was "${classroomSignal}".`;
 
   personas.child = {
     ...personas.child,
@@ -1003,14 +1030,14 @@ function buildCourseFromQuizAnswers() {
     taskType: firstTask.taskType,
     taskTitle: firstTask.taskTitle,
     taskBody: firstTask.taskBody,
-    teacherTitle: `The quiz found the smallest gap: ${firstTask.checkFocus}.`,
+    teacherTitle: `The quiz recommends ${firstTask.taskType}: ${firstTask.checkFocus}.`,
     unlockTitle: firstTask.unlockTitle,
     unlockCopy: firstTask.unlockCopy,
 	    tomorrowTitle: tasks[1]?.taskType || "Story Sequence",
 	    tomorrowCopy: tasks[1]?.taskTitle || "Use first, then, and finally to retell the story clearly.",
-	    progress: `The questionnaire suggests the first trial should test ${firstTask.checkFocus}. This is not a learning result yet.`,
+    progress: `${recommendationReason} This is not a learning result yet.`,
     next: `Tomorrow's lesson will train ${tasks[1]?.checkFocus || "story sequence"}.`,
-    reportQuizSignal: `Quiz signal: parent selected "${needSignal}" and the story retell gap was "${storySignal}". Classroom signal: "${classroomSignal}".`,
+    reportQuizSignal: `${recommendationReason} First trial: ${firstTask.taskType}.`,
     reportEvidence: `Today's AI check used "${firstTask.method}". Pass standard: ${firstTask.rubric.join(" / ")}.`,
     passLabel: firstTask.passLabel,
     skills: [
@@ -1021,7 +1048,7 @@ function buildCourseFromQuizAnswers() {
     ],
     diagnosis: [
       ["Quiz Signal", `Parent selected: ${storySignal}.`],
-      ["Current Gap", `The first course should train ${firstTask.checkFocus}, not a generic speaking lesson.`],
+      ["Current Gap", `The first course is ${firstTask.taskType} because it trains ${firstTask.checkFocus}, not a generic speaking lesson.`],
       ["Assigned Plan", `${tasks.length} micro-tasks, ${time} per day, ${parentMode.toLowerCase()}.`]
     ],
     courseTasks: tasks,
