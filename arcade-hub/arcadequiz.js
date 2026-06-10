@@ -75,7 +75,7 @@ const I18N = {
 
 const QUIZZES = [
   ['ai-chat-analyzer', 'AI Chat Crush Test', 'AI 聊天心动测试', 'love', 'personality', 120, true],
-  ['crush-name-scanner', 'Is This Person Your Crush?', 'TA 是你的 Crush 吗？', 'love', 'personality', 130, true],
+  ['crush-name-scanner', 'Crush Scanner', 'TA 是你的 Crush 吗？', 'love', 'personality', 150, true],
   ['red-flag-scanner', 'Dating Green Flag Check', '恋爱绿灯检测', 'love', 'personality', 110, true],
   ['villain-mbti', 'Villain MBTI', '反派 MBTI', 'meme', 'personality', 100, true],
   ['kpop-stan-exam', 'K-pop Detail Exam', 'K-pop 细节考试', 'celebrity', 'trivia', 130, true],
@@ -121,46 +121,70 @@ const QUIZZES = [
 const CRUSH_QUIZ_CONTENT = {
   'crush-name-scanner': {
     copy: {
-      en: 'Type their name, optionally add a photo for the result card, then scan the tiny signals you keep pretending are totally normal.',
+      en: 'Drop their name, add an optional photo, and run a suspiciously personal vibe scan before the group chat asks for evidence.',
       zh: '输入 TA 的名字，也可以加一张照片做结果卡，然后扫描那些你嘴上说“很正常”的小信号。'
     },
     questions: {
       en: [
-        ['When {name} texts you, your lock screen suddenly becomes...', [
-          ['A red-carpet event', 'spark'],
-          ['A data point I should not overvalue', 'analyst'],
-          ['A tiny mood shift I definitely notice', 'connector'],
-          ['A notification, not a life decision', 'strategist']
+        ['{name} suddenly appears in your notifications. Your honest first reaction?', [
+          ['Why am I smiling at glass and pixels?', 'spark'],
+          ['Okay, log the signal but do not spiral', 'analyst'],
+          ['Tiny mood lift. Very annoying. Very real', 'connector'],
+          ['A notification is not a life event', 'strategist']
         ]],
-        ['Someone says {name} in a random sentence. Your brain does what?', [
-          ['Lights up like a group chat alarm', 'spark'],
-          ['Checks if I am being obvious', 'analyst'],
-          ['Pretends to be normal, badly', 'connector'],
-          ['Acknowledges it and keeps functioning', 'strategist']
+        ['Someone says {name} in a random sentence. Your brain immediately...', [
+          ['Turns the volume up for no reason', 'spark'],
+          ['Checks whether my face betrayed me', 'analyst'],
+          ['Pretends to be casual and fails softly', 'connector'],
+          ['Registers it, then keeps functioning', 'strategist']
         ]],
-        ['You see {name} looking especially good. Be honest:', [
-          ['I become a poet with no publishing plan', 'spark'],
-          ['I notice, then look for actual behavior', 'analyst'],
-          ['I get softer for the next 40 minutes', 'connector'],
-          ['Attraction is real; pacing is also real', 'strategist']
+        ['{name} replies "haha" instead of "lol." You decode that as...', [
+          ['A coded romantic document, obviously', 'spark'],
+          ['Probably nothing, but I am saving it', 'analyst'],
+          ['Warmer tone. I said what I said', 'connector'],
+          ['Same meaning, different keyboard behavior', 'strategist']
         ]],
-        ['If {name} leaves you on read, your inner monologue is...', [
-          ['"This is my villain origin story"', 'spark'],
-          ['"One delay is not a pattern"', 'analyst'],
-          ['"Maybe they got busy. Breathe"', 'connector'],
-          ['"I will not audition for attention"', 'strategist']
+        ['{name} leaves you on read for three hours. What happens next?', [
+          ['I open the group chat courtroom', 'spark'],
+          ['I remind myself one delay is not a pattern', 'analyst'],
+          ['I breathe, then check once like a liar', 'connector'],
+          ['I protect my mood and do literally anything else', 'strategist']
         ]],
-        ['Your friends would know you like {name} because...', [
-          ['I mention them with suspicious timing', 'spark'],
-          ['I have a full evidence board', 'analyst'],
-          ['My voice gets annoyingly gentle', 'connector'],
-          ['I deny it too carefully', 'strategist']
+        ['{name} posts a story. You are most likely to...', [
+          ['Watch it, rewatch it, then act normal', 'spark'],
+          ['Notice who else liked it because context matters', 'analyst'],
+          ['Look for the tiny detail they wanted seen', 'connector'],
+          ['Watch once. No forensic cinema today', 'strategist']
         ]],
-        ['Final scan: what would make {name} feel actually worth it?', [
-          ['Mutual spark that survives daylight', 'spark'],
-          ['Consistent effort, not just chemistry', 'analyst'],
-          ['Feeling seen without performing', 'connector'],
-          ['Clear intent and calm energy', 'strategist']
+        ['Your friend says, "You talk about {name} a lot." You say...', [
+          ['"Lower your voice"', 'spark'],
+          ['"I am just providing context"', 'analyst'],
+          ['"Okay maybe a little"', 'connector'],
+          ['"Noted. I will be normal now"', 'strategist']
+        ]],
+        ['If {name} liked someone else\'s photo, your emotional weather would be...', [
+          ['Sunny with a chance of personal betrayal', 'spark'],
+          ['Curious, but not filing a case yet', 'analyst'],
+          ['A little weird, against my will', 'connector'],
+          ['Stable. I am not dating a like button', 'strategist']
+        ]],
+        ['{name} asks to hang out one-on-one. You...', [
+          ['Plan the outfit before the time is confirmed', 'spark'],
+          ['Ask what the plan is so I can read the room', 'analyst'],
+          ['Tell one friend and pretend it is not a briefing', 'connector'],
+          ['Say yes if the plan is clear and respectful', 'strategist']
+        ]],
+        ['Brutal honesty: are you into {name}, or into being chosen by {name}?', [
+          ['Do not ask me questions with consequences', 'spark'],
+          ['Both are possible, unfortunately', 'analyst'],
+          ['I want to be seen by them specifically', 'connector'],
+          ['I can want attention without obeying it', 'strategist']
+        ]],
+        ['Final scan: if the result says you are cooked, what will you do?', [
+          ['Laugh, share it, and deny nothing', 'spark'],
+          ['Send it to a friend for peer review', 'analyst'],
+          ['Scan another person immediately', 'connector'],
+          ['Take the data and calm down gracefully', 'strategist']
         ]]
       ],
       zh: [
@@ -640,8 +664,23 @@ const LOVE_RESULTS = {
   }
 };
 
+const CRUSH_SCANNER_RESULTS = {
+  en: {
+    spark: ['You Are Cooked', '{name} is not just a person anymore. They are a notification, a plot device, and a minor threat to your emotional stability.', 'I scanned {name} and got "You Are Cooked." My bestie has been right this whole time.'],
+    analyst: ['Delusion Loading... 72%', 'Some signals are real. Some are written, directed, and produced by your brain. The good news: you still know where the receipts are.', 'I scanned {name} and got "Delusion Loading... 72%." This is going to the group chat for peer review.'],
+    connector: ['Soft Crush Detected', 'You are not fully gone, but {name} has started affecting your mood more than a normal person should. Respectfully suspicious.', 'I scanned {name} and got "Soft Crush Detected." I am still pretending this is casual.'],
+    strategist: ['Bestie Intervention Recommended', 'You like the vibe, but you also know confusion is expensive. This crush can continue only if clarity starts paying rent.', 'I scanned {name} and got "Bestie Intervention Recommended." I will not be taking questions.']
+  },
+  zh: {
+    spark: ['你已经上头了', '{name} 已经不只是一个普通人，而是通知栏、剧情装置，以及你情绪稳定的小型威胁。', '我测了 {name}，结果是「你已经上头了」。朋友可能早就看出来了。'],
+    analyst: ['脑补加载中...72%', '有些信号是真的，有些是你大脑自编自导自演。好消息是：你还知道证据在哪里。', '我测了 {name}，结果是「脑补加载中...72%」。需要发给朋友复审。'],
+    connector: ['轻度心动已检出', '你还没有完全沦陷，但 {name} 对你心情的影响已经超过普通人类标准。', '我测了 {name}，结果是「轻度心动已检出」。我还在假装这很普通。'],
+    strategist: ['建议朋友介入', '你喜欢这个气氛，但也知道混乱很消耗。除非清晰度开始付房租，否则这段心动要谨慎。', '我测了 {name}，结果是「建议朋友介入」。暂不接受提问。']
+  }
+};
+
 const CRUSH_STAGES = {
-  en: ['Chat forensic mode', 'Signal check', 'Main character moment', 'Boundary test', 'Group chat bait', 'Share-card setup'],
+  en: ['Notification spike', 'Name reaction', 'Text autopsy', 'Read-receipt trial', 'Story surveillance', 'Bestie evidence', 'Jealousy weather', 'One-on-one alert', 'Brutal honesty', 'Final scan'],
   zh: ['聊天侦探模式', '信号检查', '主角时刻', '边界测试', '群聊诱饵', '结果卡预热']
 };
 
@@ -755,6 +794,7 @@ function quizDetailCopy(quiz) {
 }
 
 function quizResult(quiz, trait) {
+  if (quiz.id === 'crush-name-scanner') return CRUSH_SCANNER_RESULTS[lang][trait] || CRUSH_SCANNER_RESULTS[lang].spark;
   if (CRUSH_QUIZ_CONTENT[quiz.id]) return LOVE_RESULTS[lang][trait] || LOVE_RESULTS[lang].spark;
   return t().results[trait] || t().results.spark;
 }
@@ -763,9 +803,8 @@ function quizShareCopy(quiz, result, reward, targetName = '') {
   if (CRUSH_QUIZ_CONTENT[quiz.id] && result[2]) {
     const subject = targetName || profileFallbackName();
     if (quizNeedsProfile(quiz)) {
-      return lang === 'zh'
-        ? `我测了 ${subject} 是不是我的 Crush，结果是「${result[0]}」。${result[2]}`
-        : `I scanned whether ${subject} is my crush and got "${result[0]}." ${result[2]}`;
+      const shareLine = personalizeText(result[2], subject);
+      return shareLine;
     }
     return lang === 'zh'
       ? `${result[2]} 我在 Arcadequiz 拿到 ${reward} 分。你也测一下。`
