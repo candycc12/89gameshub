@@ -398,31 +398,32 @@ const quizSteps = [
   {
     type: "question",
     category: "Profile",
-    question: "What does your child need most right now?",
-    hint: "This helps us create a focused 7-day course, not a generic lesson list.",
+    question: "Which speaking moment worries you most right now?",
+    hint: "Pick the moment you most want this course to improve first.",
     options: [
-      ["💬", "Speak with more confidence"],
-      ["📚", "Retell stories clearly"],
-      ["🧠", "Organize ideas before speaking"],
-      ["🤝", "Handle small social conflicts"]
+      ["🙋", "Answering a teacher's question"],
+      ["📚", "Explaining a story after reading"],
+      ["💬", "Saying more than one short sentence"],
+      ["🤝", "Joining or resolving peer situations"]
     ]
   },
   {
     type: "question",
     category: "Challenge",
-    question: "Does speaking in front of a group make your child nervous?",
-    hint: "This tells us how much confidence support to include.",
+    question: "When your child is asked to explain an answer, what usually happens?",
+    hint: "This is the strongest signal for the first lesson.",
     options: [
-      ["😬", "Yes, all the time"],
-      ["🙂", "Yes, sometimes"],
-      ["😌", "Never"]
+      ["😶", "They freeze or say \"I don't know\""],
+      ["🟡", "They answer, but it is very short"],
+      ["🔁", "They repeat the same idea"],
+      ["✅", "They explain clearly most of the time"]
     ]
   },
   {
     type: "scale",
     category: "Current Level",
-    question: "My child often knows what they want to say, but it comes out differently.",
-    hint: "Do you agree with this statement?",
+    question: "My child often has ideas, but needs help turning them into a clear answer.",
+    hint: "This helps us decide whether to train confidence, structure, or story logic first.",
     options: [
       ["❌", "Strongly disagree"],
       ["👎", "Somewhat disagree"],
@@ -434,12 +435,12 @@ const quizSteps = [
   {
     type: "question",
     category: "Story Skills",
-    question: "When your child retells a story, what is usually missing?",
-    hint: "The first lesson will target the weakest story component.",
+    question: "When your child explains a story or opinion, what is usually missing?",
+    hint: "The first trial will target the smallest missing piece.",
     options: [
       ["👤", "Who the story is about"],
       ["🎯", "What the character wants"],
-      ["🔗", "Why it happened"],
+      ["🔗", "A clear reason or because"],
       ["➡️", "What happened first, next, and last"]
     ]
   },
@@ -465,13 +466,13 @@ const quizSteps = [
   {
     type: "question",
     category: "Classroom",
-    question: "What usually happens when a teacher asks a question?",
-    hint: "The course can train classroom speaking moments if needed.",
+    question: "If an adult asks \"why?\", how does your child usually respond?",
+    hint: "This tells us whether the first lesson should train reasons and evidence.",
     options: [
-      ["🙋", "Raises hand and answers"],
-      ["🤔", "Knows it but stays quiet"],
-      ["😳", "Gets nervous and forgets"],
-      ["🗣", "Answers but too briefly"]
+      ["😶", "They get stuck"],
+      ["🗣", "They give a short reason"],
+      ["📌", "They give a reason but no example"],
+      ["✅", "They give a reason and example"]
     ]
   },
   {
@@ -526,8 +527,8 @@ const quizSteps = [
   {
     type: "insight",
     category: "Trial Ready",
-    question: "Your child's first expression trial is ready.",
-    hint: "The next screen is not a course list. It is one short coached lesson that tests whether your child can improve one real answer.",
+    question: "Your child's first speaking trial is ready.",
+    hint: "We will test one skill first: can your child turn a short answer into a reason-based answer after one coach example?",
     options: []
   }
 ];
@@ -1092,8 +1093,9 @@ function renderTrialEvidenceCards(task) {
   if (!fields.trialEvidenceCards) return;
   if (!trialState.completed) {
     const baseline = trialState.firstAnswer
-      ? `<article><span>First try saved</span><p>${escapeHtml(trialState.firstAnswer)}</p></article>`
-      : `<article><span>No trial answer</span><p>The report will show evidence after the child completes one coached retry.</p></article>`;
+      ? `<article><span>Baseline answer saved</span><p>${escapeHtml(trialState.firstAnswer)}</p></article>
+         <article><span>Still needed</span><p>One coached retry using ${escapeHtml(task.method)}. The report should not score the child until that retry is captured.</p></article>`
+      : `<article><span>No child response yet</span><p>This page is only a questionnaire summary. A real report needs one spoken answer and one coached retry.</p></article>`;
     fields.trialEvidenceCards.innerHTML = baseline;
     return;
   }
@@ -1137,27 +1139,62 @@ function updateTrialDisplay() {
 }
 
 function getStageSummary() {
-  const need = quizAnswers[1];
-  const nervous = quizAnswers[2];
-  const expressionStuck = quizAnswers[3];
-  const storyGap = quizAnswers[4];
+  const primaryMoment = quizAnswers[1];
+  const explainBehavior = quizAnswers[2];
+  const structureNeed = quizAnswers[3];
+  const missingPiece = quizAnswers[4];
   const readingClarity = quizAnswers[6];
+  const whyResponse = quizAnswers[7];
   let risk = 1;
-  if (nervous === 0) risk += 1;
-  if (expressionStuck >= 3) risk += 1;
+  if (explainBehavior <= 1) risk += 1;
+  if (structureNeed >= 3) risk += 1;
   if (readingClarity >= 2) risk += 1;
-  if (storyGap >= 2) risk += 1;
+  if (missingPiece === 2) risk += 1;
+  if (whyResponse <= 2) risk += 1;
   const level = risk >= 4 ? "Stage 2" : risk >= 3 ? "Stage 1+" : "Stage 1";
-  const label = risk >= 4 ? "Needs structure" : risk >= 3 ? "Emerging expression" : "Ready for trial";
+  const label = risk >= 4 ? "Needs guided structure" : risk >= 3 ? "Emerging expression" : "Ready for coached trial";
   const comments = {
-    0: "Confidence appears to be the first training target.",
-    1: "Story retell is the best first trial because it is easy to observe.",
-    2: "The first gap appears to be organizing ideas before speaking.",
-    3: "Social communication may be worth testing with a simple scenario."
+    0: "The questionnaire suggests a classroom answering gap. The first trial should make speaking feel safe and structured.",
+    1: "The questionnaire points to story explanation. The first trial should test whether the child can connect an answer to a clear reason.",
+    2: "The questionnaire suggests the child may have ideas but needs a repeatable answer frame.",
+    3: "The questionnaire points to social expression. The first trial should use one realistic peer situation."
   };
+  const reasonGap = missingPiece === 2 || whyResponse <= 2 || explainBehavior <= 1;
+  const comment = reasonGap
+    ? "The strongest signal is a reason gap: your child may answer, but not yet explain why. Day 1 tests Choice + Because + Example."
+    : comments[primaryMoment] || "The first trial should capture one real answer before making a stronger claim.";
   return {
     score: `${level}: ${label}`,
-    comment: comments[need] || "Story retell is the best first trial because it is easy to observe."
+    comment
+  };
+}
+
+function getQuizPlanInsight() {
+  const summary = getStageSummary();
+  const primaryMoment = quizAnswers[1];
+  const explainBehavior = quizAnswers[2];
+  const missingPiece = quizAnswers[4];
+  const whyResponse = quizAnswers[7];
+  const speakerGoal = quizAnswers[8];
+  const momentSignal = quizSteps[1].options[primaryMoment]?.[1] || "explaining an answer";
+  const explainSignal = quizSteps[2].options[explainBehavior]?.[1] || "answers briefly";
+  const missingSignal = quizSteps[4].options[missingPiece]?.[1] || "a clear reason";
+  const whySignal = quizSteps[7].options[whyResponse]?.[1] || "gives a short reason";
+  const goalSignal = quizSteps[8].options[speakerGoal]?.[1] || "clear logical thinker";
+
+  return {
+    score: summary.score,
+    momentSignal,
+    explainSignal,
+    missingSignal,
+    whySignal,
+    goalSignal,
+    now: explainBehavior <= 1
+      ? `Right now, your child may understand the answer but stop at "${explainSignal.toLowerCase()}."`
+      : `Right now, your child can answer, but the assessment still points to "${missingSignal.toLowerCase()}."`,
+    goal: `The target is a child who can become a ${goalSignal.toLowerCase()}: one clear choice, one reason, and one example.`,
+    recommendation: "Recommended paid track: 7-Day Reason Builder",
+    reason: summary.comment
   };
 }
 
@@ -1165,70 +1202,72 @@ function uniqueTasks(keys) {
   return keys.filter((key, index) => keys.indexOf(key) === index).map(createTask);
 }
 
-function choosePrimaryCourseKey({ need, nervous, expressionStuck, storyGap, readingClarity, classroom, speakerGoal }) {
+function choosePrimaryCourseKey({ primaryMoment, explainBehavior, structureNeed, missingPiece, readingClarity, whyResponse, speakerGoal }) {
   const storyGapKeys = ["character", "goal", "reason", "sequence"];
 
-  if (need === 3) return "social";
-  if (need === 2) return "organize";
-  if (need === 1) return storyGapKeys[storyGap] || (readingClarity >= 2 ? "character" : "reason");
-  if (need === 0) {
-    if (classroom === 1 || classroom === 2 || nervous === 0) return "confidence";
-    return speakerGoal === 2 ? "join" : "confidence";
+  if (missingPiece === 2 || whyResponse <= 2 || explainBehavior === 1) return "reason";
+  if (primaryMoment === 3 || speakerGoal === 2) return "social";
+  if (primaryMoment === 2 || speakerGoal === 3 || structureNeed >= 3) return "organize";
+  if (primaryMoment === 1) return storyGapKeys[missingPiece] || (readingClarity >= 2 ? "character" : "reason");
+  if (primaryMoment === 0) {
+    if (explainBehavior === 0) return "confidence";
+    return whyResponse <= 2 ? "reason" : "confidence";
   }
 
-  if (speakerGoal === 2) return "join";
-  if (speakerGoal === 3 || expressionStuck >= 3) return "organize";
-  if (classroom === 1 || classroom === 2 || nervous === 0) return "confidence";
   if (readingClarity >= 2) return "character";
-  return storyGapKeys[storyGap] || "reason";
+  return storyGapKeys[missingPiece] || "reason";
 }
 
 function buildCourseFromQuizAnswers() {
-  const need = quizAnswers[1];
-  const nervous = quizAnswers[2];
-  const expressionStuck = quizAnswers[3];
-  const storyGap = quizAnswers[4];
+  const primaryMoment = quizAnswers[1];
+  const explainBehavior = quizAnswers[2];
+  const structureNeed = quizAnswers[3];
+  const missingPiece = quizAnswers[4];
   const readingClarity = quizAnswers[6];
-  const classroom = quizAnswers[7];
+  const whyResponse = quizAnswers[7];
   const speakerGoal = quizAnswers[8];
   const blocker = quizAnswers[9];
   const parentRole = quizAnswers[10];
   const dailyTime = quizAnswers[11];
 
   const storyGapKeys = ["character", "goal", "reason", "sequence"];
-  const primary = choosePrimaryCourseKey({
-    need,
-    nervous,
-    expressionStuck,
-    storyGap,
+  const recommended = choosePrimaryCourseKey({
+    primaryMoment,
+    explainBehavior,
+    structureNeed,
+    missingPiece,
     readingClarity,
-    classroom,
+    whyResponse,
     speakerGoal
   });
+  const primary = "reason";
 
   const support = [];
   support.push(
-    need === 0 ? "confidence" :
-    need === 2 ? "organize" :
-    need === 3 ? "social" :
-    storyGapKeys[storyGap] || "reason"
+    primaryMoment === 0 ? "confidence" :
+    primaryMoment === 2 ? "organize" :
+    primaryMoment === 3 ? "social" :
+    storyGapKeys[missingPiece] || "reason"
   );
+  if (missingPiece === 2 || whyResponse <= 2 || explainBehavior <= 1) support.push("reason");
   if (readingClarity >= 2) support.push("character");
-  if (classroom === 1 || classroom === 2 || nervous === 0) support.push("confidence");
-  if (speakerGoal === 3 || expressionStuck >= 3) support.push("organize");
+  if (explainBehavior === 0) support.push("confidence");
+  if (speakerGoal === 3 || structureNeed >= 3) support.push("organize");
   if (speakerGoal === 2) support.push("social");
   if (blocker === 1) support.push("sequence");
 
-  const tasks = uniqueTasks([primary, ...support, "social", "confidence", "organize"]).slice(0, 5);
+  const tasks = uniqueTasks([primary, recommended, ...support, "sequence", "confidence", "social", "organize"]).slice(0, 5);
   const firstTask = tasks[0];
   const timeLabels = ["5 min", "10 min", "15 min", "20 min"];
   const parentModes = ["Daily report only", "One parent prompt per day", "Parent-child mini task", "Progress dashboard"];
   const time = timeLabels[dailyTime] || "10 min";
   const parentMode = parentModes[parentRole] || "Daily report only";
-  const storySignal = quizSteps[4].options[storyGap]?.[1] || "Why it happened";
-  const needSignal = quizSteps[1].options[need]?.[1] || "Retell stories clearly";
-  const classroomSignal = quizSteps[7].options[classroom]?.[1] || "Answers but too briefly";
-  const recommendationReason = `Recommended because the quiz priority was "${needSignal}", the story signal was "${storySignal}", and classroom behavior was "${classroomSignal}".`;
+  const momentSignal = quizSteps[1].options[primaryMoment]?.[1] || "Explaining an answer";
+  const explainSignal = quizSteps[2].options[explainBehavior]?.[1] || "Answers briefly";
+  const missingSignal = quizSteps[4].options[missingPiece]?.[1] || "A clear reason or because";
+  const whySignal = quizSteps[7].options[whyResponse]?.[1] || "They give a short reason";
+  const recommendationReason = `Parent signals: "${momentSignal}", "${explainSignal}", missing piece: "${missingSignal}", why response: "${whySignal}".`;
+  const courseRationale = `For this first trial, we start with Reason Builder because giving a clear reason is the shared foundation behind classroom answers, story retells, and social speaking.`;
 
   personas.child = {
     ...personas.child,
@@ -1244,10 +1283,10 @@ function buildCourseFromQuizAnswers() {
     unlockCopy: firstTask.unlockCopy,
 	    tomorrowTitle: tasks[1]?.taskType || "Story Sequence",
 	    tomorrowCopy: tasks[1]?.taskTitle || "Use first, then, and finally to retell the story clearly.",
-    progress: `${recommendationReason} This is not a learning result yet.`,
+    progress: `${recommendationReason} ${courseRationale} This is only a pre-trial recommendation until the child records an answer.`,
     next: `Tomorrow's lesson will train ${tasks[1]?.checkFocus || "story sequence"}.`,
-    reportQuizSignal: `${recommendationReason} First trial: ${firstTask.taskType}.`,
-    reportEvidence: `Today's AI check used "${firstTask.method}". Pass standard: ${firstTask.rubric.join(" / ")}.`,
+    reportQuizSignal: `${recommendationReason} ${courseRationale}`,
+    reportEvidence: `The first trial will check one method: "${firstTask.method}". Pass standard: ${firstTask.rubric.join(" / ")}.`,
     passLabel: firstTask.passLabel,
     skills: [
       ["Story Understanding", firstTask.key === "character" ? 54 : 70, "#244d3d"],
@@ -1256,7 +1295,7 @@ function buildCourseFromQuizAnswers() {
       [firstTask.unlockTitle.replace(" Lv.1", ""), 42, "#a8484d"]
     ],
     diagnosis: [
-      ["Quiz Signal", `Parent selected: ${storySignal}.`],
+      ["Quiz Signal", recommendationReason],
       ["Current Gap", `The first course is ${firstTask.taskType} because it trains ${firstTask.checkFocus}, not a generic speaking lesson.`],
       ["Assigned Plan", `${tasks.length} micro-tasks, ${time} per day, ${parentMode.toLowerCase()}.`]
     ],
@@ -1395,7 +1434,7 @@ function applyLessonTask(persona) {
   fields.passLabel.textContent = task.passLabel;
   fields.lessonHeroTitle.textContent = `Day 1 Course: ${task.taskType}`;
   fields.lessonIntro.textContent = `This trial tests one observable skill: ${task.checkFocus}. The child answers once, gets one coaching hint, then retries.`;
-  setTeacherSegment(currentLessonSegment());
+  setTeacherSegment(trialState.firstSubmitted || trialState.completed ? currentLessonSegment() : "intro");
   updateTrialDisplay();
   updateVoiceDisplay();
   updateReportForTask(persona, task);
@@ -1407,45 +1446,43 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
   const summary = getStageSummary();
   renderTrialEvidenceCards(task);
   if (!trialState.completed) {
-    fields.reportHeroTitle.textContent = "Initial questionnaire summary";
+    fields.reportHeroTitle.textContent = "Your child's first speaking plan is ready.";
     fields.reportStatus.textContent = trialState.firstSubmitted
-      ? `${summary.score}. First try saved, coached retry not completed.`
-      : `${summary.score}. No trial lesson completed yet.`;
-    fields.scoreText.textContent = "B-";
+      ? `${summary.score}. Baseline answer saved. Coached retry not completed yet.`
+      : `${summary.score}. Based on parent answers only.`;
+    fields.scoreText.textContent = trialState.firstSubmitted ? "Baseline" : "Pre-trial";
     fields.progressText.textContent = trialState.firstSubmitted
-      ? "One baseline answer is saved. The child still needs one coached retry before this becomes a trial report."
-      : `First trial to complete: "${task.taskTitle}"`;
+      ? "One real answer is saved. The next step is to see whether the child can improve after one coach example."
+      : `Recommended trial: "${task.taskTitle}"`;
     fields.reportEvidence.textContent = trialState.firstSubmitted
-      ? `Teacher note: the first answer gives us a baseline. Ask the child to retry with ${task.method}, then we can judge the actual change.`
-      : `Preliminary comment: ${summary.comment}`;
+      ? `Teacher note: the first answer gives us a baseline. Ask the child to retry with ${task.method}; then the report can show the before/after change.`
+      : `What we can infer: ${summary.comment}`;
     fields.nextText.textContent = trialState.firstSubmitted
-      ? "Return to the trial lesson and submit the improved answer."
-      : "Complete the first trial lesson to generate a real course report.";
-    fields.reportIntro.textContent = "This is a preliminary parent summary. The real report appears only after the child completes the digital teacher trial.";
-    fields.reportUnlock.textContent = "No course report yet";
-    fields.reportUnlockCopy.textContent = "A report appears after the child submits a first try and one improved answer.";
-    fields.tomorrowTitle.textContent = "First trial lesson";
+      ? "Return to the trial lesson and complete the improved answer."
+      : "Start the trial lesson to test this gap with one real response.";
+    fields.reportIntro.textContent = "This is a parent-facing pre-trial summary. The next step is choosing the 7-day plan before unlocking the first guided lesson.";
+    fields.reportUnlock.textContent = "Paid plan recommended";
+    fields.reportUnlockCopy.textContent = "Unlock the first coached trial, daily practice scenes, and parent reports with the 7-day plan.";
+    fields.tomorrowTitle.textContent = "First trial";
     fields.tomorrowCopy.textContent = task.taskTitle;
-    fields.reportCta.textContent = trialState.firstSubmitted ? "Finish First Trial" : "Start First Trial";
-    fields.reportCta.dataset.go = "lesson";
+    fields.reportCta.textContent = "Get My Plan";
+    fields.reportCta.dataset.go = "plan";
     return;
   }
-  fields.reportHeroTitle.textContent = "Trial lesson report";
-  fields.reportStatus.textContent = `${summary.score}. First trial completed.`;
-  fields.scoreText.textContent = trialState.passed ? "B" : "C+";
-  fields.progressText.textContent = "The report below is based only on the two answers submitted in this trial.";
-  fields.reportEvidence.textContent = task.key === "join"
-    ? `Coach note: ${describeAnswerGrowth(task)} This is useful because joining a game is not only about confidence. It is about giving other children an easy way to include you.`
-    : `Teacher note: ${describeAnswerGrowth(task)}`;
+  fields.reportHeroTitle.textContent = "Trial result: one small speaking habit can be trained.";
+  fields.reportStatus.textContent = `${summary.score}. Questionnaire signal plus one completed trial.`;
+  fields.scoreText.textContent = trialState.passed ? "Ready" : "Practice";
+  fields.progressText.textContent = "This report uses the child's first answer and improved answer from this session only.";
+  fields.reportEvidence.textContent = `Teacher note: ${describeAnswerGrowth(task)}`;
   fields.nextText.textContent = nextTask && nextTask !== task
     ? `Next lesson trains ${nextTask.taskType}: ${nextTask.taskTitle}`
     : `Next lesson repeats ${task.taskType} with a harder scene.`;
-  fields.reportIntro.textContent = "This report is based on the child's first answer, the AI coach hint, and the improved answer.";
-  fields.reportUnlock.textContent = trialState.passed ? task.unlockTitle : "Needs one more try";
+  fields.reportIntro.textContent = "This is the proof point for the parent: the child did not just watch a lesson, they produced an answer, received a frame, and tried again.";
+  fields.reportUnlock.textContent = trialState.passed ? "7-Day Plan Recommended" : "Repeat Day 1 Recommended";
   fields.reportUnlockCopy.textContent = trialState.passed
-    ? `${task.unlockCopy} Unlock the next lesson with the 7-day plan.`
-    : "The answer is not ready yet. The paid plan should repeat this skill before opening a harder task.";
-  fields.reportCta.textContent = "Unlock Next Lesson";
+    ? `${task.unlockCopy} The next paid step should unlock daily coached scenes, AI feedback, and parent summaries.`
+    : "The child needs another guided attempt before a harder lesson. The paid plan should repeat this skill with easier examples first.";
+  fields.reportCta.textContent = "Get My Plan";
   fields.reportCta.dataset.go = "plan";
   fields.tomorrowTitle.textContent = nextTask?.taskType || persona.tomorrowTitle;
   fields.tomorrowCopy.textContent = nextTask?.taskTitle || persona.tomorrowCopy;
@@ -1497,19 +1534,21 @@ function renderOps(persona) {
       : "Unlock the next interactive lesson after choosing a 7-day plan.";
   }
   const tasks = persona.courseTasks || [];
-  opsFields.questList.innerHTML = tasks.slice(0, 3)
-    .map(
-      (task, index) => `
-        <div class="quest-item">
-          <div>
-            <strong>${index === 0 ? "Current check" : `Next check ${index}`}: ${task.taskType}</strong>
-            <span>${index === 0 && trialState.completed ? "done" : "pending"}</span>
+  if (opsFields.questList) {
+    opsFields.questList.innerHTML = tasks.slice(0, 3)
+      .map(
+        (task, index) => `
+          <div class="quest-item">
+            <div>
+              <strong>${index === 0 ? "Current check" : `Next check ${index}`}: ${task.taskType}</strong>
+              <span>${index === 0 && trialState.completed ? "done" : "pending"}</span>
+            </div>
+            <p>${task.taskTitle}</p>
           </div>
-          <p>${task.taskTitle}</p>
-        </div>
-      `
-    )
-    .join("");
+        `
+      )
+      .join("");
+  }
 }
 
 function renderQuiz() {
@@ -1517,7 +1556,7 @@ function renderQuiz() {
   const step = quizSteps[quizIndex];
   const selected = quizAnswers[quizIndex];
   const isContinueDisabled = step.type !== "insight" && selected === null;
-  const continueText = quizIndex === quizSteps.length - 1 ? "Start First Trial" : "Continue";
+  const continueText = quizIndex === quizSteps.length - 1 ? "View Recommended Plan" : "Continue";
   quizNodes.stepText.textContent = `${quizIndex + 1} / ${quizSteps.length}`;
   quizNodes.progress.style.width = `${((quizIndex + 1) / quizSteps.length) * 100}%`;
   quizNodes.category.textContent = step.category;
@@ -1531,16 +1570,31 @@ function renderQuiz() {
   });
   quizNodes.footerText.textContent =
     quizIndex === quizSteps.length - 1
-      ? "Start one coached expression lesson before seeing the report."
+      ? "Continue to the paid plan recommendation."
       : `Answer ${quizSteps.length} quick questions to unlock the course plan.`;
 	  if (step.type === "insight") {
-      const summary = getStageSummary();
+      const insight = getQuizPlanInsight();
 	    quizNodes.options.innerHTML = `
-	      <div class="questionnaire-insight compact-summary" aria-label="Preliminary questionnaire summary">
-	        <article>
-	          <span>Preliminary rating</span>
-	          <strong>${summary.score}</strong>
-	          <p>${summary.comment}</p>
+	      <div class="questionnaire-insight result-summary" aria-label="Personalized questionnaire result">
+	        <article class="result-hero-card">
+	          <span>Personalized result</span>
+	          <strong>${insight.score}</strong>
+	          <p>${insight.reason}</p>
+	        </article>
+	        <div class="before-after-result">
+	          <article>
+	            <span>Now</span>
+	            <strong>${insight.now}</strong>
+	          </article>
+	          <article>
+	            <span>Goal</span>
+	            <strong>${insight.goal}</strong>
+	          </article>
+	        </div>
+	        <article class="course-recommendation-card">
+	          <span>Course recommendation</span>
+	          <strong>${insight.recommendation}</strong>
+	          <p>Why this track: parent selected "${insight.momentSignal}", the missing piece was "${insight.missingSignal}", and the first paid lesson tests whether one coach example can improve the answer.</p>
 	        </article>
 	      </div>
 	    `;
@@ -1700,21 +1754,35 @@ if (quizNodes.options) {
   });
 }
 
+let quizAdvanceLocked = false;
+
 function continueQuiz() {
-    if (quizSteps[quizIndex].type !== "insight" && quizAnswers[quizIndex] === null) return;
-    if (quizIndex < quizSteps.length - 1) {
-      quizIndex += 1;
-      renderQuiz();
-      return;
-    }
-	    buildCourseFromQuizAnswers();
-	    setPersona("child");
-	    setRoute("loading");
+  if (quizAdvanceLocked) return;
+  if (quizSteps[quizIndex].type !== "insight" && quizAnswers[quizIndex] === null) return;
+  quizAdvanceLocked = true;
+  if (quizIndex < quizSteps.length - 1) {
+    quizIndex += 1;
+    renderQuiz();
+    window.setTimeout(() => {
+      quizAdvanceLocked = false;
+    }, 180);
+    return;
+  }
+  buildCourseFromQuizAnswers();
+  setPersona("child");
+  setRoute("plan");
+  window.setTimeout(() => {
+    quizAdvanceLocked = false;
+  }, 180);
 }
 
 [quizNodes.continue].forEach((button) => {
   if (!button) return;
   button.addEventListener("click", continueQuiz);
+  button.addEventListener("pointerup", (event) => {
+    event.preventDefault();
+    continueQuiz();
+  });
 });
 
 if (quizNodes.back) {

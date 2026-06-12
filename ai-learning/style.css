@@ -445,7 +445,7 @@ body.landing-mode .page:not(.landing-page).active {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 20;
+  z-index: 1200;
   display: grid;
   justify-items: center;
   gap: 8px;
@@ -458,6 +458,8 @@ body.landing-mode .page:not(.landing-page).active {
 .quiz-footer .primary-action {
   width: min(440px, 100%);
   background: linear-gradient(90deg, #7257ff, #2f8cff);
+  touch-action: manipulation;
+  user-select: none;
 }
 
 .quiz-footer .primary-action:disabled {
@@ -520,6 +522,49 @@ body.landing-mode .page:not(.landing-page).active {
   margin: 10px 0 0;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.result-summary {
+  gap: 14px;
+}
+
+.result-summary article {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.result-hero-card {
+  border-color: rgba(114, 87, 255, 0.2) !important;
+  background:
+    linear-gradient(135deg, rgba(238, 240, 255, 0.94), rgba(255, 255, 255, 0.94)) !important;
+}
+
+.result-hero-card strong {
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.before-after-result {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.before-after-result article {
+  min-height: 150px;
+}
+
+.before-after-result article:first-child {
+  border-color: rgba(168, 72, 77, 0.2);
+  background: linear-gradient(135deg, #fff6f6, #fff);
+}
+
+.before-after-result article:last-child {
+  border-color: rgba(44, 148, 98, 0.2);
+  background: linear-gradient(135deg, #f3fff8, #fff);
+}
+
+.course-recommendation-card {
+  border-color: rgba(49, 95, 138, 0.18) !important;
+  background: linear-gradient(135deg, #eef8ff, #fff) !important;
 }
 
 .chart-lines {
@@ -635,6 +680,14 @@ body.landing-mode .page:not(.landing-page).active {
   color: #5c6fe8;
 }
 
+.plan-ready-copy {
+  max-width: 540px;
+  margin: 18px auto 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
 .build-list {
   display: grid;
   gap: 12px;
@@ -691,6 +744,56 @@ body.landing-mode .page:not(.landing-page).active {
   background:
     linear-gradient(90deg, #6674ec 0 2%, transparent 2% 100%),
     #d9dbe2;
+}
+
+.plan-ready-list {
+  gap: 10px;
+  margin: 30px auto 24px;
+  text-align: left;
+}
+
+.plan-ready-list div {
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  min-height: 72px;
+  padding: 16px 18px;
+  border: 1px solid rgba(36, 77, 61, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.plan-ready-list span {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--mint);
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.plan-ready-list strong {
+  align-self: center;
+  font-size: 20px;
+}
+
+.plan-ready-list small {
+  width: auto;
+  height: auto;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eef0ff;
+  color: #5c6fe8;
+  font-size: 13px;
+}
+
+.plan-ready-summary {
+  margin-top: 18px;
+}
+
+.plan-ready-actions {
+  margin-top: 22px;
 }
 
 .insight-note,
@@ -2841,6 +2944,125 @@ input[type="range"] {
   text-align: center;
 }
 
+.report-pricing {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.plan-pricing {
+  margin-top: 0;
+}
+
+.price-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  grid-template-areas:
+    "radio name daily"
+    "radio total daily";
+  gap: 3px 14px;
+  align-items: center;
+  min-height: 112px;
+  padding: 18px;
+  border: 1px solid rgba(36, 77, 61, 0.1);
+  border-radius: 18px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.price-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.price-option.selected {
+  padding-top: 58px;
+  border: 2px solid #6255ee;
+  box-shadow: 0 18px 42px rgba(98, 85, 238, 0.12);
+}
+
+.popular-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: grid;
+  height: 40px;
+  place-items: center;
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(90deg, #7257ff, #2f8cff);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0.02em;
+}
+
+.plan-radio {
+  grid-area: radio;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border: 3px solid #d9dbe2;
+  border-radius: 50%;
+}
+
+.price-option.selected .plan-radio {
+  border-color: #1f2330;
+  background: #1f2330;
+}
+
+.price-option.selected .plan-radio::after {
+  color: #fff;
+  content: "✓";
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.price-name {
+  grid-area: name;
+  color: #191827;
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.price-total {
+  grid-area: total;
+  color: #6d687d;
+  font-size: 16px;
+  font-weight: 850;
+}
+
+.price-total s,
+.price-daily s {
+  margin-right: 6px;
+  color: #8b8d98;
+}
+
+.price-daily {
+  grid-area: daily;
+  display: grid;
+  min-width: 112px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f0f1f5;
+  text-align: center;
+}
+
+.price-daily strong {
+  color: #06070a;
+  font-size: 34px;
+  line-height: 1.05;
+}
+
+.price-daily em {
+  color: #6d687d;
+  font-style: normal;
+  font-weight: 850;
+}
+
 .report-cta button {
   width: 100%;
 }
@@ -3642,6 +3864,7 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
 }
 
 .rise-course-lesson .lesson-app-top .secondary-action {
+  min-width: 0;
   min-height: 38px;
   padding: 0 12px;
   border: 1px solid rgba(91, 76, 155, 0.16);
@@ -3739,6 +3962,7 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
     radial-gradient(circle at 30% 14%, rgba(255, 204, 129, 0.36), transparent 30%),
     linear-gradient(145deg, #4b2b22 0%, #2f2036 58%, #17121d 100%);
   box-shadow: 0 22px 46px rgba(24, 18, 44, 0.16);
+  overflow: visible;
 }
 
 .scene-video-card {
@@ -3816,22 +4040,26 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
 }
 
 .rise-course-lesson .teacher-caption {
-  right: 14px;
-  bottom: 14px;
-  left: 14px;
+  position: relative;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  margin-top: 12px;
   padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(91, 76, 155, 0.12);
   border-radius: 18px;
-  background: rgba(20, 16, 25, 0.72);
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+  background: #f7f4ff;
+  box-shadow: none;
 }
 
 .rise-course-lesson .teacher-caption span {
-  color: #c4b7ff;
+  color: #6c57ef;
 }
 
 .rise-course-lesson .teacher-caption strong {
-  color: #fff;
+  color: #26223d;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .video-teacher {
@@ -4109,15 +4337,32 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
   content: "";
 }
 
-.map-path div {
+.map-path div,
+.map-path button {
   position: relative;
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
   padding: 12px;
+  border: 0;
   border-radius: 18px;
   background: #f8f6ff;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.map-path button {
+  cursor: pointer;
+  transition: transform 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
+}
+
+.map-path button:hover,
+.map-path button:focus-visible {
+  background: #f1edff;
+  box-shadow: inset 0 0 0 1px rgba(114, 87, 255, 0.22);
+  transform: translateY(-1px);
 }
 
 .map-path span {
@@ -4143,6 +4388,16 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
 .map-path small {
   color: #7a728e;
   font-weight: 900;
+}
+
+.map-path button small {
+  display: inline-grid;
+  min-width: 76px;
+  place-items: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: #ebe6ff;
+  color: #5c4bd6;
 }
 
 .classroom-lesson .lesson-steps {
@@ -5404,6 +5659,11 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
 }
 
 @media (max-width: 900px) {
+  body.landing-mode .page.active:has(.rise-course-lesson) {
+    width: 100%;
+    padding: 0;
+  }
+
   .classroom-lesson {
     width: min(100% - 22px, 680px);
     gap: 14px;
@@ -5474,6 +5734,49 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
 }
 
 @media (max-width: 520px) {
+  .price-option {
+    grid-template-columns: 32px minmax(0, 1fr);
+    grid-template-areas:
+      "radio name"
+      "radio total"
+      "daily daily";
+  }
+
+  .price-daily {
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+    align-items: baseline;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .price-daily strong {
+    font-size: 30px;
+  }
+
+  .before-after-result {
+    grid-template-columns: 1fr;
+  }
+
+  .rise-course-lesson {
+    width: 100%;
+    max-width: 480px;
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .rise-course-lesson .lesson-progress-strip .lesson-flow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: visible;
+    padding-bottom: 0;
+  }
+
+  .rise-course-lesson .lesson-progress-strip .lesson-flow button {
+    flex: initial;
+    min-height: 5px;
+  }
+
   .lesson-progress-strip .lesson-flow {
     display: flex;
     overflow-x: auto;

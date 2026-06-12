@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>89 AI School Demo</title>
-    <link rel="stylesheet" href="./style.css?v=20260610-ad-clean" />
+    <link rel="stylesheet" href="./style.css?v=20260612-flow-fit" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502975373459743" crossorigin="anonymous"></script>
   </head>
   <body class="landing-mode">
@@ -116,24 +116,25 @@
         <section class="page funnel-page" data-page="loading">
           <section class="plan-builder">
             <div class="mini-brand">89 AI Expression Camp</div>
-            <h1>We are creating your child's personal expression plan...</h1>
-            <div class="build-list">
-              <div class="done"><span></span><strong>Analyzing your answers</strong><small>✓</small></div>
-              <div class="done"><span></span><strong>Adapting to your triggers</strong><small>✓</small></div>
-              <div class="active"><span></span><strong>Setting your goals</strong><small>2%</small></div>
+            <h1>Your child's first speaking trial is ready.</h1>
+            <p class="plan-ready-copy">Based on the assessment, we will start with one measurable skill: turning a short answer into a clear answer with a reason and example.</p>
+            <div class="build-list plan-ready-list">
+              <div><span>01</span><strong>Primary gap</strong><small>Reason</small></div>
+              <div><span>02</span><strong>First trial</strong><small>8 min</small></div>
+              <div><span>03</span><strong>Parent report</strong><small>After practice</small></div>
             </div>
-            <div class="testimonial-slider" aria-label="User testimonial">
+            <div class="testimonial-slider plan-ready-summary" aria-label="Course preview">
               <article>
-                <div><span>★ ★ ★ ★ ★</span><small>Oct 02, 2025</small></div>
-                <strong>The first lesson helped my child understand how to organize thoughts before speaking.</strong>
-                <p>After the first session, she could explain the story with a reason instead of stopping after one sentence.</p>
+                <div><span>Trial preview</span><small>Day 1</small></div>
+                <strong>Watch a short school scene, hear a model answer, then record one answer.</strong>
+                <p>The report will only use what your child actually says in the practice.</p>
               </article>
             </div>
-            <div class="micro-modal">
-              <p>Do you believe practice is crucial for confident speaking?</p>
+            <div class="micro-modal plan-ready-actions">
+              <p>Choose what to review next.</p>
               <div>
-                <button type="button" data-go="plan">No</button>
-                <button type="button" data-go="plan">Yes</button>
+                <button type="button" data-go="plan">View Plan</button>
+                <button type="button" data-go="plan">Choose Plan</button>
               </div>
             </div>
           </section>
@@ -143,16 +144,16 @@
           <section class="personal-plan">
             <div class="sticky-plan-cta">
               <span>7-day expression plan</span>
-              <button type="button" data-go="lesson">Start Plan</button>
+              <button type="button" data-go="lesson">Get My Plan</button>
             </div>
             <div class="mini-brand">89 AI Expression Camp</div>
             <h1>Your child may not need more worksheets. <span>They need practice for real school moments.</span></h1>
-            <p class="plan-subtitle">Based on the quiz, we recommend testing a 7-day social speaking plan before unlocking the first lesson.</p>
+            <p class="plan-subtitle">Based on the quiz, we recommend one short speaking trial first, then a 7-day plan built around real school moments.</p>
 
             <section class="offer-box purchase-test">
               <div class="discount-card">
                 <span>Recommended after assessment</span>
-                <strong>7-Day Social Speaking Quest</strong>
+                <strong>7-Day Expression Quest</strong>
                 <p>Daily 8-minute school scenario, AI coaching, before/after answer evidence, and a parent report after each lesson.</p>
               </div>
               <div class="plan-highlights compact-offer">
@@ -164,25 +165,34 @@
                   <li>Next lesson unlocks only after the current skill has evidence.</li>
                 </ul>
               </div>
-              <div class="plan-options">
-                <label>
+              <div class="report-pricing plan-pricing" aria-label="Subscription plans">
+                <label class="price-option">
                   <input type="radio" name="coursePlan" />
-                  <span>Trial</span>
-                  <strong>$1.99 today</strong>
+                  <span class="plan-radio"></span>
+                  <span class="price-name">1-WEEK PLAN</span>
+                  <span class="price-total"><s>$9.99</s> $4.99</span>
+                  <span class="price-daily"><s>$1.43</s><strong>$0.71</strong><em>per day</em></span>
                 </label>
-                <label class="selected">
+
+                <label class="price-option selected">
                   <input type="radio" name="coursePlan" checked />
-                  <span>7-Day Quest</span>
-                  <strong>$3.99 / week</strong>
+                  <span class="popular-badge">★ MOST POPULAR</span>
+                  <span class="plan-radio"></span>
+                  <span class="price-name">4-WEEK PLAN</span>
+                  <span class="price-total"><s>$39.99</s> $19.99</span>
+                  <span class="price-daily"><s>$1.43</s><strong>$0.71</strong><em>per day</em></span>
                 </label>
-                <label>
+
+                <label class="price-option">
                   <input type="radio" name="coursePlan" />
-                  <span>Family</span>
-                  <strong>$6.99 / week</strong>
+                  <span class="plan-radio"></span>
+                  <span class="price-name">24-WEEK PLAN</span>
+                  <span class="price-total"><s>$149.99</s> $74.99</span>
+                  <span class="price-daily"><s>$0.89</s><strong>$0.45</strong><em>per day</em></span>
                 </label>
               </div>
               <p class="guarantee-line">This test does not process payment yet. Clicking below means the parent is willing to start the paid plan.</p>
-              <button class="primary-action" type="button" data-go="lesson">Start 7-Day Quest</button>
+              <button class="primary-action" type="button" data-go="lesson">Get My Plan</button>
               <button class="secondary-action" type="button" data-go="landing">Retake Assessment</button>
             </section>
           </section>
@@ -648,10 +658,10 @@
                     <div class="video-mic"></div>
                   </div>
                   <button class="video-play" type="button" data-teacher-segment="intro" aria-label="Play lesson">▶</button>
-                  <div class="teacher-caption">
-                    <span id="teacherStage">Mini lesson</span>
-                    <strong id="teacherLine">Today we replace a weak answer with a confident one.</strong>
-                  </div>
+                </div>
+                <div class="teacher-caption">
+                  <span id="teacherStage">Mini lesson</span>
+                  <strong id="teacherLine">Today we replace a weak answer with a confident one.</strong>
                 </div>
               </div>
 
@@ -743,9 +753,12 @@
               </div>
               <div class="map-path">
                 <div class="done"><span>1</span><strong>Give a reason</strong><small>Today</small></div>
-                <div><span>2</span><strong>Tell it in order</strong><small>Locked</small></div>
-                <div><span>3</span><strong>Join a group</strong><small>Locked</small></div>
-                <div><span>4</span><strong>Disagree politely</strong><small>Locked</small></div>
+                <button type="button" data-go="plan"><span>2</span><strong>Tell it in order</strong><small>Locked</small></button>
+                <button type="button" data-go="plan"><span>3</span><strong>Join a group</strong><small>Locked</small></button>
+                <button type="button" data-go="plan"><span>4</span><strong>Disagree politely</strong><small>Locked</small></button>
+                <button type="button" data-go="plan"><span>5</span><strong>Ask for help</strong><small>Locked</small></button>
+                <button type="button" data-go="plan"><span>6</span><strong>Give feedback</strong><small>Locked</small></button>
+                <button type="button" data-go="plan"><span>7</span><strong>Speak with confidence</strong><small>Locked</small></button>
               </div>
             </article>
 
@@ -859,34 +872,42 @@
 		              <p class="eyebrow">Next Lesson Locked</p>
 		              <h2>Continue with a paid plan</h2>
 
-	              <div class="quest-panel">
-	                <div class="panel-header compact">
-	                  <div>
-		                    <p class="eyebrow">Plan includes</p>
-		                    <h2>What unlocks next</h2>
-	                  </div>
-		                  <span class="pill muted" id="opsLeague">Locked</span>
-	                </div>
-	                <div class="quest-list" id="questList"></div>
-	              </div>
+	              <div class="report-pricing" aria-label="Subscription plans">
+	                <label class="price-option">
+	                  <input type="radio" name="reportPlan" />
+	                  <span class="plan-radio"></span>
+	                  <span class="price-name">1-WEEK PLAN</span>
+	                  <span class="price-total"><s>$9.99</s> $4.99</span>
+	                  <span class="price-daily"><s>$1.43</s><strong>$0.71</strong><em>per day</em></span>
+	                </label>
 
-	              <div class="leaderboard">
-	                <div>
-	                  <span>Before next lesson</span>
-	                  <strong id="opsRank">Choose plan</strong>
-	                </div>
-	                <p id="opsPrompt">Unlock the next lesson after choosing a 7-day training plan.</p>
-	              </div>
+	                <label class="price-option selected">
+	                  <input type="radio" name="reportPlan" checked />
+	                  <span class="popular-badge">★ MOST POPULAR</span>
+	                  <span class="plan-radio"></span>
+	                  <span class="price-name">4-WEEK PLAN</span>
+	                  <span class="price-total"><s>$39.99</s> $19.99</span>
+	                  <span class="price-daily"><s>$1.43</s><strong>$0.71</strong><em>per day</em></span>
+	                </label>
 
-              <div class="tomorrow-card">
-                <span>Tomorrow's Lesson</span>
-                <strong id="tomorrowTitle">Story Sequence</strong>
-	                <p id="tomorrowCopy">Use first, then, and finally to retell the story clearly.</p>
+	                <label class="price-option">
+	                  <input type="radio" name="reportPlan" />
+	                  <span class="plan-radio"></span>
+	                  <span class="price-name">24-WEEK PLAN</span>
+	                  <span class="price-total"><s>$149.99</s> $74.99</span>
+	                  <span class="price-daily"><s>$0.89</s><strong>$0.45</strong><em>per day</em></span>
+	                </label>
 	              </div>
 
 	              <div class="report-cta">
-	                <button class="primary-action" type="button" id="reportCta" data-go="lesson">Start First Trial</button>
-	                <p>Next lesson and full parent reports require a paid plan.</p>
+	                <button class="primary-action" type="button" id="reportCta" data-go="plan">Get My Plan</button>
+	                <p>Unlock the first guided lesson, daily AI speaking practice, and parent reports.</p>
+	              </div>
+
+	              <div class="tomorrow-card">
+	                <span>First unlocked lesson</span>
+	                <strong id="tomorrowTitle">Story Sequence</strong>
+	                <p id="tomorrowCopy">Use first, then, and finally to retell the story clearly.</p>
 	              </div>
 
               <h2 class="archive-title">Saved to the learner profile</h2>
