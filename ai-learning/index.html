@@ -65,7 +65,6 @@
               <h1 id="quizQuestion">What does your child need most right now?</h1>
               <p id="quizHint">This helps us create a focused 7-day course, not a generic lesson list.</p>
               <div class="quiz-options" id="quizOptions"></div>
-              <button class="primary-action quiz-inline-continue" type="button" id="quizContinueInline" disabled>Continue</button>
             </main>
 
             <div class="quiz-side">
@@ -594,90 +593,164 @@
         </section>
 
         <section class="page" data-page="lesson">
-          <div class="page-head">
-            <div>
-              <p class="eyebrow">Course + Interaction</p>
-              <h1 id="lessonHeroTitle">Day 1 Course: Story Retell</h1>
-              <p id="lessonIntro">The AI coach asks one focused question, gives a hint if needed, and checks whether the child can complete the answer.</p>
+          <section class="classroom-lesson rise-course-lesson">
+            <header class="lesson-app-top">
+              <button class="quiz-back" type="button" data-go="landing" aria-label="Back">‹</button>
+              <div>
+                <strong>89 AI Expression Camp</strong>
+                <span id="lessonHeroTitle">Day 1 Course: Story Retell</span>
+              </div>
+              <button class="secondary-action" type="button" data-go="report">Report</button>
+            </header>
+
+            <div class="lesson-progress-strip" aria-label="Lesson progress">
+              <div class="lesson-flow" aria-label="Interactive lesson steps">
+                <button class="active" type="button" data-flow-step="intro" disabled>
+                  <span>1</span>
+                  <strong>Coach</strong>
+                </button>
+                <button type="button" data-flow-step="scene" disabled>
+                  <span>2</span>
+                  <strong>Scene</strong>
+                </button>
+                <button type="button" data-flow-step="model" disabled>
+                  <span>3</span>
+                  <strong>Model</strong>
+                </button>
+                <button type="button" data-flow-step="speak" disabled>
+                  <span>4</span>
+                  <strong>Speak</strong>
+                </button>
+              </div>
             </div>
-            <button class="secondary-action" type="button" data-go="report">View Report</button>
-          </div>
 
-          <section class="coach-layout">
-            <article class="lesson-card panel">
-              <div class="game-status">
-                <span id="heartStatus">❤️❤️❤️❤️❤️</span>
-                <span id="hintStatus">2 hints left</span>
+            <article class="member-lesson-card">
+              <div class="lesson-copy">
+                <span class="section-tag">Part 1</span>
+                <h1 id="taskTitle">Turn a short answer into a clear opinion with evidence.</h1>
+                <p id="taskBody">Kids often answer with one sentence. Today trains a stronger pattern: choice, because, example.</p>
               </div>
 
-              <div class="panel-header compact">
-                <div>
-                  <p class="eyebrow">First Trial Lesson</p>
-                  <h2>Complete one mini challenge</h2>
-                </div>
-                <span class="pill muted" id="lessonDuration">10 min</span>
-              </div>
-
-              <div class="lesson-task">
-                <span class="task-type" id="taskType">Story Expression</span>
-                <h3 id="taskTitle">Retell the story in three clear sentences.</h3>
-                <p id="taskBody">The AI listens first, then asks one follow-up question to help the child add the missing reason.</p>
-              </div>
-
-              <div class="trial-stages">
-                <section class="trial-stage scene-stage">
-                  <span class="stage-index">1</span>
-                  <div>
-                    <p class="stage-label">Understand the situation</p>
-                    <h3 id="sceneQuestion">Why did Mia follow the map?</h3>
-                    <p id="practiceStory">Mia found a tiny map under her desk. She followed it to the school garden and discovered a lost class photo.</p>
-                    <div class="interaction-options" id="interactionOptions" aria-label="Scene answer choices"></div>
+              <div class="lesson-video-card">
+                <div class="teacher-video-shell">
+                  <video
+                    id="teacherVideo"
+                    class="teacher-video"
+                    src="ad-assets/AI School Coach Intro Human Video.mp4"
+                    playsinline
+                    preload="metadata"
+                    poster=""
+                    aria-label="AI speaking coach intro video"
+                  ></video>
+                  <div class="video-teacher" aria-hidden="true">
+                    <div class="video-teacher-head"></div>
+                    <div class="video-teacher-body"></div>
+                    <div class="video-mic"></div>
                   </div>
-                </section>
-
-                <section class="trial-stage dubbing-stage">
-                  <span class="stage-index">2</span>
-                  <div>
-                    <p class="stage-label">Learn the answer frame</p>
-                    <div class="cartoon-scene" aria-hidden="true">
-                      <div class="cartoon-sky"></div>
-                      <div class="cartoon-character"></div>
-                      <div class="speech-bubble" id="dubbingLine">I followed the map because...</div>
-                    </div>
-                    <div class="starter-row" aria-label="Dubbing starters">
-                      <button type="button" data-starter="I followed the map because ">Dub line A</button>
-                      <button type="button" data-starter="First, I found the map. Then, ">Dub line B</button>
-                      <button type="button" data-starter="My point is ">Dub line C</button>
-                    </div>
+                  <button class="video-play" type="button" data-teacher-segment="intro" aria-label="Play lesson">▶</button>
+                  <div class="teacher-caption">
+                    <span id="teacherStage">Mini lesson</span>
+                    <strong id="teacherLine">Today we replace a weak answer with a confident one.</strong>
                   </div>
-                </section>
-
-                <section class="trial-stage speaking-stage">
-                  <span class="stage-index">3</span>
-                  <div>
-                    <p class="stage-label">Try it yourself</p>
-                    <h3 id="trialPrompt">Write one sentence that explains why Mia followed the map.</h3>
-                    <div class="score-preview">
-                      <span>Clarity</span>
-                      <span>Structure</span>
-                      <span>Confidence</span>
-                    </div>
-                  </div>
-                </section>
-              </div>
-
-              <div class="practice-pack compact-practice">
-                <div class="practice-method">
-                  <span>Method</span>
-                  <strong id="practiceMethod">Who + What happened + Why</strong>
-                </div>
-                <div class="practice-example">
-                  <span>Example answer</span>
-                  <p id="practiceExample">Mia found a map and followed it because she wanted to solve the mystery.</p>
                 </div>
               </div>
 
-              <div class="before-after-mini">
+              <div class="scene-video-card">
+                <div class="scene-video-shell">
+                  <video
+                    id="sceneVideo"
+                    class="scene-video"
+                    src="ad-assets/reading-corner-scene-narrated.mp4"
+                    playsinline
+                    preload="metadata"
+                    aria-label="Classroom choice scene video"
+                  ></video>
+                  <button class="scene-play" type="button" id="scenePlay" aria-label="Play scene">▶</button>
+                </div>
+                <div class="scene-video-copy">
+                  <span>Watch the scene</span>
+                  <strong>The class can choose a reading corner or a game day.</strong>
+                  <p>After watching, the child answers one question out loud: which one should they choose, and why?</p>
+                </div>
+              </div>
+
+              <div class="expression-swap">
+                <div class="bad-expression">
+                  <span>Weak answer</span>
+                  <strong>“I don't know... maybe the reading corner.”</strong>
+                  <p>It sounds unsure and gives the listener nothing to respond to.</p>
+                </div>
+                <div class="better-expression">
+                  <span>Better frame</span>
+                  <strong id="practiceMethod">Choice + Because + Example</strong>
+                  <p id="practiceExample">I choose the reading corner because it helps everyone calm down. For example, we can read quietly after lunch.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="voice-analyzer-card">
+              <div class="analyzer-head">
+                <span id="taskType">Voice analyzer</span>
+                <h2>Your scene</h2>
+                <p id="practiceStory">The class earned 30 minutes of free activity. Some students want a reading corner. Others want a game day.</p>
+              </div>
+
+              <div class="scenario-prompt">
+                <span>Teacher asks</span>
+                <strong id="sceneQuestion">Which activity should the class choose, and why?</strong>
+              </div>
+
+              <div class="voice-card">
+                <span>Model line</span>
+                <strong id="aiLine">I choose the reading corner because...</strong>
+                <button type="button" id="playAiLine">Listen</button>
+              </div>
+
+              <div class="analysis-panel">
+                <div class="coach-chat detailed-chat" id="chatLog" aria-label="AI coaching conversation"></div>
+                <div class="analysis-meter" id="analysisMeter">
+                  <div><span>Clear choice</span><i style="--meter: 12%"></i></div>
+                  <div><span>Because</span><i style="--meter: 0%"></i></div>
+                  <div><span>Example</span><i style="--meter: 0%"></i></div>
+                  <div><span>Completeness</span><i style="--meter: 10%"></i></div>
+                </div>
+              </div>
+
+              <div class="voice-actions">
+                <button class="mic-main" type="button" id="recordFirst">
+                  <span>🎙</span>
+                  Start recording
+                </button>
+                <button type="button" id="recordSecond" disabled>Retry with the frame</button>
+              </div>
+
+              <div class="voice-feedback">
+                <span id="voiceStatus">Record one answer. The report will only use what happened in this practice.</span>
+                <strong id="voiceScore">Not started</strong>
+              </div>
+
+              <form class="answer-box hidden-support" id="answerForm" aria-hidden="true">
+                <label for="answerInput">Hidden answer capture</label>
+                <textarea id="answerInput" rows="3" placeholder="First try: type what the child would naturally say."></textarea>
+                <button class="primary-action" type="submit" id="answerSubmit">Submit First Try</button>
+              </form>
+            </article>
+
+            <article class="course-map-card">
+              <div class="map-head">
+                <span>7-day path</span>
+                <strong>Expression foundation</strong>
+              </div>
+              <div class="map-path">
+                <div class="done"><span>1</span><strong>Give a reason</strong><small>Today</small></div>
+                <div><span>2</span><strong>Tell it in order</strong><small>Locked</small></div>
+                <div><span>3</span><strong>Join a group</strong><small>Locked</small></div>
+                <div><span>4</span><strong>Disagree politely</strong><small>Locked</small></div>
+              </div>
+            </article>
+
+            <article class="lesson-bottom-sheet hidden-support">
+              <div class="before-after-mini hidden-support">
                 <div>
                   <span>Before</span>
                   <p id="firstAttemptText">Submit the first answer to capture the baseline.</p>
@@ -687,65 +760,44 @@
                   <p id="improvedAttemptText">Try again after the AI gives a hint.</p>
                 </div>
               </div>
-
               <div class="unlock-card">
-	                <span>Skill target</span>
+                <span>Skill target</span>
                 <strong id="unlockTitle">Reason Link Lv.1</strong>
                 <p id="unlockCopy">Use one reason sentence to explain why the character acted.</p>
               </div>
-
-              <div class="rubric-card">
-                <span>Pass standard</span>
-                <ul id="rubricList">
-                  <li>Names the character.</li>
-                  <li>Explains what happened.</li>
-                  <li>Adds one reason sentence.</li>
-                </ul>
+              <div class="teacher-actions hidden-support" aria-label="Current lesson action">
+                <button class="primary-action" type="button" id="teacherPrimaryAction">Start First Try</button>
+                <p id="teacherActionHint">Watch the teacher, then answer the scene question above.</p>
               </div>
-
-              <div class="lesson-steps" id="lessonSteps"></div>
-            </article>
-
-            <article class="panel chat-panel">
-              <div class="panel-header compact">
-                <div>
-                  <p class="eyebrow">Quest Coach</p>
-                  <h2>Practice what to say</h2>
-                </div>
-                <span class="pill" id="coachMode">Guided</span>
-              </div>
-
-              <div class="coach-chat detailed-chat" id="chatLog" aria-label="AI coaching conversation"></div>
-
-              <div class="voice-lab" aria-label="AI voice practice">
-                <div class="voice-card">
-                  <span>AI classmate says</span>
-                  <strong id="aiLine">We already started the game.</strong>
-                  <button type="button" id="playAiLine">Listen</button>
-                </div>
-                <div class="voice-actions">
-                  <button type="button" id="recordFirst">Record First Try</button>
-                  <button type="button" id="recordSecond" disabled>Record After Coach</button>
-                </div>
-                <div class="voice-feedback">
-                  <span id="voiceStatus">Use the microphone, or type the answer below.</span>
-                  <strong id="voiceScore">Not started</strong>
-                </div>
-              </div>
-
               <div class="coach-reward">
                 <div>
                   <span id="passLabel">Add one reason sentence to pass</span>
-                  <strong id="lessonReward">+15 XP · +3 Gems</strong>
+                  <strong id="heartStatus">❤️❤️❤️❤️❤️</strong>
                 </div>
-	                <button type="button" id="finishLesson" data-go="report">View Summary</button>
+                <button type="button" id="finishLesson" data-go="report">View Summary</button>
               </div>
-
-              <form class="answer-box" id="answerForm">
-                <label for="answerInput">Child's answer</label>
-                <textarea id="answerInput" rows="4" placeholder="First try: type what the child would naturally say."></textarea>
-                <button class="primary-action" type="submit" id="answerSubmit">Submit First Try</button>
-              </form>
+              <span class="hint-status-hidden" id="hintStatus">2 hints left</span>
+              <span class="hidden-support" id="coachMode">Guided</span>
+              <span class="hidden-support" id="lessonDuration">10 min</span>
+              <span class="hidden-support" id="lessonReward">+15 XP · +3 Gems</span>
+              <span class="hidden-support" id="opsStreak">12</span>
+              <span class="hidden-support" id="opsXp">420 XP</span>
+              <span class="hidden-support" id="opsGems">86</span>
+              <span class="hidden-support" id="opsHearts">5/5</span>
+              <span class="trial-prompt-hidden" id="trialPrompt">Write one sentence that explains why Mia followed the map.</span>
+              <span class="dubbing-line-hidden" id="dubbingLine">I followed the map because...</span>
+              <div class="hidden-support" id="interactionOptions" aria-hidden="true"></div>
+              <ul id="rubricList">
+                <li>Makes one clear choice.</li>
+                <li>Uses because to explain the reason.</li>
+                <li>Adds one concrete example, not only a feeling.</li>
+              </ul>
+              <span class="hidden-support" id="lessonIntro">Record one answer, get one hint, then retry.</span>
+              <svg class="hidden-support" aria-hidden="true">
+                <circle id="ringValue"></circle>
+              </svg>
+              <span class="hidden-support" id="ringPercent">68%</span>
+              <div class="lesson-steps" id="lessonSteps"></div>
             </article>
           </section>
         </section>

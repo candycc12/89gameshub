@@ -258,8 +258,15 @@ const trialState = {
   answer: "",
   feedback: "",
   passed: false,
-  taskKey: ""
+  taskKey: "",
+  recordings: []
 };
+
+let activeRecorder = null;
+let activeRecordingChunks = [];
+let activeRecognition = null;
+let activeRecordingPhase = "";
+let activeTranscript = "";
 
 const pageNodes = document.querySelectorAll("[data-page]");
 const routeLinks = document.querySelectorAll("[data-route]");
@@ -327,12 +334,20 @@ const fields = {
 	  tomorrowCopy: document.getElementById("tomorrowCopy"),
 	  reportCta: document.getElementById("reportCta"),
 	  finishLesson: document.getElementById("finishLesson"),
+	  teacherVideo: document.getElementById("teacherVideo"),
+	  teacherStage: document.getElementById("teacherStage"),
+	  teacherLine: document.getElementById("teacherLine"),
+	  sceneVideo: document.getElementById("sceneVideo"),
+	  scenePlay: document.getElementById("scenePlay"),
+	  teacherPrimaryAction: document.getElementById("teacherPrimaryAction"),
+	  teacherActionHint: document.getElementById("teacherActionHint"),
 	  aiLine: document.getElementById("aiLine"),
 	  playAiLine: document.getElementById("playAiLine"),
 	  recordFirst: document.getElementById("recordFirst"),
 	  recordSecond: document.getElementById("recordSecond"),
 	  voiceStatus: document.getElementById("voiceStatus"),
-	  voiceScore: document.getElementById("voiceScore")
+	  voiceScore: document.getElementById("voiceScore"),
+	  analysisMeter: document.getElementById("analysisMeter")
 		};
 
 const opsFields = {
@@ -353,6 +368,8 @@ const opsFields = {
   questList: document.getElementById("questList")
 };
 
+const modelLineAudio = new Audio("ad-assets/model-line-reading-corner.mp3");
+
 const quizNodes = {
   back: document.getElementById("quizBack"),
   stepText: document.getElementById("quizStepText"),
@@ -362,7 +379,6 @@ const quizNodes = {
   hint: document.getElementById("quizHint"),
   options: document.getElementById("quizOptions"),
   continue: document.getElementById("quizContinue"),
-  continueInline: document.getElementById("quizContinueInline"),
   footerText: document.getElementById("quizFooterText")
 };
 
@@ -597,7 +613,7 @@ const courseTemplates = {
     aiPrompt: "A teacher asks the class to choose tomorrow's activity. Give a full answer with your choice, your reason, and one example.",
     trialPrompt: "Answer the teacher: should the class choose a reading corner or a game day? Explain your choice.",
     sceneQuestion: "Which activity should the class choose, and why?",
-    dubbingLine: "I choose the reading corner because...",
+    dubbingLine: "I choose the reading corner because it helps everyone calm down. For example, we can read quietly after lunch.",
     checkFocus: "giving a reason with evidence",
     material: "The class earned 30 minutes of free activity. Some students want a cozy reading corner. Others want a game day. The teacher asks each student to explain one choice.",
     method: "Choice + Because + Example",
@@ -724,6 +740,10 @@ function resetTrialState() {
   trialState.feedback = "";
   trialState.passed = false;
   trialState.taskKey = "";
+  trialState.recordings.forEach((recording) => {
+    if (recording.url) URL.revokeObjectURL(recording.url);
+  });
+  trialState.recordings = [];
 }
 
 function evaluateTrialAnswer(text, task) {
@@ -773,6 +793,79 @@ function buildCoachingHint(task, result) {
     ? "Good start. Now make the answer easier for another person to follow."
     : `Start by showing ${task.checkFocus}.`;
   return `${missingText} Use this frame: ${task.method}. Keep it short, but include one specific detail from the scene.`;
+}
+
+function teacherScriptFor(task, segment = "intro") {
+  if (!task) {
+    return {
+      stage: "Intro",
+      line: "Hi, I am your AI speaking coach. Today we will practice one real answer."
+    };
+  }
+  const scripts = {
+    intro: {
+      stage: "Intro",
+      line: "Hi, I am your speaking coach. Today, we will practice one simple skill: understanding what the character wants. When you know what someone wants, your answer becomes clearer, stronger, and easier to say. Let's try it together."
+    },
+    prompt: {
+      stage: "Your Turn",
+      line: `Now it is your turn. Press the microphone or type one answer. Try this frame: ${task.method}.`
+    },
+    coach: {
+      stage: "Coach Hint",
+      line: trialState.firstSubmitted
+        ? trialState.feedback
+        : `Before you answer, I will listen for three things: ${task.rubric.join(" ")}`
+    },
+    wrap: {
+      stage: trialState.completed ? "Result" : "Not Done Yet",
+      line: trialState.completed
+        ? `Good retry. I saved your first answer and your improved answer, so the parent report can show what changed.`
+        : "Finish one first try and one coached retry before opening the real report."
+    }
+  };
+  return scripts[segment] || scripts.intro;
+}
+
+function setLessonFlowStep(step = "intro") {
+  document.querySelectorAll("[data-flow-step]").forEach((button) => {
+    const order = ["intro", "scene", "model", "speak"];
+    const current = order.indexOf(step);
+    const index = order.indexOf(button.dataset.flowStep);
+    button.classList.toggle("active", button.dataset.flowStep === step);
+    button.classList.toggle("done", current > index && index >= 0);
+  });
+}
+
+function setTeacherSegment(segment = "intro", shouldSpeak = false) {
+  const task = personas[currentPersona]?.courseTasks?.[activeLessonTaskIndex];
+  const script = teacherScriptFor(task, segment);
+  if (fields.teacherStage) fields.teacherStage.textContent = script.stage;
+  if (fields.teacherLine) fields.teacherLine.textContent = script.line;
+  setLessonFlowStep(segment === "intro" ? "intro" : "speak");
+  if (shouldSpeak) speakLine(script.line);
+}
+
+function currentLessonSegment() {
+  if (trialState.completed) return "wrap";
+  if (trialState.firstSubmitted) return "coach";
+  return "prompt";
+}
+
+function updateLessonAction() {
+  const task = personas[currentPersona]?.courseTasks?.[activeLessonTaskIndex];
+  const segment = currentLessonSegment();
+  if (!fields.teacherPrimaryAction || !fields.teacherActionHint) return;
+  if (segment === "prompt") {
+    fields.teacherPrimaryAction.textContent = "Start First Try";
+    fields.teacherActionHint.textContent = `Answer once using the scene. Target skill: ${task?.method || "one complete answer"}.`;
+  } else if (segment === "coach") {
+    fields.teacherPrimaryAction.textContent = "Try Again After Coach";
+    fields.teacherActionHint.textContent = "Use the coach hint to improve the same answer. This creates the before/after report.";
+  } else {
+    fields.teacherPrimaryAction.textContent = "View Parent Report";
+    fields.teacherActionHint.textContent = "The trial is complete. The report now uses the child's two real answers.";
+  }
 }
 
 function describeAnswerGrowth(task) {
@@ -838,8 +931,17 @@ function scoreVoiceAnswer(text, task) {
 
 function updateVoiceDisplay() {
   const task = personas[currentPersona]?.courseTasks?.[activeLessonTaskIndex];
-  if (fields.recordSecond) fields.recordSecond.disabled = !trialState.firstSubmitted || trialState.completed;
-  if (fields.recordFirst) fields.recordFirst.disabled = trialState.completed;
+  const isRecording = activeRecorder?.state === "recording";
+  if (fields.recordSecond) {
+    fields.recordSecond.disabled = !isRecording && (!trialState.firstSubmitted || trialState.completed);
+    fields.recordSecond.textContent = isRecording && activeRecordingPhase === "second" ? "Stop recording" : "Retry with the frame";
+  }
+  if (fields.recordFirst) {
+    fields.recordFirst.disabled = !isRecording && (trialState.firstSubmitted || trialState.completed);
+    fields.recordFirst.innerHTML = isRecording && activeRecordingPhase === "first"
+      ? "<span>■</span>Stop recording"
+      : "<span>🎙</span>Start recording";
+  }
   if (fields.voiceScore) {
     fields.voiceScore.textContent = trialState.completed
       ? "After answer saved"
@@ -850,35 +952,140 @@ function updateVoiceDisplay() {
   if (fields.voiceStatus && !trialState.firstSubmitted) {
     fields.voiceStatus.textContent = task?.key === "join"
       ? "Listen to the classmate. Then record what your child would say."
-      : "Use the microphone, or type the answer below.";
+      : "Tap the microphone and answer out loud.";
   }
 }
 
-function captureVoiceAttempt(phase) {
-  const persona = personas[currentPersona];
-  const task = persona.courseTasks?.[activeLessonTaskIndex];
-  const recognition = getVoiceRecognition();
-  if (!recognition) {
-    fields.voiceStatus.textContent = "Speech recognition is not available in this browser. Type the answer below instead.";
-    fields.answerInput.focus();
+function updateAnalysisMeter(score) {
+  if (!fields.analysisMeter) return;
+  const values = trialState.completed
+    ? [92, 88, 82, 90]
+    : trialState.firstSubmitted
+      ? [68, 54, 18, 62]
+      : [12, 0, 0, 10];
+  const labels = ["Clear choice", "Because", "Example", "Completeness"];
+  fields.analysisMeter.innerHTML = labels
+    .map((label, index) => `<div><span>${label}</span><i style="--meter: ${values[index]}%"></i></div>`)
+    .join("");
+  if (fields.voiceScore && score?.label) fields.voiceScore.textContent = score.label;
+}
+
+function demoSpokenAnswer(task, phase) {
+  if (!task) return "I think so, because I have one clear reason.";
+  if (phase === "second") return task.example;
+  const samples = {
+    join: "Can I play with you?",
+    character: "Mia found a map and went to the garden.",
+    goal: "Noah wanted to tell the teacher.",
+    reason: "I choose the reading corner because it is good.",
+    sequence: "First the boat floated away, then she found it.",
+    confidence: "I think she asked for help because the work was hard.",
+    organize: "I choose the garden because we can learn outside.",
+    social: "I feel upset and I need my turn."
+  };
+  return samples[task.key] || task.example;
+}
+
+function submitSpokenAnswer(text) {
+  fields.answerInput.value = text;
+  fields.answerForm.requestSubmit();
+}
+
+function saveRecordedAnswer(blob, transcript, phase) {
+  const url = URL.createObjectURL(blob);
+  trialState.recordings.push({
+    phase,
+    url,
+    blob,
+    transcript: transcript || "",
+    createdAt: Date.now()
+  });
+  if (transcript) {
+    fields.voiceStatus.textContent = `Recording saved. Heard: "${transcript}"`;
+    submitSpokenAnswer(transcript);
     return;
   }
-  fields.voiceStatus.textContent = phase === "first" ? "Listening for the first try..." : "Listening for the improved answer...";
-  fields.voiceScore.textContent = "Listening";
-  recognition.onresult = (event) => {
-    const transcript = event.results?.[0]?.[0]?.transcript || "";
-    const score = scoreVoiceAnswer(transcript, task);
-    fields.answerInput.value = transcript;
-    fields.voiceStatus.textContent = `Heard: "${transcript}"`;
-    fields.voiceScore.textContent = score.label;
-    fields.answerForm.requestSubmit();
-  };
-  recognition.onerror = () => {
-    fields.voiceStatus.textContent = "Could not hear clearly. Try again, or type the answer below.";
-    fields.voiceScore.textContent = "Try again";
-  };
-  recognition.onend = () => updateVoiceDisplay();
-  recognition.start();
+  fields.voiceStatus.textContent = "Recording saved. This browser did not return a transcript, so real AI scoring is pending.";
+  fields.voiceScore.textContent = "Audio saved";
+  fields.chatLog.insertAdjacentHTML(
+    "beforeend",
+    messageTemplate("user", "Recorded audio", "Audio answer saved. Transcript and AI score need an ASR/API connection.")
+  );
+  fields.chatLog.insertAdjacentHTML(
+    "beforeend",
+    messageTemplate("ai", "89 Teacher", "I saved the recording. To score it honestly, connect speech-to-text and AI feedback instead of using a demo answer.")
+  );
+  fields.chatLog.scrollTop = fields.chatLog.scrollHeight;
+}
+
+function stopRecording() {
+  if (activeRecognition) {
+    activeRecognition.onend = null;
+    activeRecognition.stop();
+    activeRecognition = null;
+  }
+  if (activeRecorder && activeRecorder.state !== "inactive") {
+    activeRecorder.stop();
+  }
+}
+
+async function captureVoiceAttempt(phase) {
+  if (activeRecorder && activeRecorder.state === "recording") {
+    stopRecording();
+    return;
+  }
+  const persona = personas[currentPersona];
+  const task = persona.courseTasks?.[activeLessonTaskIndex];
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+    fields.voiceStatus.textContent = "Real recording is not supported in this browser. Use Chrome/Safari with microphone permission.";
+    fields.voiceScore.textContent = "No recorder";
+    return;
+  }
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    activeRecordingChunks = [];
+    activeTranscript = "";
+    activeRecordingPhase = phase;
+    activeRecorder = new MediaRecorder(stream);
+    activeRecorder.ondataavailable = (event) => {
+      if (event.data.size > 0) activeRecordingChunks.push(event.data);
+    };
+    activeRecorder.onstop = () => {
+      stream.getTracks().forEach((track) => track.stop());
+      const blob = new Blob(activeRecordingChunks, { type: activeRecorder.mimeType || "audio/webm" });
+      activeRecorder = null;
+      saveRecordedAnswer(blob, activeTranscript.trim(), activeRecordingPhase);
+      updateVoiceDisplay();
+    };
+
+    const recognition = getVoiceRecognition();
+    if (recognition) {
+      activeRecognition = recognition;
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.onresult = (event) => {
+        activeTranscript = event.results?.[0]?.[0]?.transcript || "";
+        const score = scoreVoiceAnswer(activeTranscript, task);
+        fields.voiceScore.textContent = score.label;
+      };
+      recognition.onerror = () => {
+        fields.voiceStatus.textContent = "Recording continues. Speech-to-text did not return a transcript yet.";
+      };
+      recognition.start();
+    }
+
+    activeRecorder.start();
+    fields.voiceStatus.textContent = phase === "first"
+      ? "Recording your first answer. Tap again to stop."
+      : "Recording your improved answer. Tap again to stop.";
+    fields.voiceScore.textContent = "Recording";
+    setLessonFlowStep("speak");
+    const activeButton = phase === "first" ? fields.recordFirst : fields.recordSecond;
+    if (activeButton) activeButton.textContent = "Stop recording";
+  } catch (error) {
+    fields.voiceStatus.textContent = "Microphone permission was not granted, so recording could not start.";
+    fields.voiceScore.textContent = "Mic blocked";
+  }
 }
 
 function renderTrialEvidenceCards(task) {
@@ -925,6 +1132,7 @@ function updateTrialDisplay() {
       ? "Second try: use the AI hint and make the answer clearer."
       : "First try: type what the child would naturally say.";
   }
+  updateLessonAction();
   updateVoiceDisplay();
 }
 
@@ -1150,8 +1358,8 @@ function renderChat(persona) {
   const task = persona.courseTasks?.[activeLessonTaskIndex];
   const chat = task
     ? [
-        ["ai", `This task came from the quiz answer about ${task.checkFocus}.`],
-        ["ai", task.aiPrompt]
+        ["ai", "Hi. I will ask one question. Answer out loud."],
+        ["ai", task.sceneQuestion]
       ]
     : persona.chat;
   fields.chatLog.innerHTML = chat
@@ -1187,6 +1395,7 @@ function applyLessonTask(persona) {
   fields.passLabel.textContent = task.passLabel;
   fields.lessonHeroTitle.textContent = `Day 1 Course: ${task.taskType}`;
   fields.lessonIntro.textContent = `This trial tests one observable skill: ${task.checkFocus}. The child answers once, gets one coaching hint, then retries.`;
+  setTeacherSegment(currentLessonSegment());
   updateTrialDisplay();
   updateVoiceDisplay();
   updateReportForTask(persona, task);
@@ -1212,7 +1421,7 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
     fields.nextText.textContent = trialState.firstSubmitted
       ? "Return to the trial lesson and submit the improved answer."
       : "Complete the first trial lesson to generate a real course report.";
-    fields.reportIntro.textContent = "This is a preliminary parent summary. It becomes a course report only after one real coached retry.";
+    fields.reportIntro.textContent = "This is a preliminary parent summary. The real report appears only after the child completes the digital teacher trial.";
     fields.reportUnlock.textContent = "No course report yet";
     fields.reportUnlockCopy.textContent = "A report appears after the child submits a first try and one improved answer.";
     fields.tomorrowTitle.textContent = "First trial lesson";
@@ -1231,7 +1440,7 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
   fields.nextText.textContent = nextTask && nextTask !== task
     ? `Next lesson trains ${nextTask.taskType}: ${nextTask.taskTitle}`
     : `Next lesson repeats ${task.taskType} with a harder scene.`;
-  fields.reportIntro.textContent = "A short teacher-style report is ready from the child's actual trial answers.";
+  fields.reportIntro.textContent = "This report is based on the child's first answer, the AI coach hint, and the improved answer.";
   fields.reportUnlock.textContent = trialState.passed ? task.unlockTitle : "Needs one more try";
   fields.reportUnlockCopy.textContent = trialState.passed
     ? `${task.unlockCopy} Unlock the next lesson with the 7-day plan.`
@@ -1315,7 +1524,7 @@ function renderQuiz() {
   quizNodes.question.textContent = step.question;
   quizNodes.hint.textContent = step.hint;
   quizNodes.back.disabled = quizIndex === 0;
-  [quizNodes.continue, quizNodes.continueInline].forEach((button) => {
+  [quizNodes.continue].forEach((button) => {
     if (!button) return;
     button.disabled = isContinueDisabled;
     button.textContent = continueText;
@@ -1424,6 +1633,12 @@ function setRoute(route) {
     quizAnswers.fill(null);
     renderQuiz();
   }
+  if (safeRoute === "lesson" && route !== "report") {
+    resetTrialState();
+    renderChat(personas[currentPersona]);
+    applyLessonTask(personas[currentPersona]);
+    updateAnalysisMeter();
+  }
   pageNodes.forEach((page) => page.classList.toggle("active", page.dataset.page === safeRoute));
   routeLinks.forEach((link) => link.classList.toggle("active", link.dataset.route === safeRoute));
   document.body.classList.toggle("landing-mode", funnelRoutes.includes(safeRoute));
@@ -1497,7 +1712,7 @@ function continueQuiz() {
 	    setRoute("loading");
 }
 
-[quizNodes.continue, quizNodes.continueInline].forEach((button) => {
+[quizNodes.continue].forEach((button) => {
   if (!button) return;
   button.addEventListener("click", continueQuiz);
 });
@@ -1537,8 +1752,13 @@ document.querySelectorAll("[data-hint]").forEach((button) => {
 
 if (fields.playAiLine) {
   fields.playAiLine.addEventListener("click", () => {
-    const task = personas[currentPersona].courseTasks?.[activeLessonTaskIndex];
-    speakLine(task?.aiLine || fields.aiLine?.textContent || "");
+    setLessonFlowStep("model");
+    modelLineAudio.currentTime = 0;
+    modelLineAudio.play().catch(() => {
+      const task = personas[currentPersona].courseTasks?.[activeLessonTaskIndex];
+      speakLine(task?.aiLine || fields.aiLine?.textContent || "");
+    });
+    if (fields.voiceStatus) fields.voiceStatus.textContent = "Playing the real model-line audio. Then record your answer.";
   });
 }
 
@@ -1548,6 +1768,88 @@ if (fields.recordFirst) {
 
 if (fields.recordSecond) {
   fields.recordSecond.addEventListener("click", () => captureVoiceAttempt("second"));
+}
+
+document.querySelectorAll("[data-teacher-segment]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const isVideoPlay = button.classList.contains("video-play");
+    setTeacherSegment(button.dataset.teacherSegment, !isVideoPlay);
+    if (isVideoPlay && fields.teacherVideo) {
+      button.classList.add("is-playing");
+      fields.teacherVideo.muted = false;
+      if (fields.teacherVideo.ended) fields.teacherVideo.currentTime = 0;
+      fields.teacherVideo.play().then(() => {
+        button.classList.add("is-playing");
+      }).catch(() => {
+        button.classList.remove("is-playing");
+        speakLine(fields.teacherLine?.textContent || "");
+      });
+      return;
+    }
+    if (button.dataset.teacherSegment === "prompt" && fields.answerInput) {
+      fields.answerInput.focus();
+    }
+  });
+});
+
+if (fields.teacherVideo) {
+  fields.teacherVideo.addEventListener("click", () => {
+    if (fields.teacherVideo.paused) {
+      fields.teacherVideo.play().catch(() => {});
+    } else {
+      fields.teacherVideo.pause();
+    }
+  });
+  fields.teacherVideo.addEventListener("play", () => {
+    document.querySelectorAll(".video-play").forEach((button) => button.classList.add("is-playing"));
+  });
+  fields.teacherVideo.addEventListener("pause", () => {
+    document.querySelectorAll(".video-play").forEach((button) => button.classList.remove("is-playing"));
+  });
+  fields.teacherVideo.addEventListener("ended", () => {
+    document.querySelectorAll(".video-play").forEach((button) => button.classList.remove("is-playing"));
+  });
+}
+
+if (fields.sceneVideo && fields.scenePlay) {
+  fields.scenePlay.addEventListener("click", () => {
+    setLessonFlowStep("scene");
+    fields.scenePlay.classList.add("is-playing");
+    if (fields.sceneVideo.ended) fields.sceneVideo.currentTime = 0;
+    fields.sceneVideo.play().catch(() => {
+      fields.scenePlay.classList.remove("is-playing");
+    });
+  });
+  fields.sceneVideo.addEventListener("click", () => {
+    if (fields.sceneVideo.paused) {
+      setLessonFlowStep("scene");
+      fields.sceneVideo.play().catch(() => {});
+    } else {
+      fields.sceneVideo.pause();
+    }
+  });
+  fields.sceneVideo.addEventListener("play", () => {
+    setLessonFlowStep("scene");
+    fields.scenePlay.classList.add("is-playing");
+  });
+  fields.sceneVideo.addEventListener("pause", () => {
+    fields.scenePlay.classList.remove("is-playing");
+  });
+  fields.sceneVideo.addEventListener("ended", () => {
+    fields.scenePlay.classList.remove("is-playing");
+  });
+}
+
+if (fields.teacherPrimaryAction) {
+  fields.teacherPrimaryAction.addEventListener("click", () => {
+    const segment = currentLessonSegment();
+    setTeacherSegment(segment, true);
+    if (segment === "wrap") {
+      setRoute("report");
+      return;
+    }
+    if (fields.answerInput) fields.answerInput.focus();
+  });
 }
 
 document.querySelectorAll("[data-starter]").forEach((button) => {
@@ -1608,12 +1910,15 @@ fields.answerForm.addEventListener("submit", (event) => {
   if (trialState.firstSubmitted && !trialState.completed && task?.choices?.[0]) {
     fields.answerInput.value = task.choices[0][1];
     fields.answerInput.select();
+    setTeacherSegment("coach");
   } else {
     fields.answerInput.value = "";
+    setTeacherSegment(trialState.completed ? "wrap" : "prompt");
   }
   updateTrialDisplay();
   updateReportForTask(persona, task);
   renderOps(persona);
+  updateAnalysisMeter(voiceScore);
   if (fields.voiceStatus) {
     fields.voiceStatus.textContent = trialState.completed
       ? "Improved answer saved. You can view the parent report."
