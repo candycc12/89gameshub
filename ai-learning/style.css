@@ -416,6 +416,24 @@ body.landing-mode .page:not(.landing-page).active {
   font-size: 14px;
 }
 
+.guide-entry {
+  display: block;
+  margin-top: 4px;
+  padding: 12px;
+  border: 1px solid rgba(91, 76, 155, 0.12);
+  border-radius: 14px;
+  background: #f7f4ff;
+  color: #5c4bd6;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.guide-entry:hover {
+  background: #f1edff;
+}
+
 .quiz-ad {
   display: grid;
   gap: 6px;

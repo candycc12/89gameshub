@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3-Min Focus Test | Discover Your Attention Type</title>
+    <meta
+      name="description"
+      content="Take a 3-minute focus test, discover your attention type, and unlock a 7-day focus training plan."
+    />
+    <link rel="stylesheet" href="./style.css?v=20260615-focus-1" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="screen active" data-screen="home">
+        <header class="hero">
+          <nav class="topbar">
+            <div class="brand"><span>89</span> Focus Coach</div>
+            <button type="button" data-go="quiz">Start Test</button>
+          </nav>
+
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="eyebrow">3-Min Focus Test</p>
+              <h1>What type of focus problem do you have?</h1>
+              <p>
+                Take a short attention quiz, complete one 30-second focus sprint,
+                and get a personalized 7-day training plan for work, study, or homework time.
+              </p>
+              <div class="hero-actions">
+                <button class="primary-action" type="button" data-go="quiz">Discover My Type</button>
+                <span>Includes one free 10-minute focus reset lesson.</span>
+              </div>
+              <div class="signal-row" aria-label="Product highlights">
+                <strong>30-sec game</strong>
+                <strong>Attention type</strong>
+                <strong>7-day plan</strong>
+              </div>
+            </div>
+
+            <div class="focus-preview" aria-label="Focus sprint preview">
+              <div class="timer-pill">00:30</div>
+              <div class="target-board">
+                <span>7</span><span>2</span><span>7</span><span>4</span>
+                <span>1</span><span class="hit">7</span><span>9</span><span>3</span>
+                <span>8</span><span>5</span><span>7</span><span>6</span>
+              </div>
+              <div class="preview-card">
+                <span>Today's free test</span>
+                <strong>Tap the target. Ignore the noise.</strong>
+                <p>We measure speed, missed targets, and distractor taps.</p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="pain-grid" aria-label="Who this is for">
+          <article>
+            <span>⚡</span>
+            <h2>Always starting, rarely finishing?</h2>
+            <p>Find whether your issue is activation, distraction, or low focus stamina.</p>
+          </article>
+          <article>
+            <span>🔁</span>
+            <h2>Switching tasks every few minutes?</h2>
+            <p>See if context switching is draining your attention before deep work starts.</p>
+          </article>
+          <article>
+            <span>📚</span>
+            <h2>Homework or study time feels impossible?</h2>
+            <p>Get a simple 10-minute reset parents, students, and adults can test today.</p>
+          </article>
+        </section>
+      </section>
+
+      <section class="screen" data-screen="quiz">
+        <div class="quiz-shell">
+          <header class="quiz-top">
+            <button class="back-button" type="button" data-back aria-label="Back">‹</button>
+            <div>
+              <strong>Focus Type Quiz</strong>
+              <span id="quizProgressText">1 / 8</span>
+            </div>
+          </header>
+          <div class="progress-track"><span id="quizProgressBar"></span></div>
+
+          <section class="quiz-card">
+            <p class="eyebrow" id="quizCategory">Profile</p>
+            <h1 id="quizQuestion">When does focus break most often?</h1>
+            <p id="quizHint">Choose the pattern that happens most often.</p>
+            <div class="option-list" id="quizOptions"></div>
+          </section>
+
+          <footer class="sticky-footer">
+            <button class="primary-action" type="button" id="quizContinue" disabled>Continue</button>
+            <p>Answer 8 quick questions, then complete a 30-second focus sprint.</p>
+          </footer>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="game">
+        <div class="game-shell">
+          <header class="game-top">
+            <button class="back-button" type="button" data-go="quiz" aria-label="Back">‹</button>
+            <div>
+              <strong>Focus Sprint</strong>
+              <span id="gameStatus">Ready</span>
+            </div>
+          </header>
+
+          <section class="game-card">
+            <p class="eyebrow">30-Second Attention Test</p>
+            <h1>Tap every <span id="targetDigit">7</span>. Ignore everything else.</h1>
+            <p>
+              This is not a medical diagnosis. It is a quick product test to personalize your first training plan.
+            </p>
+
+            <div class="game-stats">
+              <article><span>Time</span><strong id="timeLeft">30</strong></article>
+              <article><span>Hits</span><strong id="hitCount">0</strong></article>
+              <article><span>Misses</span><strong id="missCount">0</strong></article>
+            </div>
+
+            <div class="number-grid" id="numberGrid" aria-label="Focus target grid"></div>
+
+            <button class="primary-action" type="button" id="startGame">Start Focus Sprint</button>
+            <button class="secondary-action" type="button" id="finishGame" hidden>View My Result</button>
+          </section>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="result">
+        <div class="result-layout">
+          <header class="result-hero">
+            <p class="eyebrow">Your Attention Type</p>
+            <h1 id="resultTitle">Distracted Starter</h1>
+            <p id="resultSummary">
+              Your focus problem may happen before deep work begins.
+            </p>
+          </header>
+
+          <section class="metrics-card">
+            <article>
+              <span>Quiz signal</span>
+              <strong id="quizSignal">Starting friction</strong>
+            </article>
+            <article>
+              <span>Focus sprint</span>
+              <strong id="gameSignal">0 hits / 0 misses</strong>
+            </article>
+          </section>
+
+          <section class="comparison-card">
+            <article>
+              <span>Now</span>
+              <strong id="resultNow">You may lose momentum before the task becomes clear.</strong>
+            </article>
+            <article>
+              <span>Your 7-day goal</span>
+              <strong id="resultGoal">Start faster, reduce switches, and build a repeatable reset.</strong>
+            </article>
+          </section>
+
+          <section class="plan-preview">
+            <p class="eyebrow">Recommended Plan</p>
+            <h2 id="planName">7-Day Focus Reset</h2>
+            <div class="day-list" id="dayList"></div>
+          </section>
+
+          <footer class="sticky-footer">
+            <button class="primary-action" type="button" data-go="lesson">Start Free Lesson</button>
+            <p>Try the 10-minute focus reset before choosing a paid plan.</p>
+          </footer>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="lesson">
+        <div class="lesson-shell">
+          <header class="lesson-top">
+            <button class="back-button" type="button" data-go="result" aria-label="Back">‹</button>
+            <div>
+              <strong>Free Lesson</strong>
+              <span>10-minute focus reset</span>
+            </div>
+          </header>
+
+          <section class="reset-lesson">
+            <div class="reset-visual">
+              <div class="focus-ring"><span id="breathCount">1</span></div>
+              <button class="play-button" type="button" id="startReset">Start Reset</button>
+            </div>
+            <div class="teacher-note">
+              <p class="eyebrow">Focus Coach</p>
+              <h1>The 10-minute focus reset</h1>
+              <p id="lessonCopy">
+                Clear one task, remove one distractor, start a short timer, and finish with one visible win.
+              </p>
+            </div>
+          </section>
+
+          <section class="practice-card">
+            <p class="eyebrow">Your Reset Plan</p>
+            <h2>Choose one task for the next 10 minutes.</h2>
+            <div class="task-builder">
+              <label>
+                <span>Task</span>
+                <input id="focusTask" type="text" placeholder="Example: finish one paragraph" />
+              </label>
+              <label>
+                <span>Biggest distractor</span>
+                <input id="focusDistractor" type="text" placeholder="Example: phone, tabs, noise" />
+              </label>
+            </div>
+            <button class="primary-action" type="button" id="buildReset">Build My Reset</button>
+          </section>
+
+          <section class="feedback-card" id="resetCard" hidden>
+            <p class="eyebrow">Coach Feedback</p>
+            <h2 id="resetTitle">Your reset is ready.</h2>
+            <ul id="resetList"></ul>
+            <button class="primary-action" type="button" data-go="paywall">Unlock 7-Day Focus Plan</button>
+          </section>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="paywall">
+        <div class="paywall-shell">
+          <header class="paywall-hero">
+            <p class="eyebrow">Your Plan Is Ready</p>
+            <h1>Unlock your 7-day focus training plan.</h1>
+            <p>
+              Daily focus games, reset routines, distraction tracking, and a personalized attention profile.
+            </p>
+          </header>
+
+          <section class="pricing-list" aria-label="Pricing options">
+            <label class="price-card">
+              <input type="radio" name="plan" value="profile" />
+              <span class="radio-dot"></span>
+              <span class="price-name">$4.99 Focus Profile</span>
+              <strong>One-time</strong>
+              <em>Best for testing whether the result feels valuable.</em>
+            </label>
+            <label class="price-card selected">
+              <input type="radio" name="plan" value="seven" checked />
+              <span class="popular">Most Popular</span>
+              <span class="radio-dot"></span>
+              <span class="price-name">$9.99 7-Day Focus Plan</span>
+              <strong>$1.42 / day</strong>
+              <em>Best for testing paid training intent.</em>
+            </label>
+            <label class="price-card">
+              <input type="radio" name="plan" value="monthly" />
+              <span class="radio-dot"></span>
+              <span class="price-name">$19.99 Monthly Training</span>
+              <strong>$0.67 / day</strong>
+              <em>For ongoing work, study, or homework focus training.</em>
+            </label>
+          </section>
+
+          <button class="primary-action" type="button" id="purchaseIntent">Continue</button>
+          <p class="fine-print">
+            Demo checkout: this page records purchase intent only. Payment links can be connected later.
+          </p>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="intent">
+        <div class="intent-shell">
+          <p class="eyebrow">Purchase Intent Saved</p>
+          <h1>Good signal. The next step is real checkout.</h1>
+          <p id="intentCopy">
+            You selected the 7-Day Focus Plan. In production, this button should open a payment link.
+          </p>
+          <button class="primary-action" type="button" data-go="home">Back to Start</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js?v=20260615-focus-1"></script>
+  </body>
+</html>

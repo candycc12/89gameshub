@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2-Min Speaking Confidence Quiz | 89 AI</title>
+    <meta
+      name="description"
+      content="Take a 2-minute speaking confidence quiz and get a personalized 7-day communication plan."
+    />
+    <link rel="stylesheet" href="./style.css?v=20260615-speaking-1" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="screen active" data-screen="home">
+        <header class="hero">
+          <nav class="topbar">
+            <div class="brand"><span>89</span> AI Speaking Coach</div>
+            <button type="button" data-go="quiz">Start Quiz</button>
+          </nav>
+
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <p class="eyebrow">2-Min Speaking Confidence Quiz</p>
+              <h1>Find out what is holding back your speaking confidence.</h1>
+              <p>
+                Answer a few questions and unlock a personalized 7-day communication plan
+                for interviews, meetings, classes, and everyday conversations.
+              </p>
+              <div class="hero-actions">
+                <button class="primary-action" type="button" data-go="quiz">Get My Plan</button>
+                <span>No app download. One free speaking lesson included.</span>
+              </div>
+              <div class="signal-row" aria-label="Product highlights">
+                <strong>10 min/day</strong>
+                <strong>AI feedback</strong>
+                <strong>7-day plan</strong>
+              </div>
+            </div>
+
+            <div class="hero-media" aria-label="AI speaking coach preview">
+              <video
+                src="../ai-learning/ad-assets/AI School Coach Intro Human Video.mp4"
+                muted
+                autoplay
+                loop
+                playsinline
+              ></video>
+              <div class="coach-card">
+                <span>Today's free skill</span>
+                <strong>Answer with the CLEAR framework</strong>
+                <p>Context → Line → Evidence → Ask → Reset</p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <section class="pain-grid" aria-label="Who this is for">
+          <article>
+            <span>😬</span>
+            <h2>Feel nervous when you speak?</h2>
+            <p>Find the moment that triggers pressure and practice it in a low-risk way.</p>
+          </article>
+          <article>
+            <span>🧠</span>
+            <h2>Know the idea, but lose the words?</h2>
+            <p>Turn scattered thoughts into a simple answer structure you can repeat.</p>
+          </article>
+          <article>
+            <span>🎤</span>
+            <h2>Need to sound clearer in interviews?</h2>
+            <p>Practice short answers with structure, tone, and confidence feedback.</p>
+          </article>
+        </section>
+      </section>
+
+      <section class="screen" data-screen="quiz">
+        <div class="quiz-shell">
+          <header class="quiz-top">
+            <button class="back-button" type="button" data-back aria-label="Back">‹</button>
+            <div>
+              <strong>Speaking Confidence Quiz</strong>
+              <span id="quizProgressText">1 / 10</span>
+            </div>
+          </header>
+          <div class="progress-track"><span id="quizProgressBar"></span></div>
+
+          <section class="quiz-card">
+            <p class="eyebrow" id="quizCategory">Profile</p>
+            <h1 id="quizQuestion">What moment do you want to improve first?</h1>
+            <p id="quizHint">Choose the most important one right now.</p>
+            <div class="option-list" id="quizOptions"></div>
+          </section>
+
+          <footer class="sticky-footer">
+            <button class="primary-action" type="button" id="quizContinue" disabled>Continue</button>
+            <p>Complete the quiz to unlock your personal result.</p>
+          </footer>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="result">
+        <div class="result-layout">
+          <header class="result-hero">
+            <p class="eyebrow">Your Result</p>
+            <h1 id="resultTitle">Nervous Speaker</h1>
+            <p id="resultSummary">
+              Your speaking issue is not ability. It is pressure plus missing structure.
+            </p>
+          </header>
+
+          <section class="comparison-card">
+            <article>
+              <span>Now</span>
+              <strong id="resultNow">You may rush or go blank when attention is on you.</strong>
+            </article>
+            <article>
+              <span>Your 7-day goal</span>
+              <strong id="resultGoal">Give a clear answer even when the situation feels stressful.</strong>
+            </article>
+          </section>
+
+          <section class="plan-preview">
+            <p class="eyebrow">Recommended Plan</p>
+            <h2 id="planName">7-Day Speaking Confidence Plan</h2>
+            <div class="day-list" id="dayList"></div>
+          </section>
+
+          <footer class="sticky-footer">
+            <button class="primary-action" type="button" data-go="lesson">Start Free Lesson</button>
+            <p>Try one coached answer before choosing a paid plan.</p>
+          </footer>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="lesson">
+        <div class="lesson-shell">
+          <header class="lesson-top">
+            <button class="back-button" type="button" data-go="result" aria-label="Back">‹</button>
+            <div>
+              <strong>Free Lesson</strong>
+              <span>Answer with CLEAR</span>
+            </div>
+          </header>
+
+          <section class="coach-lesson">
+            <div class="teacher-panel">
+              <video
+                id="lessonVideo"
+                src="../ai-learning/ad-assets/AI School Coach Intro Human Video.mp4"
+                muted
+                playsinline
+                poster=""
+              ></video>
+              <button class="play-button" type="button" id="playLesson" aria-label="Play lesson">▶</button>
+            </div>
+            <div class="teacher-note">
+              <p class="eyebrow">AI Teacher</p>
+              <h1>Use one frame: CLEAR.</h1>
+              <p>
+                Give the listener context, say your main line, add evidence, ask or connect,
+                then reset with a confident ending.
+              </p>
+            </div>
+          </section>
+
+          <section class="practice-card">
+            <p class="eyebrow">Your Scenario</p>
+            <h2 id="scenarioTitle">Interview practice</h2>
+            <p id="scenarioPrompt">
+              Tell me about a time you solved a problem under pressure.
+            </p>
+            <div class="framework">
+              <span>Context</span>
+              <span>Line</span>
+              <span>Evidence</span>
+              <span>Ask</span>
+              <span>Reset</span>
+            </div>
+            <textarea
+              id="practiceAnswer"
+              rows="6"
+              placeholder="Write or say your 30-second answer here..."
+            ></textarea>
+            <div class="practice-actions">
+              <button class="secondary-action" type="button" id="fillExample">Use Example</button>
+              <button class="primary-action" type="button" id="analyzeAnswer">Get Feedback</button>
+            </div>
+          </section>
+
+          <section class="feedback-card" id="feedbackCard" hidden>
+            <p class="eyebrow">Your Feedback</p>
+            <div class="score-row">
+              <article>
+                <span>Clarity</span>
+                <strong id="clarityScore">--</strong>
+              </article>
+              <article>
+                <span>Structure</span>
+                <strong id="structureScore">--</strong>
+              </article>
+              <article>
+                <span>Tone</span>
+                <strong id="toneScore">--</strong>
+              </article>
+            </div>
+            <ul id="feedbackList"></ul>
+            <button class="primary-action" type="button" data-go="paywall">Unlock 7-Day Plan</button>
+          </section>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="paywall">
+        <div class="paywall-shell">
+          <header class="paywall-hero">
+            <p class="eyebrow">Your Plan Is Ready</p>
+            <h1>Unlock your 7-day speaking confidence plan.</h1>
+            <p>
+              Daily 10-minute practice scenes, AI-style feedback, and a personal communication report.
+            </p>
+          </header>
+
+          <section class="pricing-list" aria-label="Pricing options">
+            <label class="price-card">
+              <input type="radio" name="plan" value="report" />
+              <span class="radio-dot"></span>
+              <span class="price-name">$4.99 Personalized Report</span>
+              <strong>One-time</strong>
+              <em>Best for checking your speaking style.</em>
+            </label>
+            <label class="price-card selected">
+              <input type="radio" name="plan" value="seven" checked />
+              <span class="popular">Most Popular</span>
+              <span class="radio-dot"></span>
+              <span class="price-name">$9.99 7-Day Plan</span>
+              <strong>$1.42 / day</strong>
+              <em>Best for testing real training willingness.</em>
+            </label>
+            <label class="price-card">
+              <input type="radio" name="plan" value="monthly" />
+              <span class="radio-dot"></span>
+              <span class="price-name">$19.99 Monthly Plan</span>
+              <strong>$0.67 / day</strong>
+              <em>For ongoing interview, social, and meeting practice.</em>
+            </label>
+          </section>
+
+          <button class="primary-action" type="button" id="purchaseIntent">Continue</button>
+          <p class="fine-print">
+            Demo checkout: this page records purchase intent only. Payment links can be connected later.
+          </p>
+        </div>
+      </section>
+
+      <section class="screen" data-screen="intent">
+        <div class="intent-shell">
+          <p class="eyebrow">Purchase Intent Saved</p>
+          <h1>Good signal. The next step is real checkout.</h1>
+          <p id="intentCopy">
+            You selected the 7-Day Plan. In production, this button should open Stripe, Paddle, or a payment link.
+          </p>
+          <button class="primary-action" type="button" data-go="home">Back to Start</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js?v=20260615-speaking-1"></script>
+  </body>
+</html>
