@@ -4383,6 +4383,11 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
   transform: translateY(-1px);
 }
 
+.map-path .active {
+  background: #f1edff;
+  box-shadow: inset 0 0 0 2px rgba(114, 87, 255, 0.28);
+}
+
 .map-path span {
   display: grid;
   width: 42px;
@@ -4399,8 +4404,23 @@ body.landing-mode .page.active:has(.rise-course-lesson) {
   color: #fff;
 }
 
+.map-path .active span {
+  background: linear-gradient(90deg, #7657ff, #2f8cff);
+  color: #fff;
+}
+
 .map-path strong {
+  display: grid;
+  gap: 3px;
   color: #191827;
+}
+
+.map-path strong em {
+  color: #7a728e;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 850;
+  line-height: 1.35;
 }
 
 .map-path small {

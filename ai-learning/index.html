@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>89 AI School Demo</title>
-    <link rel="stylesheet" href="./style.css?v=20260612-flow-fit" />
+    <link rel="stylesheet" href="./style.css?v=20260615-day-path-2" />
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502975373459743" crossorigin="anonymous"></script>
   </head>
   <body class="landing-mode">
@@ -162,10 +162,11 @@
               <div class="plan-highlights compact-offer">
                 <h2>What parents are buying</h2>
                 <ul>
-                  <li>One real school moment per day: joining, explaining, disagreeing, refusing, answering.</li>
-                  <li>Child chooses a strategy, writes what they would say, gets one coaching hint, then retries.</li>
-                  <li>Parent sees the exact before/after answer and teacher-style note.</li>
-                  <li>Next lesson unlocks only after the current skill has evidence.</li>
+                  <li>Day 1: give a reason with Choice + Because + Example.</li>
+                  <li>Day 2: retell a story in order with First + Then + Finally.</li>
+                  <li>Day 3: ask to join classmates with Ask + Role + Friendly close.</li>
+                  <li>Day 4: disagree politely with I feel + When + I need.</li>
+                  <li>Each day includes one school scene, one model line, one real speaking attempt, one retry, and a parent note.</li>
                 </ul>
               </div>
               <div class="report-pricing plan-pricing" aria-label="Subscription plans">
@@ -682,16 +683,16 @@
                 </div>
                 <div class="scene-video-copy">
                   <span>Watch the scene</span>
-                  <strong>The class can choose a reading corner or a game day.</strong>
-                  <p>After watching, the child answers one question out loud: which one should they choose, and why?</p>
+                  <strong id="sceneCopyTitle">The class can choose a reading corner or a game day.</strong>
+                  <p id="sceneCopyBody">After watching, the child answers one question out loud: which one should they choose, and why?</p>
                 </div>
               </div>
 
               <div class="expression-swap">
                 <div class="bad-expression">
                   <span>Weak answer</span>
-                  <strong>“I don't know... maybe the reading corner.”</strong>
-                  <p>It sounds unsure and gives the listener nothing to respond to.</p>
+                  <strong id="weakAnswerText">“I don't know... maybe the reading corner.”</strong>
+                  <p id="weakAnswerNote">It sounds unsure and gives the listener nothing to respond to.</p>
                 </div>
                 <div class="better-expression">
                   <span>Better frame</span>
@@ -754,14 +755,14 @@
                 <span>7-day path</span>
                 <strong>Expression foundation</strong>
               </div>
-              <div class="map-path">
-                <div class="done"><span>1</span><strong>Give a reason</strong><small>Today</small></div>
-                <button type="button" data-go="plan"><span>2</span><strong>Tell it in order</strong><small>Locked</small></button>
-                <button type="button" data-go="plan"><span>3</span><strong>Join a group</strong><small>Locked</small></button>
-                <button type="button" data-go="plan"><span>4</span><strong>Disagree politely</strong><small>Locked</small></button>
-                <button type="button" data-go="plan"><span>5</span><strong>Ask for help</strong><small>Locked</small></button>
-                <button type="button" data-go="plan"><span>6</span><strong>Give feedback</strong><small>Locked</small></button>
-                <button type="button" data-go="plan"><span>7</span><strong>Speak with confidence</strong><small>Locked</small></button>
+              <div class="map-path" id="courseMapPath">
+                <button type="button" class="done active" data-course-day="0"><span>1</span><strong>Give a reason</strong><small>Open</small></button>
+                <button type="button" data-course-day="1"><span>2</span><strong>Tell it in order</strong><small>Preview</small></button>
+                <button type="button" data-course-day="2"><span>3</span><strong>Join a group</strong><small>Preview</small></button>
+                <button type="button" data-course-day="3"><span>4</span><strong>Disagree politely</strong><small>Preview</small></button>
+                <button type="button" data-course-day="4"><span>5</span><strong>Ask for help</strong><small>Preview</small></button>
+                <button type="button" data-course-day="5"><span>6</span><strong>Give feedback</strong><small>Preview</small></button>
+                <button type="button" data-course-day="6"><span>7</span><strong>Speak with confidence</strong><small>Preview</small></button>
               </div>
             </article>
 
@@ -921,6 +922,6 @@
       </main>
     </div>
 
-    <script src="./app.js"></script>
+    <script src="./app.js?v=20260615-course-media-2"></script>
   </body>
 </html>

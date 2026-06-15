@@ -297,6 +297,7 @@ const fields = {
 	  trialPrompt: document.getElementById("trialPrompt"),
 	  interactionOptions: document.getElementById("interactionOptions"),
 	  lessonSteps: document.getElementById("lessonSteps"),
+	  courseMapPath: document.getElementById("courseMapPath"),
   chatLog: document.getElementById("chatLog"),
   answerInput: document.getElementById("answerInput"),
   answerSubmit: document.getElementById("answerSubmit"),
@@ -339,6 +340,10 @@ const fields = {
 	  teacherLine: document.getElementById("teacherLine"),
 	  sceneVideo: document.getElementById("sceneVideo"),
 	  scenePlay: document.getElementById("scenePlay"),
+	  sceneCopyTitle: document.getElementById("sceneCopyTitle"),
+	  sceneCopyBody: document.getElementById("sceneCopyBody"),
+	  weakAnswerText: document.getElementById("weakAnswerText"),
+	  weakAnswerNote: document.getElementById("weakAnswerNote"),
 	  teacherPrimaryAction: document.getElementById("teacherPrimaryAction"),
 	  teacherActionHint: document.getElementById("teacherActionHint"),
 	  aiLine: document.getElementById("aiLine"),
@@ -369,6 +374,7 @@ const opsFields = {
 };
 
 const modelLineAudio = new Audio("ad-assets/model-line-reading-corner.mp3");
+const teacherIntroAudio = new Audio();
 
 const quizNodes = {
   back: document.getElementById("quizBack"),
@@ -539,7 +545,7 @@ const quizAnswers = new Array(quizSteps.length).fill(null);
 const courseTemplates = {
   join: {
     taskType: "Join the Game",
-    taskTitle: "Ask to join a game without sounding awkward.",
+    taskTitle: "Ask to join classmates without standing silently or interrupting.",
     taskBody: "A real school social scenario: the child wants to join classmates who are already playing. The lesson trains a request that is polite, specific, and easy to accept.",
     unlockTitle: "Join In Lv.1",
     unlockCopy: "Ask to join with a polite request and one helpful role.",
@@ -550,9 +556,14 @@ const courseTemplates = {
     sceneQuestion: "What should Kai say if he wants to join the game?",
     dubbingLine: "Can I join? I can...",
     checkFocus: "joining a group without sounding awkward",
-    material: "Kai sees two classmates playing a score game during recess. He wants to join, but they already started. If he only stands nearby, nobody notices. If he only says 'Can I play?', they may not know how to include him.",
-    method: "Can I join? + I can help by... + Friendly close",
-    example: "Can I join the next round? I can help keep score, and I will follow the rules.",
+    teacherIntro: "To join a group, use three steps. Ask to join, offer a helpful role, and respect the answer. Now try the recess scene.",
+    sceneTitle: "Kai wants to join classmates who already started a tower challenge.",
+    sceneCopy: "After watching, the child practices asking to join with a specific helpful role.",
+    weakAnswer: "“Can I play?”",
+    weakAnswerNote: "It is polite, but too vague. The group still has to figure out how to include him.",
+    material: "Kai sees three classmates building a tower challenge during recess. They are already laughing and taking turns. Kai wants to join, but he does not want to push in or stand there silently.",
+    method: "Ask + Offer a role + Respect the answer",
+    example: "Can I join the next round? I can help keep score, and if this round is full, I can wait for the next one.",
     choices: [
       ["Too vague", "Can I play?"],
       ["Better", "Can I join the next round? I can "],
@@ -616,6 +627,16 @@ const courseTemplates = {
     sceneQuestion: "Which activity should the class choose, and why?",
     dubbingLine: "I choose the reading corner because it helps everyone calm down. For example, we can read quietly after lunch.",
     checkFocus: "giving a reason with evidence",
+    teacherIntro: "Hi, I am your speaking coach. Today, we will practice one simple skill: understanding what the character wants. When you know what someone wants, your answer becomes clearer, stronger, and easier to say. Let's try it together.",
+    sceneTitle: "The class can choose a reading corner or a game day.",
+    sceneCopy: "After watching, the child answers one question out loud: which one should they choose, and why?",
+    weakAnswer: "“I don't know... maybe the reading corner.”",
+    weakAnswerNote: "It sounds unsure and gives the listener nothing to respond to.",
+    media: {
+      teacherVideo: "ad-assets/AI School Coach Intro Human Video.mp4",
+      modelAudio: "ad-assets/model-line-reading-corner.mp3",
+      sceneVideo: "ad-assets/reading-corner-scene-narrated.mp4"
+    },
     material: "The class earned 30 minutes of free activity. Some students want a cozy reading corner. Others want a game day. The teacher asks each student to explain one choice.",
     method: "Choice + Because + Example",
     example: "I choose the reading corner because it helps everyone calm down after lunch. For example, students can read quietly, share favorite books, and come back ready to learn.",
@@ -628,19 +649,29 @@ const courseTemplates = {
   },
   sequence: {
     taskType: "Story Sequence",
-    taskTitle: "Retell the story with first, then, and finally.",
-    taskBody: "The AI helps the child put story events into a clear order instead of listing random details.",
+    taskTitle: "Retell one story in order without jumping around.",
+    taskBody: "The AI helps the child turn scattered details into a clean beginning, middle, and ending.",
     unlockTitle: "Story Sequence Lv.1",
     unlockCopy: "Use first, then, and finally to make the story easy to follow.",
     passLabel: "Use first, then, and finally to pass",
-    aiPrompt: "Retell the story using three words: first, then, and finally. Keep each part short.",
-    trialPrompt: "Retell the paper boat story using first, then, and finally.",
-    sceneQuestion: "What happened first, then, and finally?",
-    dubbingLine: "First I found the boat. Then...",
+    aiPrompt: "Retell the story using three words: first, then, and finally. Keep each part short and do not add extra details.",
+    trialPrompt: "Retell the lost lunchbox story using first, then, and finally.",
+    sceneQuestion: "What happened first, then, and finally in the lunchbox story?",
+    dubbingLine: "First, I found the lunchbox. Then...",
     checkFocus: "what happened first, next, and last",
-    material: "A paper boat floated into Leo's yard. He opened it, read a message, and returned it to the child next door.",
+    teacherIntro: "Story order is simple. Use first, then, finally. Tell the start, the action, and the ending. Now try the lunchbox story.",
+    sceneTitle: "Mia finds a blue lunchbox under the art table.",
+    sceneCopy: "After watching, the child retells what happened using first, then, and finally.",
+    weakAnswer: "“She found it and then Ben had lunch, I think.”",
+    weakAnswerNote: "The events are mixed together, so the listener cannot follow the order.",
+    media: {
+      teacherVideo: "ad-assets/generated-course/day2-story-order-teacher-female-seedance.mp4",
+      modelAudio: "ad-assets/generated-course/day2-model-line.wav",
+      sceneVideo: "ad-assets/generated-course/day2-lunchbox-scene.mp4"
+    },
+    material: "Mia finds a blue lunchbox under the art table. She checks the name tag, brings it to the teacher, and the teacher returns it to Ben before lunch starts.",
     method: "First + Then + Finally",
-    example: "First, Leo found a paper boat. Then, he read the message inside. Finally, he returned it to the child next door.",
+    example: "First, Mia found the lunchbox under the art table. Then, she checked the name tag and gave it to the teacher. Finally, Ben got his lunchbox back before lunch.",
     choices: [
       ["First", "First, Leo "],
       ["Then", "First, Leo found a paper boat. Then, he "],
@@ -672,8 +703,8 @@ const courseTemplates = {
   },
   organize: {
     taskType: "Idea Structure",
-    taskTitle: "Organize one answer before speaking.",
-    taskBody: "The AI gives the child a tiny structure: point, reason, example.",
+    taskTitle: "Organize one classroom answer before speaking.",
+    taskBody: "The AI gives the child a tiny structure: point, reason, example. This is the bridge from short answers to confident classroom speaking.",
     unlockTitle: "Idea Structure Lv.1",
     unlockCopy: "Use point, reason, example to make an answer easier to understand.",
     passLabel: "Use point, reason, and example to pass",
@@ -694,17 +725,22 @@ const courseTemplates = {
   },
   social: {
     taskType: "Social Expression",
-    taskTitle: "Practice one warm conflict sentence.",
-    taskBody: "The AI trains the child to say what they feel and what they need without blaming.",
+    taskTitle: "Disagree or handle a small conflict without sounding rude.",
+    taskBody: "The AI trains the child to say what they feel and what they need without blaming. The goal is a sentence a child can actually use with classmates.",
     unlockTitle: "Warm Words Lv.1",
     unlockCopy: "Use I feel and I need to handle a small social conflict.",
     passLabel: "Use I feel and I need to pass",
-    aiPrompt: "A friend takes your turn in a game. Say one calm sentence using: I feel... and I need...",
-    trialPrompt: "Write one calm sentence using I feel and I need.",
-    sceneQuestion: "What can you say when a friend interrupts you?",
+    aiPrompt: "A friend interrupts your idea during group work. Say one calm sentence using: I feel... when... I need...",
+    trialPrompt: "Write one calm sentence for a classmate who interrupts you.",
+    sceneQuestion: "What can you say when a friend interrupts your idea?",
     dubbingLine: "I feel interrupted when...",
     checkFocus: "handling small social conflicts",
-    material: "A friend starts speaking while you are explaining your idea to the group.",
+    teacherIntro: "To disagree politely, use this frame: I feel, when, I need. Say the problem clearly without sounding rude. Now try the group project scene.",
+    sceneTitle: "Jordan interrupts Mia during a group poster project.",
+    sceneCopy: "After watching, the child practices disagreeing without sounding rude.",
+    weakAnswer: "“Stop talking. I was saying it first.”",
+    weakAnswerNote: "It shows frustration, but it can make the conflict bigger.",
+    material: "During a group poster project, Jordan starts talking over Mia before she finishes her idea. Mia wants to keep the group friendly, but she also wants one minute to finish.",
     method: "I feel + When + I need",
     example: "I feel interrupted when I am still explaining, and I need one minute to finish my idea.",
     choices: [
@@ -730,6 +766,11 @@ const answerSignals = {
 function createTask(key) {
   return { key, ...courseTemplates[key] };
 }
+
+personas.child.courseTasks = ["reason", "sequence", "join", "social", "confidence", "organize", "character"].map(createTask);
+personas.child.steps = personas.child.courseTasks.map((task) => task.taskTitle);
+personas.child.tomorrowTitle = personas.child.courseTasks[1].taskType;
+personas.child.tomorrowCopy = personas.child.courseTasks[1].taskTitle;
 
 function resetTrialState() {
   trialState.completed = false;
@@ -806,7 +847,7 @@ function teacherScriptFor(task, segment = "intro") {
   const scripts = {
     intro: {
       stage: "Intro",
-      line: "Hi, I am your speaking coach. Today, we will practice one simple skill: understanding what the character wants. When you know what someone wants, your answer becomes clearer, stronger, and easier to say. Let's try it together."
+      line: task.teacherIntro || "Hi, I am your speaking coach. Today, we will practice one simple skill. Listen first, then try one answer."
     },
     prompt: {
       stage: "Your Turn",
@@ -826,6 +867,79 @@ function teacherScriptFor(task, segment = "intro") {
     }
   };
   return scripts[segment] || scripts.intro;
+}
+
+function updateLessonMedia(task) {
+  const fallbackVideo = "ad-assets/AI School Coach Intro Human Video.mp4";
+  const fallbackAudio = "ad-assets/model-line-reading-corner.mp3";
+  const fallbackSceneVideo = "ad-assets/reading-corner-scene-narrated.mp4";
+  const nextVideo = task?.media?.teacherVideo || fallbackVideo;
+  const nextAudio = task?.media?.modelAudio || fallbackAudio;
+  const nextTeacherAudio = task?.media?.teacherAudio || "";
+  const nextSceneVideo = task?.media?.sceneVideo || fallbackSceneVideo;
+
+  if (fields.teacherVideo && fields.teacherVideo.getAttribute("src") !== nextVideo) {
+    fields.teacherVideo.pause();
+    fields.teacherVideo.setAttribute("src", nextVideo);
+    fields.teacherVideo.load();
+    document.querySelectorAll(".video-play").forEach((button) => button.classList.remove("is-playing"));
+  }
+
+  if (modelLineAudio.src !== new URL(nextAudio, window.location.href).href) {
+    modelLineAudio.pause();
+    modelLineAudio.src = nextAudio;
+    modelLineAudio.load();
+  }
+
+  if (nextTeacherAudio) {
+    if (teacherIntroAudio.src !== new URL(nextTeacherAudio, window.location.href).href) {
+      teacherIntroAudio.pause();
+      teacherIntroAudio.src = nextTeacherAudio;
+      teacherIntroAudio.load();
+    }
+  } else {
+    teacherIntroAudio.pause();
+    teacherIntroAudio.removeAttribute("src");
+  }
+
+  if (fields.sceneVideo && fields.sceneVideo.getAttribute("src") !== nextSceneVideo) {
+    fields.sceneVideo.pause();
+    fields.sceneVideo.setAttribute("src", nextSceneVideo);
+    fields.sceneVideo.load();
+    if (fields.scenePlay) fields.scenePlay.classList.remove("is-playing");
+  }
+}
+
+function updateLessonScene(task) {
+  if (!task) return;
+  if (fields.sceneCopyTitle) fields.sceneCopyTitle.textContent = task.sceneTitle || task.sceneQuestion || "Watch the scene.";
+  if (fields.sceneCopyBody) fields.sceneCopyBody.textContent = task.sceneCopy || "After watching, answer one question out loud.";
+  if (fields.weakAnswerText) fields.weakAnswerText.textContent = task.weakAnswer || "“I am not sure.”";
+  if (fields.weakAnswerNote) fields.weakAnswerNote.textContent = task.weakAnswerNote || "It is a start, but the listener still needs more detail.";
+}
+
+function currentLessonTask() {
+  return personas[currentPersona]?.courseTasks?.[activeLessonTaskIndex];
+}
+
+function hasTeacherAudio(task = currentLessonTask()) {
+  return Boolean(task?.media?.teacherAudio);
+}
+
+function pauseTeacherIntroAudio() {
+  teacherIntroAudio.pause();
+  markTeacherPlayback(false);
+}
+
+function playTeacherIntroAudio() {
+  const task = currentLessonTask();
+  if (!hasTeacherAudio(task)) return Promise.resolve(false);
+  teacherIntroAudio.currentTime = 0;
+  return teacherIntroAudio.play().then(() => true);
+}
+
+function markTeacherPlayback(isPlaying) {
+  document.querySelectorAll(".video-play").forEach((button) => button.classList.toggle("is-playing", isPlaying));
 }
 
 function setLessonFlowStep(step = "intro") {
@@ -1256,7 +1370,7 @@ function buildCourseFromQuizAnswers() {
   if (speakerGoal === 2) support.push("social");
   if (blocker === 1) support.push("sequence");
 
-  const tasks = uniqueTasks([primary, recommended, ...support, "sequence", "confidence", "social", "organize"]).slice(0, 5);
+  const tasks = uniqueTasks([primary, "sequence", "join", "social", recommended, ...support, "confidence", "organize", "character", "goal"]).slice(0, 7);
   const firstTask = tasks[0];
   const timeLabels = ["5 min", "10 min", "15 min", "20 min"];
   const parentModes = ["Daily report only", "One parent prompt per day", "Parent-child mini task", "Progress dashboard"];
@@ -1393,6 +1507,34 @@ function renderLessonSteps(persona) {
     .join("");
 }
 
+function renderCourseMap(persona) {
+  if (!fields.courseMapPath) return;
+  const tasks = persona.courseTasks || ["reason", "sequence", "join", "social", "confidence", "organize", "character"].map(createTask);
+  const dayLabels = ["Today", "Preview", "Preview", "Preview", "Preview", "Preview", "Preview"];
+  fields.courseMapPath.innerHTML = tasks
+    .slice(0, 7)
+    .map((task, index) => {
+      const isActive = index === activeLessonTaskIndex;
+      const title = index === 0 ? "Give a reason" :
+        index === 1 ? "Tell it in order" :
+        index === 2 ? "Join a group" :
+        index === 3 ? "Disagree politely" :
+        task.taskType;
+      const classes = [
+        index === 0 ? "done" : "preview",
+        isActive ? "active" : ""
+      ].filter(Boolean).join(" ");
+      return `
+        <button type="button" class="${classes}" data-course-day="${index}" aria-label="Preview Day ${index + 1}: ${escapeHtml(task.taskTitle)}">
+          <span>${index + 1}</span>
+          <strong>${escapeHtml(title)}<em>${escapeHtml(task.taskTitle)}</em></strong>
+          <small>${isActive ? "Open" : dayLabels[index] || "Preview"}</small>
+        </button>
+      `;
+    })
+    .join("");
+}
+
 function renderChat(persona) {
   const task = persona.courseTasks?.[activeLessonTaskIndex];
   const chat = task
@@ -1432,8 +1574,10 @@ function applyLessonTask(persona) {
   fields.unlockTitle.textContent = task.unlockTitle;
   fields.unlockCopy.textContent = task.unlockCopy;
   fields.passLabel.textContent = task.passLabel;
-  fields.lessonHeroTitle.textContent = `Day 1 Course: ${task.taskType}`;
+  fields.lessonHeroTitle.textContent = `Day ${activeLessonTaskIndex + 1} Course: ${task.taskType}`;
   fields.lessonIntro.textContent = `This trial tests one observable skill: ${task.checkFocus}. The child answers once, gets one coaching hint, then retries.`;
+  updateLessonMedia(task);
+  updateLessonScene(task);
   setTeacherSegment(trialState.firstSubmitted || trialState.completed ? currentLessonSegment() : "intro");
   updateTrialDisplay();
   updateVoiceDisplay();
@@ -1495,6 +1639,7 @@ function selectLessonTask(index) {
   resetTrialState();
   applyLessonTask(persona);
   renderLessonSteps(persona);
+  renderCourseMap(persona);
   renderChat(persona);
   fields.answerInput.value = "";
   updateTrialDisplay();
@@ -1672,6 +1817,7 @@ function setPersona(key) {
   renderSkills(persona.skills);
   renderDiagnosis(persona);
   renderLessonSteps(persona);
+  renderCourseMap(persona);
   renderChat(persona);
   applyLessonTask(persona);
   renderArchive(persona);
@@ -1843,9 +1989,23 @@ document.querySelectorAll("[data-teacher-segment]").forEach((button) => {
     const isVideoPlay = button.classList.contains("video-play");
     setTeacherSegment(button.dataset.teacherSegment, !isVideoPlay);
     if (isVideoPlay && fields.teacherVideo) {
+      const task = currentLessonTask();
+      const useSeparateTeacherAudio = hasTeacherAudio(task);
       button.classList.add("is-playing");
-      fields.teacherVideo.muted = false;
+      fields.teacherVideo.muted = useSeparateTeacherAudio;
       if (fields.teacherVideo.ended) fields.teacherVideo.currentTime = 0;
+      if (useSeparateTeacherAudio) {
+        fields.teacherVideo.pause();
+        fields.teacherVideo.currentTime = 0;
+        teacherIntroAudio.pause();
+        teacherIntroAudio.currentTime = 0;
+        markTeacherPlayback(true);
+        playTeacherIntroAudio().catch(() => {
+          markTeacherPlayback(false);
+          speakLine(fields.teacherLine?.textContent || "");
+        });
+        return;
+      }
       fields.teacherVideo.play().then(() => {
         button.classList.add("is-playing");
       }).catch(() => {
@@ -1862,22 +2022,44 @@ document.querySelectorAll("[data-teacher-segment]").forEach((button) => {
 
 if (fields.teacherVideo) {
   fields.teacherVideo.addEventListener("click", () => {
+    const task = currentLessonTask();
+    const useSeparateTeacherAudio = hasTeacherAudio(task);
+    fields.teacherVideo.muted = useSeparateTeacherAudio;
+    if (useSeparateTeacherAudio) {
+      if (!teacherIntroAudio.paused) {
+        pauseTeacherIntroAudio();
+        markTeacherPlayback(false);
+      } else {
+        fields.teacherVideo.pause();
+        fields.teacherVideo.currentTime = 0;
+        markTeacherPlayback(true);
+        playTeacherIntroAudio().catch(() => markTeacherPlayback(false));
+      }
+      return;
+    }
     if (fields.teacherVideo.paused) {
       fields.teacherVideo.play().catch(() => {});
     } else {
       fields.teacherVideo.pause();
+      pauseTeacherIntroAudio();
     }
   });
   fields.teacherVideo.addEventListener("play", () => {
     document.querySelectorAll(".video-play").forEach((button) => button.classList.add("is-playing"));
   });
   fields.teacherVideo.addEventListener("pause", () => {
+    pauseTeacherIntroAudio();
     document.querySelectorAll(".video-play").forEach((button) => button.classList.remove("is-playing"));
   });
   fields.teacherVideo.addEventListener("ended", () => {
+    pauseTeacherIntroAudio();
     document.querySelectorAll(".video-play").forEach((button) => button.classList.remove("is-playing"));
   });
 }
+
+teacherIntroAudio.addEventListener("ended", () => {
+  markTeacherPlayback(false);
+});
 
 if (fields.sceneVideo && fields.scenePlay) {
   fields.scenePlay.addEventListener("click", () => {
@@ -1941,6 +2123,17 @@ if (fields.lessonSteps) {
     const task = event.target.closest("[data-lesson-task]");
     if (!task) return;
     selectLessonTask(Number(task.dataset.lessonTask));
+  });
+}
+
+if (fields.courseMapPath) {
+  fields.courseMapPath.addEventListener("click", (event) => {
+    const day = event.target.closest("[data-course-day]");
+    if (!day) return;
+    const index = Number(day.dataset.courseDay);
+    const task = personas[currentPersona].courseTasks?.[index];
+    if (!task) return;
+    selectLessonTask(index);
   });
 }
 
