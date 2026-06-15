@@ -33,6 +33,7 @@ static_content_pages = [
     ("learning-guides/how-to-help-a-child-speak-clearly/", "0.8", "weekly"),
     ("learning-guides/how-to-stay-focused-while-studying/", "0.8", "weekly"),
     ("learning-guides/how-to-improve-memory/", "0.8", "weekly"),
+    ("phone-deals/best-cheap-phone-plans/", "0.8", "weekly"),
 ]
 
 urls.extend((loc(path), priority, changefreq) for path, priority, changefreq in static_content_pages)
