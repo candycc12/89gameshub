@@ -4,6 +4,7 @@
 
   const params = new URLSearchParams(location.search);
   const quiz = shared.QUIZZES.find((item) => item.id === params.get('id')) || shared.QUIZZES[0];
+  const isWorldCupQuiz = quiz.id === 'world-cup-match-predictor';
   let questions = [];
   let questionIndex = 0;
   let answers = [];
@@ -14,6 +15,11 @@
     name: '',
     photo: '',
     context: 'Situationship'
+  };
+  let worldCupFan = {
+    photo: '',
+    team: 'usa',
+    pick: 'win'
   };
 
   const $ = (selector) => document.querySelector(selector);
@@ -28,6 +34,62 @@
   }[char]));
   const escapeAttr = (value) => escapeHTML(value).replaceAll('`', '&#96;');
   const runKey = `arcadequiz-run-${quiz.id}`;
+  const wcFanKey = `arcadequiz-world-cup-fan-${quiz.id}`;
+  const wcPoolKey = `arcadequiz-world-cup-pool-${quiz.id}`;
+  const WC_TEAMS = [
+    { id: 'usa', name: 'USA', flag: '🇺🇸', colors: ['#1d4ed8', '#ef4444'] },
+    { id: 'mexico', name: 'Mexico', flag: '🇲🇽', colors: ['#15803d', '#dc2626'] },
+    { id: 'canada', name: 'Canada', flag: '🇨🇦', colors: ['#dc2626', '#ffffff'] },
+    { id: 'brazil', name: 'Brazil', flag: '🇧🇷', colors: ['#16a34a', '#facc15'] },
+    { id: 'argentina', name: 'Argentina', flag: '🇦🇷', colors: ['#38bdf8', '#ffffff'] },
+    { id: 'france', name: 'France', flag: '🇫🇷', colors: ['#1d4ed8', '#ef4444'] },
+    { id: 'england', name: 'England', flag: '🏴', colors: ['#f8fafc', '#dc2626'] },
+    { id: 'spain', name: 'Spain', flag: '🇪🇸', colors: ['#dc2626', '#facc15'] }
+  ];
+
+  try {
+    worldCupFan = { ...worldCupFan, ...(JSON.parse(sessionStorage.getItem(wcFanKey) || 'null') || {}) };
+  } catch (_) {}
+
+  function todayKey() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  function readWorldCupPool() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(wcPoolKey) || 'null');
+      if (stored && typeof stored === 'object') return { days: {}, ...stored };
+    } catch (_) {}
+    return { days: {} };
+  }
+
+  function saveWorldCupPool(pool) {
+    try {
+      localStorage.setItem(wcPoolKey, JSON.stringify(pool));
+    } catch (_) {}
+  }
+
+  function poolStats(pool = readWorldCupPool()) {
+    const entries = Object.entries(pool.days || {}).sort(([a], [b]) => a.localeCompare(b));
+    const total = entries.length;
+    const settled = entries.filter(([, item]) => item.result).length;
+    const correct = entries.filter(([, item]) => item.correct).length;
+    const accuracy = settled ? Math.round((correct / settled) * 100) : 0;
+    let streak = 0;
+    const seen = new Set(entries.map(([date]) => date));
+    const cursor = new Date(`${todayKey()}T00:00:00`);
+    while (seen.has(`${cursor.getFullYear()}-${String(cursor.getMonth() + 1).padStart(2, '0')}-${String(cursor.getDate()).padStart(2, '0')}`)) {
+      streak += 1;
+      cursor.setDate(cursor.getDate() - 1);
+    }
+    const shareUnits = Math.max(0, streak * 10 + correct * 20 + Math.max(0, accuracy - 50));
+    const eligible = streak >= 3 && settled >= 3 && accuracy >= 50;
+    return { total, settled, correct, accuracy, streak, shareUnits, eligible };
+  }
 
   function crushContexts() {
     return shared.getLang() === 'zh'
@@ -169,6 +231,277 @@
     return `https://api.qrserver.com/v1/create-qr-code/?size=160x160&margin=8&data=${encodeURIComponent(value)}`;
   }
 
+  function saveWorldCupFan() {
+    try {
+      sessionStorage.setItem(wcFanKey, JSON.stringify(worldCupFan));
+    } catch (_) {}
+  }
+
+  function worldCupTeam() {
+    return WC_TEAMS.find((team) => team.id === worldCupFan.team) || WC_TEAMS[0];
+  }
+
+  function worldCupPickText() {
+    const team = worldCupTeam();
+    const map = {
+      win: `I back ${team.name} to win today.`,
+      upset: `${team.name} upset agenda is officially open.`,
+      chaos: `${team.name} match prediction: chaos, VAR, and group chat receipts.`
+    };
+    return map[worldCupFan.pick] || map.win;
+  }
+
+  function worldCupPostText() {
+    return `${worldCupPickText()} I made my 2026 World Cup supporter avatar on Arcadequiz. Make yours: ${quizLink()}`;
+  }
+
+  function worldCupStreakText() {
+    const stats = poolStats();
+    return `I have a ${stats.streak}-day World Cup prediction streak with ${stats.accuracy}% settled accuracy on Arcadequiz. Join my prediction pool: ${quizLink()}`;
+  }
+
+  function lockWorldCupPrediction() {
+    const pool = readWorldCupPool();
+    const today = todayKey();
+    if (!pool.days) pool.days = {};
+    if (pool.days[today]) return;
+    pool.days[today] = {
+      team: worldCupFan.team,
+      teamName: worldCupTeam().name,
+      pick: worldCupFan.pick,
+      pickLabel: worldCupPickText(),
+      createdAt: new Date().toISOString()
+    };
+    saveWorldCupPool(pool);
+    updateWorldCupFanLab();
+  }
+
+  function demoSettleWorldCupPrediction() {
+    const pool = readWorldCupPool();
+    const today = todayKey();
+    if (!pool.days?.[today] || pool.days[today].result) return;
+    const score = Array.from(`${today}:${pool.days[today].team}:${pool.days[today].pick}`).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+    const correct = score % 3 !== 0;
+    pool.days[today] = {
+      ...pool.days[today],
+      result: correct ? 'correct' : 'miss',
+      correct,
+      settledAt: new Date().toISOString()
+    };
+    saveWorldCupPool(pool);
+    updateWorldCupFanLab();
+  }
+
+  function renderWorldCupPool() {
+    const pool = readWorldCupPool();
+    const stats = poolStats(pool);
+    const today = todayKey();
+    const todayEntry = pool.days?.[today];
+    const team = worldCupTeam();
+    const lockedText = todayEntry
+      ? `Locked today: ${todayEntry.teamName} · ${todayEntry.pickLabel}`
+      : `Today's pick: ${team.name} · ${worldCupPickText()}`;
+    return `
+      <section class="wc-pool-card" aria-label="Daily prediction pool">
+        <div class="wc-pool-head">
+          <span>DAILY PREDICTION POOL</span>
+          <strong>${stats.eligible ? 'Qualified' : 'Build your streak'}</strong>
+        </div>
+        <p>${lockedText}</p>
+        <div class="wc-pool-stats">
+          <div><span>Streak</span><strong>${stats.streak}</strong><em>days</em></div>
+          <div><span>Accuracy</span><strong>${stats.accuracy}%</strong><em>${stats.correct}/${Math.max(stats.settled, 1)}</em></div>
+          <div><span>Pool share</span><strong>${stats.shareUnits}</strong><em>test pts</em></div>
+        </div>
+        <div class="wc-pool-meter"><i style="width:${Math.min(100, stats.streak / 7 * 100)}%"></i></div>
+        <div class="wc-pool-actions">
+          <button class="quiz-primary buttonlike" type="button" data-wc-lock-prediction ${todayEntry ? 'disabled' : ''}>${todayEntry ? 'Prediction locked' : "Lock today's prediction"}</button>
+          <button class="quiz-ghost buttonlike" type="button" data-wc-demo-settle ${todayEntry?.result ? 'disabled' : ''}>Demo settle</button>
+          <button class="quiz-ghost buttonlike" type="button" data-wc-share-streak>Share streak</button>
+        </div>
+        <small>Test rules: 3+ prediction days and 50%+ settled accuracy unlock prize-pool eligibility. No purchase, betting, or real prize is active in this prototype.</small>
+      </section>
+    `;
+  }
+
+  function renderWorldCupFanLab() {
+    if (!isWorldCupQuiz) return '';
+    const team = worldCupTeam();
+    return `
+      <section class="wc-fan-lab" aria-label="World Cup supporter avatar lab">
+        <div class="wc-fan-preview">
+          <canvas id="wc-avatar-canvas" width="720" height="720" aria-label="Generated supporter avatar"></canvas>
+        </div>
+        <div class="wc-fan-controls">
+          <span>SUPPORTER AVATAR LAB</span>
+          <h3>Make today’s fan avatar.</h3>
+          <p>Pick a team, lock a prediction, then share the avatar and streak.</p>
+          <label class="wc-upload buttonlike">
+            Choose avatar
+            <input id="wc-avatar-input" type="file" accept="image/*" />
+          </label>
+          <div class="wc-team-picker" role="group" aria-label="Pick your team">
+            ${WC_TEAMS.map((item) => `<button class="buttonlike ${item.id === team.id ? 'selected' : ''}" type="button" data-wc-team="${item.id}"><b>${item.flag}</b><span>${item.name}</span></button>`).join('')}
+          </div>
+          <div class="wc-pick-picker" role="group" aria-label="Pick your prediction">
+            ${[
+              ['win', 'Win today'],
+              ['upset', 'Upset agenda'],
+              ['chaos', 'Chaos match']
+            ].map(([id, label]) => `<button class="buttonlike ${worldCupFan.pick === id ? 'selected' : ''}" type="button" data-wc-pick="${id}">${label}</button>`).join('')}
+          </div>
+          <textarea id="wc-post-copy" readonly aria-label="Prediction post copy">${escapeHTML(worldCupPostText())}</textarea>
+          <div class="wc-fan-actions">
+            <button class="quiz-primary buttonlike" type="button" data-wc-share>Share my pick</button>
+            <button class="quiz-ghost buttonlike" type="button" data-wc-download>Save profile pic</button>
+            <button class="quiz-ghost buttonlike" type="button" data-wc-copy>Copy post</button>
+          </div>
+          ${renderWorldCupPool()}
+        </div>
+      </section>
+    `;
+  }
+
+  function drawWorldCupAvatar() {
+    if (!isWorldCupQuiz) return;
+    const canvas = document.querySelector('#wc-avatar-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const team = worldCupTeam();
+    const [primary, secondary] = team.colors;
+    const drawBase = () => {
+      const gradient = ctx.createLinearGradient(0, 0, 720, 720);
+      gradient.addColorStop(0, primary);
+      gradient.addColorStop(.56, '#07111f');
+      gradient.addColorStop(1, secondary);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 720, 720);
+      ctx.fillStyle = 'rgba(255,255,255,.08)';
+      for (let x = -160; x < 820; x += 90) {
+        ctx.fillRect(x, 0, 34, 720);
+      }
+      ctx.strokeStyle = 'rgba(255,255,255,.36)';
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.arc(360, 360, 135, 0, Math.PI * 2);
+      ctx.moveTo(360, 0);
+      ctx.lineTo(360, 720);
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(2,6,23,.72)';
+      ctx.roundRect(50, 50, 620, 620, 42);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(250,204,21,.68)';
+      ctx.lineWidth = 5;
+      ctx.stroke();
+    };
+    const drawFrame = () => {
+      ctx.fillStyle = '#facc15';
+      ctx.roundRect(80, 80, 255, 58, 29);
+      ctx.fill();
+      ctx.fillStyle = '#07111f';
+      ctx.font = '900 27px Arial, sans-serif';
+      ctx.fillText('BACKING', 112, 119);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 78px Arial, sans-serif';
+      ctx.fillText(team.name.toUpperCase(), 82, 575);
+      ctx.font = '900 32px Arial, sans-serif';
+      ctx.fillStyle = '#dbeafe';
+      ctx.fillText(worldCupPickText(), 82, 624);
+      ctx.font = '900 82px Arial, sans-serif';
+      ctx.fillText(team.flag, 550, 140);
+      ctx.fillStyle = 'rgba(34,211,238,.9)';
+      ctx.font = '900 26px Arial, sans-serif';
+      ctx.fillText('89GAMESHUB', 82, 666);
+    };
+    const drawAvatarFallback = () => {
+      ctx.fillStyle = 'rgba(255,255,255,.12)';
+      ctx.beginPath();
+      ctx.arc(360, 330, 145, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 78px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('FAN', 360, 355);
+      ctx.textAlign = 'left';
+    };
+    drawBase();
+    if (!worldCupFan.photo) {
+      drawAvatarFallback();
+      drawFrame();
+      return;
+    }
+    const image = new Image();
+    image.onload = () => {
+      drawBase();
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(360, 330, 150, 0, Math.PI * 2);
+      ctx.clip();
+      const scale = Math.max(300 / image.width, 300 / image.height);
+      const width = image.width * scale;
+      const height = image.height * scale;
+      ctx.drawImage(image, 360 - width / 2, 330 - height / 2, width, height);
+      ctx.restore();
+      ctx.strokeStyle = '#facc15';
+      ctx.lineWidth = 10;
+      ctx.beginPath();
+      ctx.arc(360, 330, 155, 0, Math.PI * 2);
+      ctx.stroke();
+      drawFrame();
+    };
+    image.src = worldCupFan.photo;
+  }
+
+  function updateWorldCupFanLab() {
+    if (!isWorldCupQuiz) return;
+    const post = document.querySelector('#wc-post-copy');
+    if (post) post.value = worldCupPostText();
+    document.querySelectorAll('[data-wc-team]').forEach((node) => node.classList.toggle('selected', node.dataset.wcTeam === worldCupFan.team));
+    document.querySelectorAll('[data-wc-pick]').forEach((node) => node.classList.toggle('selected', node.dataset.wcPick === worldCupFan.pick));
+    const poolCard = document.querySelector('.wc-pool-card');
+    if (poolCard) poolCard.outerHTML = renderWorldCupPool();
+    drawWorldCupAvatar();
+  }
+
+  function downloadWorldCupAvatar(trigger) {
+    const canvas = document.querySelector('#wc-avatar-canvas');
+    if (!canvas) return;
+    const filename = `world-cup-${worldCupTeam().name.toLowerCase()}-supporter-avatar.png`;
+    const fallbackOpen = () => {
+      const dataUrl = canvas.toDataURL('image/png');
+      const opened = window.open(dataUrl, '_blank', 'noopener');
+      if (!opened) {
+        const anchor = document.createElement('a');
+        anchor.href = dataUrl;
+        anchor.target = '_blank';
+        anchor.rel = 'noopener';
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+      }
+    };
+    if (!canvas.toBlob) {
+      fallbackOpen();
+      return;
+    }
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        fallbackOpen();
+        return;
+      }
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = filename;
+      anchor.style.display = 'none';
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1200);
+      if (trigger) trigger.textContent = 'Saved profile pic';
+    }, 'image/png');
+  }
+
   function renderProfileStep() {
     if (!shared.quizNeedsProfile(quiz)) return '';
     const lang = shared.getLang();
@@ -208,6 +541,8 @@
   function renderHeader() {
     document.documentElement.lang = shared.getLang() === 'zh' ? 'zh-CN' : 'en';
     document.body.classList.toggle('quiz-love-detail', quiz.category === 'love');
+    document.body.classList.toggle('quiz-crush-detail', quiz.id === 'crush-name-scanner');
+    document.body.classList.toggle('quiz-world-cup-detail', quiz.id === 'world-cup-match-predictor');
     $('#quiz-detail-lang').textContent = shared.getLang() === 'zh' ? 'EN' : '中文';
     $('#quiz-detail-format').textContent = shared.quizMeta(quiz);
     $('#quiz-detail-title').textContent = title();
@@ -281,21 +616,44 @@
       return;
     }
     const current = questions[questionIndex];
+    const percent = Math.round(((questionIndex + 1) / questions.length) * 100);
     $('#quiz-detail-progress-label').textContent = shared.quizNeedsProfile(quiz)
-      ? `${current.vibe || 'Signal scan'} · ${Math.round(((questionIndex + 1) / questions.length) * 100)}%`
+      ? `${current.vibe || 'Signal scan'} · ${percent}%`
       : `${text().q}${shared.getLang() === 'zh' ? '' : ' '}${questionIndex + 1} ${text().of} ${questions.length}`;
     $('#quiz-detail-progress-label').hidden = false;
     $('#quiz-detail-progress-bar').parentElement.hidden = false;
     $('#quiz-detail-progress-bar').style.width = `${(questionIndex / questions.length) * 100}%`;
     const questionText = escapeHTML(shared.personalizeText(current.text, profileName()));
+    const optionIcon = (trait) => ({ spark: '🚨', analyst: '📊', connector: '🙌', strategist: '🧠', goal: '⚽' }[trait] || '🏆');
+    const optionTag = (trait) => ({
+      spark: shared.getLang() === 'zh' ? '爆冷' : 'upset',
+      analyst: shared.getLang() === 'zh' ? '证据' : 'receipt',
+      connector: shared.getLang() === 'zh' ? '气氛' : 'vibes',
+      strategist: shared.getLang() === 'zh' ? '战术' : 'tactics',
+      goal: shared.getLang() === 'zh' ? '进球' : 'goals'
+    }[trait] || '');
+    const worldCupBoard = isWorldCupQuiz ? `
+      <div class="wc-quiz-board" aria-label="World Cup prediction board">
+        <div><span>FAN XI</span><strong>${answers.length}</strong></div>
+        <b>${shared.getLang() === 'zh' ? '第' : 'Q'} ${questionIndex + 1}/${questions.length}</b>
+        <div><span>CHAOS</span><strong>${questions.length - questionIndex}</strong></div>
+      </div>
+      <div class="wc-quiz-ticker">
+        <span>LIVE</span>
+        <p>${shared.getLang() === 'zh' ? '群聊预测室已开启：选一个能截图、能吵架、能传播的答案。' : 'Group-chat prediction room is live: pick the answer worth screenshotting.'}</p>
+      </div>
+    ` : '';
     $('#quiz-detail-question').innerHTML = `
+      ${renderWorldCupFanLab()}
+      ${worldCupBoard}
       ${current.vibe ? `<div class="quiz-question-kicker">${current.vibe}</div>` : ''}
       <h3>${questionText}</h3>
       <div class="quiz-options">
-        ${current.options.map((option, index) => `<button class="buttonlike" type="button" data-detail-answer="${index}">${option.label}</button>`).join('')}
+        ${current.options.map((option, index) => `<button class="buttonlike ${isWorldCupQuiz ? 'wc-option' : ''}" type="button" data-detail-answer="${index}">${isWorldCupQuiz ? `<span class="wc-option-icon">${optionIcon(option.trait)}</span><span>${escapeHTML(option.label)}</span><em>${escapeHTML(optionTag(option.trait))}</em>` : escapeHTML(option.label)}</button>`).join('')}
       </div>
       <div class="quiz-answer-reaction" aria-live="polite"></div>
     `;
+    updateWorldCupFanLab();
     setQuestionAdVisible(true);
     setResultAdVisible(false);
   }
@@ -303,33 +661,19 @@
   function chooseAnswer(index, button) {
     if (isAnswering) return;
     const selected = questions[questionIndex].options[index];
-    const reactions = {
-      en: {
-        spark: 'Logged: this answer was not neutral.',
-        analyst: 'Receipts saved. Peer review pending.',
-        connector: 'Soft signal detected. Bestie alert warmed up.',
-        strategist: 'Boundary shield active. Delusion contained.'
-      },
-      zh: {
-        spark: '已记录：这个答案不太中立。',
-        analyst: '证据已保存，等待朋友复审。',
-        connector: '温柔信号已捕捉，朋友警报预热中。',
-        strategist: '边界护盾已开启，脑补暂时受控。'
-      }
-    };
     isAnswering = true;
     answers.push(selected);
     document.querySelectorAll('.quiz-options button').forEach((node) => { node.disabled = true; });
     if (button) button.classList.add('selected');
     const reaction = document.querySelector('.quiz-answer-reaction');
-    if (reaction) reaction.textContent = reactions[shared.getLang()][selected.trait] || '';
+    if (reaction) reaction.textContent = shared.answerReaction?.(quiz, selected.trait) || '';
     window.setTimeout(() => {
       questionIndex += 1;
       isAnswering = false;
       saveRun(questionIndex);
       if (questionIndex >= questions.length) showResult();
       else location.href = questionUrl(questionIndex);
-    }, quiz.category === 'love' ? 620 : 160);
+    }, quiz.category === 'sports' ? 720 : (quiz.category === 'love' ? 620 : 160));
   }
 
   function resultMetrics(traits, score) {
@@ -353,6 +697,20 @@
     $('#quiz-detail-result').hidden = false;
     setQuestionAdVisible(false);
     setResultAdVisible(false);
+    if (isWorldCupQuiz) {
+      $('#quiz-detail-result').innerHTML = `
+        <div class="quiz-scan-card wc-scan-card" aria-live="polite">
+          <span>${lang === 'zh' ? '预测生成中' : 'Prediction loading'}</span>
+          <h3>${lang === 'zh' ? '正在检查 VAR、群聊火药味和爆冷概率...' : 'Checking VAR drama, group chat heat, and upset probability...'}</h3>
+          <div class="quiz-scan-lines">
+            <i>${lang === 'zh' ? '读取球迷直觉' : 'Reading fan instinct'}</i>
+            <i>${lang === 'zh' ? '模拟 90+ 分钟反转' : 'Simulating 90+ minute chaos'}</i>
+            <i>${lang === 'zh' ? '生成可截图预测人设' : 'Building screenshot-ready prediction persona'}</i>
+          </div>
+        </div>
+      `;
+      return;
+    }
     $('#quiz-detail-result').innerHTML = `
       <div class="quiz-scan-card" aria-live="polite">
         <span>${lang === 'zh' ? '扫描中' : 'Scanning'}</span>
@@ -407,6 +765,39 @@
         <div><span>Clarity Shield</span><strong>${metrics.clarity}%</strong></div>
       </div>
     ` : '';
+    const worldCupStats = isWorldCupQuiz ? {
+      upset: Math.min(99, 30 + (traits.spark || 0) * 13 + (traits.goal || 0) * 6),
+      receipt: Math.min(99, 34 + (traits.analyst || 0) * 14 + (traits.strategist || 0) * 9),
+      chaos: Math.min(99, 40 + (traits.goal || 0) * 12 + (traits.connector || 0) * 7),
+      varDrama: Math.min(99, 25 + (traits.strategist || 0) * 13 + (traits.spark || 0) * 7)
+    } : null;
+    const worldCupShareCard = isWorldCupQuiz ? `
+      <section class="quiz-share-card wc-share-card" id="quiz-share-card" aria-label="Shareable World Cup prediction card">
+        <div class="quiz-share-card-top">
+          <span>ARCADEQUIZ WORLD CUP LAB</span>
+          <b>Screenshot this</b>
+        </div>
+        <div class="wc-result-scoreline">
+          <div><span>FAN XI</span><strong>${worldCupStats.receipt}</strong></div>
+          <b>VS</b>
+          <div><span>CHAOS</span><strong>${worldCupStats.chaos}</strong></div>
+        </div>
+        <h2>${resultTitle}</h2>
+        <p>${resultCopy}</p>
+        <div class="quiz-share-card-stats">
+          <div><span>Upset</span><strong>${worldCupStats.upset}%</strong></div>
+          <div><span>Receipts</span><strong>${worldCupStats.receipt}%</strong></div>
+          <div><span>VAR Drama</span><strong>${worldCupStats.varDrama}%</strong></div>
+        </div>
+        <div class="quiz-share-card-footer">
+          <div>
+            <span>Predict yours</span>
+            <strong>89gameshub.com</strong>
+          </div>
+          <img src="${qr}" alt="QR code for this quiz" crossorigin="anonymous" />
+        </div>
+      </section>
+    ` : '';
     const shareCard = shared.quizNeedsProfile(quiz) ? `
       <section class="quiz-share-card" id="quiz-share-card" aria-label="Shareable result card">
         <div class="quiz-share-card-top">
@@ -445,19 +836,21 @@
     setQuestionAdVisible(false);
     setResultAdVisible(shared.quizNeedsProfile(quiz));
     $('#quiz-detail-result').innerHTML = `
-      ${shareCard || `<span>${text().result}</span>`}
+      ${worldCupShareCard || shareCard || `<span>${text().result}</span>`}
       <div class="quiz-result-analysis">
         <span>${shared.quizNeedsProfile(quiz) ? 'Why you got this' : text().result}</span>
         ${profileCard}
         <h3>${resultTitle}</h3>
         <p>${resultCopy}</p>
         ${metricCard}
+        ${isWorldCupQuiz ? `<div class="wc-result-memes"><span>🚨 ${shared.getLang() === 'zh' ? '爆冷警报' : 'upset alarm'}</span><span>📺 VAR court</span><span>💬 group chat receipts</span></div>` : ''}
       </div>
       <div class="quiz-share-badge">${quiz.category === 'love' ? (shared.getLang() === 'zh' ? '适合发给朋友复盘' : 'Send this to your bestie') : title()}</div>
       <div class="quiz-reward">+${reward} ${text().points} · ${score}/${questions.length}</div>
       <label>${text().share}<textarea readonly>${escapeHTML(share)}</textarea></label>
       <div class="quiz-result-actions">
-        ${shared.quizNeedsProfile(quiz) ? '<button class="quiz-primary buttonlike" type="button" data-share-result>Share result</button><button class="quiz-ghost buttonlike" type="button" data-download-card>Download card</button><button class="quiz-ghost buttonlike" type="button" data-copy-link>Copy quiz link</button>' : ''}
+        ${(shared.quizNeedsProfile(quiz) || isWorldCupQuiz) ? '<button class="quiz-primary buttonlike" type="button" data-share-result>Share result</button><button class="quiz-ghost buttonlike" type="button" data-copy-link>Copy quiz link</button>' : ''}
+        ${shared.quizNeedsProfile(quiz) ? '<button class="quiz-ghost buttonlike" type="button" data-download-card>Download card</button>' : ''}
         <button class="quiz-primary buttonlike" type="button" id="quiz-detail-again">${shared.quizNeedsProfile(quiz) ? 'Scan another person' : text().again}</button>
         <button class="quiz-ghost buttonlike" type="button" data-detail-copy-share>${shared.getLang() === 'zh' ? '复制分享文案' : 'Copy share text'}</button>
         <a class="quiz-ghost buttonlike" href="arcadequiz.html">${shared.getLang() === 'zh' ? '返回题库' : 'Back to feed'}</a>
@@ -553,13 +946,51 @@
       const textarea = document.querySelector('#quiz-detail-result textarea');
       const shareText = textarea?.value || title();
       if (navigator.share) {
-        navigator.share({ title: 'Crush Scanner', text: shareText, url: quizLink() }).catch(() => {});
+        navigator.share({ title: title(), text: shareText, url: quizLink() }).catch(() => {});
       } else {
         navigator.clipboard?.writeText(shareText);
         shareResult.textContent = 'Copied share text';
       }
     }
     if (event.target.closest('[data-download-card]')) downloadShareCard();
+    const wcTeamButton = event.target.closest('[data-wc-team]');
+    if (wcTeamButton) {
+      worldCupFan.team = wcTeamButton.dataset.wcTeam;
+      saveWorldCupFan();
+      updateWorldCupFanLab();
+    }
+    const wcPickButton = event.target.closest('[data-wc-pick]');
+    if (wcPickButton) {
+      worldCupFan.pick = wcPickButton.dataset.wcPick;
+      saveWorldCupFan();
+      updateWorldCupFanLab();
+    }
+    const wcDownloadButton = event.target.closest('[data-wc-download]');
+    if (wcDownloadButton) downloadWorldCupAvatar(wcDownloadButton);
+    if (event.target.closest('[data-wc-copy]')) {
+      navigator.clipboard?.writeText(worldCupPostText());
+      event.target.closest('[data-wc-copy]').textContent = 'Copied post';
+    }
+    if (event.target.closest('[data-wc-share]')) {
+      const postText = worldCupPostText();
+      if (navigator.share) {
+        navigator.share({ title: 'World Cup prediction', text: postText, url: quizLink() }).catch(() => {});
+      } else {
+        navigator.clipboard?.writeText(postText);
+        event.target.closest('[data-wc-share]').textContent = 'Copied post';
+      }
+    }
+    if (event.target.closest('[data-wc-lock-prediction]')) lockWorldCupPrediction();
+    if (event.target.closest('[data-wc-demo-settle]')) demoSettleWorldCupPrediction();
+    if (event.target.closest('[data-wc-share-streak]')) {
+      const streakText = worldCupStreakText();
+      if (navigator.share) {
+        navigator.share({ title: 'World Cup prediction streak', text: streakText, url: quizLink() }).catch(() => {});
+      } else {
+        navigator.clipboard?.writeText(streakText);
+        event.target.closest('[data-wc-share-streak]').textContent = 'Copied streak';
+      }
+    }
     if (event.target.id === 'quiz-detail-again') {
       if (shared.quizNeedsProfile(quiz)) {
         profile.name = '';
@@ -576,6 +1007,17 @@
     }
   });
   document.addEventListener('change', (event) => {
+    if (event.target.id === 'wc-avatar-input') {
+      const file = event.target.files?.[0];
+      if (!file || !file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        worldCupFan.photo = reader.result;
+        saveWorldCupFan();
+        updateWorldCupFanLab();
+      });
+      reader.readAsDataURL(file);
+    }
     if (event.target.id === 'crush-photo-input') {
       const file = event.target.files?.[0];
       if (!file || !file.type.startsWith('image/')) return;

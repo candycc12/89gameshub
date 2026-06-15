@@ -11,11 +11,11 @@ const I18N = {
     create: '创建你的测验',
     categories: {
       love: '爱情与人格', meme: '梗与社交身份', celebrity: '明星与 K-pop', ai: 'AI 与未来工作',
-      war: '战争、历史与地缘', geography: '地理与文明', finance: '金融与风险', daily: '每日挑战', create: '创建你的测验'
+      war: '战争、历史与地缘', geography: '地理与文明', finance: '金融与风险', sports: '世界杯预测', daily: '每日挑战', create: '创建你的测验'
     },
     formats: {
       personality: '人格测验', trivia: '知识问答', timed: '限时挑战', thisThat: '二选一',
-      strategy: '策略模拟', map: '地图挑战', daily: '每日题', template: '创作模板'
+      strategy: '策略模拟', map: '地图挑战', predictor: '球迷预测', daily: '每日题', template: '创作模板'
     },
     results: {
       strategist: ['冷静策略家', '你擅长先看结构再做选择，喜欢把风险拆开处理。'],
@@ -47,11 +47,11 @@ const I18N = {
     create: 'Create your quiz',
     categories: {
       love: 'Love & Personality', meme: 'Meme & Social Identity', celebrity: 'Celebrity & K-pop', ai: 'AI & Future Work',
-      war: 'War, History & Geopolitics', geography: 'Geography & Civilization', finance: 'Finance & Risk', daily: 'Daily Challenge', create: 'Create Your Quiz'
+      war: 'War, History & Geopolitics', geography: 'Geography & Civilization', finance: 'Finance & Risk', sports: 'World Cup Predictor', daily: 'Daily Challenge', create: 'Create Your Quiz'
     },
     formats: {
       personality: 'Personality quiz', trivia: 'Trivia quiz', timed: 'Timed challenge', thisThat: 'This-or-that',
-      strategy: 'Strategy simulation', map: 'Map challenge', daily: 'Daily quiz', template: 'Quiz template'
+      strategy: 'Strategy simulation', map: 'Map challenge', predictor: 'Fan predictor', daily: 'Daily quiz', template: 'Quiz template'
     },
     results: {
       strategist: ['Calm Strategist', 'You read the structure before moving, then split risk into manageable choices.'],
@@ -113,12 +113,123 @@ const QUIZZES = [
   ['market-panic-simulator', 'Market Panic Simulator', '市场恐慌模拟器', 'finance', 'strategy', 130, false],
   ['budget-boss-challenge', 'Budget Boss Challenge', '预算管理挑战', 'finance', 'trivia', 100, false],
   ['risk-or-reward', 'Risk or Reward?', '风险还是回报？', 'finance', 'thisThat', 100, false],
+  ['world-cup-match-predictor', '2026 World Cup Match Predictor', '2026 世界杯球迷预测器', 'sports', 'predictor', 150, true],
   ['daily-brain-spark', 'Daily Brain Spark', '每日脑洞题', 'daily', 'daily', 100, true],
   ['daily-map-minute', 'Daily Map Minute', '每日地图一分钟', 'daily', 'map', 100, false],
   ['create-your-viral-quiz', 'Create Your Viral Quiz', '创建你的爆款测验', 'create', 'template', 80, true]
 ].map(([id, titleEn, titleZh, category, format, points, viral]) => ({ id, title: { en: titleEn, zh: titleZh }, category, format, points, viral }));
 
 const CRUSH_QUIZ_CONTENT = {
+  'world-cup-match-predictor': {
+    copy: {
+      en: 'Enter the 2026 World Cup fan lab: pick your upset agenda, survive VAR court, and leave with a screenshot-ready prediction persona. Entertainment only, not betting advice.',
+      zh: '生成你的 2026 球迷预测人格：48 队大乱斗、北美三国主办、VAR 名场面、爆冷警报，还有适合发群聊的结果。仅供娱乐，不是博彩建议。'
+    },
+    questions: {
+      en: [
+        ['You open the 2026 World Cup group chat. What is your first pinned message?', [
+          ['Favorites still have the bench. Do not overthink it.', 'analyst'],
+          ['I am formally launching the underdog agenda.', 'spark'],
+          ['Show me the crowd cam. The stadium decides the vibe.', 'connector'],
+          ['Group math is about to ruin friendships.', 'strategist'],
+          ['If this is not 3-2 by halftime, I will complain artistically.', 'goal']
+        ]],
+        ['Kickoff is rude to your sleep schedule. Why are you still awake?', [
+          ['It is the World Cup. Sleep can appeal after extra time.', 'connector'],
+          ['I need to inspect whether the favorite is fake-calm.', 'analyst'],
+          ['I smelled an upset and brought receipts.', 'spark'],
+          ['I am scouting set pieces like a tiny assistant coach.', 'strategist'],
+          ['I was promised chaos, not responsible bedtime.', 'goal']
+        ]],
+        ['VAR freezes the stadium. The ref is doing mysterious rectangle hands. You type...', [
+          ['Zoom in. Enhance. Build the legal case.', 'analyst'],
+          ['This is cinema and I hate that I love it.', 'spark'],
+          ['Everyone breathe, the referee is buffering.', 'connector'],
+          ['One pixel means three days of discourse.', 'strategist'],
+          ['Give the goal. I came here for fireworks.', 'goal']
+        ]],
+        ['A favorite leads 1-0 after 25 minutes. What prediction becomes your public record?', [
+          ['Control the tempo, close the door, protect the receipt.', 'analyst'],
+          ['This is exactly when the cursed equalizer spawns.', 'spark'],
+          ['The next 10 minutes decide the whole stadium mood.', 'connector'],
+          ['Watch the fullbacks. That is where the trap opens.', 'strategist'],
+          ['Too calm. Someone make it 2-2 for the culture.', 'goal']
+        ]],
+        ['Your bracket has picked a main character. What is its warning label?', [
+          ['I will pretend this is data-driven.', 'connector'],
+          ['I only trust teams with a midfield adult.', 'analyst'],
+          ['I chase beautiful disasters and late winners.', 'spark'],
+          ['I respect clean defensive suffering.', 'strategist'],
+          ['I pick by goal potential and vibes-per-minute.', 'goal']
+        ]],
+        ['Choose the meme sticker for your prediction card.', [
+          ['Spreadsheet open, heart closed.', 'analyst'],
+          ['Underdog agenda, no apologies.', 'spark'],
+          ['Group chat court is now in session.', 'connector'],
+          ['Low block appreciation society.', 'strategist'],
+          ['No defense, just vibes and xG confetti.', 'goal']
+        ]],
+        ['Final score energy for the screenshot you send to friends?', [
+          ['1-0, tactical stress, three heart checks.', 'strategist'],
+          ['2-1, favorite wins and apologizes to nobody.', 'analyst'],
+          ['2-2, everyone deletes their confident post.', 'connector'],
+          ['1-2, upset alarm, group chat in all caps.', 'spark'],
+          ['3-3, football becomes a public health event.', 'goal']
+        ]]
+      ],
+      zh: [
+        ['2026 世界杯是扩军后的大乱斗。你开场发群聊第一句？', [
+          ['热门还是热门，阵容深度是真的', 'analyst'],
+          ['一定有黑马要变成大家的新头像', 'spark'],
+          ['先让我看看现场气氛再说', 'connector'],
+          ['小组算分会伤害很多人，我准备好了', 'strategist'],
+          ['少于四个球我就要退票', 'goal']
+        ]],
+        ['北美时区让你熬夜看球，你的理由是？', [
+          ['世界杯面前，睡眠可以先投诉', 'connector'],
+          ['我要看热门队是不是真的稳', 'analyst'],
+          ['我闻到了爆冷味，截图已备好', 'spark'],
+          ['我要像小助教一样盯定位球', 'strategist'],
+          ['我来都来了，必须给我混乱', 'goal']
+        ]],
+        ['VAR 让全场等了三分钟，你的群聊反应？', [
+          ['放大，增强，开始法庭审理', 'analyst'],
+          ['这是电影，我讨厌我爱看', 'spark'],
+          ['大家先呼吸，裁判也在缓冲', 'connector'],
+          ['一像素越位，三天热搜', 'strategist'],
+          ['给进吧，我是来看烟花的', 'goal']
+        ]],
+        ['热门队 25 分钟 1-0 领先，你会怎么预测？', [
+          ['控节奏，关门，下班', 'analyst'],
+          ['这正是离谱扳平球来的时候', 'spark'],
+          ['接下来 10 分钟决定整场气质', 'connector'],
+          ['看边后卫，陷阱在那里', 'strategist'],
+          ['太平静了，快给我 2-2', 'goal']
+        ]],
+        ['你的预测结果卡需要一句什么警告？', [
+          ['我会假装这是纯数据分析', 'connector'],
+          ['没有中场成年人我不信', 'analyst'],
+          ['我追求美丽灾难和绝杀', 'spark'],
+          ['我尊重低位防守的痛苦', 'strategist'],
+          ['我按进球潜力和每分钟梗密度选', 'goal']
+        ]],
+        ['选一个最像你预测的梗。', [
+          ['表格打开，心门关上', 'analyst'],
+          ['黑马议程，不接受道歉', 'spark'],
+          ['群聊法庭现在开庭', 'connector'],
+          ['低位防守欣赏协会', 'strategist'],
+          ['不要防守，只要 xG 彩带', 'goal']
+        ]],
+        ['最终比分气质？', [
+          ['1-0，战术压力，心跳报警', 'strategist'],
+          ['2-1，热门赢了但不解释', 'analyst'],
+          ['2-2，所有人删除自信发言', 'connector'],
+          ['1-2，爆冷警报，群聊全大写', 'spark'],
+          ['3-3，足球变成公共健康事件', 'goal']
+        ]]
+      ]
+    }
+  },
   'crush-name-scanner': {
     copy: {
       en: 'Drop their name, add an optional photo, and run a suspiciously personal vibe scan before the group chat asks for evidence.',
@@ -679,9 +790,31 @@ const CRUSH_SCANNER_RESULTS = {
   }
 };
 
+const WORLD_CUP_RESULTS = {
+  en: {
+    spark: ['Upset Agenda Captain', 'You are here for momentum swings, loud group chats, and the underdog moment that makes everyone check the bracket twice. Your prediction has dangerous screenshot energy.', 'My 2026 World Cup prediction persona is Upset Agenda Captain. I am not saying chaos will happen, but I have opened the door.'],
+    analyst: ['Receipt-Safe Favorite Picker', 'You respect rankings, team depth, and the boring truth that favorites are favorites for a reason. Your pick is clean enough to survive group chat cross-examination.', 'My 2026 World Cup prediction persona is Receipt-Safe Favorite Picker. I trust the favorite, but I still want the receipts.'],
+    connector: ['Crowd-Cam Vibes Scout', 'You read crowd energy, fan pressure, and the emotional weather around a match. You want a pick that feels shareable, not just spreadsheet-correct.', 'My 2026 World Cup prediction persona is Crowd-Cam Vibes Scout. My pick has data, vibes, and a group chat witness.'],
+    strategist: ['VAR Court Tactician', 'You care about shape, pressure, set pieces, and what happens when a match gets uncomfortable. Your pick is built for the 78th minute and the replay room.', 'My 2026 World Cup prediction persona is VAR Court Tactician. I picked the match like a coach with snacks.'],
+    goal: ['Goal Chaos Believer', 'You do not wake up for sterile possession triangles. You want rebounds, bad clearances, late equalizers, and one camera cut to a fan questioning reality.', 'My 2026 World Cup prediction persona is Goal Chaos Believer. I came for goals, chaos, and one screenshot that ages terribly.']
+  },
+  zh: {
+    spark: ['爆冷猎人', '你喜欢势头突然改变、群聊开始刷屏、所有人重新检查预测表的那一刻。', '我的世界杯预测风格是「爆冷猎人」。我不是说一定会乱，但门已经打开了。'],
+    analyst: ['稳健热门派', '你尊重排名、阵容深度和热门球队之所以热门的朴素事实。你的预测干净、好解释。', '我的世界杯预测风格是「稳健热门派」。我看好热门，但也要看证据。'],
+    connector: ['气氛型球迷', '你会读现场能量、球迷压力和比赛的情绪天气。你要的不只是表格正确，而是值得分享。', '我的世界杯预测风格是「气氛型球迷」。我的选择有数据、有感觉，还有群聊证人。'],
+    strategist: ['战术分析师', '你在意阵型、压力、定位球，以及比赛变难时谁还能稳住。你的预测是为第 78 分钟准备的。', '我的世界杯预测风格是「战术分析师」。像带零食的教练一样做选择。'],
+    goal: ['进球盛宴信徒', '你不是为了无菌控球熬夜。你要折射、补射、绝平，以及镜头切到怀疑人生的球迷。', '我的世界杯预测风格是「进球盛宴信徒」。我来是为了进球、混乱和一张迅速过期的截图。']
+  }
+};
+
 const CRUSH_STAGES = {
   en: ['Notification spike', 'Name reaction', 'Text autopsy', 'Read-receipt trial', 'Story surveillance', 'Bestie evidence', 'Jealousy weather', 'One-on-one alert', 'Brutal honesty', 'Final scan'],
   zh: ['聊天侦探模式', '信号检查', '主角时刻', '边界测试', '群聊诱饵', '结果卡预热']
+};
+
+const WORLD_CUP_STAGES = {
+  en: ['Match setup', 'Winner pick', 'First goal', 'Goal forecast', 'Key factor', 'Match vibe', 'Final score'],
+  zh: ['比赛设置', '胜者选择', '首球预测', '进球预测', '关键因素', '比赛气质', '最终比分']
 };
 
 const ANSWER_REACTIONS = {
@@ -689,13 +822,32 @@ const ANSWER_REACTIONS = {
     spark: 'Logged: high sparkle, mild chaos.',
     analyst: 'Logged: receipts saved, delusion reduced.',
     connector: 'Logged: soft signal detected.',
-    strategist: 'Logged: boundary shield activated.'
+    strategist: 'Logged: boundary shield activated.',
+    goal: 'Logged: goal fever detected.'
   },
   zh: {
     spark: '已记录：闪光值很高，混乱值微妙上升。',
     analyst: '已记录：证据链保存，脑补值下降。',
     connector: '已记录：温柔信号已捕捉。',
-    strategist: '已记录：边界护盾已开启。'
+    strategist: '已记录：边界护盾已开启。',
+    goal: '已记录：进球狂热已检出。'
+  }
+};
+
+const WORLD_CUP_REACTIONS = {
+  en: {
+    spark: 'Upset agenda saved. Group chat may not survive.',
+    analyst: 'Spreadsheet energy logged. Receipts are warming up.',
+    connector: 'Vibe check accepted. The crowd cam matters.',
+    strategist: 'Tactical note filed. Low block enjoyer detected.',
+    goal: 'Goal fever logged. Defenders are in danger.'
+  },
+  zh: {
+    spark: '爆冷议程已保存，群聊可能撑不住。',
+    analyst: '表格能量已记录，证据链开始预热。',
+    connector: '气氛检测通过，观众席镜头很重要。',
+    strategist: '战术笔记已归档，低位防守爱好者出现。',
+    goal: '进球狂热已记录，后卫们危险了。'
   }
 };
 
@@ -741,6 +893,7 @@ const QUIZ_EMOJIS = {
   war: ['🗺️', '♟️', '🏛️', '⚔️'],
   geography: ['🌍', '🧭', '🏞️', '🏺'],
   finance: ['📈', '💰', '🎲', '🧮'],
+  sports: ['⚽', '🏆', '📊', '🎯'],
   daily: ['🔥', '⏱️', '🧩', '🌟'],
   create: ['✍️', '🧪', '🚀', '🎯']
 };
@@ -754,9 +907,10 @@ function quizEmoji(quiz) {
 function buildQuestions(quiz) {
   const custom = CRUSH_QUIZ_CONTENT[quiz.id]?.questions?.[lang];
   if (custom) {
+    const stages = quiz.id === 'world-cup-match-predictor' ? WORLD_CUP_STAGES : CRUSH_STAGES;
     return custom.map(([text, options], index) => ({
       text,
-      vibe: CRUSH_STAGES[lang][index % CRUSH_STAGES[lang].length],
+      vibe: stages[lang][index % stages[lang].length],
       options: options.map(([label, trait], optionIndex) => ({
         label,
         trait,
@@ -795,6 +949,7 @@ function quizDetailCopy(quiz) {
 
 function quizResult(quiz, trait) {
   if (quiz.id === 'crush-name-scanner') return CRUSH_SCANNER_RESULTS[lang][trait] || CRUSH_SCANNER_RESULTS[lang].spark;
+  if (quiz.id === 'world-cup-match-predictor') return WORLD_CUP_RESULTS[lang][trait] || WORLD_CUP_RESULTS[lang].analyst;
   if (CRUSH_QUIZ_CONTENT[quiz.id]) return LOVE_RESULTS[lang][trait] || LOVE_RESULTS[lang].spark;
   return t().results[trait] || t().results.spark;
 }
@@ -1005,6 +1160,10 @@ window.ArcadequizShared = {
   quizDetailCopy,
   quizResult,
   quizShareCopy,
+  answerReaction(quiz, trait) {
+    if (quiz.id === 'world-cup-match-predictor') return WORLD_CUP_REACTIONS[lang][trait] || '';
+    return ANSWER_REACTIONS[lang][trait] || '';
+  },
   quizNeedsProfile,
   profileFallbackName,
   personalizeText,
