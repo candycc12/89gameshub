@@ -25,6 +25,18 @@ urls = [
     (loc("arcade-hub/index.html"), "1.0", "daily"),
 ]
 
+static_content_pages = [
+    ("ai-learning/index.html", "0.8", "weekly"),
+    ("speaking-confidence/index.html", "0.8", "weekly"),
+    ("focus-test/index.html", "0.8", "weekly"),
+    ("learning-guides/how-to-speak-more-clearly/", "0.8", "weekly"),
+    ("learning-guides/how-to-help-a-child-speak-clearly/", "0.8", "weekly"),
+    ("learning-guides/how-to-stay-focused-while-studying/", "0.8", "weekly"),
+    ("learning-guides/how-to-improve-memory/", "0.8", "weekly"),
+]
+
+urls.extend((loc(path), priority, changefreq) for path, priority, changefreq in static_content_pages)
+
 for page in ("about.html", "contact.html", "privacy.html", "terms.html", "dmca.html", "advertising.html", "territory-clash-live.html"):
     urls.append((loc(f"arcade-hub/{page}"), "0.6", "monthly"))
 
