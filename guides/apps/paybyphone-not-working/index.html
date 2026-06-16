@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PayByPhone App Not Working? Fix Payment, Parking, and Location Issues</title>
+    <meta
+      name="description"
+      content="PayByPhone not working? Check location permissions, payment method, parking zone, app updates, internet connection, and parking session status."
+    />
+    <link rel="canonical" href="https://89gameshub.com/guides/apps/paybyphone-not-working/" />
+    <style>
+      :root {
+        --ink: #17202a;
+        --muted: #5e6b78;
+        --line: #dde5ec;
+        --paper: #ffffff;
+        --wash: #f5f8fa;
+        --soft: #eef7f3;
+        --green: #136f46;
+        --green-dark: #0d4d32;
+        --blue: #1f5f99;
+        --amber: #8a5a00;
+        --danger: #8f2d2d;
+        --shadow: 0 18px 48px rgba(23, 32, 42, 0.08);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        line-height: 1.65;
+      }
+
+      a {
+        color: var(--blue);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .site-header {
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.98);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+
+      .header-inner,
+      .hero-inner,
+      .page-shell,
+      .footer-inner {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .header-inner {
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      .brand strong {
+        font-size: 22px;
+        letter-spacing: 0;
+      }
+
+      .brand span {
+        padding-left: 12px;
+        border-left: 1px solid var(--line);
+        color: var(--green-dark);
+        font-size: 12px;
+        font-weight: 850;
+        text-transform: uppercase;
+      }
+
+      nav {
+        display: flex;
+        gap: 16px;
+        font-size: 14px;
+        font-weight: 750;
+      }
+
+      nav a {
+        color: var(--muted);
+      }
+
+      .hero {
+        background:
+          linear-gradient(90deg, rgba(255,255,255,0.98), rgba(255,255,255,0.92), rgba(238,247,243,0.74)),
+          radial-gradient(circle at 88% 16%, rgba(31,95,153,0.14), transparent 26%),
+          linear-gradient(180deg, #f9fbfc 0%, #fff 100%);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) 340px;
+        gap: 32px;
+        align-items: start;
+        padding: 44px 0 34px;
+      }
+
+      .eyebrow {
+        color: var(--green-dark);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-transform: uppercase;
+        margin: 0 0 12px;
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        max-width: 820px;
+        font-size: clamp(36px, 5vw, 58px);
+        line-height: 1.04;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 760px;
+        margin: 0 0 18px;
+        color: #344451;
+        font-size: 19px;
+      }
+
+      .short-answer {
+        border: 1px solid #c7ddd0;
+        border-radius: 8px;
+        background: var(--soft);
+        padding: 16px;
+        max-width: 780px;
+      }
+
+      .short-answer strong {
+        display: block;
+        margin-bottom: 6px;
+        color: var(--green-dark);
+      }
+
+      .short-answer p {
+        margin: 0;
+      }
+
+      .tool-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .tool-card header {
+        background: #17202a;
+        color: #fff;
+        padding: 18px;
+      }
+
+      .tool-card header p {
+        margin: 4px 0 0;
+        color: #d6dde4;
+        font-size: 14px;
+      }
+
+      .tool-card form {
+        padding: 16px;
+        display: grid;
+        gap: 12px;
+      }
+
+      label {
+        display: grid;
+        gap: 6px;
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      select,
+      input {
+        width: 100%;
+        min-height: 42px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        background: var(--wash);
+        color: var(--ink);
+        padding: 9px 10px;
+        font: inherit;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border-radius: 7px;
+        border: 0;
+        background: var(--green);
+        color: white;
+        padding: 10px 14px;
+        font-weight: 850;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .button:hover {
+        background: var(--green-dark);
+        color: white;
+        text-decoration: none;
+      }
+
+      .button.secondary {
+        border: 1px solid #c7ddd0;
+        background: var(--soft);
+        color: var(--green-dark);
+      }
+
+      .mini-result {
+        display: none;
+        margin: 0 16px 16px;
+        border: 1px solid #c7ddd0;
+        border-radius: 8px;
+        background: var(--soft);
+        padding: 12px;
+        font-size: 14px;
+      }
+
+      .mini-result.is-visible {
+        display: block;
+      }
+
+      .page-shell {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 290px;
+        gap: 34px;
+        align-items: start;
+        padding: 30px 0 64px;
+      }
+
+      main {
+        min-width: 0;
+      }
+
+      .toc {
+        position: sticky;
+        top: 84px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 16px;
+      }
+
+      .toc strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .toc a {
+        display: block;
+        border-top: 1px solid #edf2f5;
+        padding: 7px 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      section {
+        border-bottom: 1px solid var(--line);
+        padding: 28px 0;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        font-size: clamp(25px, 3vw, 34px);
+        line-height: 1.18;
+      }
+
+      h3 {
+        margin: 22px 0 8px;
+        font-size: 21px;
+      }
+
+      p {
+        margin: 0 0 14px;
+      }
+
+      .note {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .check-grid,
+      .fix-grid,
+      .related-grid,
+      .cta-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .check,
+      .fix-card,
+      .related-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 15px;
+      }
+
+      .check strong,
+      .fix-card strong {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .step-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .step {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fff;
+        padding: 17px;
+      }
+
+      .step h3 {
+        margin-top: 0;
+      }
+
+      .callout {
+        border-left: 4px solid var(--amber);
+        border-radius: 0 8px 8px 0;
+        background: #fff7e5;
+        padding: 15px 16px;
+        margin: 18px 0;
+      }
+
+      .danger {
+        border-left-color: var(--danger);
+        background: #fff1f1;
+      }
+
+      .official-box,
+      .cta-box {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #17202a;
+        color: #fff;
+        padding: 22px;
+        margin-top: 16px;
+      }
+
+      .official-box p,
+      .cta-box p {
+        color: #d6dde4;
+      }
+
+      .official-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      details {
+        border-top: 1px solid var(--line);
+        padding: 15px 0;
+      }
+
+      details:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+
+      summary {
+        cursor: pointer;
+        font-size: 17px;
+        font-weight: 850;
+      }
+
+      details p {
+        margin-top: 10px;
+        color: #344451;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        background: var(--wash);
+        padding: 28px 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      @media (max-width: 900px) {
+        .hero-inner,
+        .page-shell {
+          grid-template-columns: 1fr;
+        }
+
+        .toc {
+          position: static;
+          order: -1;
+        }
+
+        nav {
+          display: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .header-inner,
+        .hero-inner,
+        .page-shell,
+        .footer-inner {
+          width: min(100% - 28px, 1120px);
+        }
+
+        .brand span {
+          display: none;
+        }
+
+        .check-grid,
+        .fix-grid,
+        .related-grid,
+        .cta-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "PayByPhone App Not Working? Fix Payment, Parking, and Location Issues",
+        "description": "A practical guide to fixing PayByPhone app problems, including location permissions, parking zones, payment methods, app updates, internet connection, and session confirmation.",
+        "author": { "@type": "Organization", "name": "89 Games Hub Guides" },
+        "publisher": { "@type": "Organization", "name": "89 Games Hub" },
+        "datePublished": "2026-06-16",
+        "dateModified": "2026-06-16",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://89gameshub.com/guides/apps/paybyphone-not-working/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why is PayByPhone not accepting payment?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Payment can fail because the card was declined, the billing details are outdated, the parking operator does not accept that payment method, the app connection timed out, or the bank requires verification." }
+          },
+          {
+            "@type": "Question",
+            "name": "What if my parking session does not start?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Do not assume you are covered until the app shows a confirmed active session or receipt. Recheck the zone number, vehicle plate, payment status, and official receipt page." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I park if the app is not working?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Parking rules depend on the city, lot, and operator. If the app is not working, look for posted instructions, pay station options, web payment, phone payment, or another official method before leaving the vehicle." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I check PayByPhone receipts?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Use the official PayByPhone receipt area or your account history. Save screenshots of the zone, plate, amount, time, and confirmation number if you are worried about enforcement." }
+          },
+          {
+            "@type": "Question",
+            "name": "What are alternatives to PayByPhone?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Alternatives may include the official web payment option, a pay station, posted phone payment, a parking operator website, or another city-approved parking app where available." }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../../index.html" data-event="guide_cta_click" data-event-label="site_home">
+          <strong>89 Games Hub</strong>
+          <span>App problem guides</span>
+        </a>
+        <nav aria-label="Page navigation">
+          <a href="#checklist">Checklist</a>
+          <a href="#fixes">Fixes</a>
+          <a href="#official">Official links</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Parking App Help</p>
+          <h1>PayByPhone App Not Working? Fix Payment, Parking, and Location Issues</h1>
+          <p class="lede">
+            If PayByPhone is not working, the safest first goal is to confirm whether your parking session actually started. Do not rely on a half-loaded screen, a pending payment, or a remembered zone number.
+          </p>
+          <div class="short-answer">
+            <strong>Short answer</strong>
+            <p>
+              Check your internet connection, location permission, parking zone number, vehicle plate, payment method, and app version. If payment fails or the session does not show as active, do not assume you are parked legally. Try the official web option, posted phone payment, a pay station, or the parking operator’s instructions. Save screenshots or receipts if there is any dispute.
+            </p>
+          </div>
+        </div>
+
+        <aside class="tool-card" aria-label="PayByPhone issue finder">
+          <header>
+            <strong>Quick Issue Finder</strong>
+            <p>Pick the closest problem and get a safer next step.</p>
+          </header>
+          <form id="issueFinder">
+            <label>
+              What is failing?
+              <select id="issueType" name="issue_type">
+                <option value="payment">Payment is not going through</option>
+                <option value="location">The app cannot find my location</option>
+                <option value="session">My parking session does not start</option>
+                <option value="receipt">I need a receipt or proof</option>
+              </select>
+            </label>
+            <label>
+              Are you already parked?
+              <select id="parkedStatus" name="parked_status">
+                <option value="yes">Yes, I am at the parking location</option>
+                <option value="no">No, I am checking before I park</option>
+              </select>
+            </label>
+            <button class="button" type="submit" data-event="guide_cta_click" data-event-label="issue_finder_submit">Show next step</button>
+          </form>
+          <div class="mini-result" id="issueResult" aria-live="polite"></div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="page-shell">
+      <main>
+        <section id="checklist">
+          <h2>Quick Checklist Before You Try Again</h2>
+          <p>Run through this list before retrying payment several times. Repeated failed attempts can create confusion with bank holds, duplicate attempts, or uncertain parking status.</p>
+          <div class="check-grid">
+            <div class="check"><strong>Confirm the zone</strong>Use the posted parking zone or location code, not a saved code from another area.</div>
+            <div class="check"><strong>Check the vehicle</strong>Make sure the license plate, state or province, and vehicle profile are correct.</div>
+            <div class="check"><strong>Allow location</strong>Enable location permission if you use map-based zone lookup.</div>
+            <div class="check"><strong>Check payment</strong>Review card expiry, billing details, bank verification, wallet settings, and available funds.</div>
+            <div class="check"><strong>Update the app</strong>Install the latest app version and restart the phone if the screen freezes.</div>
+            <div class="check"><strong>Get proof</strong>Save the receipt, active session screen, confirmation number, or posted instructions.</div>
+          </div>
+        </section>
+
+        <section id="fixes">
+          <h2>Main Fixes for PayByPhone Problems</h2>
+          <div class="step-list">
+            <article class="step">
+              <h3>1. Check the parking zone before anything else</h3>
+              <p>
+                A wrong zone is one of the easiest ways to pay but still risk a ticket. Compare the app’s zone number with the sign, meter sticker, lot board, or city instructions.
+              </p>
+            </article>
+
+            <article class="step">
+              <h3>2. Make sure location permission is enabled</h3>
+              <p>
+                If PayByPhone cannot show nearby parking, allow location access in phone settings. You can also enter the posted zone manually.
+              </p>
+            </article>
+
+            <article class="step">
+              <h3>3. Check the payment method and bank verification</h3>
+              <p>
+                Payment can fail because a card expired, a billing ZIP or postal code is wrong, a bank declined the transaction, or a wallet verification step timed out. If you add a new card, enter it only inside the official PayByPhone app or official site.
+              </p>
+            </article>
+
+            <article class="step">
+              <h3>4. Confirm the session actually started</h3>
+              <p>
+                A loading screen, pending payment, or app crash is not the same as an active parking session. Look for an active session, receipt, confirmation number, or email record. If you cannot confirm the session, use another official payment method before walking away.
+              </p>
+            </article>
+
+            <article class="step">
+              <h3>5. Update, restart, or switch connection</h3>
+              <p>
+                If the app is frozen or timing out, switch between Wi-Fi and mobile data, restart the phone, update the app, and try again.
+              </p>
+            </article>
+
+            <article class="step">
+              <h3>6. Use web, phone, pay station, or posted alternatives</h3>
+              <p>
+                Some locations support PayByPhone on the web or by phone, while others may have a pay station or another city-approved app. Follow the instructions posted at the parking location. Rules can vary by city, campus, private lot, or parking operator.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="safety">
+          <h2>Safety Notes for Parking Payments</h2>
+          <div class="callout danger">
+            <strong>Do not use unofficial payment links from search ads, text messages, QR stickers, or social posts unless you can verify they belong to the parking operator.</strong>
+            Fake parking payment pages can collect card details, phone numbers, license plates, or login credentials.
+          </div>
+          <p>
+            PayByPhone is a payment-related app, so treat login codes, card details, receipts, and account access carefully. Do not share one-time codes with anyone. Do not enter card details into a random website claiming to “fix” PayByPhone. If you receive an unexpected parking payment text, verify it through the official app, official site, or the posted parking operator instructions.
+          </p>
+          <p>
+            If you believe you were charged but the parking session did not start, keep screenshots of the attempted payment, zone sign, vehicle plate, and time. This can help if you need support or need to contest a ticket.
+          </p>
+        </section>
+
+        <section id="official">
+          <h2>Official PayByPhone Links</h2>
+          <p>This guide is independent and is not an official PayByPhone page. Use official sources when you need account access, receipts, app downloads, or support.</p>
+          <div class="official-box">
+            <h3>Use official sources only</h3>
+            <p>Open PayByPhone support or the official site directly. For app downloads, use the official app page from your device’s app store.</p>
+            <div class="official-actions">
+              <a class="button" href="https://support.paybyphone.com/" data-event="official_link_click" data-event-label="paybyphone_support" data-preserve-params="true" rel="noopener">Open official PayByPhone support</a>
+              <a class="button secondary" href="https://www.paybyphone.com/" data-event="official_link_click" data-event-label="paybyphone_site" data-preserve-params="true" rel="noopener">Open official site</a>
+              <a class="button secondary" href="https://www.paybyphone.com/download-app" data-event="official_link_click" data-event-label="paybyphone_download" data-preserve-params="true" rel="noopener">Check official app page</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="alternatives">
+          <h2>Alternatives If PayByPhone Still Does Not Work</h2>
+          <p>If the app still will not start a session, use the safest official payment method for that location.</p>
+          <div class="fix-grid">
+            <div class="fix-card"><strong>Pay station or meter</strong>Use a physical pay station if one is available.</div>
+            <div class="fix-card"><strong>Official web payment</strong>Some locations allow payment through the official PayByPhone web flow.</div>
+            <div class="fix-card"><strong>Posted phone payment</strong>Use only the number printed by the operator.</div>
+            <div class="fix-card"><strong>Another approved app</strong>Some cities or lots support more than one parking app. Confirm on posted signs first.</div>
+          </div>
+        </section>
+
+        <section id="cta">
+          <h2>Before You Leave the Vehicle</h2>
+          <div class="cta-box">
+            <p>Make sure you have a confirmed parking session, receipt, or another valid payment record before walking away.</p>
+            <div class="cta-grid">
+              <a class="button" href="https://support.paybyphone.com/" data-event="guide_cta_click" data-event-label="official_support_cta" data-preserve-params="true" rel="noopener">Check official PayByPhone support</a>
+              <a class="button secondary" href="#checklist" data-event="guide_cta_click" data-event-label="review_checklist">Review the checklist again</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="related">
+          <h2>Related Guides</h2>
+          <div class="related-grid">
+            <a class="related-card" href="/guides/apps/waze-vs-google-maps/" data-event="alternative_click" data-event-label="waze_vs_google_maps">Waze vs Google Maps</a>
+            <a class="related-card" href="/guides/apps/cash-app-login-problems/" data-event="alternative_click" data-event-label="cash_app_login">Cash App Login Problems</a>
+            <a class="related-card" href="/guides/apps/paypal-payment-pending/" data-event="alternative_click" data-event-label="paypal_payment_pending">PayPal Payment Pending</a>
+          </div>
+        </section>
+
+        <section id="email">
+          <h2>Get the App Troubleshooting Checklist</h2>
+          <p>Want a simple checklist for app login, payment, download, and verification issues? Leave an email and we will send a lightweight guide when it is ready.</p>
+          <form id="emailForm" class="cta-grid">
+            <label>
+              Email address
+              <input type="email" name="email" placeholder="you@example.com" required />
+            </label>
+            <button class="button" type="submit" data-event="email_submit" data-event-label="app_guide_email">Notify me</button>
+          </form>
+          <p class="note" id="emailResult" aria-live="polite"></p>
+        </section>
+
+        <section id="faq">
+          <h2>FAQ</h2>
+          <details data-event="faq_expand" data-event-label="payment_not_accepting">
+            <summary>Why is PayByPhone not accepting payment?</summary>
+            <p>Payment can fail because the card was declined, the billing details are outdated, the parking operator does not accept that method, the app connection timed out, or your bank requires verification.</p>
+          </details>
+          <details data-event="faq_expand" data-event-label="session_not_starting">
+            <summary>What if my parking session does not start?</summary>
+            <p>Do not assume you are covered until the app shows a confirmed active session or receipt. Recheck the zone number, vehicle plate, payment status, and official receipt page.</p>
+          </details>
+          <details data-event="faq_expand" data-event-label="can_i_park">
+            <summary>Can I park if the app is not working?</summary>
+            <p>Parking rules depend on the city, lot, and operator. If the app is not working, look for posted instructions, pay station options, web payment, phone payment, or another official method before leaving the vehicle.</p>
+          </details>
+          <details data-event="faq_expand" data-event-label="receipts">
+            <summary>How do I check PayByPhone receipts?</summary>
+            <p>Use the official PayByPhone receipt area or your account history. Save screenshots of the zone, plate, amount, time, and confirmation number if you are worried about enforcement.</p>
+          </details>
+          <details data-event="faq_expand" data-event-label="alternatives">
+            <summary>What are alternatives to PayByPhone?</summary>
+            <p>Alternatives may include the official web payment option, a pay station, posted phone payment, a parking operator website, or another city-approved parking app where available.</p>
+          </details>
+        </section>
+      </main>
+
+      <aside class="toc" aria-label="Table of contents">
+        <strong>On this page</strong>
+        <a href="#checklist">Quick checklist</a>
+        <a href="#fixes">Main fixes</a>
+        <a href="#safety">Safety notes</a>
+        <a href="#official">Official links</a>
+        <a href="#alternatives">Alternatives</a>
+        <a href="#faq">FAQ</a>
+      </aside>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <p><strong>Disclosure:</strong> 89 Games Hub may test display ads, affiliate links, or outbound links on app guide pages. This guide is independent and does not claim to be PayByPhone, a city parking office, or a parking operator.</p>
+        <p class="note">Campaign parameters supported: utm_source, utm_medium, utm_campaign, utm_term, matchtype, country, page_type.</p>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        const trackedParams = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "matchtype", "country", "page_type"];
+        const searchParams = new URLSearchParams(window.location.search);
+        const attribution = {};
+
+        trackedParams.forEach((key) => {
+          if (searchParams.has(key)) {
+            attribution[key] = searchParams.get(key);
+          }
+        });
+
+        window.appGuideAttribution = attribution;
+        window.appGuideEventNames = [
+          "page_view",
+          "scroll_50",
+          "scroll_90",
+          "faq_expand",
+          "official_link_click",
+          "alternative_click",
+          "affiliate_click",
+          "email_submit",
+          "guide_cta_click"
+        ];
+        window.dataLayer = window.dataLayer || [];
+
+        function track(eventName, detail) {
+          const payload = Object.assign({
+            event: eventName,
+            page_type: attribution.page_type || "app_problem_guide",
+            page_slug: "paybyphone-not-working"
+          }, attribution, detail || {});
+
+          window.dataLayer.push(payload);
+
+          if (typeof window.gtag === "function") {
+            window.gtag("event", eventName, payload);
+          }
+
+          window.dispatchEvent(new CustomEvent("app_guide_event", { detail: payload }));
+        }
+
+        window.trackAppGuideEvent = track;
+        track("page_view", { event_label: "paybyphone_not_working" });
+
+        document.querySelectorAll("[data-preserve-params='true']").forEach((link) => {
+          try {
+            const url = new URL(link.getAttribute("href"), window.location.href);
+            trackedParams.forEach((key) => {
+              if (attribution[key] && !url.searchParams.has(key)) {
+                url.searchParams.set(key, attribution[key]);
+              }
+            });
+            link.href = url.toString();
+          } catch (error) {
+            // Keep the original link if URL parsing fails.
+          }
+        });
+
+        document.querySelectorAll("[data-event]").forEach((element) => {
+          const eventName = element.getAttribute("data-event");
+          const label = element.getAttribute("data-event-label") || element.textContent.trim().slice(0, 80);
+
+          if (element.tagName.toLowerCase() === "details") {
+            element.addEventListener("toggle", () => {
+              if (element.open) {
+                track(eventName, { event_label: label });
+              }
+            });
+          } else {
+            element.addEventListener("click", () => {
+              track(eventName, { event_label: label, href: element.href || "" });
+            });
+          }
+        });
+
+        let scroll50Sent = false;
+        let scroll90Sent = false;
+        window.addEventListener("scroll", () => {
+          const height = document.documentElement.scrollHeight - window.innerHeight;
+          if (height <= 0) return;
+          const pct = window.scrollY / height;
+          if (!scroll50Sent && pct >= 0.5) {
+            scroll50Sent = true;
+            track("scroll_50", { event_label: "50_percent" });
+          }
+          if (!scroll90Sent && pct >= 0.9) {
+            scroll90Sent = true;
+            track("scroll_90", { event_label: "90_percent" });
+          }
+        }, { passive: true });
+
+        const finder = document.getElementById("issueFinder");
+        const result = document.getElementById("issueResult");
+        finder.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const issue = document.getElementById("issueType").value;
+          const parked = document.getElementById("parkedStatus").value;
+          const copy = {
+            payment: "Check card details, bank verification, app connection, and whether the location accepts that payment method. If you are already parked, confirm the session before leaving.",
+            location: "Allow location permission or enter the posted zone manually. GPS can be wrong near garages, downtown streets, and large lots.",
+            session: "Do not assume the session started. Look for an active session, receipt, confirmation number, or another official payment method.",
+            receipt: "Use official receipt history and save screenshots of zone, plate, time, amount, and confirmation details."
+          };
+          result.textContent = copy[issue] + (parked === "yes" ? " If unsure, follow the posted parking instructions immediately." : " Checking before you park is the safest time to fix this.");
+          result.classList.add("is-visible");
+          track("guide_cta_click", { event_label: "issue_finder_result", issue_type: issue, parked_status: parked });
+        });
+
+        document.getElementById("emailForm").addEventListener("submit", (event) => {
+          event.preventDefault();
+          document.getElementById("emailResult").textContent = "Thanks. This demo form is ready for an email provider connection.";
+          track("email_submit", { event_label: "app_guide_email_form" });
+        });
+      })();
+    </script>
+  </body>
+</html>
