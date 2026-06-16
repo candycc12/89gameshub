@@ -236,6 +236,9 @@ click_target = "official_app_download"
 - 可以保留第二个下半页广告位，放在 FAQ 或 Related guides 附近
 - 不要在页面上展示内部 debug 参数说明
 - 广告位需要可衡量曝光
+- 不要给广告位加虚线框、背景色、固定高度或占位文案
+- 不要写 `Advertisement placement reserved...`
+- 广告大小和样式交给 AdSense 控制；如果广告未填充，页面不应该显示一个空框
 
 广告事件：
 
