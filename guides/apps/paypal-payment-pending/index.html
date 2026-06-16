@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Why Is My PayPal Payment Pending? Reasons, Timing, and What to Do</title>
+    <meta name="description" content="PayPal payment pending? Learn common reasons including review, bank processing, seller status, eChecks, holds, and account security checks." />
+    <link rel="canonical" href="https://89gameshub.com/guides/apps/paypal-payment-pending/" />
+    <meta property="og:site_name" content="89 APPS Guide" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Why Is My PayPal Payment Pending? Reasons, Timing, and What to Do" />
+    <meta property="og:description" content="PayPal payment pending? Learn common reasons including review, bank processing, seller status, eChecks, holds, and account security checks." />
+    <meta property="og:url" content="https://89gameshub.com/guides/apps/paypal-payment-pending/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Why Is My PayPal Payment Pending? Reasons, Timing, and What to Do" />
+    <meta name="twitter:description" content="PayPal payment pending? Learn common reasons including review, bank processing, seller status, eChecks, holds, and account security checks." />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502975373459743" crossorigin="anonymous"></script>
+    <script src="../../../arcade-hub/tracking-config.js?v=5"></script>
+    <script src="../../../arcade-hub/site-utils.js?v=14"></script>
+    <style>
+      :root {
+        --ink: #17202a;
+        --muted: #5e6b78;
+        --line: #dde5ec;
+        --paper: #ffffff;
+        --wash: #f5f8fa;
+        --soft: #eaf8f0;
+        --green: #128c4a;
+        --green-dark: #075e36;
+        --blue: #1f5f99;
+        --amber: #8a5a00;
+        --danger: #8f2d2d;
+        --shadow: 0 18px 48px rgba(23, 32, 42, 0.08);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--paper); color: var(--ink); line-height: 1.65; }
+      a { color: var(--blue); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .site-header { border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.98); position: sticky; top: 0; z-index: 20; }
+      .header-inner, .hero-inner, .page-shell, .footer-inner { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+      .header-inner { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+      .brand { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+      .brand strong { font-size: 22px; letter-spacing: 0; }
+      .brand span { padding-left: 12px; border-left: 1px solid var(--line); color: var(--green-dark); font-size: 12px; font-weight: 850; text-transform: uppercase; }
+      nav { display: flex; gap: 16px; font-size: 14px; font-weight: 750; }
+      nav a { color: var(--muted); }
+      .hero { background: linear-gradient(90deg, rgba(255,255,255,0.98), rgba(255,255,255,0.92), rgba(234,248,240,0.78)), radial-gradient(circle at 88% 16%, rgba(18,140,74,0.14), transparent 26%), linear-gradient(180deg, #f9fbfc 0%, #fff 100%); border-bottom: 1px solid var(--line); }
+      .hero-inner { display: grid; grid-template-columns: minmax(0, 1.1fr) 340px; gap: 32px; align-items: start; padding: 44px 0 34px; }
+      .eyebrow { color: var(--green-dark); font-size: 13px; font-weight: 900; letter-spacing: 0; text-transform: uppercase; margin: 0 0 12px; }
+      h1 { margin: 0 0 16px; max-width: 820px; font-size: clamp(36px, 5vw, 58px); line-height: 1.04; letter-spacing: 0; }
+      .lede { max-width: 760px; margin: 0 0 18px; color: #344451; font-size: 19px; }
+      .short-answer { border: 1px solid #c7ddd0; border-radius: 8px; background: var(--soft); padding: 16px; max-width: 780px; }
+      .short-answer strong { display: block; margin-bottom: 6px; color: var(--green-dark); }
+      .short-answer p { margin: 0; }
+      .tool-card { border: 1px solid var(--line); border-radius: 8px; background: #fff; box-shadow: var(--shadow); overflow: hidden; }
+      .tool-card header { background: #17202a; color: #fff; padding: 18px; }
+      .tool-card header p { margin: 4px 0 0; color: #d6dde4; font-size: 14px; }
+      .tool-card form { padding: 16px; display: grid; gap: 12px; }
+      label { display: grid; gap: 6px; color: var(--ink); font-size: 14px; font-weight: 800; }
+      select, input { width: 100%; min-height: 42px; border: 1px solid var(--line); border-radius: 7px; background: var(--wash); color: var(--ink); padding: 9px 10px; font: inherit; }
+      .button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; border-radius: 7px; border: 0; background: var(--green); color: white; padding: 10px 14px; font-weight: 850; cursor: pointer; text-decoration: none; line-height: 1.2; text-align: center; white-space: normal; }
+      .button:hover { background: var(--green-dark); color: white; text-decoration: none; }
+      .button.secondary { border: 1px solid #c7ddd0; background: var(--soft); color: var(--green-dark); }
+      .mini-result { display: none; margin: 0 16px 16px; border: 1px solid #c7ddd0; border-radius: 8px; background: var(--soft); padding: 12px; font-size: 14px; }
+      .mini-result.is-visible { display: block; }
+      .page-shell { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 34px; align-items: start; padding: 30px 0 64px; }
+      main { min-width: 0; }
+      .toc { position: sticky; top: 84px; border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 16px; }
+      .toc strong { display: block; margin-bottom: 8px; font-size: 14px; }
+      .toc a { display: block; border-top: 1px solid #edf2f5; padding: 7px 0; color: var(--muted); font-size: 14px; }
+      section { border-bottom: 1px solid var(--line); padding: 28px 0; }
+      h2 { margin: 0 0 12px; font-size: clamp(25px, 3vw, 34px); line-height: 1.18; }
+      h3 { margin: 22px 0 8px; font-size: 21px; }
+      p { margin: 0 0 14px; }
+      .note { color: var(--muted); font-size: 13px; }
+      .check-grid, .fix-grid, .related-grid, .cta-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+      .check, .fix-card, .related-card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 15px; }
+      .check strong, .fix-card strong { display: block; margin-bottom: 5px; }
+      .step-list { display: grid; gap: 14px; margin-top: 16px; }
+      .step { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 17px; }
+      .step h3 { margin-top: 0; }
+      .callout { border-left: 4px solid var(--amber); border-radius: 0 8px 8px 0; background: #fff7e5; padding: 15px 16px; margin: 18px 0; }
+      .danger { border-left-color: var(--danger); background: #fff1f1; }
+      .official-box, .cta-box { border: 1px solid var(--line); border-radius: 8px; background: #17202a; color: #fff; padding: 22px; margin-top: 16px; }
+      .official-box p, .cta-box p { color: #d6dde4; }
+      .official-logo-card { display: flex; align-items: center; justify-content: center; gap: 18px; border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; background: #fff; padding: 18px; margin-top: 14px; }
+      .official-logo-card img { display: block; width: 112px; height: 112px; object-fit: contain; border-radius: 24px; }
+      .official-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+      .official-actions .featured { flex: 1 0 100%; min-height: 56px; font-size: 18px; }
+      .ad-slot { display: block; margin: 22px 0 0; padding: 0; overflow: hidden; }
+      .check-grid .ad-slot { grid-column: 1 / -1; margin: 4px 0 0; }
+      details { border-top: 1px solid var(--line); padding: 15px 0; }
+      details:last-child { border-bottom: 1px solid var(--line); }
+      summary { cursor: pointer; font-size: 17px; font-weight: 850; }
+      details p { margin-top: 10px; color: #344451; }
+      footer { border-top: 1px solid var(--line); background: var(--wash); padding: 24px 0; color: var(--muted); font-size: 14px; }
+      .footer-links { display: flex; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .hero-inner, .page-shell { grid-template-columns: 1fr; }
+        .toc { position: static; order: -1; }
+        nav { display: none; }
+      }
+      @media (max-width: 640px) {
+        .header-inner, .hero-inner, .page-shell, .footer-inner { width: min(100% - 28px, 1120px); }
+        .hero-inner { padding: 30px 0 24px; }
+        h1 { font-size: 32px; line-height: 1.08; }
+        .lede { font-size: 17px; }
+        .brand span { display: none; }
+        .brand strong { font-size: 20px; }
+        .check-grid, .fix-grid, .related-grid, .cta-grid { grid-template-columns: 1fr; }
+        .official-box, .cta-box { padding: 16px; }
+        .official-logo-card { gap: 12px; padding: 14px; }
+        .official-logo-card img { width: 96px; height: 96px; border-radius: 21px; }
+        .official-actions { display: grid; grid-template-columns: 1fr; }
+        .official-actions .featured { min-height: 50px; font-size: 16px; }
+        .button { width: 100%; min-height: 46px; padding: 10px 12px; font-size: 15px; }
+      }
+    </style>
+    <script type="application/ld+json">{
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Why Is My PayPal Payment Pending? Reasons, Timing, and What to Do",
+        "description": "PayPal payment pending? Learn common reasons including review, bank processing, seller status, eChecks, holds, and account security checks.",
+        "author": {
+                "@type": "Organization",
+                "name": "89 APPS Guide"
+        },
+        "publisher": {
+                "@type": "Organization",
+                "name": "89 APPS Guide"
+        },
+        "datePublished": "2026-06-16",
+        "dateModified": "2026-06-16",
+        "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "https://89gameshub.com/guides/apps/paypal-payment-pending/"
+        }
+}</script>
+    <script type="application/ld+json">{
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+                {
+                        "@type": "Question",
+                        "name": "How long does a PayPal pending payment take?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Timing depends on the reason, such as bank processing, review, eCheck, refund, or account hold. Check the transaction details."
+                        }
+                },
+                {
+                        "@type": "Question",
+                        "name": "Can I cancel a pending PayPal payment?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "Some pending payments can be canceled, but not all. Use the official transaction page to see available actions."
+                        }
+                },
+                {
+                        "@type": "Question",
+                        "name": "Is a pending PayPal payment safe?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "It may be legitimate, but do not treat it as completed until PayPal confirms it."
+                        }
+                },
+                {
+                        "@type": "Question",
+                        "name": "Why is my money on hold?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "PayPal may hold money for seller risk, new accounts, disputes, delivery confirmation, or security checks."
+                        }
+                },
+                {
+                        "@type": "Question",
+                        "name": "Should I ship an item if payment is pending?",
+                        "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "No. Wait until PayPal shows the payment is completed and eligible for fulfillment."
+                        }
+                }
+        ]
+}</script>
+  </head>
+  <body data-landing-name="paypal_payment_pending" data-page-category="problem_description" data-topic="paypal" data-intent="payment_pending" data-content-format="seo_problem_page" data-monetization-model="mixed" data-keyword-stage="organic_validation">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="../../../index.html" data-event="content_click" data-event-label="site_home" data-content-type="navigation" data-click-target="site_home"><strong>89 APPS Guide</strong><span>App problem guides</span></a>
+        <nav aria-label="Page navigation"><a href="#checklist">Checklist</a><a href="#official">Official links</a><a href="#fixes">Fixes</a><a href="#safety">Safety</a><a href="#faq">FAQ</a></nav>
+      </div>
+    </header>
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <p class="eyebrow">Payment Status Help</p>
+          <h1>Why Is My PayPal Payment Pending? Reasons, Timing, and What to Do</h1>
+          <p class="lede">A pending PayPal payment does not always mean money is lost, but it does mean you should verify the status before shipping items or sending more money.</p>
+          <div class="short-answer"><strong>Short answer</strong><p>PayPal payments can be pending because of bank processing, eCheck timing, payment review, seller holds, new account activity, currency or country checks, refund timing, or account security review. Check the payment inside your official PayPal account. Do not ship goods, release digital items, or send a second payment until the transaction status is clear and confirmed.</p></div>
+        </div>
+        <aside class="tool-card" aria-label="PayPal issue finder">
+          <header><strong>Quick Issue Finder</strong><p>Pick the closest situation and get a safer next step.</p></header>
+          <form id="issueFinder">
+            <label>What do you need?<select id="issueType" name="issue_type"><option value="0">I sent a payment</option><option value="1">I am the seller</option><option value="2">Refund is pending</option><option value="3">Payment looks suspicious</option></select></label>
+            <label>How urgent is it?<select id="urgencyType" name="urgency_type"><option value="now">I need to fix this now</option><option value="checking">I am checking before I act</option></select></label>
+            <button class="button" type="submit" data-event="funnel_step_click" data-event-label="issue_finder_submit" data-funnel-step="issue_finder_submit">Show next step</button>
+          </form>
+          <div class="mini-result" id="issueResult" aria-live="polite"></div>
+        </aside>
+      </div>
+    </section>
+    <div class="page-shell">
+      <main>
+        <section id="checklist">
+          <h2>Quick Checklist Before You Continue</h2>
+          <p>Use this checklist before changing account settings, reinstalling an app, sending money, or trusting a support link.</p>
+          <div class="check-grid">
+            <div class="check"><strong>Check official status</strong>Start from the app store, official site, or official help page.</div><div class="check"><strong>Do not ship on pending</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Look for eCheck</strong>Check this before changing settings, retrying, or trusting a link.</div>
+            <aside class="ad-slot adsense-slot" aria-label="Advertisement" data-ad-slot-name="guide_in_article_display_checklist" data-ad-network="adsense" data-ad-format="auto" data-revenue-status="active"><!-- guide_in_article_display --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1597621884" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>
+            <div class="check"><strong>Check holds</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Review refund timing</strong>Verify status inside the official app before sending or shipping.</div><div class="check"><strong>Watch for scams</strong>Check this before changing settings, retrying, or trusting a link.</div>
+          </div>
+        </section>
+        <section id="official">
+          <h2>Official PayPal Links</h2>
+          <p>This guide is independent and is not an official PayPal page. Use official sources when you need downloads, account access, verification help, payment status, or safety guidance.</p>
+          <div class="official-box">
+            <h3>Use official sources only</h3>
+            <p>Open the official app store, official site, or official help center directly. Do not trust random download mirrors, support phone numbers, or messages asking for verification codes.</p>
+            <div class="official-logo-card" aria-label="Official PayPal app icon"><img src="../assets/paypal-official-app-icon.jpg" alt="PayPal official app icon" loading="lazy" /></div>
+            <div class="official-actions">
+              <a id="officialDownloadLink" class="button featured" href="https://apps.apple.com/us/app/paypal-pay-send-save/id283646709" data-android-url="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile" data-ios-url="itms-apps://itunes.apple.com/app/id283646709" data-desktop-url="https://apps.apple.com/us/app/paypal-pay-send-save/id283646709" data-event="funnel_step_click" data-event-label="paypal_payment_pending_download" data-funnel-step="official_app_download" data-click-target="official_app_download" data-store-target="app_store" rel="noopener">Official APP Download</a>
+              <a class="button secondary" href="https://www.paypal.com/us/cshelp/personal" data-event="content_click" data-event-label="official_help" data-content-type="official_link" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a>
+              <a class="button secondary" href="https://www.paypal.com/signin" data-event="content_click" data-event-label="official_extra" data-content-type="official_link" data-click-target="official_extra" data-preserve-params="true" rel="noopener">Check PayPal account</a>
+            </div>
+          </div>
+        </section>
+        <section id="fixes">
+          <h2>Main Steps</h2>
+          <div class="step-list"><article class="step"><h3>1. Open the transaction in PayPal</h3><p>Use the official app or paypal.com. The transaction page is more reliable than screenshots, buyer messages, or email snippets.</p></article><article class="step"><h3>2. Check whether it is an eCheck or bank delay</h3><p>Some payments take longer because money is moving through a bank account. The sender may see pending while PayPal waits for the bank.</p></article><article class="step"><h3>3. Understand seller holds</h3><p>New sellers, unusual activity, disputes, or high-risk categories can trigger holds. Follow PayPal’s official instructions for release timing.</p></article><article class="step"><h3>4. Do not ship while payment is pending</h3><p>If you are selling goods, wait for a completed payment and follow seller protection requirements. A pending screenshot is not proof of payment.</p></article><article class="step"><h3>5. Check refund timing</h3><p>Refunds can show pending until the original funding source clears. Card and bank refunds may not post instantly.</p></article><article class="step"><h3>6. Avoid overpayment and shipping scams</h3><p>If a buyer pressures you to ship immediately, use a different address, or refund outside PayPal, treat it as a warning sign.</p></article></div>
+        </section>
+        <section id="safety">
+          <h2>Safety Notes</h2>
+          <div class="callout danger"><strong>Use official channels and protect verification codes.</strong> Pending payment scams are common. Verify status only inside PayPal. Do not trust screenshots, forwarded emails, or messages claiming PayPal will release funds after shipment.</div>
+          <p>If a page, message, ad, or support account asks you to share one-time codes, passwords, payment details, or remote access, stop and verify through the official app or official help page.</p>
+        </section>
+        <section id="alternatives">
+          <h2>Alternatives or Next Steps</h2>
+          <p>If the main app path does not work, use a safer fallback instead of trusting unknown links.</p>
+          <div class="fix-grid"><div class="fix-card"><strong>Wait for completion</strong>Waiting can be safer than repeated retries.</div><div class="fix-card"><strong>Contact official PayPal help</strong>Use the official help center or app store page.</div><div class="fix-card"><strong>Use tracking inside PayPal</strong>Choose methods with appropriate protections for purchases.</div><div class="fix-card"><strong>Cancel if official status allows</strong>Use the official help center or app store page.</div></div>
+        </section>
+        <section id="cta">
+          <h2>Before You Act</h2>
+          <div class="cta-box"><p>Compare the problem against the checklist, then use the official help or app store link if you still need account, download, verification, or payment support.</p><div class="cta-grid"><a class="button" href="https://www.paypal.com/us/cshelp/personal" data-event="funnel_step_click" data-event-label="official_help_cta" data-funnel-step="official_help" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a><a class="button secondary" href="#checklist" data-event="content_click" data-event-label="review_checklist" data-content-type="internal_anchor" data-click-target="review_checklist">Review the checklist again</a></div></div>
+        </section>
+        <section id="related">
+          <h2>Related Guides</h2>
+          <div class="related-grid"><a class="related-card" href="/guides/apps/paypal-login-problems/" data-event="content_click" data-event-label="paypal_login_problems" data-content-type="related_guide" data-click-target="related_guide">Paypal Login Problems</a><a class="related-card" href="/guides/apps/cash-app-login-problems/" data-event="content_click" data-event-label="cash_app_login_problems" data-content-type="related_guide" data-click-target="related_guide">Cash App Login Problems</a><a class="related-card" href="/guides/apps/is-cash-app-safe/" data-event="content_click" data-event-label="is_cash_app_safe" data-content-type="related_guide" data-click-target="related_guide">Is Cash App Safe</a></div>
+        </section>
+        <section id="email">
+          <h2>Get the App Troubleshooting Checklist</h2>
+          <p>Want a simple checklist for app login, download, verification, payment, and safety issues? Leave an email and we will send a lightweight guide when it is ready.</p>
+          <form id="emailForm" class="cta-grid"><label>Email address<input type="email" name="email" placeholder="you@example.com" required /></label><button class="button" type="submit" data-event="funnel_step_click" data-event-label="app_guide_email" data-funnel-step="email_capture">Notify me</button></form>
+          <p class="note" id="emailResult" aria-live="polite"></p>
+        </section>
+        <section id="faq">
+          <h2>FAQ</h2><details data-event="content_click" data-event-label="faq_1" data-content-type="faq"><summary>How long does a PayPal pending payment take?</summary><p>Timing depends on the reason, such as bank processing, review, eCheck, refund, or account hold. Check the transaction details.</p></details><details data-event="content_click" data-event-label="faq_2" data-content-type="faq"><summary>Can I cancel a pending PayPal payment?</summary><p>Some pending payments can be canceled, but not all. Use the official transaction page to see available actions.</p></details><details data-event="content_click" data-event-label="faq_3" data-content-type="faq"><summary>Is a pending PayPal payment safe?</summary><p>It may be legitimate, but do not treat it as completed until PayPal confirms it.</p></details><details data-event="content_click" data-event-label="faq_4" data-content-type="faq"><summary>Why is my money on hold?</summary><p>PayPal may hold money for seller risk, new accounts, disputes, delivery confirmation, or security checks.</p></details><details data-event="content_click" data-event-label="faq_5" data-content-type="faq"><summary>Should I ship an item if payment is pending?</summary><p>No. Wait until PayPal shows the payment is completed and eligible for fulfillment.</p></details>
+        </section>
+        <aside class="ad-slot adsense-slot" aria-label="Advertisement" data-ad-slot-name="guide_in_article_display_bottom" data-ad-network="adsense" data-ad-format="auto" data-revenue-status="active"><!-- guide_in_article_display --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1597621884" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>
+      </main>
+      <aside class="toc" aria-label="Table of contents"><strong>On this page</strong><a href="#checklist">Quick checklist</a><a href="#official">Official links</a><a href="#fixes">Main steps</a><a href="#safety">Safety notes</a><a href="#alternatives">Alternatives</a><a href="#faq">FAQ</a></aside>
+    </div>
+    <footer><div class="footer-inner"><div class="footer-links" aria-label="Site links"><a href="../../../arcade-hub/privacy.html">Privacy</a><a href="../../../arcade-hub/terms.html">Terms</a><a href="../../../arcade-hub/contact.html">Contact</a></div></div></footer>
+    <script>
+      (function () {
+        const trackedParams = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "matchtype", "country", "page_type", "creative_id", "experiment_id", "landing_name"];
+        const searchParams = new URLSearchParams(window.location.search);
+        const attribution = {};
+        const body = document.body;
+        const defaultContext = { landing_name: body.dataset.landingName || "paypal_payment_pending", page_category: body.dataset.pageCategory || "problem_description", page_type: searchParams.get("page_type") || "app_problem_guide", landing_type: searchParams.get("page_type") || "app_problem_guide", content_type: body.dataset.pageCategory || "problem_description", topic: body.dataset.topic || "paypal", intent: body.dataset.intent || "payment_pending", content_format: body.dataset.contentFormat || "seo_problem_page", monetization_model: body.dataset.monetizationModel || "mixed", keyword_stage: body.dataset.keywordStage || "organic_validation", experiment_id: searchParams.get("experiment_id") || "paypal_payment_pending_organic", creative_id: searchParams.get("creative_id") || searchParams.get("utm_content") || "", page_path: window.location.pathname, page_location: window.location.href, page_title: document.title };
+        trackedParams.forEach((key) => { if (searchParams.has(key)) attribution[key] = searchParams.get(key); });
+        const pageContext = Object.assign({}, defaultContext, attribution, { landing_name: attribution.landing_name || defaultContext.landing_name, page_type: attribution.page_type || defaultContext.page_type, landing_type: attribution.page_type || defaultContext.landing_type, experiment_id: attribution.experiment_id || defaultContext.experiment_id, creative_id: attribution.creative_id || defaultContext.creative_id });
+        window.appGuideAttribution = pageContext;
+        window.appGuideEventNames = ["page_view", "landing_view", "content_click", "funnel_step_click", "form_submit", "scroll_depth", "page_time", "site_session_time", "ad_impression", "ad_click", "adsense_slot_click_attempt", "problem_description_view"];
+        window.dataLayer = window.dataLayer || [];
+        if (window.ArcadeHubAnalytics) window.ArcadeHubAnalytics.setContext(pageContext);
+        function track(eventName, detail) {
+          const payload = Object.assign({}, pageContext, { event_label: detail && detail.event_label ? detail.event_label : "", page_slug: "paypal-payment-pending", page_path: window.location.pathname, page_location: window.location.href, page_title: document.title }, detail || {});
+          if (window.ArcadeHubAnalytics) window.ArcadeHubAnalytics.track(eventName, payload);
+          else { window.dataLayer.push(Object.assign({ event: eventName, arcade_event: eventName }, payload)); if (typeof window.gtag === "function") window.gtag("event", eventName, payload); }
+          window.dispatchEvent(new CustomEvent("app_guide_event", { detail: payload }));
+        }
+        window.trackAppGuideEvent = track;
+        track("problem_description_view", { event_label: "paypal_payment_pending" });
+        track("paypal_payment_pending_view", { event_label: "paypal_payment_pending" });
+        function detectPlatform() { const ua = navigator.userAgent || ""; const platform = navigator.platform || ""; const touchMac = platform === "MacIntel" && Number(navigator.maxTouchPoints || 0) > 1; if (/Android/i.test(ua)) return "android"; if (/iPhone|iPad|iPod/i.test(ua) || touchMac) return "ios"; if (/Mac/i.test(platform)) return "desktop_mac"; if (/Win/i.test(platform)) return "desktop_windows"; return "desktop_other"; }
+        const detectedPlatform = detectPlatform();
+        const officialDownloadLink = document.getElementById("officialDownloadLink");
+        if (officialDownloadLink) { const androidUrl = officialDownloadLink.dataset.androidUrl; const iosUrl = officialDownloadLink.dataset.iosUrl; const desktopUrl = officialDownloadLink.dataset.desktopUrl || iosUrl; const targetStore = detectedPlatform === "android" ? "google_play" : "app_store"; officialDownloadLink.href = targetStore === "google_play" ? androidUrl : (detectedPlatform === "ios" ? iosUrl : desktopUrl); officialDownloadLink.dataset.storeTarget = targetStore; officialDownloadLink.dataset.detectedPlatform = detectedPlatform; officialDownloadLink.setAttribute("aria-label", targetStore === "google_play" ? "Open official PayPal on Google Play" : "Open official PayPal on the App Store"); }
+        document.querySelectorAll("[data-preserve-params='true']").forEach((link) => { try { const url = new URL(link.getAttribute("href"), window.location.href); trackedParams.forEach((key) => { if (pageContext[key] && !url.searchParams.has(key)) url.searchParams.set(key, pageContext[key]); }); link.href = url.toString(); } catch (error) {} });
+        document.querySelectorAll("[data-event]").forEach((element) => { const eventName = element.getAttribute("data-event"); const label = element.getAttribute("data-event-label") || element.textContent.trim().slice(0, 80); const contentType = element.getAttribute("data-content-type") || ""; const clickTarget = element.getAttribute("data-click-target") || ""; const funnelStep = element.getAttribute("data-funnel-step") || ""; const storeTarget = element.getAttribute("data-store-target") || ""; const linkPlatform = element.getAttribute("data-detected-platform") || detectedPlatform; if (element.tagName.toLowerCase() === "details") { element.addEventListener("toggle", () => { if (element.open) track(eventName, { event_label: label, content_type: contentType || "faq", click_target: "faq_expand" }); }); } else { element.addEventListener("click", () => { track(eventName, { event_label: label, href: element.href || "", content_type: contentType, click_target: clickTarget || funnelStep || label, funnel_step: funnelStep, target_store: storeTarget, detected_platform: linkPlatform }); }); } });
+        const finder = document.getElementById("issueFinder"); const result = document.getElementById("issueResult");
+        finder.addEventListener("submit", (event) => { event.preventDefault(); const issue = Number(document.getElementById("issueType").value || 0); const urgency = document.getElementById("urgencyType").value; const copy = ["Check the transaction in PayPal before sending again.","Do not ship until PayPal shows the payment is completed and safe to fulfill.","Refund timing can depend on funding source and bank processing.","Treat screenshots and buyer messages as untrusted; verify inside PayPal."]; result.textContent = copy[issue] + (urgency === "now" ? " Use the official link on this page if you need account or download support now." : " Checking before you act is the safest time to avoid scams or data loss."); result.classList.add("is-visible"); track("form_submit", { event_label: "issue_finder_result", form_name: "issue_finder", issue_type: String(issue), urgency_type: urgency }); track("funnel_step_click", { event_label: "issue_finder_result", funnel_step: "issue_finder_result", issue_type: String(issue), urgency_type: urgency }); });
+        document.getElementById("emailForm").addEventListener("submit", (event) => { event.preventDefault(); document.getElementById("emailResult").textContent = "Thanks. This demo form is ready for an email provider connection."; track("form_submit", { event_label: "app_guide_email_form", form_name: "email_capture" }); track("funnel_step_click", { event_label: "app_guide_email_form", funnel_step: "email_capture" }); });
+        function trackAdImpression(slot) { track("ad_impression", { ad_slot: slot.dataset.adSlotName || "app_problem_ad", ad_network: slot.dataset.adNetwork || "adsense", ad_format: slot.dataset.adFormat || "auto", ad_unit: "guide_in_article_display", ad_client: "ca-pub-5502975373459743", ad_slot_id: "1597621884", revenue_status: slot.dataset.revenueStatus || "active" }); }
+        const adSlots = Array.from(document.querySelectorAll(".adsense-slot"));
+        if ("IntersectionObserver" in window) { const seenAds = new WeakSet(); const adObserver = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting && entry.intersectionRatio >= 0.5 && !seenAds.has(entry.target)) { seenAds.add(entry.target); trackAdImpression(entry.target); } }); }, { threshold: [0.5] }); adSlots.forEach((slot) => adObserver.observe(slot)); } else adSlots.forEach(trackAdImpression);
+        adSlots.forEach((slot) => { slot.addEventListener("pointerdown", () => { track("adsense_slot_click_attempt", { ad_slot: slot.dataset.adSlotName || "app_problem_ad", ad_network: slot.dataset.adNetwork || "adsense", ad_format: slot.dataset.adFormat || "auto", ad_unit: "guide_in_article_display", ad_client: "ca-pub-5502975373459743", ad_slot_id: "1597621884", revenue_status: slot.dataset.revenueStatus || "active" }); }); });
+        document.querySelectorAll(".adsbygoogle").forEach(() => { try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (error) { window.dataLayer.push({ event: "ad_load_error", error_message: error.message, landing_name: pageContext.landing_name }); } });
+      })();
+    </script>
+  </body>
+</html>
