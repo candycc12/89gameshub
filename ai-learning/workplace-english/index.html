@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Workplace English: Practice Real Work Conversations in 10 Minutes a Day</title>
+    <meta
+      name="description"
+      content="Practice workplace English for meetings, interviews, emails, project updates, and client calls with short AI feedback lessons."
+    />
+    <link rel="canonical" href="https://89gameshub.com/ai-learning/workplace-english/" />
+    <link rel="stylesheet" href="../../learning-guides/guide.css?v=20260617-workplace-1" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502975373459743" crossorigin="anonymous"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "AI Workplace English: Practice Real Work Conversations in 10 Minutes a Day",
+        "description": "Short workplace English practice with real work scenes and AI feedback.",
+        "publisher": {
+          "@type": "Organization",
+          "name": "89 Games Hub"
+        },
+        "datePublished": "2026-06-17",
+        "dateModified": "2026-06-17",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://89gameshub.com/ai-learning/workplace-english/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is AI Workplace English?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "AI Workplace English is a short daily practice path for real work situations such as interviews, meetings, email, project updates, and client calls."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this a grammar course?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It focuses on real workplace communication practice: interviews, meetings, email, project updates, and client calls."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Who is this for?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It is for job seekers, non-native English speakers, remote workers, students entering the workforce, and people who understand English but freeze during real work conversations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long is each lesson?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Each lesson takes about 10 minutes: one work prompt, one answer, AI feedback, and one retry."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will this help me speak more naturally at work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You practice clearer, more natural responses for common work situations through short repeated drills."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use it for interviews?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Interview practice is one of the planned paths, especially introductions, behavioral questions, strengths, weaknesses, and project examples."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it support writing emails?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. One planned unit focuses on rewriting rough emails, chat messages, and status updates into clearer workplace English."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What do I get after joining?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You can save your recommended path and get notified when the first workplace English practice plan is ready."
+            }
+          }
+        ]
+      }
+    </script>
+    <style>
+      .product-hero {
+        align-items: center;
+      }
+
+      .hero-card.metrics-card {
+        display: grid;
+        gap: 16px;
+      }
+
+      .metric-row {
+        display: grid;
+        grid-template-columns: 64px minmax(0, 1fr);
+        gap: 14px;
+        align-items: center;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fff;
+      }
+
+      .metric-row span {
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border-radius: 16px;
+        background: var(--mint);
+        color: var(--green);
+        font-weight: 950;
+      }
+
+      .diagnostic-options {
+        display: grid;
+        gap: 12px;
+      }
+
+      .diagnostic-options button,
+      .lesson-card button,
+      .path-card button {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fff;
+        color: var(--ink);
+        cursor: pointer;
+        font: inherit;
+        font-weight: 900;
+        text-align: left;
+      }
+
+      .diagnostic-options button {
+        padding: 16px 18px;
+      }
+
+      .diagnostic-options button.is-selected {
+        border-color: rgba(107, 85, 245, 0.55);
+        background: #f1edff;
+        box-shadow: inset 0 0 0 2px rgba(107, 85, 245, 0.15);
+      }
+
+      .result-card {
+        display: none;
+        margin-top: 18px;
+        padding: 18px;
+        border: 1px solid rgba(46, 131, 255, 0.22);
+        border-radius: 20px;
+        background: linear-gradient(135deg, #f2f6ff, #fff);
+      }
+
+      .result-card.is-visible {
+        display: block;
+      }
+
+      .path-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .path-card {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        background: #fff;
+      }
+
+      .path-card span,
+      .lesson-card span {
+        color: #5c6fe8;
+        font-size: 13px;
+        font-weight: 950;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .path-card strong,
+      .lesson-card strong {
+        display: block;
+        margin: 8px 0;
+        color: var(--ink);
+        font-size: 22px;
+        line-height: 1.12;
+      }
+
+      .lesson-demo {
+        display: grid;
+        gap: 14px;
+      }
+
+      .lesson-card {
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: #fff;
+      }
+
+      .feedback-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .feedback-grid div {
+        padding: 14px;
+        border-radius: 16px;
+        background: var(--soft);
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      .waitlist-form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        max-width: 720px;
+        margin-top: 18px;
+      }
+
+      .waitlist-form input {
+        min-height: 56px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 0 16px;
+        font: inherit;
+      }
+
+      .waitlist-note {
+        margin-top: 10px;
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      .workplace-page h1 {
+        font-size: clamp(40px, 5vw, 64px);
+      }
+
+      .workplace-page .hero-summary {
+        font-size: clamp(18px, 1.7vw, 22px);
+      }
+
+      .workplace-page .content-card,
+      .workplace-page .exercise-card,
+      .workplace-page .faq-item {
+        padding: clamp(22px, 3vw, 34px);
+        border-radius: 24px;
+      }
+
+      .workplace-page .content-card h2,
+      .workplace-page .exercise-card h2,
+      .workplace-page .faq-item h3,
+      .workplace-page .cta-band h2,
+      .workplace-page .related-links h2 {
+        font-size: clamp(24px, 2.35vw, 34px);
+        line-height: 1.16;
+      }
+
+      .workplace-page .content-card p,
+      .workplace-page .exercise-card p,
+      .workplace-page .faq-item p,
+      .workplace-page .content-card li {
+        font-size: 17px;
+        line-height: 1.65;
+      }
+
+      .workplace-page .faq-item {
+        padding: 24px 28px;
+      }
+
+      .workplace-page .faq-item h3 {
+        margin-bottom: 12px;
+      }
+
+      .native-ad {
+        margin: 8px 0 2px;
+      }
+
+      .native-ad-label {
+        margin: 0 0 10px;
+        color: rgba(98, 112, 109, 0.72);
+        font-size: 12px;
+        font-weight: 950;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .native-ad .adsbygoogle {
+        display: block;
+        min-height: 90px;
+      }
+
+      @media (max-width: 700px) {
+        .path-grid,
+        .feedback-grid,
+        .waitlist-form {
+          grid-template-columns: 1fr;
+        }
+
+        .workplace-page h1 {
+          font-size: 38px;
+          line-height: 1.04;
+        }
+
+        .workplace-page .content-card h2,
+        .workplace-page .exercise-card h2,
+        .workplace-page .faq-item h3,
+        .workplace-page .cta-band h2,
+        .workplace-page .related-links h2 {
+          font-size: 26px;
+        }
+
+        .workplace-page .content-card p,
+        .workplace-page .exercise-card p,
+        .workplace-page .faq-item p,
+        .workplace-page .content-card li {
+          font-size: 16px;
+        }
+
+        .waitlist-form button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body class="workplace-page">
+    <header class="site-header">
+      <a class="brand" href="../../index.html"><span>89</span> AI Learning</a>
+      <nav aria-label="Product navigation">
+        <a href="#diagnostic">Diagnostic</a>
+        <a href="#path">Course path</a>
+        <a href="#early-access">Early access</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="guide-hero product-hero">
+        <div>
+          <p class="eyebrow">AI Workplace English</p>
+          <h1>Practice real work conversations in 10 minutes a day.</h1>
+          <p class="hero-summary">
+            If you understand English but freeze in meetings, interviews, emails, or client calls,
+            random vocabulary practice is usually not enough. You need short realistic work scenes:
+            hear the prompt, answer in your own words, get feedback on clarity and tone, then retry.
+          </p>
+          <div class="button-row">
+            <a
+              class="primary-action js-track"
+              href="#sample-lesson"
+              data-event="hero_cta_click"
+              data-topic="ai_workplace_english"
+              data-page-slug="workplace-english"
+              data-cta-position="hero"
+              data-cta-type="start_first_free_lesson"
+            >Start the first free lesson</a>
+            <a
+              class="secondary-action js-track"
+              href="#diagnostic"
+              data-event="diagnostic_start"
+              data-topic="ai_workplace_english"
+              data-page-slug="workplace-english"
+              data-cta-position="hero"
+              data-cta-type="take_diagnostic"
+            >Find my work English gap</a>
+          </div>
+        </div>
+
+        <aside class="hero-card metrics-card" aria-label="Product preview">
+          <strong>What you will practice</strong>
+          <div class="metric-row">
+            <span>10m</span>
+            <p>One short workplace English practice session per day.</p>
+          </div>
+          <div class="metric-row">
+            <span>AI</span>
+            <p>Feedback on clarity, naturalness, and tone after one answer.</p>
+          </div>
+          <div class="metric-row">
+            <span>Path</span>
+            <p>Practice for interviews, meetings, email, and client calls.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="guide-body">
+        <article class="article-content">
+          <section class="content-card answer-box">
+            <p class="eyebrow">Why this helps</p>
+            <h2>You do not need more random vocabulary. You need words for the moment you are in.</h2>
+            <p>
+              Interviews, meetings, project updates, and client calls each have their own rhythm.
+              Practice one real moment at a time so your answer has a clear point, a reason,
+              and a natural next sentence.
+            </p>
+          </section>
+
+          <section class="content-card" id="diagnostic">
+            <p class="eyebrow">2-minute diagnostic</p>
+            <h2>Where does your workplace English break down first?</h2>
+            <p>Choose the closest answer so we can recommend the first practice path.</p>
+            <div class="diagnostic-options" data-diagnostic>
+              <button type="button" data-profile="interview">I freeze when someone asks interview questions.</button>
+              <button type="button" data-profile="meeting">I know my work, but I explain updates unclearly.</button>
+              <button type="button" data-profile="email">My emails or chat messages sound rough or too direct.</button>
+              <button type="button" data-profile="call">Client calls make me nervous because I cannot react fast enough.</button>
+              <button type="button" data-profile="confidence">I understand English, but speaking out loud feels stressful.</button>
+            </div>
+            <div class="result-card" id="diagnosticResult" aria-live="polite">
+              <p class="eyebrow">Suggested first path</p>
+              <h3 id="resultTitle">Choose one answer to see your path.</h3>
+              <p id="resultCopy"></p>
+              <div class="button-row">
+                <a
+                  class="primary-action js-track"
+                  href="#sample-lesson"
+                  data-event="diagnostic_complete"
+                  data-topic="ai_workplace_english"
+                  data-page-slug="workplace-english"
+                  data-cta-position="diagnostic_result"
+                  data-cta-type="start_lesson_1"
+                >Start lesson 1</a>
+                <a
+                  class="secondary-action js-track"
+                  href="#early-access"
+                  data-event="early_access_click"
+                  data-topic="ai_workplace_english"
+                  data-page-slug="workplace-english"
+                  data-cta-position="diagnostic_result"
+                  data-cta-type="join_early_access"
+                >Email me my path</a>
+              </div>
+            </div>
+          </section>
+
+          <aside class="native-ad" aria-label="Sponsored">
+            <p class="native-ad-label">Sponsored</p>
+            <ins
+              class="adsbygoogle"
+              data-ad-client="ca-pub-5502975373459743"
+              data-ad-slot="1172840816"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </aside>
+
+          <section class="content-card" id="steps">
+            <p class="eyebrow">Try today</p>
+            <h2>3 small actions before you take a course</h2>
+            <div class="mini-steps">
+              <div class="mini-step">
+                <span>1</span>
+                <p><strong>Record one 30-second answer.</strong> Use a real prompt: “Tell me about yourself” or “What did you work on this week?”</p>
+              </div>
+              <div class="mini-step">
+                <span>2</span>
+                <p><strong>Rewrite one answer with a frame.</strong> Use: point, reason, example, next step.</p>
+              </div>
+              <div class="mini-step">
+                <span>3</span>
+                <p><strong>Practice one polite work sentence.</strong> Try: “I see your point. My concern is ___. Could we try ___?”</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="content-card" id="path">
+            <p class="eyebrow">Daily training path</p>
+            <h2>Your 8-step workplace speaking path</h2>
+            <p>Start with simple answers, then move into the work situations that usually make people freeze.</p>
+            <div class="path-grid">
+              <article class="path-card"><span>Unit 1</span><strong>Introduce Yourself</strong><p>Give a clear 30-second professional intro.</p></article>
+              <article class="path-card"><span>Unit 2</span><strong>Interview Basics</strong><p>Answer common interview questions with examples.</p></article>
+              <article class="path-card"><span>Unit 3</span><strong>Meetings</strong><p>Explain ideas, ask questions, and disagree politely.</p></article>
+              <article class="path-card"><span>Unit 4</span><strong>Email and Chat</strong><p>Turn rough messages into clear workplace English.</p></article>
+              <article class="path-card"><span>Unit 5</span><strong>Client Calls</strong><p>Practice opening, clarifying, and closing calls.</p></article>
+              <article class="path-card"><span>Unit 6</span><strong>Project Updates</strong><p>Explain progress, blockers, and next steps.</p></article>
+              <article class="path-card"><span>Unit 7</span><strong>Presentations</strong><p>Structure a short explanation without overthinking.</p></article>
+              <article class="path-card"><span>Unit 8</span><strong>Feedback and Conflict</strong><p>Respond professionally under pressure.</p></article>
+            </div>
+          </section>
+
+          <section class="content-card practice-module" id="sample-lesson">
+            <p class="eyebrow">Example lesson</p>
+            <h2>Lesson 1: introduce yourself clearly</h2>
+            <div class="lesson-demo">
+              <article class="lesson-card">
+                <span>Prompt</span>
+                <strong>“Tell me about yourself and the kind of role you are looking for.”</strong>
+                <p>Answer in 30 seconds. Do not memorize a script. Use one structure: background, current skill, target role.</p>
+              </article>
+              <article class="lesson-card">
+                <span>AI feedback preview</span>
+                <strong>Your answer should be clear, natural, and specific.</strong>
+                <div class="feedback-grid">
+                  <div>Clarity: one main point</div>
+                  <div>Naturalness: not too scripted</div>
+                  <div>Tone: confident but not salesy</div>
+                </div>
+              </article>
+              <article class="lesson-card">
+                <span>Retry frame</span>
+                <strong>“My background is ___. Recently I worked on ___. Now I am looking for ___.”</strong>
+                <p>One retry is enough for a first session. Save your before-and-after answer, then continue with tomorrow's scene.</p>
+              </article>
+            </div>
+            <div class="button-row">
+              <a
+                class="primary-action js-track"
+                href="#early-access"
+                data-event="starter_lesson_click"
+                data-topic="ai_workplace_english"
+                data-page-slug="workplace-english"
+                data-cta-position="sample_lesson"
+                data-cta-type="start_first_free_lesson"
+              >Start the first workplace speaking lesson</a>
+              <a
+                class="secondary-action js-track"
+                href="#early-access"
+                data-event="purchase_intent_click"
+                data-topic="ai_workplace_english"
+                data-page-slug="workplace-english"
+                data-cta-position="sample_lesson"
+                data-cta-type="reserve_launch_price"
+              >Reserve launch price</a>
+            </div>
+          </section>
+
+          <section class="content-card" id="practice-paths">
+            <p class="eyebrow">Choose your practice path</p>
+            <h2>Not sure this is your first path?</h2>
+            <div class="path-grid">
+              <article class="path-card">
+                <span>Speak more clearly</span>
+                <strong>Speaking Clarity Test</strong>
+                <p>Find your speaking style before choosing a practice plan.</p>
+                <a
+                  class="secondary-action js-track"
+                  href="../speaking-clarity-test/"
+                  data-event="related_guide_click"
+                  data-topic="ai_workplace_english"
+                  data-page-slug="workplace-english"
+                  data-cta-position="choose_path"
+                  data-cta-type="speaking_clarity_test"
+                >Take the test</a>
+              </article>
+              <article class="path-card">
+                <span>Memory and focus</span>
+                <strong>Daily Brain</strong>
+                <p>Short memory, focus, and logic games in 5 minutes a day.</p>
+                <a
+                  class="secondary-action js-track"
+                  href="../daily-brain-training/"
+                  data-event="related_guide_click"
+                  data-topic="ai_workplace_english"
+                  data-page-slug="workplace-english"
+                  data-cta-position="choose_path"
+                  data-cta-type="daily_brain_training"
+                >View Daily Brain</a>
+              </article>
+              <article class="path-card">
+                <span>Focus style</span>
+                <strong>Focus Style Test</strong>
+                <p>Find out why you get distracted before choosing a focus drill.</p>
+                <a
+                  class="secondary-action js-track"
+                  href="../focus-style-test/"
+                  data-event="related_guide_click"
+                  data-topic="ai_workplace_english"
+                  data-page-slug="workplace-english"
+                  data-cta-position="choose_path"
+                  data-cta-type="focus_style_test"
+                >Find focus style</a>
+              </article>
+              <article class="path-card">
+                <span>AI work skills</span>
+                <strong>AI Skill Gym</strong>
+                <p>Practice emails, summaries, ads, spreadsheets, and work tasks with AI.</p>
+                <a
+                  class="secondary-action js-track"
+                  href="../ai-skill-gym/"
+                  data-event="related_guide_click"
+                  data-topic="ai_workplace_english"
+                  data-page-slug="workplace-english"
+                  data-cta-position="choose_path"
+                  data-cta-type="ai_skill_gym"
+                >Try AI Skill Gym</a>
+              </article>
+            </div>
+          </section>
+
+          <section class="content-card" id="faq">
+            <p class="eyebrow">FAQ</p>
+            <h2>Questions before joining early access</h2>
+            <div class="faq-item">
+              <h3>Is this for beginners?</h3>
+              <p>It can help beginners, but the strongest fit is someone who already knows some English and needs real work practice.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Is this only for speaking?</h3>
+              <p>No. The plan includes speaking, email, chat, meetings, interviews, project updates, and client calls.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Will the AI correct grammar?</h3>
+              <p>Grammar feedback can be useful, but the first priority is whether your answer is clear, natural, and appropriate for the work situation.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Can I use it before an interview?</h3>
+              <p>Yes. The interview unit is designed for short answer practice, not memorizing long scripts.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Does this replace a human English teacher?</h3>
+              <p>No. It is a practice tool for repeatable work scenes. A human teacher can still be valuable for deeper coaching.</p>
+            </div>
+            <div class="faq-item">
+              <h3>How much time should I practice?</h3>
+              <p>Start with 10 minutes a day: one prompt, one answer, one feedback pass, and one retry.</p>
+            </div>
+            <div class="faq-item">
+              <h3>Can I save my recommended path?</h3>
+              <p>Yes. Enter your email to save the path and receive the next practice lesson when it is ready.</p>
+            </div>
+            <div class="faq-item">
+              <h3>What happens after I join?</h3>
+              <p>You will get the recommended workplace English path and updates for the next practice lessons.</p>
+            </div>
+          </section>
+        </article>
+
+        <aside class="toc-card" aria-label="Page contents">
+          <strong>On this page</strong>
+          <a href="#diagnostic">2-minute diagnostic</a>
+          <a href="#steps">3 actions today</a>
+          <a href="#path">Course path</a>
+          <a href="#sample-lesson">Example lesson</a>
+          <a href="#practice-paths">Choose your path</a>
+          <a href="#faq">FAQ</a>
+        </aside>
+      </section>
+
+      <section class="cta-band" id="early-access">
+        <p class="eyebrow">Save your path</p>
+        <h2>Get your AI Workplace English practice plan</h2>
+        <p>
+          Save your recommended path for interviews, meetings, emails, and client calls.
+          We will send the next practice lesson when it is ready.
+        </p>
+        <form class="waitlist-form" id="waitlistForm">
+          <input id="emailInput" type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+          <button
+            class="primary-action"
+            type="submit"
+            data-event="email_submit"
+            data-topic="ai_workplace_english"
+            data-page-slug="workplace-english"
+            data-cta-position="early_access_form"
+            data-cta-type="join_early_access"
+          >Send my plan</button>
+        </form>
+        <p class="waitlist-note" id="waitlistNote">Your first practice path starts with one short workplace speaking lesson.</p>
+      </section>
+
+      <section class="related-links">
+        <h2>Related guides</h2>
+        <ul>
+          <li><a class="js-track" href="../../learning-guides/how-to-speak-more-clearly/" data-event="related_guide_click" data-topic="ai_workplace_english" data-page-slug="workplace-english" data-cta-position="related_guides" data-cta-type="adult_speaking_guide">How to speak more clearly</a></li>
+          <li><a class="js-track" href="../../learning-guides/how-to-help-a-child-speak-clearly/" data-event="related_guide_click" data-topic="ai_workplace_english" data-page-slug="workplace-english" data-cta-position="related_guides" data-cta-type="child_speaking_guide">How to help a child speak clearly</a></li>
+          <li><a class="js-track" href="../../learning-guides/how-to-stay-focused-while-studying/" data-event="related_guide_click" data-topic="ai_workplace_english" data-page-slug="workplace-english" data-cta-position="related_guides" data-cta-type="focus_guide">How to stay focused while studying</a></li>
+        </ul>
+        <p class="disclosure">This page offers general communication practice ideas. It does not diagnose speech, anxiety, ADHD, or other medical or learning conditions.</p>
+      </section>
+    </main>
+
+    <script>
+      (function () {
+        const pageMeta = {
+          topic: "ai_workplace_english",
+          page_slug: "workplace-english"
+        };
+
+        function track(eventName, detail) {
+          const payload = Object.assign({}, pageMeta, detail || {});
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push(Object.assign({ event: eventName }, payload));
+          if (typeof window.gtag === "function") {
+            window.gtag("event", eventName, payload);
+          }
+          window.dispatchEvent(new CustomEvent("learning_page_event", { detail: { event: eventName, payload } }));
+        }
+
+        track("learning_page_view", { cta_position: "page_load", cta_type: "view" });
+
+        document.querySelectorAll(".adsbygoogle").forEach(() => {
+          try {
+            (window.adsbygoogle = window.adsbygoogle || []).push({});
+            track("ad_slot_render", {
+              cta_position: "after_diagnostic",
+              cta_type: "adsense_responsive",
+              ad_client: "ca-pub-5502975373459743",
+              ad_slot: "1172840816"
+            });
+          } catch (error) {
+            void error;
+          }
+        });
+
+        document.querySelectorAll(".js-track").forEach((element) => {
+          element.addEventListener("click", () => {
+            track(element.dataset.event || "cta_click", {
+              topic: element.dataset.topic,
+              page_slug: element.dataset.pageSlug,
+              cta_position: element.dataset.ctaPosition,
+              cta_type: element.dataset.ctaType
+            });
+          });
+        });
+
+        const profiles = {
+          interview: {
+            title: "Interview Path",
+            copy: "Start with short interview answers: introduce yourself, explain one project, and answer one behavioral question with a clear example."
+          },
+          meeting: {
+            title: "Meeting Clarity Path",
+            copy: "Start with project updates: what changed, why it matters, what is blocked, and what happens next."
+          },
+          email: {
+            title: "Email and Chat Path",
+            copy: "Start by rewriting one rough message into a clear workplace note with a polite tone and one clear ask."
+          },
+          call: {
+            title: "Client Call Path",
+            copy: "Start with call openers, clarification phrases, and calm closing sentences so you can react without freezing."
+          },
+          confidence: {
+            title: "Speaking Confidence Path",
+            copy: "Start with low-pressure speaking drills: one prompt, one 30-second answer, one retry after feedback."
+          }
+        };
+
+        const result = document.getElementById("diagnosticResult");
+        const resultTitle = document.getElementById("resultTitle");
+        const resultCopy = document.getElementById("resultCopy");
+        let diagnosticStarted = false;
+        document.querySelectorAll("[data-diagnostic] button").forEach((button) => {
+          button.addEventListener("click", () => {
+            if (!diagnosticStarted) {
+              diagnosticStarted = true;
+              track("diagnostic_start", {
+                cta_position: "diagnostic",
+                cta_type: "first_answer_click"
+              });
+            }
+            document.querySelectorAll("[data-diagnostic] button").forEach((item) => item.classList.remove("is-selected"));
+            button.classList.add("is-selected");
+            const profile = profiles[button.dataset.profile] || profiles.confidence;
+            resultTitle.textContent = profile.title;
+            resultCopy.textContent = profile.copy;
+            result.classList.add("is-visible");
+            track("diagnostic_complete", {
+              cta_position: "diagnostic",
+              cta_type: button.dataset.profile,
+              diagnostic_profile: button.dataset.profile
+            });
+          });
+        });
+
+        const form = document.getElementById("waitlistForm");
+        const note = document.getElementById("waitlistNote");
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const email = document.getElementById("emailInput").value.trim();
+          if (!email) return;
+          try {
+            const saved = JSON.parse(localStorage.getItem("workplaceEnglishWaitlist") || "[]");
+            saved.push({ email, createdAt: new Date().toISOString() });
+            localStorage.setItem("workplaceEnglishWaitlist", JSON.stringify(saved));
+          } catch (error) {
+            void error;
+          }
+          track("email_submit", {
+            cta_position: "early_access_form",
+            cta_type: "join_early_access"
+          });
+          note.textContent = "Saved. Your recommended path is ready to continue from the first workplace speaking lesson.";
+          form.reset();
+        });
+      })();
+    </script>
+  </body>
+</html>
