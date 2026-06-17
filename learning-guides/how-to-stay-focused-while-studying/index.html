@@ -10,6 +10,8 @@
     />
     <link rel="canonical" href="https://89gameshub.com/learning-guides/how-to-stay-focused-while-studying/" />
     <link rel="stylesheet" href="../guide.css?v=20260615-guide-3" />
+    <link rel="stylesheet" href="../../ai-learning/product-page.css?v=20260617-guide-upgrade-1" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502975373459743" crossorigin="anonymous"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -19,7 +21,7 @@
         "author": { "@type": "Organization", "name": "89 AI Learning" },
         "publisher": { "@type": "Organization", "name": "89 Games Hub" },
         "datePublished": "2026-06-15",
-        "dateModified": "2026-06-15",
+        "dateModified": "2026-06-17",
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": "https://89gameshub.com/learning-guides/how-to-stay-focused-while-studying/"
@@ -75,11 +77,12 @@
       }
     </script>
   </head>
-  <body>
+  <body class="product-page" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying">
     <header class="site-header">
       <a class="brand" href="../../index.html"><span>89</span> AI Learning</a>
       <nav aria-label="Guide navigation">
-        <a href="../../focus-test/index.html#quiz">Focus Test</a>
+        <a href="../../ai-learning/focus-style-test/">Focus Test</a>
+        <a href="../../ai-learning/daily-brain-training/">Daily Brain</a>
         <a href="#routine">Routine</a>
         <a href="#faq">FAQ</a>
       </nav>
@@ -96,8 +99,8 @@
             discipline. The goal is to make starting and returning to the task easier.
           </p>
           <div class="button-row">
-            <a class="primary-action" href="../../focus-test/index.html#quiz">Take the 3-minute focus test</a>
-            <a class="secondary-action" href="#routine">Try the routine</a>
+            <a class="primary-action js-track" href="../../ai-learning/focus-style-test/" data-event="hero_cta_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="hero" data-cta-type="focus_style_test">Take the 2-minute focus style test</a>
+            <a class="secondary-action js-track" href="#routine" data-event="starter_lesson_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="hero" data-cta-type="routine">Try the routine</a>
           </div>
         </div>
 
@@ -130,25 +133,28 @@
           <section class="content-card" id="diagnostic">
             <p class="eyebrow">Quick Diagnostic</p>
             <h2>What type of focus problem do you have?</h2>
-            <div class="profile-grid">
-              <article>
-                <strong>Distracted Starter</strong>
-                <p>You delay the first step because the task feels too large or unclear.</p>
-              </article>
-              <article>
-                <strong>Task Switcher</strong>
-                <p>You begin, then jump between tabs, apps, notes, or easier tasks.</p>
-              </article>
-              <article>
-                <strong>Low Stamina Focuser</strong>
-                <p>You can focus briefly, but attention fades before the task is useful.</p>
-              </article>
-              <article>
-                <strong>Overloaded Thinker</strong>
-                <p>You have too much in your head, so working memory gets crowded fast.</p>
-              </article>
+            <p>Choose what usually breaks your focus first.</p>
+            <div class="diagnostic-options" data-diagnostic>
+              <button type="button" data-profile="phone" data-result-title="Phone Distracted" data-result-copy="Start by moving the phone out of reach and writing down distractions instead of opening them.">My phone pulls me away.</button>
+              <button type="button" data-profile="starter" data-result-title="Tired Starter" data-result-copy="Start with a tiny first task and a short timer before trying a long study block.">I delay starting even when I know I should study.</button>
+              <button type="button" data-profile="overwhelmed" data-result-title="Overwhelmed Planner" data-result-copy="Start by choosing one task and one visible first action.">I have too much to do and do not know where to begin.</button>
+              <button type="button" data-profile="bored" data-result-title="Bored Learner" data-result-copy="Start with short challenge blocks and a visible score or recall step.">I get bored quickly.</button>
+              <button type="button" data-profile="tabs" data-result-title="Tab Switcher" data-result-copy="Start with one-tab blocks and a capture note for every unrelated thought.">I keep switching tabs or apps.</button>
+            </div>
+            <div class="result-card" id="diagnosticResult" aria-live="polite">
+              <p class="eyebrow">Recommended path</p>
+              <h3 id="resultTitle">Choose one answer to see your path.</h3>
+              <p id="resultCopy"></p>
+              <div class="button-row">
+                <a class="primary-action js-track" href="../../ai-learning/focus-style-test/" data-event="diagnostic_complete" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="diagnostic_result" data-cta-type="focus_style_test">Try your first focus challenge</a>
+              </div>
             </div>
           </section>
+
+          <aside class="native-ad" aria-label="Sponsored">
+            <p class="native-ad-label">Sponsored</p>
+            <ins class="adsbygoogle" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1172840816" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          </aside>
 
           <section class="content-card" id="routine">
             <p class="eyebrow">10-Minute Routine</p>
@@ -173,23 +179,18 @@
                   <td>Makes success measurable.</td>
                 </tr>
                 <tr>
-                  <td>2-3 min</td>
-                  <td>Write the first action: “open page 12 and solve question 1.”</td>
-                  <td>Turns a vague goal into movement.</td>
-                </tr>
-                <tr>
-                  <td>3-8 min</td>
-                  <td>Do a focused work sprint without switching.</td>
+                  <td>2-8 min</td>
+                  <td>Work for six deep-focus minutes without switching.</td>
                   <td>Builds the habit of staying with one target.</td>
                 </tr>
                 <tr>
                   <td>8-9 min</td>
-                  <td>Mark what changed: one sentence, one problem, one note.</td>
-                  <td>Gives the brain a clear reward signal.</td>
+                  <td>Recall what you just did in one sentence.</td>
+                  <td>Turns attention into memory.</td>
                 </tr>
                 <tr>
                   <td>9-10 min</td>
-                  <td>Set the next tiny step before stopping.</td>
+                  <td>Score yourself and set the next tiny step.</td>
                   <td>Makes the next session easier to start.</td>
                 </tr>
               </tbody>
@@ -277,8 +278,39 @@
               <div class="mini-step"><span>3</span><p>Short recall: remember a few items after a brief delay.</p></div>
             </div>
             <div class="button-row">
-              <a class="primary-action" href="../../focus-test/index.html#quiz">Take the 3-minute focus test</a>
-              <a class="secondary-action" href="../../focus-test/index.html#result">Get your 7-day focus training plan</a>
+              <a class="primary-action js-track" href="../../ai-learning/focus-style-test/" data-event="starter_lesson_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="mini_test" data-cta-type="focus_style_test">Take the 2-minute focus style test</a>
+              <a class="secondary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="early_access_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="mini_test" data-cta-type="daily_brain_focus_path">Get a 7-day focus training plan</a>
+            </div>
+          </section>
+
+          <section class="content-card" id="daily-brain">
+            <p class="eyebrow">Daily Brain</p>
+            <h2>Focus Path: practice staying with one task.</h2>
+            <p>
+              Daily Brain turns focus into short drills: clear one distraction, choose one task,
+              complete a six-minute block, recall what changed, and score the session.
+            </p>
+            <div class="path-grid">
+              <article class="path-card"><span>Day 1</span><strong>Phone distance</strong><p>Move one distraction out of reach.</p></article>
+              <article class="path-card"><span>Day 2</span><strong>First action</strong><p>Write the exact first step.</p></article>
+              <article class="path-card"><span>Day 3</span><strong>Single-task block</strong><p>Stay with one task for six minutes.</p></article>
+              <article class="path-card"><span>Day 4</span><strong>Recall</strong><p>Say what you completed.</p></article>
+              <article class="path-card"><span>Day 5</span><strong>Reset</strong><p>Return after a distraction.</p></article>
+            </div>
+            <div class="button-row">
+              <a class="primary-action js-track" href="../../ai-learning/focus-style-test/" data-event="starter_lesson_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="daily_brain_section" data-cta-type="first_focus_challenge">Try the first focus challenge</a>
+              <a class="secondary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="early_access_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="daily_brain_section" data-cta-type="daily_brain">Join Daily Brain early access</a>
+            </div>
+          </section>
+
+          <section class="content-card" id="practice-paths">
+            <p class="eyebrow">Choose your practice path</p>
+            <h2>Pick the next practice page for your goal.</h2>
+            <div class="path-grid">
+              <article class="path-card"><span>Focus</span><strong>Focus Style Test</strong><p>Find why you get distracted.</p><a class="secondary-action js-track" href="../../ai-learning/focus-style-test/" data-event="related_guide_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="choose_path" data-cta-type="focus_style_test">Take test</a></article>
+              <article class="path-card"><span>Memory and focus</span><strong>Daily Brain</strong><p>Short memory, focus, and logic drills.</p><a class="secondary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="related_guide_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="choose_path" data-cta-type="daily_brain">View path</a></article>
+              <article class="path-card"><span>Speaking</span><strong>Speaking Clarity Test</strong><p>Find your communication style.</p><a class="secondary-action js-track" href="../../ai-learning/speaking-clarity-test/" data-event="related_guide_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="choose_path" data-cta-type="speaking_clarity_test">Take test</a></article>
+              <article class="path-card"><span>AI work</span><strong>AI Skill Gym</strong><p>Practice useful AI work tasks.</p><a class="secondary-action js-track" href="../../ai-learning/ai-skill-gym/" data-event="related_guide_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="choose_path" data-cta-type="ai_skill_gym">Try AI Skill Gym</a></article>
             </div>
           </section>
 
@@ -313,6 +345,8 @@
           <a href="#diagnostic">Attention type</a>
           <a href="#routine">10-minute routine</a>
           <a href="#mini-test">Mini test</a>
+          <a href="#daily-brain">Daily Brain</a>
+          <a href="#practice-paths">Practice paths</a>
           <a href="#faq">FAQ</a>
         </aside>
       </section>
@@ -325,21 +359,28 @@
           then recommends a 7-day routine for your focus pattern.
         </p>
         <div class="button-row">
-          <a class="primary-action" href="../../focus-test/index.html#quiz">Take the 3-minute focus test</a>
-          <a class="secondary-action" href="../../focus-test/index.html#lesson">Preview the 10-minute reset</a>
+          <a class="primary-action js-track" href="../../ai-learning/focus-style-test/" data-event="hero_cta_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="bottom_cta" data-cta-type="focus_style_test">Take the 2-minute focus test</a>
+          <a class="secondary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="starter_lesson_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="bottom_cta" data-cta-type="daily_brain">Preview the 10-minute reset</a>
+          <a class="secondary-action js-track" href="../../ai-learning/focus-style-test/#early-access" data-event="purchase_intent_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="bottom_cta" data-cta-type="reserve_focus_plan">Reserve the focus plan</a>
         </div>
+        <form class="waitlist-form" data-waitlist-form>
+          <input type="email" name="email" placeholder="Email for your focus plan" autocomplete="email" required />
+          <button class="primary-action" type="submit">Send me the plan</button>
+        </form>
+        <p class="waitlist-note" data-waitlist-note>No spam. This saves the recommended path for later testing.</p>
         <p class="disclosure">This guide is educational and does not diagnose attention disorders.</p>
       </section>
 
       <section class="related-links">
         <h2>Related guides</h2>
         <ul>
+          <li><a class="js-track" href="../../ai-learning/focus-style-test/" data-event="related_guide_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="related_links" data-cta-type="focus_style_test">Focus Style Test</a></li>
+          <li><a class="js-track" href="../../ai-learning/daily-brain-training/" data-event="related_guide_click" data-topic="study_focus" data-page-slug="how-to-stay-focused-while-studying" data-cta-position="related_links" data-cta-type="daily_brain">Daily Brain Training</a></li>
           <li><a href="../how-to-speak-more-clearly/index.html">How to speak more clearly</a></li>
           <li><a href="../how-to-improve-memory/index.html">How to improve memory</a></li>
-          <li><a href="../../focus-test/index.html#home">3-minute focus test</a></li>
-          <li><a href="../../arcade-hub/index.html">Explore focus-friendly games</a></li>
         </ul>
       </section>
     </main>
+    <script src="../../ai-learning/product-page.js?v=20260617-guide-upgrade-1"></script>
   </body>
 </html>

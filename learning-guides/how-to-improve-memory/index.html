@@ -10,6 +10,8 @@
     />
     <link rel="canonical" href="https://89gameshub.com/learning-guides/how-to-improve-memory/" />
     <link rel="stylesheet" href="../guide.css?v=20260615-guide-3" />
+    <link rel="stylesheet" href="../../ai-learning/product-page.css?v=20260617-guide-upgrade-1" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5502975373459743" crossorigin="anonymous"></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -19,7 +21,7 @@
         "author": { "@type": "Organization", "name": "89 AI Learning" },
         "publisher": { "@type": "Organization", "name": "89 Games Hub" },
         "datePublished": "2026-06-15",
-        "dateModified": "2026-06-15",
+        "dateModified": "2026-06-17",
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": "https://89gameshub.com/learning-guides/how-to-improve-memory/"
@@ -75,12 +77,13 @@
       }
     </script>
   </head>
-  <body>
+  <body class="product-page" data-topic="memory_training" data-page-slug="how-to-improve-memory">
     <header class="site-header">
       <a class="brand" href="../../index.html"><span>89</span> AI Learning</a>
       <nav aria-label="Guide navigation">
         <a href="#exercises">Exercises</a>
         <a href="#games">Brain Games</a>
+        <a href="../../ai-learning/daily-brain-training/">Daily Brain</a>
         <a href="#faq">FAQ</a>
       </nav>
     </header>
@@ -96,8 +99,8 @@
             rereading it. Use these exercises as small daily habits.
           </p>
           <div class="button-row">
-            <a class="primary-action" href="#mini-test">Try the brain age mini test</a>
-            <a class="secondary-action" href="../../arcade-hub/index.html">Play brain games</a>
+            <a class="primary-action js-track" href="#memory-check" data-event="hero_cta_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="hero" data-cta-type="memory_check">Take the 3-minute memory check</a>
+            <a class="secondary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="hero_cta_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="hero" data-cta-type="daily_brain">Try Daily Brain</a>
           </div>
         </div>
 
@@ -127,17 +130,41 @@
             </p>
           </section>
 
-          <section class="content-card">
+          <section class="content-card" id="memory-check">
             <p class="eyebrow">Quick Self-Check</p>
             <h2>What kind of memory problem are you trying to solve?</h2>
-            <div class="check-grid">
-              <div>Forgetting names or details</div>
-              <div>Forgetting what you read</div>
-              <div>Losing focus before information sticks</div>
-              <div>Trouble recalling under pressure</div>
-              <div>Wanting fun brain training</div>
-              <div>Remembering facts for a test</div>
+            <p>Choose what you forget most often.</p>
+            <div class="diagnostic-options" data-diagnostic>
+              <button type="button" data-profile="reading" data-result-title="Reading Recall Path" data-result-copy="Start with read-cover-recall so you practice remembering the main idea before rereading.">What I read</button>
+              <button type="button" data-profile="names" data-result-title="Names and Words Path" data-result-copy="Start with association and repeat-back drills so new words have a stronger hook.">Names and words</button>
+              <button type="button" data-profile="study" data-result-title="Study Notes Path" data-result-copy="Start with self-quizzing and spaced review so notes become retrievable.">Study notes</button>
+              <button type="button" data-profile="tasks" data-result-title="Daily Tasks Path" data-result-copy="Start with small task grouping and one review cue at the end of the day.">Daily tasks</button>
+              <button type="button" data-profile="instructions" data-result-title="Instruction Recall Path" data-result-copy="Start by repeating instructions in your own words before acting.">Instructions</button>
+              <button type="button" data-profile="vocabulary" data-result-title="Vocabulary Path" data-result-copy="Start with 3-word stories and spaced recall for new vocabulary.">New vocabulary</button>
             </div>
+            <div class="result-card" id="diagnosticResult" aria-live="polite">
+              <p class="eyebrow">Recommended path</p>
+              <h3 id="resultTitle">Choose one answer to see your path.</h3>
+              <p id="resultCopy"></p>
+              <div class="button-row">
+                <a class="primary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="diagnostic_complete" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="diagnostic_result" data-cta-type="daily_brain_memory_path">Try the first memory game</a>
+              </div>
+            </div>
+          </section>
+
+          <aside class="native-ad" aria-label="Sponsored">
+            <p class="native-ad-label">Sponsored</p>
+            <ins class="adsbygoogle" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1172840816" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          </aside>
+
+          <section class="content-card">
+            <p class="eyebrow">Memory Types</p>
+            <h2>Memory is not one skill.</h2>
+            <p>
+              Working memory helps you hold information for a few seconds. Recall helps you bring it
+              back later. Attention helps information enter in the first place. Repetition gives the
+              brain more chances to retrieve it. A useful plan trains the part that breaks first.
+            </p>
           </section>
 
           <section class="content-card" id="exercises">
@@ -254,8 +281,39 @@
               <div class="mini-step"><span>3</span><p>React to a target while ignoring distractions.</p></div>
             </div>
             <div class="button-row">
-              <a class="primary-action" href="../../arcade-hub/index.html">Try brain games</a>
-              <a class="secondary-action" href="../how-to-stay-focused-while-studying/index.html">Improve focus first</a>
+              <a class="primary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="starter_lesson_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="mini_test" data-cta-type="daily_brain_first_game">Try the first memory game</a>
+              <a class="secondary-action js-track" href="../../ai-learning/focus-style-test/" data-event="related_guide_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="mini_test" data-cta-type="focus_style_test">Improve focus first</a>
+            </div>
+          </section>
+
+          <section class="content-card" id="daily-brain">
+            <p class="eyebrow">Daily Brain</p>
+            <h2>Memory Path: short recall drills with progress feedback.</h2>
+            <p>
+              Daily Brain starts with small memory games, recall prompts, and focus checks.
+              The goal is to make recall active: see it, cover it, remember it, then review.
+            </p>
+            <div class="path-grid">
+              <article class="path-card"><span>Day 1</span><strong>Recall before rereading</strong><p>Read, cover, and explain the main idea.</p></article>
+              <article class="path-card"><span>Day 2</span><strong>3-word story</strong><p>Link three words into one memorable scene.</p></article>
+              <article class="path-card"><span>Day 3</span><strong>Picture memory</strong><p>Look once, hide, and recall details.</p></article>
+              <article class="path-card"><span>Day 4</span><strong>Spaced review</strong><p>Review once later instead of repeating immediately.</p></article>
+              <article class="path-card"><span>Day 5</span><strong>Teach-back</strong><p>Explain a concept in your own words.</p></article>
+            </div>
+            <div class="button-row">
+              <a class="primary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="starter_lesson_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="daily_brain_section" data-cta-type="try_memory_game">Try the first memory game</a>
+              <a class="secondary-action js-track" href="../../ai-learning/daily-brain-training/#early-access" data-event="early_access_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="daily_brain_section" data-cta-type="join_daily_brain">Join Daily Brain early access</a>
+            </div>
+          </section>
+
+          <section class="content-card" id="practice-paths">
+            <p class="eyebrow">Choose your practice path</p>
+            <h2>Pick the next practice page for your goal.</h2>
+            <div class="path-grid">
+              <article class="path-card"><span>Memory and focus</span><strong>Daily Brain</strong><p>Memory, focus, and logic drills in a short routine.</p><a class="secondary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="related_guide_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="choose_path" data-cta-type="daily_brain">View path</a></article>
+              <article class="path-card"><span>Focus</span><strong>Focus Style Test</strong><p>Find the attention pattern behind distraction.</p><a class="secondary-action js-track" href="../../ai-learning/focus-style-test/" data-event="related_guide_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="choose_path" data-cta-type="focus_style_test">Take test</a></article>
+              <article class="path-card"><span>Speaking</span><strong>Speaking Clarity Test</strong><p>Find your communication style.</p><a class="secondary-action js-track" href="../../ai-learning/speaking-clarity-test/" data-event="related_guide_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="choose_path" data-cta-type="speaking_clarity_test">Take test</a></article>
+              <article class="path-card"><span>AI work</span><strong>AI Skill Gym</strong><p>Practice prompts, summaries, emails, and work tasks.</p><a class="secondary-action js-track" href="../../ai-learning/ai-skill-gym/" data-event="related_guide_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="choose_path" data-cta-type="ai_skill_gym">Try AI Skill Gym</a></article>
             </div>
           </section>
 
@@ -298,8 +356,10 @@
         <aside class="toc-card">
           <strong>On this page</strong>
           <a href="#exercises">Memory exercises</a>
+          <a href="#memory-check">Memory check</a>
           <a href="#games">Brain games</a>
           <a href="#mini-test">Mini test</a>
+          <a href="#daily-brain">Daily Brain</a>
           <a href="#faq">FAQ</a>
         </aside>
       </section>
@@ -312,21 +372,28 @@
           playful, then turn the result into one daily practice habit.
         </p>
         <div class="button-row">
-          <a class="primary-action" href="../../arcade-hub/index.html">Try brain games</a>
-          <a class="secondary-action" href="../how-to-stay-focused-while-studying/index.html">Build focus first</a>
+          <a class="primary-action js-track" href="../../ai-learning/daily-brain-training/" data-event="starter_lesson_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="bottom_cta" data-cta-type="daily_brain">Try Daily Brain</a>
+          <a class="secondary-action js-track" href="../../ai-learning/focus-style-test/" data-event="related_guide_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="bottom_cta" data-cta-type="focus_style_test">Build focus first</a>
+          <a class="secondary-action js-track" href="../../ai-learning/daily-brain-training/#early-access" data-event="purchase_intent_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="bottom_cta" data-cta-type="reserve_daily_brain">Reserve Daily Brain</a>
         </div>
+        <form class="waitlist-form" data-waitlist-form>
+          <input type="email" name="email" placeholder="Email for your brain training path" autocomplete="email" required />
+          <button class="primary-action" type="submit">Send me the path</button>
+        </form>
+        <p class="waitlist-note" data-waitlist-note>No spam. This saves the recommended path for later testing.</p>
         <p class="disclosure">This page is educational and does not claim to prevent or treat memory-related medical conditions.</p>
       </section>
 
       <section class="related-links">
         <h2>Related guides</h2>
         <ul>
+          <li><a class="js-track" href="../../ai-learning/daily-brain-training/" data-event="related_guide_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="related_links" data-cta-type="daily_brain">Daily Brain Training</a></li>
+          <li><a class="js-track" href="../../ai-learning/focus-style-test/" data-event="related_guide_click" data-topic="memory_training" data-page-slug="how-to-improve-memory" data-cta-position="related_links" data-cta-type="focus_style_test">Focus Style Test</a></li>
           <li><a href="../how-to-stay-focused-while-studying/index.html">How to stay focused while studying</a></li>
           <li><a href="../how-to-speak-more-clearly/index.html">How to speak more clearly</a></li>
-          <li><a href="../../focus-test/index.html#home">3-minute focus test</a></li>
-          <li><a href="../../arcade-hub/index.html">Play puzzle and memory games</a></li>
         </ul>
       </section>
     </main>
+    <script src="../../ai-learning/product-page.js?v=20260617-guide-upgrade-1"></script>
   </body>
 </html>
