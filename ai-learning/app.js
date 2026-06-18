@@ -1588,26 +1588,30 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
   if (!task) return;
   const nextTask = persona.courseTasks?.[activeLessonTaskIndex + 1] || persona.courseTasks?.[0];
   const summary = getStageSummary();
+  const currentDay = activeLessonTaskIndex + 1;
   renderTrialEvidenceCards(task);
   if (!trialState.completed) {
-    fields.reportHeroTitle.textContent = "Your child's first speaking plan is ready.";
+    fields.reportHeroTitle.textContent = `Day ${currentDay} speaking trial is ready.`;
     fields.reportStatus.textContent = trialState.firstSubmitted
       ? `${summary.score}. Baseline answer saved. Coached retry not completed yet.`
       : `${summary.score}. Based on parent answers only.`;
+    fields.reportQuizSignal.textContent = trialState.firstSubmitted
+      ? `Baseline captured for Day ${currentDay}: ${task.taskType}. The retry should use ${task.method}.`
+      : `Selected lesson: Day ${currentDay} ${task.taskType}. This trial checks whether the child can use ${task.method} in a real speaking scene.`;
     fields.scoreText.textContent = trialState.firstSubmitted ? "Baseline" : "Pre-trial";
     fields.progressText.textContent = trialState.firstSubmitted
       ? "One real answer is saved. The next step is to see whether the child can improve after one coach example."
       : `Recommended trial: "${task.taskTitle}"`;
     fields.reportEvidence.textContent = trialState.firstSubmitted
       ? `Teacher note: the first answer gives us a baseline. Ask the child to retry with ${task.method}; then the report can show the before/after change.`
-      : `What we can infer: ${summary.comment}`;
+      : `What we can infer: this selected trial will test ${task.checkFocus}. No child response has been submitted yet, so the report will not score the child until one first try and one coached retry are completed.`;
     fields.nextText.textContent = trialState.firstSubmitted
       ? "Return to the trial lesson and complete the improved answer."
-      : "Start the trial lesson to test this gap with one real response.";
-    fields.reportIntro.textContent = "This is a parent-facing pre-trial summary. The next step is choosing the 7-day plan before unlocking the first guided lesson.";
+      : `Start Day ${currentDay} to test ${task.method} with one real spoken response.`;
+    fields.reportIntro.textContent = "This is a parent-facing pre-trial summary for the selected lesson. A real report appears after the child completes one first answer and one coached retry.";
     fields.reportUnlock.textContent = "Paid plan recommended";
-    fields.reportUnlockCopy.textContent = "Unlock the first coached trial, daily practice scenes, and parent reports with the 7-day plan.";
-    fields.tomorrowTitle.textContent = "First trial";
+    fields.reportUnlockCopy.textContent = "Unlock coached trials, daily practice scenes, and parent reports with the 7-day plan.";
+    fields.tomorrowTitle.textContent = `Day ${currentDay}: ${task.taskType}`;
     fields.tomorrowCopy.textContent = task.taskTitle;
     fields.reportCta.textContent = "Get My Plan";
     fields.reportCta.dataset.go = "plan";
@@ -1615,6 +1619,7 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
   }
   fields.reportHeroTitle.textContent = "Trial result: one small speaking habit can be trained.";
   fields.reportStatus.textContent = `${summary.score}. Questionnaire signal plus one completed trial.`;
+  fields.reportQuizSignal.textContent = `Completed trial: Day ${currentDay} ${task.taskType}. The report is based on the child's first answer, coached retry, and the ${task.method} frame.`;
   fields.scoreText.textContent = trialState.passed ? "Ready" : "Practice";
   fields.progressText.textContent = "This report uses the child's first answer and improved answer from this session only.";
   fields.reportEvidence.textContent = `Teacher note: ${describeAnswerGrowth(task)}`;
@@ -1622,7 +1627,7 @@ function updateReportForTask(persona, task = persona.courseTasks?.[activeLessonT
     ? `Next lesson trains ${nextTask.taskType}: ${nextTask.taskTitle}`
     : `Next lesson repeats ${task.taskType} with a harder scene.`;
   fields.reportIntro.textContent = "This is the proof point for the parent: the child did not just watch a lesson, they produced an answer, received a frame, and tried again.";
-  fields.reportUnlock.textContent = trialState.passed ? "7-Day Plan Recommended" : "Repeat Day 1 Recommended";
+  fields.reportUnlock.textContent = trialState.passed ? "7-Day Plan Recommended" : `Repeat Day ${currentDay} Recommended`;
   fields.reportUnlockCopy.textContent = trialState.passed
     ? `${task.unlockCopy} The next paid step should unlock daily coached scenes, AI feedback, and parent summaries.`
     : "The child needs another guided attempt before a harder lesson. The paid plan should repeat this skill with easier examples first.";
