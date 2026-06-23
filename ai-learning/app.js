@@ -561,6 +561,11 @@ const courseTemplates = {
     sceneCopy: "After watching, the child practices asking to join with a specific helpful role.",
     weakAnswer: "“Can I play?”",
     weakAnswerNote: "It is polite, but too vague. The group still has to figure out how to include him.",
+    media: {
+      teacherVideo: "ad-assets/generated-course/day3-join-game-teacher-female-seedance.mp4",
+      modelAudio: "ad-assets/generated-course/day3-model-line.wav",
+      sceneVideo: "ad-assets/generated-course/day3-join-game-scene-clean.mp4"
+    },
     material: "Kai sees three classmates building a tower challenge during recess. They are already laughing and taking turns. Kai wants to join, but he does not want to push in or stand there silently.",
     method: "Ask + Offer a role + Respect the answer",
     example: "Can I join the next round? I can help keep score, and if this round is full, I can wait for the next one.",
@@ -572,26 +577,36 @@ const courseTemplates = {
     rubric: ["Asks to join politely.", "Offers one clear role or contribution.", "Sounds friendly instead of demanding."]
   },
   character: {
-    taskType: "Character Clarity",
-    taskTitle: "Name who the story is about before adding details.",
-    taskBody: "The AI asks the child to identify the main character, then checks whether every sentence still connects to that character.",
-    unlockTitle: "Character Clarity Lv.1",
-    unlockCopy: "Start every retell with a clear who.",
-    passLabel: "Name the character and keep the answer on topic",
-    aiPrompt: "Today's task is simple: tell me who the story is about, what that character wants, and one thing they did.",
-    trialPrompt: "Write one answer that names Mia and says what she did.",
-    sceneQuestion: "Who is the main character in this scene?",
-    dubbingLine: "I am Mia. I found the map, and I...",
-    checkFocus: "who the story is about",
-    material: "Mia found a tiny map under her desk. She followed it to the school garden and discovered a lost class photo.",
-    method: "Who + Want + Did",
-    example: "Mia is the main character. She wanted to solve the map mystery, so she followed it to the garden.",
+    taskType: "Final Speaking Challenge",
+    taskTitle: "Tell a complete story answer with who, goal, action, and why.",
+    taskBody: "The final check asks the child to combine the week's skills: name the character, explain what they want, say what they did, and add one reason. This is the proof that the child can move beyond one-word answers.",
+    unlockTitle: "Final Challenge Lv.1",
+    unlockCopy: "Use one complete response that includes who, goal, action, and why.",
+    passLabel: "Use who, goal, action, and why to pass",
+    aiPrompt: "Watch the short story. Then answer in four parts: who is it about, what did they want, what did they do, and why did it matter?",
+    trialPrompt: "Tell the full story answer: who is the character, what did she want, what did she do, and why did it matter?",
+    sceneQuestion: "Can you explain the whole story clearly in one answer?",
+    dubbingLine: "Mia wanted to help because...",
+    checkFocus: "combining character, goal, action, and reason in one clear answer",
+    teacherIntro: "Today is the final challenge. Tell the whole answer with four parts: who, goal, action, and why it mattered. Now try the new student story.",
+    sceneTitle: "Mia notices a new student sitting alone during project time.",
+    sceneCopy: "After watching, the child explains who the story is about, what Mia wanted, what she did, and why it mattered.",
+    weakAnswer: "“Mia helped a girl and they made a poster.”",
+    weakAnswerNote: "It names the action, but it does not explain Mia's goal or why the moment mattered.",
+    media: {
+      teacherVideo: "ad-assets/generated-course/day7-final-challenge-teacher.mp4",
+      modelAudio: "ad-assets/generated-course/day7-model-line.mp3",
+      sceneVideo: "ad-assets/generated-course/day7-new-student-scene-clean.mp4"
+    },
+    material: "Mia notices that a new student is sitting alone during project time. She wants the student to feel included, so she invites her to join the group and gives her a simple job. By the end, the group finishes the poster together.",
+    method: "Who + Goal + Action + Why",
+    example: "Mia is the main character. She wanted the new student to feel included, so she invited her to join the group and gave her a simple job. This mattered because the group worked together instead of leaving someone out.",
     choices: [
-      ["Mia wanted to ", "Mia wanted to "],
-      ["The main character is ", "The main character is Mia. She "],
-      ["Mia did this: ", "Mia did this: "]
+      ["Who", "Mia is the main character. She "],
+      ["Goal", "Mia wanted the new student to feel included, so "],
+      ["Full answer", "Mia is the main character. She wanted ___, so ___. This mattered because ___."]
     ],
-    rubric: ["Names the main character first.", "Keeps every sentence connected to that character.", "Does not jump into random details."]
+    rubric: ["Names the character.", "Explains the goal.", "Connects the action to one reason."]
   },
   goal: {
     taskType: "Goal Clarity",
@@ -691,6 +706,16 @@ const courseTemplates = {
     sceneQuestion: "How can you answer even if you are not 100% sure?",
     dubbingLine: "I think she asked for help because...",
     checkFocus: "opening with a safe complete answer",
+    teacherIntro: "When you are not fully sure, do not freeze. Start with I think, add because, and point to one clue. Now try the classroom question.",
+    sceneTitle: "Ava asks Sam for help with a science poster before the bell.",
+    sceneCopy: "After watching, the child gives a safe classroom answer using one reason and one clue.",
+    weakAnswer: "“Because she needed help.”",
+    weakAnswerNote: "It is true, but too short. The listener still does not know what clue proves the answer.",
+    media: {
+      teacherVideo: "ad-assets/generated-course/day5-classroom-answer-teacher-female-seedance.mp4",
+      modelAudio: "ad-assets/generated-course/day5-model-line.mp3",
+      sceneVideo: "ad-assets/generated-course/day5-classroom-answer-scene-clean.mp4"
+    },
     material: "In the story, Ava could not finish the science poster alone. She asked Sam for help, and they finished it before the bell. The teacher asks: why did Ava ask for help?",
     method: "I think + Because + One clue",
     example: "I think Ava asked for help because the poster was too hard to finish alone. One clue is that she finished faster after Sam joined her.",
@@ -703,25 +728,36 @@ const courseTemplates = {
   },
   organize: {
     taskType: "Idea Structure",
-    taskTitle: "Organize one classroom answer before speaking.",
-    taskBody: "The AI gives the child a tiny structure: point, reason, example. This is the bridge from short answers to confident classroom speaking.",
+    taskTitle: "Turn scattered thoughts into one answer people can follow.",
+    taskBody: "The child may already have ideas, but the value is learning how to sort them before speaking. This lesson trains a repeatable answer shape for classroom discussion, interviews, and everyday explanation.",
     unlockTitle: "Idea Structure Lv.1",
-    unlockCopy: "Use point, reason, example to make an answer easier to understand.",
-    passLabel: "Use point, reason, and example to pass",
-    aiPrompt: "Answer with this structure: my point is..., my reason is..., for example...",
-    trialPrompt: "Choose garden or reading project, then answer with point, reason, and example.",
-    sceneQuestion: "Which project should the class choose?",
-    dubbingLine: "My point is that we should choose...",
-    checkFocus: "organizing ideas before speaking",
-    material: "Question: Should the class choose a garden project or a reading project this month?",
-    method: "Point + Reason + Example",
-    example: "My point is that we should choose the garden project. My reason is that everyone can help. For example, some students can water plants and others can make labels.",
+    unlockCopy: "Use main point, two supports, and a closing sentence to make an answer sound prepared.",
+    passLabel: "Use main point, support, and closing to pass",
+    aiPrompt: "Answer like a mini speech: my main point is..., one reason is..., another reason is..., so I think...",
+    trialPrompt: "The class can spend Friday afternoon on a science fair booth or a class podcast. Choose one and give a structured answer.",
+    sceneQuestion: "Which project should the class choose for Friday afternoon?",
+    dubbingLine: "My main point is that we should choose...",
+    checkFocus: "turning scattered thoughts into an organized answer",
+    teacherIntro: "Today we turn scattered ideas into a short prepared answer. Use one main point, two supports, and a closing sentence. Now try the class project choice.",
+    sceneTitle: "The class must choose one Friday project: a science booth or a podcast.",
+    sceneCopy: "After watching, the child makes a structured recommendation with two supports and a closing sentence.",
+    weakAnswer: "“I choose the podcast because it is fun.”",
+    weakAnswerNote: "It gives a choice and one feeling, but it does not sound prepared or convincing yet.",
+    media: {
+      teacherVideo: "ad-assets/generated-course/day6-ai-tutor-combined.mp4",
+      modelAudio: "ad-assets/generated-course/day6-model-line.mp3",
+      sceneVideo: "ad-assets/generated-course/day6-ai-tutor-part-b-scene-with-teacher-pip.mp4",
+      singleTutorVideo: true
+    },
+    material: "The class has one Friday afternoon for a special project. One option is a science fair booth where students build a small experiment. The other option is a class podcast where students record short interviews. The teacher asks each student to make a clear recommendation.",
+    method: "Main Point + Two Supports + Close",
+    example: "My main point is that we should choose the class podcast. One reason is that everyone can have a speaking role. Another reason is that we can share it with our families. So I think the podcast helps the whole class practice communication.",
     choices: [
-      ["My point", "My point is "],
-      ["My reason", "My point is that we should choose the garden project. My reason is "],
-      ["For example", "My point is that we should choose the garden project. My reason is everyone can help. For example, "]
+      ["Main point", "My main point is that we should choose "],
+      ["Support", "One reason is ___. Another reason is ___."],
+      ["Close", "So I think this project helps us ___."]
     ],
-    rubric: ["States one clear point.", "Gives one reason.", "Adds one concrete example."]
+    rubric: ["States one main point.", "Adds two supporting ideas.", "Ends with a clear closing sentence."]
   },
   social: {
     taskType: "Social Expression",
@@ -740,6 +776,11 @@ const courseTemplates = {
     sceneCopy: "After watching, the child practices disagreeing without sounding rude.",
     weakAnswer: "“Stop talking. I was saying it first.”",
     weakAnswerNote: "It shows frustration, but it can make the conflict bigger.",
+    media: {
+      teacherVideo: "ad-assets/generated-course/day4-disagree-teacher-female-seedance.mp4",
+      modelAudio: "ad-assets/generated-course/day4-model-line-20260623.mp3",
+      sceneVideo: "ad-assets/generated-course/day4-disagree-scene-clean.mp4"
+    },
     material: "During a group poster project, Jordan starts talking over Mia before she finishes her idea. Mia wants to keep the group friendly, but she also wants one minute to finish.",
     method: "I feel + When + I need",
     example: "I feel interrupted when I am still explaining, and I need one minute to finish my idea.",
@@ -754,12 +795,12 @@ const courseTemplates = {
 
 const answerSignals = {
   join: ["join", "next round", "can i", "help", "score", "rules", "play", "friendly"],
-  character: ["who", "character", "girl", "boy", "bunny", "rabbit", "child", "she", "he"],
+  character: ["mia", "main character", "wanted", "included", "join", "group", "because", "mattered"],
   goal: ["want", "wanted", "goal", "try", "tried", "hope", "needed"],
   reason: ["because", "choose", "choice", "example", "reading", "game", "focus", "reason"],
   sequence: ["first", "then", "finally", "next", "last", "after"],
   confidence: ["i think", "because", "clue", "help", "ava", "friend", "poster"],
-  organize: ["point", "reason", "example", "because", "for example"],
+  organize: ["main point", "one reason", "another reason", "so i think", "podcast", "science"],
   social: ["i feel", "i need", "please", "when you"]
 };
 
@@ -826,7 +867,10 @@ function buildCoachingHint(task, result) {
     return "Good first try. Now upgrade it into a complete answer: I choose ___ because ___. For example, ___. A strong answer does not just say what you like. It gives another person a reason to agree.";
   }
   if (task.key === "organize") {
-    return "Good first try. Now make it easier to follow: My point is ___. My reason is ___. For example, ___.";
+    return "Good first try. Now make it sound prepared, not scattered: My main point is ___. One reason is ___. Another reason is ___. So I think ___.";
+  }
+  if (task.key === "character") {
+    return "Good first try. Now make it a final challenge answer: who is it about, what did they want, what did they do, and why did it matter?";
   }
   if (task.key === "confidence") {
     return "Good first try. Now make it safer and clearer: I think ___ because ___. One clue is ___. This helps a child speak even when they are not 100% sure.";
@@ -912,6 +956,8 @@ function updateLessonMedia(task) {
 
 function updateLessonScene(task) {
   if (!task) return;
+  const sceneCard = fields.sceneVideo?.closest(".scene-video-card");
+  if (sceneCard) sceneCard.style.display = task?.media?.singleTutorVideo ? "none" : "";
   if (fields.sceneCopyTitle) fields.sceneCopyTitle.textContent = task.sceneTitle || task.sceneQuestion || "Watch the scene.";
   if (fields.sceneCopyBody) fields.sceneCopyBody.textContent = task.sceneCopy || "After watching, answer one question out loud.";
   if (fields.weakAnswerText) fields.weakAnswerText.textContent = task.weakAnswer || "“I am not sure.”";
@@ -1078,7 +1124,17 @@ function updateAnalysisMeter(score) {
     : trialState.firstSubmitted
       ? [68, 54, 18, 62]
       : [12, 0, 0, 10];
-  const labels = ["Clear choice", "Because", "Example", "Completeness"];
+  const task = currentLessonTask();
+  const labelMap = {
+    reason: ["Clear choice", "Because", "Example", "Completeness"],
+    sequence: ["First", "Then", "Finally", "Order"],
+    join: ["Ask", "Helpful role", "Friendly tone", "Specificity"],
+    social: ["I feel", "When", "I need", "Calm tone"],
+    confidence: ["Safe start", "Because", "Story clue", "Completeness"],
+    organize: ["Main point", "Support 1", "Support 2", "Closing"],
+    character: ["Who", "Goal", "Action", "Why it matters"]
+  };
+  const labels = labelMap[task?.key] || ["Clarity", "Structure", "Detail", "Completeness"];
   fields.analysisMeter.innerHTML = labels
     .map((label, index) => `<div><span>${label}</span><i style="--meter: ${values[index]}%"></i></div>`)
     .join("");
@@ -1090,12 +1146,12 @@ function demoSpokenAnswer(task, phase) {
   if (phase === "second") return task.example;
   const samples = {
     join: "Can I play with you?",
-    character: "Mia found a map and went to the garden.",
+    character: "Mia helped the new student join the group.",
     goal: "Noah wanted to tell the teacher.",
     reason: "I choose the reading corner because it is good.",
     sequence: "First the boat floated away, then she found it.",
     confidence: "I think she asked for help because the work was hard.",
-    organize: "I choose the garden because we can learn outside.",
+    organize: "I choose the podcast because it is fun.",
     social: "I feel upset and I need my turn."
   };
   return samples[task.key] || task.example;
