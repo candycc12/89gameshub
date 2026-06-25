@@ -73,7 +73,9 @@
       h2 { margin: 0 0 12px; font-size: clamp(25px, 3vw, 34px); line-height: 1.18; }
       h3 { margin: 22px 0 8px; font-size: 21px; }
       p { margin: 0 0 14px; }
-      .note { color: var(--muted); font-size: 13px; }
+      .meta-note, .note { color: var(--muted); font-size: 13px; }
+      .source-list { display: grid; gap: 10px; margin-top: 14px; }
+      .source-list a { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 12px 14px; color: var(--ink); }
       .check-grid, .fix-grid, .related-grid, .cta-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
       .check, .fix-card, .related-card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 15px; }
       .check strong, .fix-card strong { display: block; margin-bottom: 5px; }
@@ -198,6 +200,7 @@
           <h1>Is Telegram Safe to Download? Official Sources, Privacy, and Setup Tips</h1>
           <p class="lede">Telegram can be safe to download when you use official sources and review privacy settings after installation.</p>
           <div class="short-answer"><strong>Short answer</strong><p>Download Telegram from the official app stores or telegram.org/apps. Avoid fake APK sites, cloned apps, and download pages that ask for your login code. After installing, review privacy settings, two-step verification, active sessions, profile visibility, and who can add you to groups. Telegram privacy depends partly on how you configure your account and how carefully you handle unknown messages.</p></div>
+          <p class="meta-note">Last updated: June 2026. Reviewed for official links and safety guidance.</p>
         </div>
         <aside class="tool-card" aria-label="Telegram issue finder">
           <header><strong>Quick Issue Finder</strong><p>Pick the closest situation and get a safer next step.</p></header>
@@ -216,9 +219,9 @@
           <h2>Quick Checklist Before You Continue</h2>
           <p>Use this checklist before changing account settings, reinstalling an app, sending money, or trusting a support link.</p>
           <div class="check-grid">
-            <div class="check"><strong>Use official stores</strong>Start from the app store, official site, or official help page.</div><div class="check"><strong>Avoid fake APKs</strong>Avoid modified apps, mirror sites, and risky installers.</div><div class="check"><strong>Enable two-step verification</strong>Check this before changing settings, retrying, or trusting a link.</div>
+            <div class="check"><strong>Use official stores</strong>Start with Google Play, the App Store, or Telegram's own app page.</div><div class="check"><strong>Avoid fake APKs</strong>Modified installers and mirror sites add the biggest download risk here.</div><div class="check"><strong>Enable two-step verification</strong>Turn this on after install so an SMS code alone cannot open the account.</div>
             <aside class="ad-slot adsense-slot" aria-label="Advertisement" data-ad-slot-name="guide_in_article_display_checklist" data-ad-network="adsense" data-ad-format="auto" data-revenue-status="active"><!-- guide_in_article_display --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1597621884" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>
-            <div class="check"><strong>Review active sessions</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Limit who can add you</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Watch for scams</strong>Check this before changing settings, retrying, or trusting a link.</div>
+            <div class="check"><strong>Review active sessions</strong>Remove any device you do not recognize right after the first login.</div><div class="check"><strong>Limit who can add you</strong>Privacy settings can reduce spam groups, calls, and contact scraping.</div><div class="check"><strong>Watch for scams</strong>Be skeptical of crypto pitches, fake jobs, and support messages in chat.</div>
           </div>
         </section>
         <section id="official">
@@ -229,7 +232,7 @@
             <p>Open the official app store, official site, or official help center directly. Do not trust random download mirrors, support phone numbers, or messages asking for verification codes.</p>
             <div class="official-logo-card" aria-label="Official Telegram app icon"><img src="../assets/telegram-official-app-icon.jpg" alt="Telegram official app icon" loading="lazy" /></div>
             <div class="official-actions">
-              <a id="officialDownloadLink" class="button featured" href="https://apps.apple.com/us/app/telegram-messenger/id686449807" data-android-url="https://play.google.com/store/apps/details?id=org.telegram.messenger" data-ios-url="itms-apps://itunes.apple.com/app/id686449807" data-desktop-url="https://apps.apple.com/us/app/telegram-messenger/id686449807" data-event="funnel_step_click" data-event-label="telegram_safe_download_download" data-funnel-step="official_app_download" data-click-target="official_app_download" data-store-target="app_store" rel="noopener">Official APP Download</a>
+              <a id="officialDownloadLink" class="button featured" href="https://apps.apple.com/us/app/telegram-messenger/id686449807" data-android-url="https://play.google.com/store/apps/details?id=org.telegram.messenger" data-ios-url="itms-apps://itunes.apple.com/app/id686449807" data-desktop-url="https://apps.apple.com/us/app/telegram-messenger/id686449807" data-event="funnel_step_click" data-event-label="telegram_safe_download_download" data-funnel-step="official_app_download" data-click-target="official_app_download" data-store-target="app_store" rel="noopener">Open official app listing</a>
               <a class="button secondary" href="https://telegram.org/support" data-event="content_click" data-event-label="official_help" data-content-type="official_link" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a>
               <a class="button secondary" href="https://telegram.org/faq" data-event="content_click" data-event-label="official_extra" data-content-type="official_link" data-click-target="official_extra" data-preserve-params="true" rel="noopener">Open Telegram FAQ</a>
             </div>
@@ -247,12 +250,22 @@
         <section id="alternatives">
           <h2>Alternatives or Next Steps</h2>
           <p>If the main app path does not work, use a safer fallback instead of trusting unknown links.</p>
-          <div class="fix-grid"><div class="fix-card"><strong>WhatsApp</strong>Use this only when it is appropriate for your situation.</div><div class="fix-card"><strong>Signal</strong>Use this only when it is appropriate for your situation.</div><div class="fix-card"><strong>SMS</strong>Use a direct communication channel for urgent needs.</div><div class="fix-card"><strong>Email</strong>Use this only when it is appropriate for your situation.</div></div>
+          <div class="fix-grid"><div class="fix-card"><strong>WhatsApp</strong>Good fallback when most of your contacts already use it and you want a simpler setup.</div><div class="fix-card"><strong>Signal</strong>Worth comparing if privacy is a bigger priority than large public groups.</div><div class="fix-card"><strong>SMS</strong>Still useful for urgent one-to-one contact when app setup is blocked.</div><div class="fix-card"><strong>Email</strong>Better for account recovery or sharing files when chat access is uncertain.</div></div>
         </section>
         <section id="cta">
           <h2>Before You Act</h2>
-          <div class="cta-box"><p>Compare the problem against the checklist, then use the official help or app store link if you still need account, download, verification, or payment support.</p><div class="cta-grid"><a class="button" href="https://telegram.org/support" data-event="funnel_step_click" data-event-label="official_help_cta" data-funnel-step="official_help" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a><a class="button secondary" href="#checklist" data-event="content_click" data-event-label="review_checklist" data-content-type="internal_anchor" data-click-target="review_checklist">Review the checklist again</a></div></div>
+          <div class="cta-box"><p>Use the checklist first. If the issue is still unresolved, open the official help page or official app listing from this section.</p><div class="cta-grid"><a class="button" href="https://telegram.org/support" data-event="funnel_step_click" data-event-label="official_help_cta" data-funnel-step="official_help" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a><a class="button secondary" href="#checklist" data-event="content_click" data-event-label="review_checklist" data-content-type="internal_anchor" data-click-target="review_checklist">Review the checklist again</a></div></div>
         </section>
+        <section id="sources">
+          <h2>Sources checked</h2>
+          <div class="source-list">
+            <a href="https://telegram.org/support" rel="noopener">Official Telegram support</a>
+            <a href="https://apps.apple.com/us/app/telegram-messenger/id686449807" rel="noopener">Official Telegram app listing</a>
+            <a href="https://telegram.org/faq" rel="noopener">Official Telegram FAQ</a>
+          </div>
+        </section>
+
+
         <section id="related">
           <h2>Related Guides</h2>
           <div class="related-grid"><a class="related-card" href="/guides/apps/telegram-not-sending-code/" data-event="content_click" data-event-label="telegram_not_sending_code" data-content-type="related_guide" data-click-target="related_guide">Telegram Not Sending Code</a><a class="related-card" href="/guides/apps/whatsapp-official-download/" data-event="content_click" data-event-label="whatsapp_official_download" data-content-type="related_guide" data-click-target="related_guide">Whatsapp Official Download</a><a class="related-card" href="/guides/apps/whatsapp-not-working/" data-event="content_click" data-event-label="whatsapp_not_working" data-content-type="related_guide" data-click-target="related_guide">Whatsapp Not Working</a></div>
@@ -268,7 +281,7 @@
         </section>
         <aside class="ad-slot adsense-slot" aria-label="Advertisement" data-ad-slot-name="guide_in_article_display_bottom" data-ad-network="adsense" data-ad-format="auto" data-revenue-status="active"><!-- guide_in_article_display --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1597621884" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>
       </main>
-      <aside class="toc" aria-label="Table of contents"><strong>On this page</strong><a href="#checklist">Quick checklist</a><a href="#official">Official links</a><a href="#fixes">Main steps</a><a href="#safety">Safety notes</a><a href="#alternatives">Alternatives</a><a href="#faq">FAQ</a></aside>
+      <aside class="toc" aria-label="Table of contents"><strong>On this page</strong><a href="#checklist">Quick checklist</a><a href="#official">Official links</a><a href="#fixes">Main steps</a><a href="#safety">Safety notes</a><a href="#alternatives">Alternatives</a><a href="#sources">Sources</a><a href="#faq">FAQ</a></aside>
     </div>
     <footer><div class="footer-inner"><div class="footer-links" aria-label="Site links"><a href="../../../arcade-hub/privacy.html">Privacy</a><a href="../../../arcade-hub/terms.html">Terms</a><a href="../../../arcade-hub/contact.html">Contact</a></div></div></footer>
     <script>

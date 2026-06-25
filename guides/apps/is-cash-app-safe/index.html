@@ -73,7 +73,9 @@
       h2 { margin: 0 0 12px; font-size: clamp(25px, 3vw, 34px); line-height: 1.18; }
       h3 { margin: 22px 0 8px; font-size: 21px; }
       p { margin: 0 0 14px; }
-      .note { color: var(--muted); font-size: 13px; }
+      .meta-note, .note { color: var(--muted); font-size: 13px; }
+      .source-list { display: grid; gap: 10px; margin-top: 14px; }
+      .source-list a { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 12px 14px; color: var(--ink); }
       .check-grid, .fix-grid, .related-grid, .cta-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
       .check, .fix-card, .related-card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 15px; }
       .check strong, .fix-card strong { display: block; margin-bottom: 5px; }
@@ -198,6 +200,7 @@
           <h1>Is Cash App Safe? What to Know Before Sending Money</h1>
           <p class="lede">Cash App can be safe for everyday payments when used carefully, but it is risky to send money to strangers or respond to pressure tactics.</p>
           <div class="short-answer"><strong>Short answer</strong><p>Cash App is safest when you send money only to people or businesses you trust, keep your phone and account secure, ignore requests for verification codes, and verify support links through official channels. Payments may be difficult or impossible to reverse, especially if you send money voluntarily. Be extra careful with strangers, giveaways, rental deposits, marketplace purchases, and urgent requests.</p></div>
+          <p class="meta-note">Last updated: June 2026. Reviewed for official links and safety guidance.</p>
         </div>
         <aside class="tool-card" aria-label="Cash App issue finder">
           <header><strong>Quick Issue Finder</strong><p>Pick the closest situation and get a safer next step.</p></header>
@@ -216,9 +219,9 @@
           <h2>Quick Checklist Before You Continue</h2>
           <p>Use this checklist before changing account settings, reinstalling an app, sending money, or trusting a support link.</p>
           <div class="check-grid">
-            <div class="check"><strong>Know the recipient</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Confirm $Cashtag</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Never share codes</strong>Never share one-time codes or ask strangers to receive them.</div>
+            <div class="check"><strong>Know the recipient</strong>Cash App is safest when you already know who is on the other side of the payment.</div><div class="check"><strong>Confirm $Cashtag</strong>Double-check the exact $Cashtag before sending because small spelling errors matter.</div><div class="check"><strong>Never share codes</strong>No buyer, seller, or support agent needs your one-time login code.</div>
             <aside class="ad-slot adsense-slot" aria-label="Advertisement" data-ad-slot-name="guide_in_article_display_checklist" data-ad-network="adsense" data-ad-format="auto" data-revenue-status="active"><!-- guide_in_article_display --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1597621884" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>
-            <div class="check"><strong>Avoid strangers</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Check refund risk</strong>Verify status inside the official app before sending or shipping.</div><div class="check"><strong>Use official support</strong>Start from the app store, official site, or official help page.</div>
+            <div class="check"><strong>Avoid strangers</strong>Treat ticket sales, rentals, deposits, and marketplace deals as higher-risk use cases.</div><div class="check"><strong>Check refund risk</strong>Assume an authorized payment may be hard to reverse after the money is sent.</div><div class="check"><strong>Use official support</strong>If something feels off, stop and verify through the official help page.</div>
           </div>
         </section>
         <section id="official">
@@ -229,7 +232,7 @@
             <p>Open the official app store, official site, or official help center directly. Do not trust random download mirrors, support phone numbers, or messages asking for verification codes.</p>
             <div class="official-logo-card" aria-label="Official Cash App app icon"><img src="../assets/cash-app-official-app-icon.jpg" alt="Cash App official app icon" loading="lazy" /></div>
             <div class="official-actions">
-              <a id="officialDownloadLink" class="button featured" href="https://apps.apple.com/us/app/cash-app/id711923939" data-android-url="https://play.google.com/store/apps/details?id=com.squareup.cash" data-ios-url="itms-apps://itunes.apple.com/app/id711923939" data-desktop-url="https://apps.apple.com/us/app/cash-app/id711923939" data-event="funnel_step_click" data-event-label="is_cash_app_safe_download" data-funnel-step="official_app_download" data-click-target="official_app_download" data-store-target="app_store" rel="noopener">Official APP Download</a>
+              <a id="officialDownloadLink" class="button featured" href="https://apps.apple.com/us/app/cash-app/id711923939" data-android-url="https://play.google.com/store/apps/details?id=com.squareup.cash" data-ios-url="itms-apps://itunes.apple.com/app/id711923939" data-desktop-url="https://apps.apple.com/us/app/cash-app/id711923939" data-event="funnel_step_click" data-event-label="is_cash_app_safe_download" data-funnel-step="official_app_download" data-click-target="official_app_download" data-store-target="app_store" rel="noopener">Open official app listing</a>
               <a class="button secondary" href="https://cash.app/help" data-event="content_click" data-event-label="official_help" data-content-type="official_link" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a>
               <a class="button secondary" href="https://cash.app/security" data-event="content_click" data-event-label="official_extra" data-content-type="official_link" data-click-target="official_extra" data-preserve-params="true" rel="noopener">Read Cash App security</a>
             </div>
@@ -242,17 +245,27 @@
         <section id="safety">
           <h2>Safety Notes</h2>
           <div class="callout danger"><strong>Use official channels and protect verification codes.</strong> Never share your Cash App code, PIN, password, full card number, or remote access. No legitimate giveaway, support agent, or buyer needs your verification code.</div>
-          <p>If a page, message, ad, or support account asks you to share one-time codes, passwords, payment details, or remote access, stop and verify through the official app or official help page.</p>
+          <p>This is general account-safety information, not financial advice. If a page, message, ad, or support account asks you to share one-time codes, passwords, payment details, or remote access, stop and verify through the official app or official help page.</p>
         </section>
         <section id="alternatives">
           <h2>Alternatives or Next Steps</h2>
           <p>If the main app path does not work, use a safer fallback instead of trusting unknown links.</p>
-          <div class="fix-grid"><div class="fix-card"><strong>PayPal Goods and Services</strong>Choose methods with appropriate protections for purchases.</div><div class="fix-card"><strong>Credit card with protections</strong>Choose methods with appropriate protections for purchases.</div><div class="fix-card"><strong>Bank transfer to trusted people</strong>Use this only when it is appropriate for your situation.</div><div class="fix-card"><strong>Meet in person for local sales</strong>Use this only when it is appropriate for your situation.</div></div>
+          <div class="fix-grid"><div class="fix-card"><strong>PayPal Goods and Services</strong>Better fit for purchases where you want a clearer dispute path.</div><div class="fix-card"><strong>Credit card with protections</strong>Useful when the purchase is large and you want card-level fraud controls.</div><div class="fix-card"><strong>Bank transfer to trusted people</strong>Reasonable only when you already know the other person and the purpose is clear.</div><div class="fix-card"><strong>Meet in person for local sales</strong>Safer when you can inspect the item and confirm the recipient face to face.</div></div>
         </section>
         <section id="cta">
           <h2>Before You Act</h2>
-          <div class="cta-box"><p>Compare the problem against the checklist, then use the official help or app store link if you still need account, download, verification, or payment support.</p><div class="cta-grid"><a class="button" href="https://cash.app/help" data-event="funnel_step_click" data-event-label="official_help_cta" data-funnel-step="official_help" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a><a class="button secondary" href="#checklist" data-event="content_click" data-event-label="review_checklist" data-content-type="internal_anchor" data-click-target="review_checklist">Review the checklist again</a></div></div>
+          <div class="cta-box"><p>Use the checklist first. If the issue is still unresolved, open the official help page or official app listing from this section.</p><div class="cta-grid"><a class="button" href="https://cash.app/help" data-event="funnel_step_click" data-event-label="official_help_cta" data-funnel-step="official_help" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a><a class="button secondary" href="#checklist" data-event="content_click" data-event-label="review_checklist" data-content-type="internal_anchor" data-click-target="review_checklist">Review the checklist again</a></div></div>
         </section>
+        <section id="sources">
+          <h2>Sources checked</h2>
+          <div class="source-list">
+            <a href="https://cash.app/help" rel="noopener">Official Cash App help</a>
+            <a href="https://apps.apple.com/us/app/cash-app/id711923939" rel="noopener">Official Cash App app listing</a>
+            <a href="https://cash.app/security" rel="noopener">Official Cash App security page</a>
+          </div>
+        </section>
+
+
         <section id="related">
           <h2>Related Guides</h2>
           <div class="related-grid"><a class="related-card" href="/guides/apps/cash-app-login-problems/" data-event="content_click" data-event-label="cash_app_login_problems" data-content-type="related_guide" data-click-target="related_guide">Cash App Login Problems</a><a class="related-card" href="/guides/apps/paypal-login-problems/" data-event="content_click" data-event-label="paypal_login_problems" data-content-type="related_guide" data-click-target="related_guide">Paypal Login Problems</a><a class="related-card" href="/guides/apps/paypal-payment-pending/" data-event="content_click" data-event-label="paypal_payment_pending" data-content-type="related_guide" data-click-target="related_guide">Paypal Payment Pending</a></div>
@@ -268,7 +281,7 @@
         </section>
         <aside class="ad-slot adsense-slot" aria-label="Advertisement" data-ad-slot-name="guide_in_article_display_bottom" data-ad-network="adsense" data-ad-format="auto" data-revenue-status="active"><!-- guide_in_article_display --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1597621884" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>
       </main>
-      <aside class="toc" aria-label="Table of contents"><strong>On this page</strong><a href="#checklist">Quick checklist</a><a href="#official">Official links</a><a href="#fixes">Main steps</a><a href="#safety">Safety notes</a><a href="#alternatives">Alternatives</a><a href="#faq">FAQ</a></aside>
+      <aside class="toc" aria-label="Table of contents"><strong>On this page</strong><a href="#checklist">Quick checklist</a><a href="#official">Official links</a><a href="#fixes">Main steps</a><a href="#safety">Safety notes</a><a href="#alternatives">Alternatives</a><a href="#sources">Sources</a><a href="#faq">FAQ</a></aside>
     </div>
     <footer><div class="footer-inner"><div class="footer-links" aria-label="Site links"><a href="../../../arcade-hub/privacy.html">Privacy</a><a href="../../../arcade-hub/terms.html">Terms</a><a href="../../../arcade-hub/contact.html">Contact</a></div></div></footer>
     <script>

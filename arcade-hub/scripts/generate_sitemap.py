@@ -11,7 +11,7 @@ OUT = ROOT / "sitemap.xml"
 ROBOTS = ROOT / "robots.txt"
 
 site_url = os.environ.get("SITE_URL", "https://YOUR_DOMAIN_HERE").rstrip("/")
-today = date.today().isoformat()
+today = os.environ.get("SITEMAP_LASTMOD", date.today().isoformat())
 
 def loc(path: str) -> str:
     return f"{site_url}/{path.lstrip('/')}"
@@ -35,6 +35,21 @@ static_content_pages = [
     ("learning-guides/how-to-improve-memory/", "0.8", "weekly"),
     ("phone-deals/best-cheap-phone-plans/", "0.8", "weekly"),
     ("guides/apps/paybyphone-not-working/", "0.8", "weekly"),
+    ("guides/apps/whatsapp-not-working/", "0.8", "weekly"),
+    ("guides/apps/whatsapp-official-download/", "0.8", "weekly"),
+    ("guides/apps/telegram-not-sending-code/", "0.8", "weekly"),
+    ("guides/apps/telegram-safe-download/", "0.8", "weekly"),
+    ("guides/apps/paypal-login-problems/", "0.8", "weekly"),
+    ("guides/apps/paypal-payment-pending/", "0.8", "weekly"),
+    ("guides/apps/cash-app-login-problems/", "0.8", "weekly"),
+    ("guides/apps/is-cash-app-safe/", "0.8", "weekly"),
+    ("guides/apps/waze-vs-google-maps/", "0.8", "weekly"),
+    ("guides/sports/best-streaming-apps-live-sports/", "0.8", "weekly"),
+    ("guides/sports/youtube-tv-vs-hulu-live-sling-fubo/", "0.8", "weekly"),
+    ("guides/sports/watch-nfl-games-today/", "0.8", "daily"),
+    ("guides/sports/where-to-watch-world-cup-2026/", "0.8", "daily"),
+    ("guides/sports/watch-football-without-cable/", "0.8", "weekly"),
+    ("arcade-hub/sports-quiz/", "0.7", "weekly"),
 ]
 
 urls.extend((loc(path), priority, changefreq) for path, priority, changefreq in static_content_pages)

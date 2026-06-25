@@ -73,7 +73,9 @@
       h2 { margin: 0 0 12px; font-size: clamp(25px, 3vw, 34px); line-height: 1.18; }
       h3 { margin: 22px 0 8px; font-size: 21px; }
       p { margin: 0 0 14px; }
-      .note { color: var(--muted); font-size: 13px; }
+      .meta-note, .note { color: var(--muted); font-size: 13px; }
+      .source-list { display: grid; gap: 10px; margin-top: 14px; }
+      .source-list a { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 12px 14px; color: var(--ink); }
       .check-grid, .fix-grid, .related-grid, .cta-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
       .check, .fix-card, .related-card { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 15px; }
       .check strong, .fix-card strong { display: block; margin-bottom: 5px; }
@@ -198,6 +200,7 @@
           <h1>PayPal Login Problems: Common Causes and Safe Fixes</h1>
           <p class="lede">If you cannot log in to PayPal, treat it as both a technical issue and a security issue. Use official recovery only.</p>
           <div class="short-answer"><strong>Short answer</strong><p>Start with the official PayPal sign-in page or app. Check your password, two-factor authentication, phone number, email access, app version, browser cookies, VPN, and whether PayPal has limited the account. Do not trust social media support accounts or anyone asking for a one-time code. If you lost access to your phone number or email, use PayPal’s official recovery and help pages.</p></div>
+          <p class="meta-note">Last updated: June 2026. Reviewed for official links and safety guidance.</p>
         </div>
         <aside class="tool-card" aria-label="PayPal issue finder">
           <header><strong>Quick Issue Finder</strong><p>Pick the closest situation and get a safer next step.</p></header>
@@ -216,9 +219,9 @@
           <h2>Quick Checklist Before You Continue</h2>
           <p>Use this checklist before changing account settings, reinstalling an app, sending money, or trusting a support link.</p>
           <div class="check-grid">
-            <div class="check"><strong>Use official login</strong>Start from the app store, official site, or official help page.</div><div class="check"><strong>Reset password safely</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Check 2FA device</strong>Check this before changing settings, retrying, or trusting a link.</div>
+            <div class="check"><strong>Use official login</strong>Type paypal.com yourself or open the official app instead of trusting email links.</div><div class="check"><strong>Reset password safely</strong>Use PayPal's recovery flow only after confirming your email account is secure.</div><div class="check"><strong>Check 2FA device</strong>Make sure your authenticator app, phone number, or backup method is still available.</div>
             <aside class="ad-slot adsense-slot" aria-label="Advertisement" data-ad-slot-name="guide_in_article_display_checklist" data-ad-network="adsense" data-ad-format="auto" data-revenue-status="active"><!-- guide_in_article_display --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1597621884" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>
-            <div class="check"><strong>Update app/browser</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Disable VPN temporarily</strong>Check this before changing settings, retrying, or trusting a link.</div><div class="check"><strong>Avoid social support scams</strong>Use official help channels, not random phone numbers or social replies.</div>
+            <div class="check"><strong>Update app/browser</strong>Old app versions, stale cookies, and browser extensions can block sign-in.</div><div class="check"><strong>Disable VPN temporarily</strong>Some logins fail when PayPal sees an unusual region or proxy connection.</div><div class="check"><strong>Avoid social support scams</strong>Ignore phone numbers or DMs that claim they can restore access faster.</div>
           </div>
         </section>
         <section id="official">
@@ -229,7 +232,7 @@
             <p>Open the official app store, official site, or official help center directly. Do not trust random download mirrors, support phone numbers, or messages asking for verification codes.</p>
             <div class="official-logo-card" aria-label="Official PayPal app icon"><img src="../assets/paypal-official-app-icon.jpg" alt="PayPal official app icon" loading="lazy" /></div>
             <div class="official-actions">
-              <a id="officialDownloadLink" class="button featured" href="https://apps.apple.com/us/app/paypal-pay-send-save/id283646709" data-android-url="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile" data-ios-url="itms-apps://itunes.apple.com/app/id283646709" data-desktop-url="https://apps.apple.com/us/app/paypal-pay-send-save/id283646709" data-event="funnel_step_click" data-event-label="paypal_login_problems_download" data-funnel-step="official_app_download" data-click-target="official_app_download" data-store-target="app_store" rel="noopener">Official APP Download</a>
+              <a id="officialDownloadLink" class="button featured" href="https://apps.apple.com/us/app/paypal-pay-send-save/id283646709" data-android-url="https://play.google.com/store/apps/details?id=com.paypal.android.p2pmobile" data-ios-url="itms-apps://itunes.apple.com/app/id283646709" data-desktop-url="https://apps.apple.com/us/app/paypal-pay-send-save/id283646709" data-event="funnel_step_click" data-event-label="paypal_login_problems_download" data-funnel-step="official_app_download" data-click-target="official_app_download" data-store-target="app_store" rel="noopener">Open official app listing</a>
               <a class="button secondary" href="https://www.paypal.com/us/cshelp/personal" data-event="content_click" data-event-label="official_help" data-content-type="official_link" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a>
               <a class="button secondary" href="https://www.paypal.com/signin" data-event="content_click" data-event-label="official_extra" data-content-type="official_link" data-click-target="official_extra" data-preserve-params="true" rel="noopener">Open official PayPal sign in</a>
             </div>
@@ -242,17 +245,27 @@
         <section id="safety">
           <h2>Safety Notes</h2>
           <div class="callout danger"><strong>Use official channels and protect verification codes.</strong> PayPal is a financial account. Never share passwords, one-time codes, card details, or identity documents through unofficial links. If an email says your account is locked, go to PayPal directly instead of clicking the link.</div>
-          <p>If a page, message, ad, or support account asks you to share one-time codes, passwords, payment details, or remote access, stop and verify through the official app or official help page.</p>
+          <p>This is general account-safety information, not financial advice. If a page, message, ad, or support account asks you to share one-time codes, passwords, payment details, or remote access, stop and verify through the official app or official help page.</p>
         </section>
         <section id="alternatives">
           <h2>Alternatives or Next Steps</h2>
           <p>If the main app path does not work, use a safer fallback instead of trusting unknown links.</p>
-          <div class="fix-grid"><div class="fix-card"><strong>Use official PayPal help</strong>Use the official help center or app store page.</div><div class="fix-card"><strong>Try browser sign-in</strong>Use this only when it is appropriate for your situation.</div><div class="fix-card"><strong>Update the official app</strong>Use the official help center or app store page.</div><div class="fix-card"><strong>Secure your email account</strong>Use this only when it is appropriate for your situation.</div></div>
+          <div class="fix-grid"><div class="fix-card"><strong>Use official PayPal help</strong>Best when the account is limited, a code never arrives, or recovery is blocked.</div><div class="fix-card"><strong>Try browser sign-in</strong>Useful when the app is looping but the desktop login page still works.</div><div class="fix-card"><strong>Update the official app</strong>Do this before troubleshooting repeated crashes or blank login screens.</div><div class="fix-card"><strong>Secure your email account</strong>Important because PayPal password resets and alerts depend on that inbox.</div></div>
         </section>
         <section id="cta">
           <h2>Before You Act</h2>
-          <div class="cta-box"><p>Compare the problem against the checklist, then use the official help or app store link if you still need account, download, verification, or payment support.</p><div class="cta-grid"><a class="button" href="https://www.paypal.com/us/cshelp/personal" data-event="funnel_step_click" data-event-label="official_help_cta" data-funnel-step="official_help" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a><a class="button secondary" href="#checklist" data-event="content_click" data-event-label="review_checklist" data-content-type="internal_anchor" data-click-target="review_checklist">Review the checklist again</a></div></div>
+          <div class="cta-box"><p>Use the checklist first. If the issue is still unresolved, open the official help page or official app listing from this section.</p><div class="cta-grid"><a class="button" href="https://www.paypal.com/us/cshelp/personal" data-event="funnel_step_click" data-event-label="official_help_cta" data-funnel-step="official_help" data-click-target="official_help" data-preserve-params="true" rel="noopener">Open official help</a><a class="button secondary" href="#checklist" data-event="content_click" data-event-label="review_checklist" data-content-type="internal_anchor" data-click-target="review_checklist">Review the checklist again</a></div></div>
         </section>
+        <section id="sources">
+          <h2>Sources checked</h2>
+          <div class="source-list">
+            <a href="https://www.paypal.com/us/cshelp/personal" rel="noopener">Official PayPal help</a>
+            <a href="https://apps.apple.com/us/app/paypal-pay-send-save/id283646709" rel="noopener">Official PayPal app listing</a>
+            <a href="https://www.paypal.com/signin" rel="noopener">Official PayPal sign in</a>
+          </div>
+        </section>
+
+
         <section id="related">
           <h2>Related Guides</h2>
           <div class="related-grid"><a class="related-card" href="/guides/apps/paypal-payment-pending/" data-event="content_click" data-event-label="paypal_payment_pending" data-content-type="related_guide" data-click-target="related_guide">Paypal Payment Pending</a><a class="related-card" href="/guides/apps/cash-app-login-problems/" data-event="content_click" data-event-label="cash_app_login_problems" data-content-type="related_guide" data-click-target="related_guide">Cash App Login Problems</a><a class="related-card" href="/guides/apps/is-cash-app-safe/" data-event="content_click" data-event-label="is_cash_app_safe" data-content-type="related_guide" data-click-target="related_guide">Is Cash App Safe</a></div>
@@ -268,7 +281,7 @@
         </section>
         <aside class="ad-slot adsense-slot" aria-label="Advertisement" data-ad-slot-name="guide_in_article_display_bottom" data-ad-network="adsense" data-ad-format="auto" data-revenue-status="active"><!-- guide_in_article_display --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5502975373459743" data-ad-slot="1597621884" data-ad-format="auto" data-full-width-responsive="true"></ins></aside>
       </main>
-      <aside class="toc" aria-label="Table of contents"><strong>On this page</strong><a href="#checklist">Quick checklist</a><a href="#official">Official links</a><a href="#fixes">Main steps</a><a href="#safety">Safety notes</a><a href="#alternatives">Alternatives</a><a href="#faq">FAQ</a></aside>
+      <aside class="toc" aria-label="Table of contents"><strong>On this page</strong><a href="#checklist">Quick checklist</a><a href="#official">Official links</a><a href="#fixes">Main steps</a><a href="#safety">Safety notes</a><a href="#alternatives">Alternatives</a><a href="#sources">Sources</a><a href="#faq">FAQ</a></aside>
     </div>
     <footer><div class="footer-inner"><div class="footer-links" aria-label="Site links"><a href="../../../arcade-hub/privacy.html">Privacy</a><a href="../../../arcade-hub/terms.html">Terms</a><a href="../../../arcade-hub/contact.html">Contact</a></div></div></footer>
     <script>
